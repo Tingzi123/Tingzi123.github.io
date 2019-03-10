@@ -5,19 +5,19 @@
   
 
   
-  <title>Hexo</title>
+  <title>数组的二分查找 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title:数组的二分查找（递推）12345678910111213141516171819202122232425262728293031package xianxingbiao;public class BiSearch &amp;#123;//数组的二分查找	public static void main(String[] args) &amp;#123;		// TODO Auto-generated">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031package xianxingbiao;public class BiSearch &amp;#123;//数组的二分查找	public static void main(String[] args) &amp;#123;		// TODO Auto-generated method stub		int [">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="数组的二分查找">
 <meta property="og:url" content="http://yoursite.com/2019/03/10/二分查找/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="title:数组的二分查找（递推）12345678910111213141516171819202122232425262728293031package xianxingbiao;public class BiSearch &amp;#123;//数组的二分查找	public static void main(String[] args) &amp;#123;		// TODO Auto-generated">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031package xianxingbiao;public class BiSearch &amp;#123;//数组的二分查找	public static void main(String[] args) &amp;#123;		// TODO Auto-generated method stub		int [">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-10T11:43:24.820Z">
+<meta property="og:updated_time" content="2019-03-10T11:56:12.839Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="title:数组的二分查找（递推）12345678910111213141516171819202122232425262728293031package xianxingbiao;public class BiSearch &amp;#123;//数组的二分查找	public static void main(String[] args) &amp;#123;		// TODO Auto-generated">
+<meta name="twitter:title" content="数组的二分查找">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031package xianxingbiao;public class BiSearch &amp;#123;//数组的二分查找	public static void main(String[] args) &amp;#123;		// TODO Auto-generated method stub		int [">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -74,16 +74,25 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数组的二分查找
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-数组的二分查找（递推）"><a href="#title-数组的二分查找（递推）" class="headerlink" title="title:数组的二分查找（递推）"></a>title:数组的二分查找（递推）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xianxingbiao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BiSearch</span> </span>&#123;</span><br><span class="line"><span class="comment">//数组的二分查找</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> [] arr=<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;<span class="comment">//数组必须有序</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> high=arr.length-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> ele=<span class="number">9</span>;<span class="comment">//查找元素</span></span><br><span class="line">		<span class="keyword">int</span> tag=-<span class="number">1</span>;<span class="comment">//目标元素的位置</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(low&lt;=high) &#123;</span><br><span class="line">			<span class="keyword">if</span>(ele==arr[mid]) &#123;</span><br><span class="line">				tag=mid;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ele&lt;arr[mid]) &#123;</span><br><span class="line">				high=mid-<span class="number">1</span>;</span><br><span class="line">				mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				low=mid+<span class="number">1</span>;</span><br><span class="line">				mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(tag);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xianxingbiao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BiSearch</span> </span>&#123;</span><br><span class="line"><span class="comment">//数组的二分查找</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> [] arr=<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;<span class="comment">//数组必须有序</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> high=arr.length-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> ele=<span class="number">9</span>;<span class="comment">//查找元素</span></span><br><span class="line">		<span class="keyword">int</span> tag=-<span class="number">1</span>;<span class="comment">//目标元素的位置</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(low&lt;=high) &#123;</span><br><span class="line">			<span class="keyword">if</span>(ele==arr[mid]) &#123;</span><br><span class="line">				tag=mid;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ele&lt;arr[mid]) &#123;</span><br><span class="line">				high=mid-<span class="number">1</span>;</span><br><span class="line">				mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				low=mid+<span class="number">1</span>;</span><br><span class="line">				mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(tag);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意：<br>1、二分查找只能对有序数组查找;<br>2、时间复杂度：O(log2(n));</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjt2v1pod0002p0s6ptdlnm7m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjt2v43lx0002wgs68iwygfvz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -132,7 +141,7 @@
       <ul>
         
           <li>
-            <a href="/2019/03/10/二分查找/">(no title)</a>
+            <a href="/2019/03/10/二分查找/">数组的二分查找</a>
           </li>
         
           <li>
