@@ -7,17 +7,17 @@
   
   <title>查找 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="查找 一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a">
+  <meta name="description" content="一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a;i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="查找">
 <meta property="og:url" content="http://yoursite.com/2019/03/10/查找/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="查找 一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a">
+<meta property="og:description" content="一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a;i">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-10T07:12:42.503Z">
+<meta property="og:updated_time" content="2019-03-10T07:15:17.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="查找">
-<meta name="twitter:description" content="查找 一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a">
+<meta name="twitter:description" content="一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a;i">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -86,7 +86,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><hr>
+        <hr>
 <h2 id="一、线性表的查找"><a href="#一、线性表的查找" class="headerlink" title="一、线性表的查找"></a>一、线性表的查找</h2><h3 id="1、顺序查找-O-n-code"><a href="#1、顺序查找-O-n-code" class="headerlink" title="1、顺序查找 O(n)[^code]"></a>1、顺序查找 O(n)[^code]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	a[<span class="number">0</span>]=key;<span class="comment">//设置岗哨</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=a.length;a[i]!=key;i--)&#123;</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="2、折半查找-O-log2-N-下标从1开始"><a href="#2、折半查找-O-log2-N-下标从1开始" class="headerlink" title="2、折半查找 O(log2(N))(下标从1开始)"></a>2、折半查找 O(log2(N))(下标从1开始)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> high=a.length</span><br><span class="line">	<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(low&lt;=high)&#123;<span class="comment">//loe&lt;=high</span></span><br><span class="line">		<span class="keyword">if</span>(key==mid)</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(key&lt;mid)&#123;</span><br><span class="line">			high=mid-<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			low=mid+<span class="number">1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="3、分块查找"><a href="#3、分块查找" class="headerlink" title="3、分块查找"></a>3、分块查找</h3><p>  分块查找是折半查找和顺序查找的一种改进方法，分块查找由于只要求索引表是有序的，<br>对块内节点没有排序要求，因此特别适合于节点动态变化的情况。</p>
@@ -100,7 +100,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/查找/" data-id="cjt2kzlbh0004qos6fjp8ljj2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/查找/" data-id="cjt2l37p80004vws6ub4caksk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -113,7 +113,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          排序
         
       </div>
     </a>
@@ -158,7 +158,7 @@
       <ul>
         
           <li>
-            <a href="/2019/03/10/排序/">(no title)</a>
+            <a href="/2019/03/10/排序/">排序</a>
           </li>
         
           <li>
