@@ -62,6 +62,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-选择排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/选择排序/" class="article-date">
+  <time datetime="2019-03-17T06:30:09.443Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/选择排序/">选择排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、选择排序"><a href="#1、选择排序" class="headerlink" title="1、选择排序"></a>1、选择排序</h3><p>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n2)的时间复杂度，所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了吧。理论上讲，选择排序可能也是平时排序一般人想到的最多的排序方法了吧。<br>选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p>
+<hr>
+<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(n)   最差情况：T(n) = O(n^2)   平均情况：T(n) = O(n^2)</p>
+<hr>
+<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/selectionsort.gif?raw=true" alt="Image text"></p>
+<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectionSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		selectionSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectionSort</span><span class="params">(<span class="keyword">int</span> [] arr)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//选择小的，从小排到大</span></span><br><span class="line">		<span class="keyword">int</span> min;<span class="comment">//min记录最小值的下标</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length-<span class="number">1</span>;i++) &#123;<span class="comment">//比arr.length-1趟</span></span><br><span class="line">			min=i;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;arr.length;j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(arr[j]&lt;arr[min]) &#123;</span><br><span class="line">					min=j;<span class="comment">//记录下标</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//把最小的排到数组前</span></span><br><span class="line">			<span class="keyword">int</span> temp=arr[i];</span><br><span class="line">			arr[i]=arr[min];</span><br><span class="line">			arr[min]=temp;			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/选择排序/" data-id="cjtcjqhdq000cqks6en2advdj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-排序算法总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/17/排序算法总结/" class="article-date">
@@ -84,7 +126,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1、术语说明"><a href="#1、术语说明" class="headerlink" title="1、术语说明"></a>1、术语说明</h3><p>1、稳定：如果a原本在b前面，而a=b，排序之后a仍然在b的前面；<br>2、不稳定：如果a原本在b的前面，而a=b，排序之后a可能会出现在b的后面；<br>3、内排序：所有排序操作都在内存中完成；<br>4、外排序：由于数据太大，因此把数据放在磁盘中，而排序通过磁盘和内存的数据传输才能进行；<br>5、时间复杂度： 一个算法执行所耗费的时间。<br>6、空间复杂度：运行完一个程序所需内存的大小。</p>
+        <p>参考：<a href="https://blog.csdn.net/hellozhxy/article/details/79911867" target="_blank" rel="noopener">https://blog.csdn.net/hellozhxy/article/details/79911867</a></p>
+<h3 id="1、术语说明"><a href="#1、术语说明" class="headerlink" title="1、术语说明"></a>1、术语说明</h3><p>1、稳定：如果a原本在b前面，而a=b，排序之后a仍然在b的前面；<br>2、不稳定：如果a原本在b的前面，而a=b，排序之后a可能会出现在b的后面；<br>3、内排序：所有排序操作都在内存中完成；<br>4、外排序：由于数据太大，因此把数据放在磁盘中，而排序通过磁盘和内存的数据传输才能进行；<br>5、时间复杂度： 一个算法执行所耗费的时间。<br>6、空间复杂度：运行完一个程序所需内存的大小。</p>
 <hr>
 <h3 id="2、算法总结"><a href="#2、算法总结" class="headerlink" title="2、算法总结"></a>2、算法总结</h3><p>1、时间复杂度与空间复杂度比较<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/sort1.jpg?raw=true" alt="Image"></p>
 <p>图片名词解释：<br>n: 数据规模<br>k: “桶”的个数<br>In-place: 占用常数内存，不占用额外内存<br>Out-place: 占用额外内存</p>
@@ -95,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjtcie07h00078gs6qm2x1enq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjtcjqhdi0009qks6kx73bt13" class="article-share-link">Share</a>
       
       
     </footer>
@@ -128,14 +171,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>1、平均时间复杂度：O(n^2)</p>
-<p>2、演示图<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/bubblesort.gif?raw=true" alt="Image text"></p>
-<p>3、实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">1</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">5</span>&#125;;</span><br><span class="line">		bubbleSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> flag=<span class="keyword">false</span>;<span class="comment">//标记某一趟排序是否发生交换，若无交换，说明当前数组已是排序好的数组</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++) &#123;<span class="comment">//比length-1趟</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;a.length-i;j++) &#123;<span class="comment">//每趟排好一个元素（最大的元素沉到最底），下一趟少不必比较这个元素</span></span><br><span class="line">				<span class="keyword">if</span>(a[j]&lt;a[j-<span class="number">1</span>]) &#123;</span><br><span class="line">					flag=<span class="keyword">true</span>;</span><br><span class="line">					<span class="keyword">int</span> temp=a[j];</span><br><span class="line">					a[j]=a[j-<span class="number">1</span>];</span><br><span class="line">					a[j-<span class="number">1</span>]=temp;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(!flag) &#123;<span class="comment">//没有发生交换则跳出循环</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//System.out.println(flag);</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>1、冒泡排序：冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。</p>
+<p>2、时间复杂度<br>最佳情况：T(n) = O(n)   最差情况：T(n) = O(n^2)   平均情况：T(n) = O(n^2)</p>
+<p>3、演示图<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/bubblesort.gif?raw=true" alt="Image text"></p>
+<p>4、实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">1</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">5</span>&#125;;</span><br><span class="line">		bubbleSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> flag=<span class="keyword">false</span>;<span class="comment">//标记某一趟排序是否发生交换，若无交换，说明当前数组已是排序好的数组</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++) &#123;<span class="comment">//比length-1趟</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;a.length-i;j++) &#123;<span class="comment">//每趟排好一个元素（最大的元素沉到最底），下一趟少不必比较这个元素</span></span><br><span class="line">				<span class="keyword">if</span>(a[j]&lt;a[j-<span class="number">1</span>]) &#123;</span><br><span class="line">					flag=<span class="keyword">true</span>;</span><br><span class="line">					<span class="keyword">int</span> temp=a[j];</span><br><span class="line">					a[j]=a[j-<span class="number">1</span>];</span><br><span class="line">					a[j-<span class="number">1</span>]=temp;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(!flag) &#123;<span class="comment">//没有发生交换则跳出循环</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//System.out.println(flag);</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjtcie07h00028gs61qc3pflf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjtcjqhd60002qks6ad8rkotj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -174,7 +218,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjtcie08c000d8gs6s9jmm2uf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjtcjqhe2000eqks6j174dlk2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -213,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjtcie07w000a8gs6bckfgavq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjtcjqhdm000aqks681uybvgd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjtcie07w000b8gs60ycssjsi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjtcjqhe2000dqks6yar74o9n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -291,7 +335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjtcie07100008gs6yye7otnj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjtcjqhda0004qks65anlaqbu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -330,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/循环链表/" data-id="cjtcie07h00068gs64qyg7imm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/循环链表/" data-id="cjtcjqhde0007qks6gp6cx8ov" class="article-share-link">Share</a>
       
       
     </footer>
@@ -370,7 +414,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/单链表/" data-id="cjtcie07h00048gs65n4yqbth" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/单链表/" data-id="cjtcjqhda0005qks6tok760g3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -408,44 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjtcie07100018gs68li4x98s" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/10/排序/" class="article-date">
-  <time datetime="2019-03-10T07:10:17.075Z" itemprop="datePublished">2019-03-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/10/排序/">排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、插入排序"><a href="#一、插入排序" class="headerlink" title="一、插入排序"></a>一、插入排序</h2><h3 id="1、直接插入排序"><a href="#1、直接插入排序" class="headerlink" title="1、直接插入排序"></a>1、直接插入排序</h3><p>时间复杂度：O(n^2)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;L.length;i++)&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/排序/" data-id="cjtcie07w00088gs6nihsiooe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjtcjqhcu0000qks6t51lhxo5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -491,6 +498,10 @@
       <ul>
         
           <li>
+            <a href="/2019/03/17/选择排序/">选择排序</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/17/排序算法总结/">各个排序算法总结</a>
           </li>
         
@@ -504,10 +515,6 @@
         
           <li>
             <a href="/2019/03/13/用栈实现进制转换/">用栈实现十进制转换为X进制</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/12/链栈/">链栈</a>
           </li>
         
       </ul>
