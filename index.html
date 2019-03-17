@@ -86,16 +86,16 @@
       
         <h3 id="1、术语说明"><a href="#1、术语说明" class="headerlink" title="1、术语说明"></a>1、术语说明</h3><p>1、稳定：如果a原本在b前面，而a=b，排序之后a仍然在b的前面；<br>2、不稳定：如果a原本在b的前面，而a=b，排序之后a可能会出现在b的后面；<br>3、内排序：所有排序操作都在内存中完成；<br>4、外排序：由于数据太大，因此把数据放在磁盘中，而排序通过磁盘和内存的数据传输才能进行；<br>5、时间复杂度： 一个算法执行所耗费的时间。<br>6、空间复杂度：运行完一个程序所需内存的大小。</p>
 <hr>
-<h3 id="2、算法总结"><a href="#2、算法总结" class="headerlink" title="2、算法总结"></a>2、算法总结</h3><p>1、时间复杂度与空间复杂度比较<br><a href="https://github.com/Tingzi123/blog/blob/master/_posts/picture/sort1.jpg?raw=true" target="_blank" rel="noopener">Image!</a></p>
+<h3 id="2、算法总结"><a href="#2、算法总结" class="headerlink" title="2、算法总结"></a>2、算法总结</h3><p>1、时间复杂度与空间复杂度比较<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/sort1.jpg?raw=true" alt="Image"></p>
 <p>图片名词解释：<br>n: 数据规模<br>k: “桶”的个数<br>In-place: 占用常数内存，不占用额外内存<br>Out-place: 占用额外内存</p>
 <hr>
-<h3 id="3、算法分类"><a href="#3、算法分类" class="headerlink" title="3、算法分类"></a>3、算法分类</h3><p><a href="https://github.com/Tingzi123/blog/blob/master/_posts/picture/sort2.jpg?raw=true" target="_blank" rel="noopener">Image!</a></p>
+<h3 id="3、算法分类"><a href="#3、算法分类" class="headerlink" title="3、算法分类"></a>3、算法分类</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/sort2.jpg?raw=true" alt="Image"></p>
 <p>Tip：比较和非比较的区别<br>1、常见的快速排序、归并排序、堆排序、冒泡排序等属于比较排序。在排序的最终结果里，元素之间的次序依赖于它们之间的比较。每个数都必须和其他数进行比较，才能确定自己的位置。<br>2、在冒泡排序之类的排序中，问题规模为n，又因为需要比较n次，所以平均时间复杂度为O（n²)<br>3、在归并排序、快速排序之类的排序中，问题规模通过分治法消减为logN次，所以时间复杂度平均O(nlogn)。<br>4、比较排序的优势是，适用于各种规模的数据，也不在乎数据的分布，都能进行排序。可以说，比较排序适用于一切需要排序的情况。<br>5、计数排序、基数排序、桶排序则属于非比较排序。非比较排序是通过确定每个元素之前，应该有多少个元素来排序。针对数组arr，计算arr之前有多少个元素，则唯一确定了arr在排序后数组中的位置。<br>6、非比较排序只要确定每个元素之前的已有的元素个数即可，所有一次遍历即可解决。算法时间复杂度O(n)。<br>7、非比较排序时间复杂度底，但由于非比较排序需要占用空间来确定唯一位置。所以对数据规模和数据分布有一定的要求。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjtciacex0008cws61f6j1j3b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjtcie07h00078gs6qm2x1enq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -115,10 +115,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/冒泡排序/">冒泡排序</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title:冒泡排序</p>
-<hr>
+        <hr>
 <p>1、平均时间复杂度：O(n^2)</p>
 <p>2、演示图<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/bubblesort.gif?raw=true" alt="Image text"></p>
 <p>3、实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">1</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">5</span>&#125;;</span><br><span class="line">		bubbleSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> flag=<span class="keyword">false</span>;<span class="comment">//标记某一趟排序是否发生交换，若无交换，说明当前数组已是排序好的数组</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++) &#123;<span class="comment">//比length-1趟</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;a.length-i;j++) &#123;<span class="comment">//每趟排好一个元素（最大的元素沉到最底），下一趟少不必比较这个元素</span></span><br><span class="line">				<span class="keyword">if</span>(a[j]&lt;a[j-<span class="number">1</span>]) &#123;</span><br><span class="line">					flag=<span class="keyword">true</span>;</span><br><span class="line">					<span class="keyword">int</span> temp=a[j];</span><br><span class="line">					a[j]=a[j-<span class="number">1</span>];</span><br><span class="line">					a[j-<span class="number">1</span>]=temp;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(!flag) &#123;<span class="comment">//没有发生交换则跳出循环</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//System.out.println(flag);</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -126,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjtciacep0003cws60af2jsuo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjtcie07h00028gs61qc3pflf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -165,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjtciacfd000dcws6d3hvbv64" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjtcie08c000d8gs6s9jmm2uf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -204,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjtciacf9000bcws6ix1lrp19" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjtcie07w000a8gs6bckfgavq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -243,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjtciacf9000ccws60s8ligwf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjtcie07w000b8gs60ycssjsi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -282,7 +291,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjtciacet0005cws6qy1vbdmz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjtcie07100008gs6yye7otnj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -321,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/循环链表/" data-id="cjtciacet0006cws6ghv65584" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/循环链表/" data-id="cjtcie07h00068gs64qyg7imm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/单链表/" data-id="cjtciacep0004cws6uz0lveqe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/单链表/" data-id="cjtcie07h00048gs65n4yqbth" class="article-share-link">Share</a>
       
       
     </footer>
@@ -399,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjtciacel0002cws6xg47dxck" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjtcie07100018gs68li4x98s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -436,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/排序/" data-id="cjtciacex0007cws65wb5ozqd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/排序/" data-id="cjtcie07w00088gs6nihsiooe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -486,7 +495,7 @@
           </li>
         
           <li>
-            <a href="/2019/03/14/冒泡排序/">(no title)</a>
+            <a href="/2019/03/14/冒泡排序/">冒泡排序</a>
           </li>
         
           <li>
