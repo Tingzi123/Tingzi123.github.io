@@ -62,6 +62,45 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法-递归" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/18/算法-递归/" class="article-date">
+  <time datetime="2019-03-18T07:47:30.884Z" itemprop="datePublished">2019-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/18/算法-递归/">算法-递归</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>递归重点：<br><em><br>    1、寻找相似性（可能需要主动构造）<br>    2、参数设置（参数分配不相同，否则死循环）<br>    3、出口设置<br>    （每次调用的层次不同，注意返回的次序）
+</em></p>
+<p>例子：取球问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> recursion;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetBall</span> </span>&#123;</span><br><span class="line"><span class="comment">//在n个球中，任意取m个（不放回），求有多少种取法</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> k=getBall(<span class="number">10</span>,<span class="number">3</span>);</span><br><span class="line">		System.out.println(k);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getBall</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//假设有一个球被标记，则规模变成</span></span><br><span class="line">		<span class="comment">//1、被标记的球已取到，则还剩n-1,还需取 m-1,即f(n-1,m-1) </span></span><br><span class="line">		<span class="comment">//2、被标记球一定不取，则需从剩下的 n-1 中取 m,即f(n-1,m)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(n&lt;m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(n==m) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> getBall(n-<span class="number">1</span>,m-<span class="number">1</span>)+getBall(n-<span class="number">1</span>,m);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/18/算法-递归/" data-id="cjte5pfh1000k00s6slqcp2de" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/18/快速排序/" class="article-date">
@@ -91,7 +130,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/18/快速排序/" data-id="cjte0j7wo0006wgs6vo2zag7d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/18/快速排序/" data-id="cjte5pfgx000900s69394vb8a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -130,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/18/堆排序/" data-id="cjte0j7wj0003wgs6slyb0ly8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/18/堆排序/" data-id="cjte5pfgn000700s6yvhlbpaa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -173,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/计算机网络/" data-id="cjte0j7x8000fwgs65f7smlyl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/计算机网络/" data-id="cjte5pfh1000h00s6y2bb8by8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -213,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/归并排序/" data-id="cjte0j7wm0005wgs6mhmfu29g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/归并排序/" data-id="cjte5pfgl000600s6533a0cvu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -253,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/希尔排序/" data-id="cjte0j7wl0004wgs6h4biezsp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/希尔排序/" data-id="cjte5pfgo000800s6zf26ejqx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -292,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/插入排序/" data-id="cjte0j7wr000cwgs6bb78osrd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/插入排序/" data-id="cjte5pfgz000a00s6vzqrrkoo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -334,7 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/选择排序/" data-id="cjte0j7wr000dwgs6t03f7r63" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/选择排序/" data-id="cjte5pfh1000i00s6jwswrkxl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -384,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjte0j7wr000awgs6gzrt2b78" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjte5pfh1000d00s6knpr33i9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -425,46 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjte0j7wh0002wgs6pflls6ba" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-链队列" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/13/链队列/" class="article-date">
-  <time datetime="2019-03-13T07:24:20.234Z" itemprop="datePublished">2019-03-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/链队列/">链队列</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4646312.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4646312.html</a></p>
-<p>1、链队列的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node front;</span><br><span class="line">	Node rear;</span><br><span class="line">	Node head;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		front=<span class="keyword">new</span> Node();</span><br><span class="line">		rear=<span class="keyword">new</span> Node();</span><br><span class="line">		</span><br><span class="line">		front=head;</span><br><span class="line">		rear=head;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//入队</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enQueue</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//第一次入队</span></span><br><span class="line">		<span class="keyword">if</span>(rear==head) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			front.next=node;</span><br><span class="line">			rear=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			rear.next=node;</span><br><span class="line">			rear=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(rear==head) &#123;</span><br><span class="line">			<span class="comment">//队列为空</span></span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//队中只有一个元素</span></span><br><span class="line">			<span class="keyword">if</span>(front.next==rear) &#123;</span><br><span class="line">				rear=front;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				front.next=front.next.next;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		<span class="keyword">while</span>(temp!=rear) &#123;</span><br><span class="line">			System.out.println(temp.next.data);</span><br><span class="line">			temp=temp.next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		Object data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		LinkQueue qu=<span class="keyword">new</span> LinkQueue();</span><br><span class="line">		qu.init();</span><br><span class="line">		qu.enQueue(<span class="string">"ddd"</span>);</span><br><span class="line">		qu.enQueue(<span class="number">8</span>);</span><br><span class="line">		qu.enQueue(<span class="string">"ct"</span>);</span><br><span class="line">		qu.enQueue(<span class="number">99</span>);</span><br><span class="line">		<span class="comment">//qu.deQueue();</span></span><br><span class="line">		qu.printQueue();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjte0j7xf000kwgs6ehvrjzeb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjte5pfgi000400s64rhdlirb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -510,6 +510,10 @@
       <ul>
         
           <li>
+            <a href="/2019/03/18/算法-递归/">算法-递归</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/18/快速排序/">快速排序</a>
           </li>
         
@@ -523,10 +527,6 @@
         
           <li>
             <a href="/2019/03/17/归并排序/">归并排序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/17/希尔排序/">希尔排序</a>
           </li>
         
       </ul>

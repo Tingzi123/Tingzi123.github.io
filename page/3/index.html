@@ -62,6 +62,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javaNote" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/07/javaNote/" class="article-date">
+  <time datetime="2019-03-07T10:31:48.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/07/javaNote/">java小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h4 id="1-Java值类型与引用类型"><a href="#1-Java值类型与引用类型" class="headerlink" title="1. Java值类型与引用类型"></a>1. Java值类型与引用类型</h4><p><img src="https://raw.githubusercontent.com/tingzi123/blog/master/_posts/picture/javavalue.png" alt="Image text"></p>
+<h4 id="2-Java运算符优先级"><a href="#2-Java运算符优先级" class="headerlink" title="2. Java运算符优先级"></a>2. Java运算符优先级</h4><p><img src="https://raw.githubusercontent.com/tingzi123/blog/master/_posts/picture/operator.jpg" alt="Image text"></p>
+<h4 id="3-Java中代码块加载顺序：静态初始代码块-gt-初始代码块-gt-构造函数"><a href="#3-Java中代码块加载顺序：静态初始代码块-gt-初始代码块-gt-构造函数" class="headerlink" title="3. Java中代码块加载顺序：静态初始代码块&gt;初始代码块&gt;构造函数"></a>3. Java中代码块加载顺序：静态初始代码块&gt;初始代码块&gt;构造函数</h4><p>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"A"</span>);</span><br><span class="line">        <span class="keyword">new</span> Main();</span><br><span class="line">        <span class="keyword">new</span> Main();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"B"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">"C"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"D"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">以上程序输出的结果，正确的是？</span><br><span class="line">DACBCB</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/07/javaNote/" data-id="cjte5pfga000100s66i3rdmto" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/07/hello-world/" class="article-date">
@@ -97,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/hello-world/" data-id="cjte0j7we0001wgs68lqqadiz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/hello-world/" data-id="cjte5pfg2000000s6yoswnu6j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,6 +183,10 @@
       <ul>
         
           <li>
+            <a href="/2019/03/18/算法-递归/">算法-递归</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/18/快速排序/">快速排序</a>
           </li>
         
@@ -156,10 +200,6 @@
         
           <li>
             <a href="/2019/03/17/归并排序/">归并排序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/17/希尔排序/">希尔排序</a>
           </li>
         
       </ul>
