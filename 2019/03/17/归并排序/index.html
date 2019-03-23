@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1、归并排序1、和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是O(n log n）的时间复杂度。代价是需要额外的内存空间。 2、归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。归并排序是一种稳定的排序方法。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergrsort.gif?raw=true">
-<meta property="og:updated_time" content="2019-03-17T08:50:00.948Z">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergesort.gif?raw=true">
+<meta property="og:updated_time" content="2019-03-23T02:52:34.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="归并排序">
 <meta name="twitter:description" content="1、归并排序1、和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是O(n log n）的时间复杂度。代价是需要额外的内存空间。 2、归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。归并排序是一种稳定的排序方法。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列">
-<meta name="twitter:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergrsort.gif?raw=true">
+<meta name="twitter:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergesort.gif?raw=true">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -91,12 +91,12 @@
         <h3 id="1、归并排序"><a href="#1、归并排序" class="headerlink" title="1、归并排序"></a>1、归并排序</h3><p>1、和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是O(n log n）的时间复杂度。代价是需要额外的内存空间。</p>
 <p>2、归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。归并排序是一种稳定的排序方法。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为2-路归并</p>
 <h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(n)  最差情况：T(n) = O(nlogn)  平均情况：T(n) = O(nlogn)</p>
-<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergrsort.gif?raw=true" alt="Image text"></p>
+<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergesort.gif?raw=true" alt="Image text"></p>
 <h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> [] re=mergeSort(a);</span><br><span class="line">		printArr(re);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] mergeSort(<span class="keyword">int</span> [] a) &#123;</span><br><span class="line">		<span class="keyword">if</span>(a.length&lt;<span class="number">2</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> a;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> mid=a.length/<span class="number">2</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> [] left=Arrays.copyOfRange(a,<span class="number">0</span>, mid);</span><br><span class="line">		<span class="keyword">int</span> [] right=Arrays.copyOfRange(a,mid, a.length);</span><br><span class="line">		<span class="keyword">return</span> merge(mergeSort(left),mergeSort(right));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] merge(<span class="keyword">int</span> [] left,<span class="keyword">int</span> [] right) &#123;</span><br><span class="line">		<span class="keyword">int</span> [] re=<span class="keyword">new</span> <span class="keyword">int</span>[left.length+right.length];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> index=<span class="number">0</span>,i=<span class="number">0</span>,j=<span class="number">0</span>;index&lt;re.length;index++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i&gt;=left.length) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=right.length) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&gt;right[j]) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&lt;right[j]) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> re;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/归并排序/" data-id="cjte5pfgl000600s6533a0cvu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/归并排序/" data-id="cjtkwg6uf0003yos658u4rkug" class="article-share-link">Share</a>
       
       
     </footer>
@@ -154,6 +154,10 @@
       <ul>
         
           <li>
+            <a href="/2019/03/19/Linux-小结/">Linux小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/18/算法-递归/">算法-递归</a>
           </li>
         
@@ -167,10 +171,6 @@
         
           <li>
             <a href="/2019/03/17/计算机网络/">计算机网络</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/17/归并排序/">归并排序</a>
           </li>
         
       </ul>

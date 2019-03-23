@@ -62,6 +62,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-冒泡排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/14/冒泡排序/" class="article-date">
+  <time datetime="2019-03-14T05:01:49.946Z" itemprop="datePublished">2019-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/冒泡排序/">冒泡排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>1、冒泡排序：冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。</p>
+<p>2、时间复杂度<br>最佳情况：T(n) = O(n)   最差情况：T(n) = O(n^2)   平均情况：T(n) = O(n^2)</p>
+<p>3、演示图<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/bubblesort.gif?raw=true" alt="Image text"></p>
+<p>4、实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">1</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">5</span>&#125;;</span><br><span class="line">		bubbleSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> flag=<span class="keyword">false</span>;<span class="comment">//标记某一趟排序是否发生交换，若无交换，说明当前数组已是排序好的数组</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++) &#123;<span class="comment">//比length-1趟</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;a.length-i;j++) &#123;<span class="comment">//每趟排好一个元素（最大的元素沉到最底），下一趟少不必比较这个元素</span></span><br><span class="line">				<span class="keyword">if</span>(a[j]&lt;a[j-<span class="number">1</span>]) &#123;</span><br><span class="line">					flag=<span class="keyword">true</span>;</span><br><span class="line">					<span class="keyword">int</span> temp=a[j];</span><br><span class="line">					a[j]=a[j-<span class="number">1</span>];</span><br><span class="line">					a[j-<span class="number">1</span>]=temp;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(!flag) &#123;<span class="comment">//没有发生交换则跳出循环</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//System.out.println(flag);</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjtkwg6uf0001yos6g78ghhms" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-链队列" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/13/链队列/" class="article-date">
@@ -91,7 +132,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjte5pfh1000j00s6hhbho521" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjtkwg6uv000myos6208ziq99" class="article-share-link">Share</a>
       
       
     </footer>
@@ -130,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjte5pfh1000g00s67a0u14hc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjtkwg6uv000jyos6r54ml1g5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -169,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjte5pfh1000l00s6nt4efzq4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjtkwg6uv000lyos6m602b8nw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -208,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjte5pfgj000500s6aguhhzn0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjtkwg6uv000byos6u8b7fc18" class="article-share-link">Share</a>
       
       
     </footer>
@@ -247,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/循环链表/" data-id="cjte5pfh1000b00s6vxnupsj3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/循环链表/" data-id="cjtkwg6uf0008yos6gvqgbjt3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -287,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/单链表/" data-id="cjte5pfgg000300s6f3paaxk6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/单链表/" data-id="cjtkwg6uv000fyos652ug3vvl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -325,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjte5pfge000200s60rhiwp1u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/二分查找/" data-id="cjtkwg6uf0006yos6m39uo69t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -362,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/排序/" data-id="cjte5pfh1000c00s6lnuds0vi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/排序/" data-id="cjtkwg6uv000cyos6jzjqc9u3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -408,53 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/查找/" data-id="cjte5pfh1000f00s6wypvgt0x" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-树的相关知识点" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/10/树的相关知识点/" class="article-date">
-  <time datetime="2019-03-10T07:10:17.046Z" itemprop="datePublished">2019-03-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/10/树的相关知识点/">树的相关知识点</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="一"><a href="#一" class="headerlink" title="一."></a>一.</h2><h3 id="1-结点n-0，称为空树"><a href="#1-结点n-0，称为空树" class="headerlink" title="1.结点n=0，称为空树"></a>1.结点n=0，称为空树</h3><h2 id="二-二叉树的性质（树的深度从1开始计数）"><a href="#二-二叉树的性质（树的深度从1开始计数）" class="headerlink" title="二. 二叉树的性质（树的深度从1开始计数）"></a>二. 二叉树的性质（树的深度从1开始计数）</h2><h4 id="1、-第i层至多有2-（i-1）个结点"><a href="#1、-第i层至多有2-（i-1）个结点" class="headerlink" title="1、 第i层至多有2^（i-1）个结点"></a>1、 第i层至多有2^（i-1）个结点</h4><h4 id="2、-深度为k的二叉树至多有（2-k）-1个结点"><a href="#2、-深度为k的二叉树至多有（2-k）-1个结点" class="headerlink" title="2、 深度为k的二叉树至多有（2^k）-1个结点"></a>2、 深度为k的二叉树至多有（2^k）-1个结点</h4><h4 id="3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B"><a href="#3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B" class="headerlink" title="3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B"></a>3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B</h4><pre><code>* n=n0+n1+n2
-  n=B+1
-  B=n1+2n2
-* n=n1+2n2+1
-</code></pre><ul>
-<li>综合上式有：n0=n2+1<h4 id="4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树"><a href="#4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树" class="headerlink" title="4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树"></a>4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树</h4><h4 id="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树"><a href="#5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树" class="headerlink" title="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树"></a>5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树</h4>特点：<pre><code>1）叶子结点只可能在层次最大的两层出现
-2）对任一结点，若其右分支下的子孙最大层次为l，则其左分支下的子孙的最大层次必为l或l+1
-</code></pre>####6、具有n个结点的完全二叉树的深度为log2（N）+1，log2（N）取下界</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/树的相关知识点/" data-id="cjte5pfh1000e00s6t6tunz3g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/查找/" data-id="cjtkwg6uv000kyos6uqgu3x14" class="article-share-link">Share</a>
       
       
     </footer>
@@ -500,6 +495,10 @@
       <ul>
         
           <li>
+            <a href="/2019/03/19/Linux-小结/">Linux小结</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/18/算法-递归/">算法-递归</a>
           </li>
         
@@ -513,10 +512,6 @@
         
           <li>
             <a href="/2019/03/17/计算机网络/">计算机网络</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/17/归并排序/">归并排序</a>
           </li>
         
       </ul>
