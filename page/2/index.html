@@ -62,6 +62,86 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-归并排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/归并排序/" class="article-date">
+  <time datetime="2019-03-17T08:47:50.804Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/归并排序/">归并排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、归并排序"><a href="#1、归并排序" class="headerlink" title="1、归并排序"></a>1、归并排序</h3><p>1、和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是O(n log n）的时间复杂度。代价是需要额外的内存空间。</p>
+<p>2、归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。归并排序是一种稳定的排序方法。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为2-路归并</p>
+<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(n)  最差情况：T(n) = O(nlogn)  平均情况：T(n) = O(nlogn)</p>
+<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergesort.gif?raw=true" alt="Image text"></p>
+<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> [] re=mergeSort(a);</span><br><span class="line">		printArr(re);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] mergeSort(<span class="keyword">int</span> [] a) &#123;</span><br><span class="line">		<span class="keyword">if</span>(a.length&lt;<span class="number">2</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> a;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> mid=a.length/<span class="number">2</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> [] left=Arrays.copyOfRange(a,<span class="number">0</span>, mid);</span><br><span class="line">		<span class="keyword">int</span> [] right=Arrays.copyOfRange(a,mid, a.length);</span><br><span class="line">		<span class="keyword">return</span> merge(mergeSort(left),mergeSort(right));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] merge(<span class="keyword">int</span> [] left,<span class="keyword">int</span> [] right) &#123;</span><br><span class="line">		<span class="keyword">int</span> [] re=<span class="keyword">new</span> <span class="keyword">int</span>[left.length+right.length];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> index=<span class="number">0</span>,i=<span class="number">0</span>,j=<span class="number">0</span>;index&lt;re.length;index++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i&gt;=left.length) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=right.length) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&gt;right[j]) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&lt;right[j]) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> re;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/归并排序/" data-id="cjtr58kmo000898s69zt3h9e3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-希尔排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/希尔排序/" class="article-date">
+  <time datetime="2019-03-17T07:48:55.349Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/希尔排序/">希尔排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、希尔排序"><a href="#1、希尔排序" class="headerlink" title="1、希尔排序"></a>1、希尔排序</h3><p>1、希尔排序是希尔（Donald Shell）于1959年提出的一种排序算法。希尔排序也是一种插入排序，它是简单插入排序经过改进之后的一个更高效的版本，也称为缩小增量排序，<br>同时该算法是冲破O(n^2)的第一批算法之一。它与插入排序的不同之处在于，它会优先比较距离较远的元素。希尔排序又叫缩小增量排序。</p>
+<p>2、希尔排序是把记录按下表的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</p>
+<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(nlog2 n)  最坏情况：T(n) = O(nlog2 n)  平均情况：T(n) =O(nlog2n)　</p>
+<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/shellsort.jpg?raw=true" alt="Image text"></p>
+<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShellSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		shellSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> cur;<span class="comment">//记录即将插入的当前值</span></span><br><span class="line">		<span class="keyword">int</span> dk=a.length/<span class="number">2</span>;<span class="comment">//增量</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(dk&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=dk;i&lt;a.length;i++) &#123;<span class="comment">//比较a.length-1趟</span></span><br><span class="line">				<span class="keyword">int</span> index=i-dk;<span class="comment">//记录有序数组的最后一位坐标</span></span><br><span class="line">				cur=a[i];</span><br><span class="line">			</span><br><span class="line">				<span class="keyword">while</span>(index&gt;=<span class="number">0</span> &amp;&amp; cur&lt;a[index]) &#123;<span class="comment">//当前值小于有序数组中的值时</span></span><br><span class="line">					a[index+dk]=a[index];<span class="comment">//记录后移</span></span><br><span class="line">					index=index-dk;</span><br><span class="line">				&#125;</span><br><span class="line">			</span><br><span class="line">				<span class="comment">//当前值不小于前一个值时，把当前值赋给index+dk</span></span><br><span class="line">				a[index+dk]=cur;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			dk=dk/<span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/希尔排序/" data-id="cjtr58knj000a98s6f16xvtz5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-插入排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/17/插入排序/" class="article-date">
@@ -91,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/插入排序/" data-id="cjtps4lhu000id8s6vkqxryl4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/插入排序/" data-id="cjtr58knz000f98s6ouum3chw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -133,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/选择排序/" data-id="cjtps4lhu000md8s6gdk1nzpv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/选择排序/" data-id="cjtr58knz000o98s6n7t3407g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjtps4lhf000ed8s6h1ltcb41" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/排序算法总结/" data-id="cjtr58knj000c98s6d03ti26k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjtps4lhf000bd8s6lsvq086s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/14/冒泡排序/" data-id="cjtr58kmo000598s6q58jh1gj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -263,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjtps4lhu000nd8s6nd3xhucp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/链队列/" data-id="cjtr58knz000p98s6sw5xt58o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -302,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjtps4lhu000ld8s6dl4nrdjm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/13/用栈实现进制转换/" data-id="cjtr58knz000h98s6j8fwisme" class="article-share-link">Share</a>
       
       
     </footer>
@@ -341,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjtps4lhu000od8s6cgak9sbt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/12/链栈/" data-id="cjtr58knz000l98s6swyp5zn8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -380,86 +460,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjtps4lgz0003d8s6nd3bmdff" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-循环链表" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/11/循环链表/" class="article-date">
-  <time datetime="2019-03-11T08:11:35.191Z" itemprop="datePublished">2019-03-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/11/循环链表/">循环链表的插入删除</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643911.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643911.html</a></p>
-<p>1、循环链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircularLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=head)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCircularList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		CircularLinkList list=<span class="keyword">new</span> CircularLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/循环链表/" data-id="cjtps4lhf0008d8s6bb4l81e8" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-单链表" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/11/单链表/" class="article-date">
-  <time datetime="2019-03-11T07:53:46.966Z" itemprop="datePublished">2019-03-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/11/单链表/">单链表的插入删除</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、单链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> danlianbiao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Linklist</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=<span class="keyword">null</span>)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">			System.out.println(node.next.data);</span><br><span class="line">			node=node.next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> danlianbiao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLink</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Linklist link=<span class="keyword">new</span> Linklist();</span><br><span class="line">		link.init();</span><br><span class="line">		link.insert(<span class="string">"ct"</span>);</span><br><span class="line">		link.insert(<span class="string">"ad"</span>);</span><br><span class="line">		link.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//link.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		link.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、参考链接：<a href="https://www.cnblogs.com/lixiaolun/p/4643886.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643886.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/11/单链表/" data-id="cjtps4lgz0004d8s6w3plpj4u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/11/双向循环链表/" data-id="cjtr58kmo000698s65cwp2h06" class="article-share-link">Share</a>
       
       
     </footer>
@@ -505,6 +506,14 @@
       <ul>
         
           <li>
+            <a href="/2019/03/27/计网-应用层/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/27/计网-传输层/">计网-传输层</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/26/计网-网络层/">(no title)</a>
           </li>
         
@@ -514,14 +523,6 @@
         
           <li>
             <a href="/2019/03/23/Java集合总结/">Java集合总结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/19/Linux-小结/">Linux小结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/18/算法-递归/">算法-递归</a>
           </li>
         
       </ul>
