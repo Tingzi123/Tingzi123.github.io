@@ -5,19 +5,19 @@
   
 
   
-  <title>排序 | Hexo</title>
+  <title>操作系统-存储管理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、插入排序1、直接插入排序时间复杂度：O(n^2)1234567int[] a;void insertSort()&amp;#123;	for(int i=2;i&amp;lt;L.length;i++)&amp;#123;			&amp;#125;&amp;#125;&amp;#125;">
+  <meta name="description" content="1、存 储 概 述由于任何程序、数据必须占用主存空间后才能执行，因此存储管理直接影响系统的性能。 – 主存储空间一般分为两部分：• 一部分是系统区，存放操作系统常驻内存部分；• 另一部分是用户区，存放用户的程序和数据等 存储管理主要是对用户区域进行管理，当然也包括对辅存的管理。目的是要尽可能地方便用户使用和提高主存储器的效率">
 <meta property="og:type" content="article">
-<meta property="og:title" content="排序">
-<meta property="og:url" content="http://yoursite.com/2019/03/10/排序/index.html">
+<meta property="og:title" content="操作系统-存储管理">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/OS存储管理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、插入排序1、直接插入排序时间复杂度：O(n^2)1234567int[] a;void insertSort()&amp;#123;	for(int i=2;i&amp;lt;L.length;i++)&amp;#123;			&amp;#125;&amp;#125;&amp;#125;">
+<meta property="og:description" content="1、存 储 概 述由于任何程序、数据必须占用主存空间后才能执行，因此存储管理直接影响系统的性能。 – 主存储空间一般分为两部分：• 一部分是系统区，存放操作系统常驻内存部分；• 另一部分是用户区，存放用户的程序和数据等 存储管理主要是对用户区域进行管理，当然也包括对辅存的管理。目的是要尽可能地方便用户使用和提高主存储器的效率">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-10T07:15:42.844Z">
+<meta property="og:updated_time" content="2019-03-29T03:39:36.151Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="排序">
-<meta name="twitter:description" content="一、插入排序1、直接插入排序时间复杂度：O(n^2)1234567int[] a;void insertSort()&amp;#123;	for(int i=2;i&amp;lt;L.length;i++)&amp;#123;			&amp;#125;&amp;#125;&amp;#125;">
+<meta name="twitter:title" content="操作系统-存储管理">
+<meta name="twitter:description" content="1、存 储 概 述由于任何程序、数据必须占用主存空间后才能执行，因此存储管理直接影响系统的性能。 – 主存储空间一般分为两部分：• 一部分是系统区，存放操作系统常驻内存部分；• 另一部分是用户区，存放用户的程序和数据等 存储管理主要是对用户区域进行管理，当然也包括对辅存的管理。目的是要尽可能地方便用户使用和提高主存储器的效率">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -64,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-排序" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-OS存储管理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/10/排序/" class="article-date">
-  <time datetime="2019-03-10T07:10:17.075Z" itemprop="datePublished">2019-03-10</time>
+    <a href="/2019/03/29/OS存储管理/" class="article-date">
+  <time datetime="2019-03-29T03:31:30.832Z" itemprop="datePublished">2019-03-29</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      排序
+      操作系统-存储管理
     </h1>
   
 
@@ -86,12 +86,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、插入排序"><a href="#一、插入排序" class="headerlink" title="一、插入排序"></a>一、插入排序</h2><h3 id="1、直接插入排序"><a href="#1、直接插入排序" class="headerlink" title="1、直接插入排序"></a>1、直接插入排序</h3><p>时间复杂度：O(n^2)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;L.length;i++)&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p>1、存 储 概 述<br>由于任何程序、数据必须占用主存空间后才能执行，因此存储管理直接影响系统的性能。</p>
+<p>– 主存储空间一般分为两部分：<br>• 一部分是系统区，存放操作系统常驻内存部分；<br>• 另一部分是用户区，存放用户的程序和数据等</p>
+<p>存储管理主要是对用户区域进行管理，当然也包括对辅存的管理。目的是要尽可能地方便用户使用和提高主存储器的效率</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/排序/" data-id="cjttis3gm000e8ss6ztgdouow" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/OS存储管理/" data-id="cjttis3g600018ss6oojt7e7r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -100,19 +102,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/10/二分查找/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          数组的二分查找
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/03/10/查找/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/03/28/OS处理机管理/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">查找</div>
+      <div class="article-nav-title">操作系统-处理机管理</div>
     </a>
   
 </nav>
