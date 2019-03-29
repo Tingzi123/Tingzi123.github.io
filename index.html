@@ -87,11 +87,66 @@
         <p>1、存 储 概 述<br>由于任何程序、数据必须占用主存空间后才能执行，因此存储管理直接影响系统的性能。</p>
 <p>– 主存储空间一般分为两部分：<br>• 一部分是系统区，存放操作系统常驻内存部分；<br>• 另一部分是用户区，存放用户的程序和数据等</p>
 <p>存储管理主要是对用户区域进行管理，当然也包括对辅存的管理。目的是要尽可能地方便用户使用和提高主存储器的效率</p>
+<p>存储层次结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey1.png?raw=true" alt="Image text"></p>
+<p>存储管理应具有的四大功能:<br>1 ） 内存空间管理<br>– 记录每个内存单元的使用情况<br>– 内存分配<br>– 位示图：用一位（bit）表示一个空闲页面（0：空闲，1：占用）</p>
+<p>2）地址变换（重定位，地址映射）<br>我们把用户编程时使用的地址称为逻辑地址，把程序在内存中的实际地址称为物理地址。为了保证程序的正确运行，必须把程序和数据的逻<br>辑地址转换为物理地址，这一工作称为地址转换或重定位。</p>
+<p>– 静态地址转换<br>• 当用户程序被装入内存时，一次性实现逻辑地址到物理地址的转换，以后不再转换。<br>• 一般在装入内存时由重定位装入程序完成。</p>
+<p>– 动态地址转换<br>• 在程序运行过程中要访问数据时再进行地址变换（即在逐条指令执行时完成地址映射。一般为了提高效率，此工作由硬件地址映射机制来<br>完成。硬件支持，软硬件结合完成）。<br>• 一对寄存器（VR，BR）</p>
+<p>静态重定位：<br>– 优点：无须硬件支持；<br>– 缺点：<br>（1）不支持虚拟存储，原因是执行期间程序不能移动，因而不能实现重新分配内存，而虚拟存储则将部分程序装入内存。<br>（2）不能共享。因为每个程序必须占用连续的内存空间，因此很难做到。</p>
+<p>动态重定位：<br>– 过程：<br>（1）设置基址寄存器BR，虚拟地址寄存器VR<br>（2）将程序首址送入BR<br>（3）程序执行时，将需要访问的虚址送入VR<br>（4）将BR和VR相加，得到实际访问的地址。</p>
+<p>– 优点：<br>（1）可以对内存进行非连续分配，对于不同程序段设置不同的BR即可。<br>（2）提供了实现虚拟存储的基础，动态重定位可以部分地、动态地分配内存。<br>（3）有利于共享。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey2.png?raw=true" alt="Image text"></p>
+<p>3）内 存 扩 充<br>内存的容量是受实际的存储单元限制的，而运行的程序又不受内存大小的限制，这就需要有效的存储管理技术来实现内存的逻辑扩充，这种扩充不是增加实际的存储单元，而是通过虚拟存储技术、覆盖技术、交换技术等技术来实现的。</p>
+<p>4）内存共享和保护<br>– 为了更有效地使用内存空间，要求共享内存<br>– 为多个程序共享内存提供保障，使在内存中的各道程序，只能访问它自己的区域，避免各道程序间相互干扰，特别是当一道程序发生错误时，不致于影响其他程序的运行<br>– 保护过程—-防止地址越界<br>– 保护过程—-防止操作越权</p>
+<p>2、存储管理的一些技术<br>2.1 覆盖(overlay)<br>– 引入：其目标是在较小的可用内存中运行较大的程序。常用于多道程序系统，与分区存储管理配合使用<br>– 引入：其目标是在较小的可用内存中运行较大的程序。常用于多道程序系统，与分区存储管理配合使用<br>• 不存在调用关系的模块不必同时装入到内存，从而可以相互覆盖。(即不同时用的模块可共用一个分区)<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey3.png?raw=true" alt="Image text"></p>
+<p>2.2 交换(swapping)<br>– 引入：多个程序并发执行，可以将暂时不能执行的程序送到外存中，从而获得空闲内存空间来装入新程序，或读入保存在外存中而目前到达就绪状态的进程。交换单位为整个进程的地址空间。<br>• 程序暂时不能执行的可能原因：处于阻塞状态，低优先级（确保高优先级程序执行）；</p>
+<p>– 原理：暂停执行内存中的进程，将整个进程的地址空间保存到外存的交换区中（换出swa pout）而将外存中由阻塞变为就绪的进程的地址空间读<br>入到内存中，并将该进程送到就绪队列（换入swap in）。</p>
+<p>– 优点：增加并发运行的程序数目，并且给用户提供适当的响应时间；编写程序时不影响程序结构，对用户透明。<br>– 缺点：对换入和换出的控制增加处理机开销；程序整个地址空间都进行传送，没有考虑执行过程中地址访问的统计特性。<br>– 覆盖技术和交换技术的发展导致了虚拟存储技术的出现</p>
+<p>2.3 虚拟存储技术<br>虚存：把内存与外存有机的结合起来使用，从而得到一个容量很大的“内存”，这就是虚存<br>– 实现思想：当进程运行时，先将一部分程序装入内存，另一部分暂时留在外存，当要执行的指令不在内存时，由系统自动完成将它们从外存调入内存工作<br>– 目的：提高内存利用率</p>
+<p>虚存的物质基础：<br>系统要有足够大的外存；<br>– 要有一定容量的内存来存放运行作业的部分程序<br>– 要有动态地址转换机构，实现逻辑地址转换；</p>
+<p>特征：<br>– 虚拟性：指逻辑上扩大了内存容量，使用户看到的内存空间大于实际空间；<br>– 离散性：指内存在分配时采用的是离散分配的方式，目的是为了避免内存空间的浪费；<br>– 多次性：指一个作业不是全部一次性装入内存，而是在需要时装入部分；<br>– 交换性：指在一个进程运行期间，将暂不使用的程序和数据从内存调至外存，被调出的程序和数据在需要时再调入内存中。<br>– 总容量不超过物理内存和外存交换区容量之和</p>
+<p>3、分区存储管理<br>– 把内存分为一些大小相等或不等的分区(partition)，每个应用进程占用一个分区。操作系统占用其中一个分区。<br>– 问题：可能存在内碎片和外碎片。<br>• 内碎片：占用分区之内未被利用的空间<br>• 外碎片：占用分区之间难以利用的空闲分区（通常是小空闲分区）。</p>
+<p>3.1 固定分区(fixed partitioning)<br>– 把内存划分为若干个固定大小的连续分区。每个分区装一个且只能装一个作业。<br>• 分区大小相等：<br>• 分区大小不等：多个小分区、适量的中等分区、少量的大分区。根据程序的大小，分配当前空闲的、适当大小的分区。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey4.png?raw=true" alt="Image text"><br>优点：易于实现，开销小。<br>– 缺点：<br>• 内碎片造成浪费<br>• 分区总数固定，限制了并发执行的程序数目。</p>
+<p>3.2 动态分区(dynamic partitioning)<br>基本思想:<br>• 作业装入时，根据作业的需求和内存空间的使用情况来决定是否分配<br>• 若有足够的空间，则按需要分割一部分分区给该进程；否则令其等待内存空间</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey5.png?raw=true" alt="Image text"></p>
+<p>– 分区分配算法：寻找某个空闲分区，其大小需大于或等于程序的要求。若是大于要求，则将该分区分割成两个分区，其中一个分区为要求的大小并标记为“占用”，而另一个分区为余下部分并标记为“空闲”。分区的先后次序通常是从内存低端到高端。<br>– 分区释放算法：需要将相邻的空闲分区合并成一个空闲分区。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）最先适应法(first-fit)：按分区的先后次序，从头查找，找到符合要求的第一个分区</span><br><span class="line"><span class="number">2</span>）下次适应法(next-fit)：按分区的先后次序，从上次分配的分区起查找（到最后分区时再回到开头），找到符合要求的第一个分区</span><br><span class="line"><span class="number">3</span>）最佳适应法(best-fit)：找到其大小与要求相差最小的空闲分区</span><br><span class="line"><span class="number">4</span>）最坏适应法(worst-fit)：找到最大的空闲分区</span><br></pre></td></tr></table></figure></p>
+<p>3.3 碎 片 问 题<br>– 紧凑技术：通过在内存移动程序，将所有小的空闲区域合并为大的空闲区域<br>(内存紧凑(compaction)：将各个占用分区向内存一端移动。使各个空闲分区聚集在另一端，然后将各个空闲分区合并成为一个空闲分区)</p>
+<p>3.4 分区的回收及保护<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）该空闲区的上下相邻分区都是空闲区。将三个空闲区合并，合并后的起始地址为上空闲区的起始地址，修改可用表或自由链（取消下，修改上）</span><br><span class="line"><span class="number">2</span>）该空闲区的上相邻区是空闲区。与上相邻区合并，合并后的起始地址为上空闲区的起始地址，修改可用表或自由链（修改上的大小）。</span><br><span class="line"><span class="number">3</span>）该空闲区的下相邻区是空闲区。与下相邻区合并，合并后的起始地址为释放区的起始地址，修改可用表或自由链（修改下的始址和大小）。</span><br><span class="line"><span class="number">4</span>）该空闲区不与其他空闲区相邻,作为一个新空闲区插入可用表或自由链</span><br></pre></td></tr></table></figure></p>
+<p>4、页式存储管理<br>4.1 基本思想:<br>– 用户程序划分<br>• 把用户程序按逻辑页划分成大小相等的部分，称为页。从0开始编制页号，页内地址是相对于0编址<br>– 逻辑地址<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey6.png?raw=true" alt="Image text"><br>内存空间<br>• 按页的大小划分为大小相等的区域，称为内存块（物理页面）<br>– 内存分配<br>• 以页为单位进行分配，并按作业的页数多少来分配。<br>• 逻辑上相邻的页，物理上不一定相邻</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey7.png?raw=true" alt="Image text"></p>
+<p>4.2 管理<br>– 页表：系统为每个进程建立一个页表，页表给出逻辑页号和具体内存块号相应的关系<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey8.png?raw=true" alt="Image text"></p>
+<p>地址映射机制：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey9.png?raw=true" alt="Image text"></p>
+<p>地址映射机制（含快表）：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey10.png?raw=true" alt="Image text"></p>
+<p>4.3 静态页式管理<br>– 将程序的逻辑地址空间和物理内存划分为固定大小的页或页面(Page or Page frame)，程序加载时，分配其所需的所有页，这些页不必连续<br>静态页式管理的地址变换：<br>– 指令所给出地址分为两部分：逻辑页号，页内偏移地址－&gt;查进程页表，得物理页号－&gt;物理地址</p>
+<p>– 优点：<br>• 没有外碎片，每个内碎片不超过页大小（因为页面大小固定 要多少有多少）。<br>• 一个程序不必连续存放。<br>• 便于改变程序占用空间的大小。即随着程序运行<br>而动态生成的数据增多，地址空间可相应增长。<br>– 缺点：<br>• 程序全部装入内存，受到内存可用页面数的限制。</p>
+<p>4.4 动态（请求）页式管理<br>– 在进程开始运行之前，不是装入全部页面，而是装入部分页面，之后根据进程运行的需要，动态装入其它页面；当内存空间已满，而又需要装入新的页面时，则根据某种算法淘汰某个页面，以便装入新的页面。</p>
+<p>页表表项：<br>– 页号、驻留位、内存块号、外存始址、访问位、修改位<br>– 驻留位（中断位）：表示该页是在内存还是在外存<br>– 访问位：根据访问位来决定淘汰哪页（由不同的算法决定）<br>– 修改位：查看此页是否在内存中被修改过<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey11.png?raw=true" alt="Image text"></p>
+<p>缺页中断处理：<br>在地址映射过程中，在页表中发现所要访问的页不在内存，则产生缺页中断。操作系统接到此中断信号后，就调出缺页中断处理程序，根据页表中给出的外存地址，将该页调入内存，使作业继续运行下去<br>– 如果内存中有空闲块，则分配一页，将新调入页装入内存，并修改页表中相应表项<br>– 若此时内存中没有空闲块，则要淘汰某页，若该页在内存期间被修改过，则要将其写回外存<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey12.png?raw=true" alt="Image text"></p>
+<p>页面置换算法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">– 随机置换算法</span><br><span class="line">– 先进先出算法(FIFO)</span><br><span class="line">– 最近最久未使用算法(LRU, Least Recently Used)</span><br><span class="line">– 时钟页面替换算法(Clock Policy) </span><br><span class="line">– 最佳置换算法(OPT, optimal)</span><br></pre></td></tr></table></figure></p>
+<p>1）先进先出算法( F I F O )<br>– 选择建立最早的页面被置换，性能较差，较早调入的页往往是经常被访问的页，这些页在FIFO算法下被反复调入和调出。<br>– 并且有Belady现象。<br>– Belady现象：采用FIFO算法时，如果对一个进程未分配它所要求的全部页面，有时就会出现分配的页面数增多，缺页率反而提高的异常现象。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey13.png?raw=true" alt="Image text"></p>
+<p>2）最近最久未使用算法( L R U )<br>– 该算法淘汰的页面是在最近一段时间里较久未被访问的那一页。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey14.png?raw=true" alt="Image text"></p>
+<p>3）最佳算法(OPT, optimal)<br>– 选择“未来不再使用的”或“在离当前最远位置上出现的”页面被置换，这是一种理想情况。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey15.png?raw=true" alt="Image text"></p>
+<p>影 响 缺 页 次 数 的 因 素：<br>(1) 分配给进程的物理页面数<br>(2) 页面本身的大小<br>(3) 程序的编制方法<br>(4) 页面淘汰算法</p>
+<p>4.5 页式管理的优缺点<br>– 相对于分区管理而言，静态页式有效的解决了外部碎片的问题（当然有少量的内部碎片）；<br>– 但是，静态页式要求全部装入，不支持虚拟存储，因而有了请求（动态）页式，允许部分装入；<br>– 显然地，请求页式更能有效利用有限的内存页面，不过，这种方式需要有效解决缺页率的问题，尤其是页面置换的问题；</p>
+<p>5、段式存储管理<br>5.1 基本原理<br>用户程序划分<br>•按程序自身的逻辑关系划分为若干个程序段，每个程序段都有一个段名，且有一个段号。段号从0开始，每一段也从0开始编址，段内地址是连续的</p>
+<p>– 逻辑地址（二维地址）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey16.png?raw=true" alt="Image text"></p>
+<p>基本原理：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey17.png?raw=true" alt="Image text"></p>
+<p>内存划分方式：<br>– 内存划分<br>内存空间被动态的划分为若干个长度不相同的区域，称为物理段，每个物理段由起始地址和长度确定<br>– 内存分配<br>以段为单位分配内存，每一个段在内存中占据连续空间（内存随机分割，需要多少分配多少），但各段之间可以不连续存放</p>
+<p>段式管理：<br>(1) 段表：每进程一个<br>(2) 空闲表：系统一个（管理同动态分区）array of (addr,size)<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey18.png?raw=true" alt="Image text"></p>
+<p>内存分配：<br>（1）有足够空闲区（同动态分区）<br>最先适应<br>最佳适应<br>最坏适应<br>（2）没有足够空闲区（同请求页式）<br>FIFO，LRU，如果淘汰一段不能满足要求，就要进行多次淘汰</p>
+<p>地址映射：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey19.png?raw=true" alt="Image text"></p>
+<p>页式管理与段式管理的比较：<br>– 分页是出于系统管理的需要，分段是出于用户应用的需要<br>– 页大小是系统固定的，而段大小则通常不固定。<br>– 逻辑地址表示：<br>• 分页是一维的，各个模块在链接时必须组织成同一个地址空间；<br>• 分段是二维的，各个模块在链接时可以每个段组织成一个地址空间。<br>– 通常段比页大，因而段表比页表短，可以缩短查找时间，提高访问速度。</p>
+<p>6、段页式存储管理<br>– 分段结构具有逻辑上清晰的优点，但它的一个致命弱点是每个段必须占据主存储器的连续区域，为了克服这个缺点，可兼用分段和分页的方法，构成段页式存储管理。<br>– 每个作业仍按逻辑分段，把每个段再分成若干个页面，每一段不必占据连续的主存空间，可把它按页存放在不连续的主存块中。</p>
+<p>6.1  基 本 思 想<br>– 用户程序划分：按段式划分（对用户来讲，按段的逻辑关系进行划分；对系统讲，按页划分每一段）<br>内存划分：按页式存储管理方案<br>内存分配：以页为单位进行分配<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey20.png?raw=true" alt="Image text"></p>
+<p>段 表 和 页 表：<br>（1）在段页式系统中,每个分段又被分成若干个固定大小的页面，那么每个段又必须建立一张页表把段中的虚页变换成内存中的实际页面。显然，与页式管理时相同，页表中也要有相应的实现缺页中断处理和页面保护等功能表项。<br>（2）每个段有一个页表，段表中应有专项指出该段所对应页表的页表始址和页表长度</p>
+<p>段 表 、 页 表 与 内 存 关 系：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey21.png?raw=true" alt="Image text"></p>
+<p>段页式地址变换：<br>注：在段页式系统中，为了获取一条指令或数据，需三次访问内存。<br>• 第一次访问，是访问内存中的段表，从中取得页表始址<br>• 第二次访问，是访问内存中的页表，从中取得物理块号，并将该块号与页内地址一起形成指令或数据的物理地址<br>• 第三次访问，才是真正从第二次访问的地址中，取得指令和数据</p>
+<p>抖 动：<br>– 虚存中，页面在内存与外存之间频繁调度，以至于调度页面所需时间比进程实际运行的时间还多，此时系统效率急剧下降，甚至导致系统崩溃。这种现象称为颠簸或抖动<br>– 原因：<br>• 页面淘汰算法不合理<br>• 分配给进程的物理页面数</p>
+<p>一点总结：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey22.png?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey23.png?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey24.png?raw=true" alt="Image text"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/OS存储管理/" data-id="cjttiw0j50003q4s6n3apxied" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/OS存储管理/" data-id="cjtu4ig0y000vp4s6z9mwh26o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/OS处理机管理/" data-id="cjttiw0ip0000q4s69mszo17r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/OS处理机管理/" data-id="cjtu4ifxr0000p4s6eao1bsrf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -238,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/OS进程管理/" data-id="cjttiw0lb000wq4s6btgus14n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/OS进程管理/" data-id="cjtu4ig10000wp4s6ccdpq9l6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -306,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/OS用户接口与作业调度/" data-id="cjttiw0j50001q4s6ubjjlgrr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/OS用户接口与作业调度/" data-id="cjtu4ify70001p4s6m710tznu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -364,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/os的硬件环境/" data-id="cjttiw0j50004q4s6x6t0391w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/os的硬件环境/" data-id="cjtu4ify70002p4s6mu6po63p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -428,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/操作系统概述/" data-id="cjttiw0kv000vq4s6hye5v42m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/操作系统概述/" data-id="cjtu4ig01000up4s60k8t0baj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -484,7 +539,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/计网-应用层/" data-id="cjttiw0k0000nq4s6sjwkrku5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/计网-应用层/" data-id="cjtu4ifz3000np4s6uhp7nqe2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -564,7 +619,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/计网-传输层/" data-id="cjttiw0lb000xq4s61791idxl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/计网-传输层/" data-id="cjtu4ig11000xp4s6nin5o0e9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -631,7 +686,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/计网-网络层/" data-id="cjttiw0k0000oq4s6k5ckggz7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/计网-网络层/" data-id="cjtu4ifz3000op4s6xvocckbh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -677,7 +732,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/计网-链路层/" data-id="cjttiw0k0000pq4s6nu2sgntz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/计网-链路层/" data-id="cjtu4ifz3000pp4s6qxlvjy8l" class="article-share-link">Share</a>
       
       
     </footer>
