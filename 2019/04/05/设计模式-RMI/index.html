@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>设计模式总结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、RMI远程方法调用是计算机之间通过网络实现对象调用的一种通讯机制 2、设计模式的三个分类：1）创建型模式：对象实例化的模式，该模式解耦了对象的实例化过程简单工厂：一个工厂类根据传入的参量决定创建出哪种产品类的实例工厂方法:定义一个创捷对象的接口，让子类决定实例化哪个类抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类单例模式：某个类只能有一个实例，提供一个全局访问点生成器模式：封装一个复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式总结">
+<meta property="og:url" content="http://yoursite.com/2019/04/05/设计模式-RMI/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、RMI远程方法调用是计算机之间通过网络实现对象调用的一种通讯机制 2、设计模式的三个分类：1）创建型模式：对象实例化的模式，该模式解耦了对象的实例化过程简单工厂：一个工厂类根据传入的参量决定创建出哪种产品类的实例工厂方法:定义一个创捷对象的接口，让子类决定实例化哪个类抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类单例模式：某个类只能有一个实例，提供一个全局访问点生成器模式：封装一个复">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-05T10:56:55.117Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式总结">
+<meta name="twitter:description" content="1、RMI远程方法调用是计算机之间通过网络实现对象调用的一种通讯机制 2、设计模式的三个分类：1）创建型模式：对象实例化的模式，该模式解耦了对象的实例化过程简单工厂：一个工厂类根据传入的参量决定创建出哪种产品类的实例工厂方法:定义一个创捷对象的接口，让子类决定实例化哪个类抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类单例模式：某个类只能有一个实例，提供一个全局访问点生成器模式：封装一个复">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-设计模式-RMI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/05/设计模式-RMI/" class="article-date">
+  <time datetime="2019-04-05T10:13:36.753Z" itemprop="datePublished">2019-04-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、RMI远程方法调用是计算机之间通过网络实现对象调用的一种通讯机制</p>
+<p>2、设计模式的三个分类：<br>1）创建型模式：对象实例化的模式，该模式解耦了对象的实例化过程<br>简单工厂：一个工厂类根据传入的参量决定创建出哪种产品类的实例<br>工厂方法:定义一个创捷对象的接口，让子类决定实例化哪个类<br>抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类<br>单例模式：某个类只能有一个实例，提供一个全局访问点<br>生成器模式：封装一个复杂对象的构建过程，并可以按步骤构造<br>原型模式：通过复制现有的实例来创建新的实例（克隆）</p>
+<p>2）结构型模式：把类和对象结合在一起形成更大的结构<br>适配器模式：把一个类的方法接口转换成客户希望的另一个接口<br>组合模式：将对象组合成树形结构以表示“部分-整体”的层次结构<br>装饰模式：动态的给对象添加新的功能<br>代理模式：为其他对象提供一个代理以控制对这个对象的访问<br>蝇量模式:通过共享技术有效地支持大量细粒度的对象<br>外观模式：提供统一的方法来访问子系统的一群接口<br>桥接模式：将抽象部分与它的实现部分分离，使他们都可以独立地变化</p>
+<p>3）行为型模式：类和对象如何交互，划分责任和算法<br>模板模式：定义一个算法结构，而将一些步骤延迟到子类中实现<br>解释器模式：给定一个语言，定义它的文法的一种表示，并定义一个解释器<br>策略模式：定义一系列的算法，把它们封装起来，并且使他们可相互替换<br>状态模式：允许一个对象在其内部状态改变时改变它的行为<br>观察者模式：对象之间的一对多的依赖关系<br>备忘录模式：在不破坏封装性的前提下，保存对象的内部状态<br>中介者模式：用一个中介对象来封装一系列的对象交互<br>命令模式：将命令请求封装为一个对象，使得可用不同的请求来进行参数化<br>访问者模式：在不改变数据结构的前提下，增加作用于一组对象元素新的功能</p>
+<p>责任链：请求发送者和接收者之间解耦，使得多个对象都有机会处理这个请求<br>迭代器：一种遍历访问聚合对象中各个元素的方法，不暴露该对象的内部结构</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/05/设计模式-RMI/" data-id="cjuc1tkob000nzss6dskpe7iw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/05/设计模式-策略模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/01/Java-对象导论/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Thinking in Java - 对象导论</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/10/设计模式-备忘录模式/">设计模式-备忘录模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/05/设计模式-策略模式/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/05/设计模式-RMI/">设计模式总结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/01/Java-对象导论/">Thinking in Java - 对象导论</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/30/数据库总结/">数据库总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
