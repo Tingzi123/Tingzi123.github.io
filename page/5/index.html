@@ -62,6 +62,175 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/10/排序/" class="article-date">
+  <time datetime="2019-03-10T07:10:17.075Z" itemprop="datePublished">2019-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/10/排序/">排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、插入排序"><a href="#一、插入排序" class="headerlink" title="一、插入排序"></a>一、插入排序</h2><h3 id="1、直接插入排序"><a href="#1、直接插入排序" class="headerlink" title="1、直接插入排序"></a>1、直接插入排序</h3><p>时间复杂度：O(n^2)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;L.length;i++)&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/10/排序/" data-id="cjuceyex8000hfgs6td301gjz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-查找" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/10/查找/" class="article-date">
+  <time datetime="2019-03-10T07:10:17.062Z" itemprop="datePublished">2019-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/10/查找/">查找</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一、线性表的查找"><a href="#一、线性表的查找" class="headerlink" title="一、线性表的查找"></a>一、线性表的查找</h2><h3 id="1、顺序查找-O-n-code"><a href="#1、顺序查找-O-n-code" class="headerlink" title="1、顺序查找 O(n)[^code]"></a>1、顺序查找 O(n)[^code]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	a[<span class="number">0</span>]=key;<span class="comment">//设置岗哨</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=a.length;a[i]!=key;i--)&#123;</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、折半查找-O-log2-N-下标从1开始"><a href="#2、折半查找-O-log2-N-下标从1开始" class="headerlink" title="2、折半查找 O(log2(N))(下标从1开始)"></a>2、折半查找 O(log2(N))(下标从1开始)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> high=a.length</span><br><span class="line">	<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(low&lt;=high)&#123;<span class="comment">//loe&lt;=high</span></span><br><span class="line">		<span class="keyword">if</span>(key==mid)</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(key&lt;mid)&#123;</span><br><span class="line">			high=mid-<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			low=mid+<span class="number">1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、分块查找"><a href="#3、分块查找" class="headerlink" title="3、分块查找"></a>3、分块查找</h3><p>  分块查找是折半查找和顺序查找的一种改进方法，分块查找由于只要求索引表是有序的，<br>对块内节点没有排序要求，因此特别适合于节点动态变化的情况。</p>
+<h2 id="二、树表的查找"><a href="#二、树表的查找" class="headerlink" title="二、树表的查找"></a>二、树表的查找</h2><h3 id="1、二叉排序树"><a href="#1、二叉排序树" class="headerlink" title="1、二叉排序树"></a>1、二叉排序树</h3><h4 id="1）二叉排序树的查找-O-log2-N"><a href="#1）二叉排序树的查找-O-log2-N" class="headerlink" title="1）二叉排序树的查找 O(log2(N))"></a>1）二叉排序树的查找 O(log2(N))</h4><p>递归实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(Tree T,<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span> || root.data==key)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(key&lt;root.data)&#123;</span><br><span class="line">		Search(T.lchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Search(T.rchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2）二叉排序树的插入-O-log2-N"><a href="#2）二叉排序树的插入-O-log2-N" class="headerlink" title="2）二叉排序树的插入 O(log2(N))"></a>2）二叉排序树的插入 O(log2(N))</h4><p>二叉排序树的插入 以查找为基础：查找失败则插入，查找成功则返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Insert</span><span class="params">(Tree T,<span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">		root=<span class="keyword">new</span> Node();</span><br><span class="line">		root.data=e;</span><br><span class="line">		root.lchild=root.rchild=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(e&lt;root.data)&#123;</span><br><span class="line">		Insert(T.lchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Insert(T.rchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-二叉排序树的创建-O-nlog2-N"><a href="#3-二叉排序树的创建-O-nlog2-N" class="headerlink" title="3)二叉排序树的创建 O(nlog2(N))"></a>3)二叉排序树的创建 O(nlog2(N))</h4><p>从空树开始，新建一个结点，查找后，再插入到合适位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Tree T;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBST</span><span class="params">()</span></span>&#123;</span><br><span class="line">	T=<span class="keyword">null</span>;</span><br><span class="line">	cin&gt;&gt;e;</span><br><span class="line">	<span class="keyword">while</span>(e!=<span class="string">"*"</span>)<span class="comment">//"*"结束符</span></span><br><span class="line">	&#123;</span><br><span class="line">		Insert(T,e);</span><br><span class="line">		cin&gt;e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-二叉排序树的删除-O-nlog2-N"><a href="#4-二叉排序树的删除-O-nlog2-N" class="headerlink" title="4)二叉排序树的删除 O(nlog2(N))"></a>4)二叉排序树的删除 O(nlog2(N))</h4><p>删除的过程也是查找的过程</p>
+<h3 id="2、平衡二叉树"><a href="#2、平衡二叉树" class="headerlink" title="2、平衡二叉树"></a>2、平衡二叉树</h3><h2 id="三、哈希表的查找"><a href="#三、哈希表的查找" class="headerlink" title="三、哈希表的查找"></a>三、哈希表的查找</h2><p>时间复杂度为直接计算</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/10/查找/" data-id="cjuceyex8000jfgs6vvz8cc9b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-树的相关知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/10/树的相关知识点/" class="article-date">
+  <time datetime="2019-03-10T07:10:17.046Z" itemprop="datePublished">2019-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/10/树的相关知识点/">树的相关知识点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一"><a href="#一" class="headerlink" title="一."></a>一.</h2><h3 id="1-结点n-0，称为空树"><a href="#1-结点n-0，称为空树" class="headerlink" title="1.结点n=0，称为空树"></a>1.结点n=0，称为空树</h3><h2 id="二-二叉树的性质（树的深度从1开始计数）"><a href="#二-二叉树的性质（树的深度从1开始计数）" class="headerlink" title="二. 二叉树的性质（树的深度从1开始计数）"></a>二. 二叉树的性质（树的深度从1开始计数）</h2><h4 id="1、-第i层至多有2-（i-1）个结点"><a href="#1、-第i层至多有2-（i-1）个结点" class="headerlink" title="1、 第i层至多有2^（i-1）个结点"></a>1、 第i层至多有2^（i-1）个结点</h4><h4 id="2、-深度为k的二叉树至多有（2-k）-1个结点"><a href="#2、-深度为k的二叉树至多有（2-k）-1个结点" class="headerlink" title="2、 深度为k的二叉树至多有（2^k）-1个结点"></a>2、 深度为k的二叉树至多有（2^k）-1个结点</h4><h4 id="3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B"><a href="#3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B" class="headerlink" title="3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B"></a>3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B</h4><pre><code>* n=n0+n1+n2
+  n=B+1
+  B=n1+2n2
+* n=n1+2n2+1
+</code></pre><ul>
+<li>综合上式有：n0=n2+1<h4 id="4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树"><a href="#4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树" class="headerlink" title="4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树"></a>4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树</h4><h4 id="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树"><a href="#5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树" class="headerlink" title="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树"></a>5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树</h4>特点：<pre><code>1）叶子结点只可能在层次最大的两层出现
+2）对任一结点，若其右分支下的子孙最大层次为l，则其左分支下的子孙的最大层次必为l或l+1
+</code></pre>####6、具有n个结点的完全二叉树的深度为log2（N）+1，log2（N）取下界</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/10/树的相关知识点/" data-id="cjuceyex8000kfgs6stsmqr50" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-javaNote" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/07/javaNote/" class="article-date">
+  <time datetime="2019-03-07T10:31:48.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/07/javaNote/">java小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h4 id="1-Java值类型与引用类型"><a href="#1-Java值类型与引用类型" class="headerlink" title="1. Java值类型与引用类型"></a>1. Java值类型与引用类型</h4><p><img src="https://raw.githubusercontent.com/tingzi123/blog/master/_posts/picture/javavalue.png" alt="Image text"></p>
+<h4 id="2-Java运算符优先级"><a href="#2-Java运算符优先级" class="headerlink" title="2. Java运算符优先级"></a>2. Java运算符优先级</h4><p><img src="https://raw.githubusercontent.com/tingzi123/blog/master/_posts/picture/operator.jpg" alt="Image text"></p>
+<h4 id="3-Java中代码块加载顺序：静态初始代码块-gt-初始代码块-gt-构造函数"><a href="#3-Java中代码块加载顺序：静态初始代码块-gt-初始代码块-gt-构造函数" class="headerlink" title="3. Java中代码块加载顺序：静态初始代码块&gt;初始代码块&gt;构造函数"></a>3. Java中代码块加载顺序：静态初始代码块&gt;初始代码块&gt;构造函数</h4><p>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"A"</span>);</span><br><span class="line">        <span class="keyword">new</span> Main();</span><br><span class="line">        <span class="keyword">new</span> Main();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"B"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">"C"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"D"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">以上程序输出的结果，正确的是？</span><br><span class="line">DACBCB</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/07/javaNote/" data-id="cjuceyewz0005fgs6lpsxw3ey" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/07/hello-world/" class="article-date">
@@ -97,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/hello-world/" data-id="cjuc6lbav0004lss693bdo4t0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/hello-world/" data-id="cjuceyewu0002fgs61cdscyca" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,23 +312,23 @@
       <ul>
         
           <li>
+            <a href="/2019/04/11/设计模式-单例模式/">设计模式-单例模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/11/设计模式-抽象工厂模式/">设计模式-抽象工厂模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/11/设计模式-工厂模式/">设计模式-工厂模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/11/设计模式-代理模式/">设计模式-代理模式</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/10/设计模式-备忘录模式/">设计模式-备忘录模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/05/设计模式-策略模式/">设计模式-策略模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/05/设计模式-RMI/">设计模式总结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/01/Java-对象导论/">Thinking in Java - 对象导论</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/30/数据库总结/">数据库总结</a>
           </li>
         
       </ul>
