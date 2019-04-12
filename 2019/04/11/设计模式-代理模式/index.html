@@ -15,7 +15,7 @@
 <meta property="og:description" content="几种代理模式1、虚拟代理虚拟代理为创建开销大的对象提供代理服务，真正的对象在创建前和创建中时，由虚拟代理来扮演替身。如：Android的在线图片加载类 2、动态代理运行时动态的创建代理类对象，并将方法调用转发到指定类（方法的调用也是动态的）。 3、保护代理：与动态代理搭配使用 防火墙代理  这种防火墙通过一种代理（Proxy）技术参与到一个TCP连接的全过程。从内部发出的数据包经过这样的防火墙处理">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/proxy.png?raw=true">
-<meta property="og:updated_time" content="2019-04-11T06:34:04.764Z">
+<meta property="og:updated_time" content="2019-04-11T09:08:29.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-代理模式">
 <meta name="twitter:description" content="几种代理模式1、虚拟代理虚拟代理为创建开销大的对象提供代理服务，真正的对象在创建前和创建中时，由虚拟代理来扮演替身。如：Android的在线图片加载类 2、动态代理运行时动态的创建代理类对象，并将方法调用转发到指定类（方法的调用也是动态的）。 3、保护代理：与动态代理搭配使用 防火墙代理  这种防火墙通过一种代理（Proxy）技术参与到一个TCP连接的全过程。从内部发出的数据包经过这样的防火墙处理">
@@ -92,10 +92,10 @@
 <h4 id="2、动态代理"><a href="#2、动态代理" class="headerlink" title="2、动态代理"></a>2、动态代理</h4><p>运行时动态的创建代理类对象，并将方法调用转发到指定类（方法的调用也是动态的）。</p>
 <h4 id="3、保护代理："><a href="#3、保护代理：" class="headerlink" title="3、保护代理："></a>3、保护代理：</h4><p>与动态代理搭配使用</p>
 <h4 id="防火墙代理"><a href="#防火墙代理" class="headerlink" title="防火墙代理"></a>防火墙代理</h4><p>  这种防火墙通过一种代理（Proxy）技术参与到一个TCP连接的全过程。从内部发出的数据包经过这样的防火墙处理后，就好像是源于防火墙外部网卡一样，从而可以达到隐藏内部网结构的作用。这种类型的防火墙被网络安全专家和媒体公认为是最安全的防火墙。</p>
-<h4 id="缓存代理"><a href="#缓存代理" class="headerlink" title="缓存代理"></a>缓存代理</h4><pre><code>由一个代理服务器下载的页面存储。一个代理服务器为多个用户提供一条通道。缓冲的代理允许一个代理服务器减少对同一个网站的同样页面的请求次数。一旦代理服务器的一个用户请求了某页，代理服务器就保存该页以服务于它的其他用户的同样请求。
-</code></pre><h4 id="智能引用代理"><a href="#智能引用代理" class="headerlink" title="智能引用代理"></a>智能引用代理</h4><pre><code>智能代理（intelligentagent）是定期地收集信息或执行服务的程序，它不需要人工干预，具有高度智能性和自主学习性，可以根据用户定义的准则，主动地通过智能化代理服务器为用户搜集最感兴趣的信息，然后利用代理通信协议把加工过的信息按时推送给用户,并能推测出用户的意图，自主制订、调整和执行工作计划。
-</code></pre><h4 id="同步代理"><a href="#同步代理" class="headerlink" title="同步代理"></a>同步代理</h4><pre><code>用于多线程之间同步访问对象
-</code></pre><h4 id="写入时复制代理"><a href="#写入时复制代理" class="headerlink" title="写入时复制代理"></a>写入时复制代理</h4><p>  用于保留某些数据的原始副本的一种技术。在写入操作修改数据时，会复制数据的原始副本到其他位置。<br>  写入时复制(Copy-on-write)是一个被使用在程序设计领域的最佳化策略。其基础的观念是，如果有多个呼叫者(callers)同时要求相同资源，他们会共同取得相同的指标指向相同的资源，直到某个呼叫者(caller)尝试修改资源时，系统才会真正复制一个副本(private copy)给该呼叫者，以避免被修改的资源被直接察觉到，这过程对其他的呼叫只都是通透的(transparently)。此作法主要的优点是如果呼叫者并没有修改该资源，就不会有副本(private copy)被建立。</p>
+<h4 id="缓存代理"><a href="#缓存代理" class="headerlink" title="缓存代理"></a>缓存代理</h4><p>  由一个代理服务器下载的页面存储。一个代理服务器为多个用户提供一条通道。缓冲的代理允许一个代理服务器减少对同一个网站的同样页面的请求次数。一旦代理服务器的一个用户请求了某页，代理服务器就保存该页以服务于它的其他用户的同样请求。</p>
+<h4 id="智能引用代理"><a href="#智能引用代理" class="headerlink" title="智能引用代理"></a>智能引用代理</h4><p>   智能代理（intelligentagent）是定期地收集信息或执行服务的程序，它不需要人工干预，具有高度智能性和自主学习性，可以根据用户定义的准则，主动地通过智能化代理服务器为用户搜集最感兴趣的信息，然后利用代理通信协议把加工过的信息按时推送给用户,并能推测出用户的意图，自主制订、调整和执行工作计划。</p>
+<h4 id="同步代理"><a href="#同步代理" class="headerlink" title="同步代理"></a>同步代理</h4><p>   用于多线程之间同步访问对象</p>
+<h4 id="写入时复制代理"><a href="#写入时复制代理" class="headerlink" title="写入时复制代理"></a>写入时复制代理</h4><p>  用于保留某些数据的原始副本的一种技术。在写入操作修改数据时，会复制数据的原始副本到其他位置。<br>  写入时复制(Copy-on-write)是一个被使用在程序设计领域的最佳化策略。其基础的观念是，如果有多个呼叫者(callers)同时要求相同资源，他们会共同取得相同的指标指向相同的资源，直到某个呼叫者(caller)尝试修改资源时，系统才会真正复制一个副本(private copy)给该呼叫者，以避免被修改的资源被直接察觉到，这过程对其他的呼叫只都是通透的(transparently)。此作法主要的优点是如果呼叫者并没有修改该资源，就不会有副本(private copy)被建立。</p>
 <h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>在代理模式（Proxy Pattern）中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。<br>在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。</p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>为其他对象提供一种代理以控制对这个对象的访问。</p>
 <h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>实现与被代理类组合。</p>
@@ -123,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjuceyeyk0013fgs6myvi4z83" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjue1yoms00144ws62mwdxae7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -181,6 +181,10 @@
       <ul>
         
           <li>
+            <a href="/2019/04/11/Spring-IOC/">spring-IOC</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/11/设计模式-单例模式/">设计模式-单例模式</a>
           </li>
         
@@ -194,10 +198,6 @@
         
           <li>
             <a href="/2019/04/11/设计模式-代理模式/">设计模式-代理模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/10/设计模式-备忘录模式/">设计模式-备忘录模式</a>
           </li>
         
       </ul>
