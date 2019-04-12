@@ -92,7 +92,15 @@
 <blockquote>
 <p>注意：<br>1、单例类只能有一个实例。<br>2、单例类必须自己创建自己的唯一实例。<br>3、单例类必须给所有其他对象提供这一实例。</p>
 </blockquote>
-<h2 id="IOC底层原理"><a href="#IOC底层原理" class="headerlink" title="IOC底层原理"></a>IOC底层原理</h2><p>1、底层原理使用技术<br>1）xml配置文件<br>2）dom4j解析xml<br>3）工厂设计模式<br>4）反射 </p>
+<h2 id="IOC底层原理"><a href="#IOC底层原理" class="headerlink" title="IOC底层原理"></a>IOC底层原理</h2><p>1、底层原理使用技术</p>
+<blockquote>
+<ul>
+<li>1）xml配置文件</li>
+<li>2）dom4j解析xml</li>
+<li>3）工厂设计模式</li>
+<li>4）反射 </li>
+</ul>
+</blockquote>
 <p>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServlet</span></span>&#123;</span><br><span class="line">    <span class="comment">//得到UserService的对象</span></span><br><span class="line">    <span class="comment">//常规方法：new创建</span></span><br><span class="line">    <span class="comment">//IOC方法：工厂模式创建</span></span><br><span class="line">    UserFactory. getService();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>第一步：创建xml配置文件，配置要创建对象的类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"userService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.ct.UserService&gt;</span></span><br><span class="line"><span class="string">//class属性里要写全类名</span></span><br></pre></td></tr></table></figure></p>
@@ -129,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/Spring-IOC/" data-id="cjue1yol200024ws6l126n48l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/Spring-IOC/" data-id="cjue2cnbt000470s61z5kwfcn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -189,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-单例模式/" data-id="cjue1yoms00154ws6yfkc9s9q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-单例模式/" data-id="cjue2cndk001570s654780z8g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -246,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-抽象工厂模式/" data-id="cjue1yolx000s4ws60kbgdy0g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-抽象工厂模式/" data-id="cjue2cnco000x70s6us2rh64g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -300,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-工厂模式/" data-id="cjue1yolx000q4ws6rlkgmvc4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-工厂模式/" data-id="cjue2cnco000w70s6e883bgty" class="article-share-link">Share</a>
       
       
     </footer>
@@ -367,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjue1yoms00144ws62mwdxae7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjue2cndk001470s6voyebj0h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -416,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/10/设计模式-备忘录模式/" data-id="cjue1yolx000x4ws6sf6244ky" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/10/设计模式-备忘录模式/" data-id="cjue2cnco000u70s6bp25158c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -478,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/05/设计模式-策略模式/" data-id="cjue1yolx000w4ws6oalq8i8n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/05/设计模式-策略模式/" data-id="cjue2cnco000v70s6q1byi8b6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -519,7 +527,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/05/设计模式-RMI/" data-id="cjue1yolx000v4ws60g1bf766" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/05/设计模式-RMI/" data-id="cjue2cnco000t70s6zebhddqz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -566,7 +574,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/Java-对象导论/" data-id="cjue1yol200004ws61zzzjatg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/Java-对象导论/" data-id="cjue2cnbt000070s6t4g4trgx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -606,7 +614,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/30/数据库总结/" data-id="cjue1yolx000l4ws6az0emp5g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/30/数据库总结/" data-id="cjue2cnco000k70s6t14bzyzd" class="article-share-link">Share</a>
       
       
     </footer>
