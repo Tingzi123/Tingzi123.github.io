@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="spring概念1、是开源的轻量级框架 2、核心两部分 1）aop：面向切面编程，扩展功能不是修改源代码实现2）ioc：控制反转，比如有一个类，类里有方法（不是静态方法），若要调用该类的方法，则需要先创建类的对象，通过对象来调用方法，而创建对象需要用new， 而控制反转则是对象的创建不通过new方式实现，而是交给spring框架配置创建类的对象，控制权不在开发者手中，而在上层框架中。  3、一站式">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-14T08:39:22.269Z">
+<meta property="og:updated_time" content="2019-04-14T11:11:42.400Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-IOC">
 <meta name="twitter:description" content="spring概念1、是开源的轻量级框架 2、核心两部分 1）aop：面向切面编程，扩展功能不是修改源代码实现2）ioc：控制反转，比如有一个类，类里有方法（不是静态方法），若要调用该类的方法，则需要先创建类的对象，通过对象来调用方法，而创建对象需要用new， 而控制反转则是对象的创建不通过new方式实现，而是交给spring框架配置创建类的对象，控制权不在开发者手中，而在上层框架中。  3、一站式">
@@ -105,7 +105,7 @@
 </blockquote>
 <p>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServlet</span></span>&#123;</span><br><span class="line">    <span class="comment">//得到UserService的对象</span></span><br><span class="line">    <span class="comment">//常规方法：new创建</span></span><br><span class="line">    <span class="comment">//IOC方法：工厂模式创建</span></span><br><span class="line">    UserFactory. getService();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第一步：创建xml配置文件，配置要创建对象的类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"userService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.ct.UserService&gt;</span></span><br><span class="line"><span class="string">//class属性里要写全类名</span></span><br></pre></td></tr></table></figure></p>
+<p>第一步：创建xml配置文件，配置要创建对象的类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"userService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.ct.UserService"</span>&gt;</span><br><span class="line"><span class="comment">//class属性里要写全类名</span></span><br></pre></td></tr></table></figure></p>
 <p>第二步：创建工厂类，使用dom4j解析配置文件+反射<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserFactory</span></span>&#123;</span><br><span class="line">    <span class="comment">//得到UserService对象的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> UserService <span class="title">getService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//1、使用dom4j解析xml文件，根据id值userService得到class属性值</span></span><br><span class="line">        String classValue=<span class="string">"class属性值"</span>;</span><br><span class="line">        <span class="comment">//2、使用反射创建类对象</span></span><br><span class="line">        Class clazz=Class.forName(classValue);</span><br><span class="line">        <span class="comment">//3、创建类对象</span></span><br><span class="line">        UserService service=clazz.newInstance();</span><br><span class="line">        <span class="keyword">return</span> service;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="spring的IOC操作"><a href="#spring的IOC操作" class="headerlink" title="spring的IOC操作"></a>spring的IOC操作</h2><p>1、把对象的创建交给spring进行管理</p>
 <p>2、IOC操作两部分<br>1）IOC的配置文件方式<br>2）IOC的注解方式</p>
@@ -156,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/Spring-IOC/" data-id="cjugoiis90010sos6io36pw8z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/Spring-IOC/" data-id="cjugulshc0013wgs6rdvit772" class="article-share-link">Share</a>
       
       
     </footer>
@@ -164,6 +164,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/04/14/Spring-注解方式实现bean管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Spring的bean管理（注解方式）
+        
+      </div>
+    </a>
   
   
     <a href="/2019/04/11/设计模式-单例模式/" id="article-nav-older" class="article-nav-link-wrap">
@@ -205,6 +214,14 @@
       <ul>
         
           <li>
+            <a href="/2019/04/14/Spring-AOP/">Spring-AOP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/14/Spring-注解方式实现bean管理/">Spring的bean管理（注解方式）</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/11/Spring-IOC/">spring-IOC</a>
           </li>
         
@@ -214,14 +231,6 @@
         
           <li>
             <a href="/2019/04/11/设计模式-抽象工厂模式/">设计模式-抽象工厂模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/11/设计模式-工厂模式/">设计模式-工厂模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/11/设计模式-代理模式/">设计模式-代理模式</a>
           </li>
         
       </ul>
