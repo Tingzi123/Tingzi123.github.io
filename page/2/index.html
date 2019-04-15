@@ -62,6 +62,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-设计模式-工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/11/设计模式-工厂模式/" class="article-date">
+  <time datetime="2019-04-11T07:09:10.455Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/设计模式-工厂模式/">设计模式-工厂模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式（Factory Pattern）是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。</p>
+<h3 id="简单工厂模式："><a href="#简单工厂模式：" class="headerlink" title="简单工厂模式："></a>简单工厂模式：</h3><p>   定义一个创建对象的类，由这个类来封装实例化对象的行为。简单工厂模式不是 23 种里的一种，简而言之，就是有一个专门生产某个产品的类。</p>
+<h3 id="工厂模式："><a href="#工厂模式：" class="headerlink" title="工厂模式："></a>工厂模式：</h3><p>   定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行</p>
+<h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>创建过程在其子类执行。</p>
+<h4 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h4><p> 1、您需要一辆汽车，可以直接从工厂里面提货，而不用去管这辆汽车是怎么做出来的，以及这个汽车里面的具体实现。<br> 2、Hibernate 换数据库只需换方言和驱动就可以。</p>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。</p>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p> 每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</p>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><p>作为一种创建类模式，在任何需要生成复杂对象的地方，都可以使用工厂方法模式。有一点需要注意的地方就是复杂对象适合使用工厂模式，而简单对象，特别是只需要通过 new 就可以完成创建的对象，无需使用工厂模式。如果使用工厂模式，就需要引入一个工厂类，会增加系统的复杂度。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建一个 Shape 接口和实现 Shape 接口的实体类。下一步是定义工厂类 ShapeFactory。<br>FactoryPatternDemo，演示类使用 ShapeFactory 来获取 Shape 对象。它将向 ShapeFactory 传递信息（CIRCLE / RECTANGLE / SQUARE），以便获取它所需对象的类型。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/factory.png?raw=true" alt="Image text"></p>
+<p>1、创建一个接口Shape。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建实现接口的实体类Rectangle、Square、Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Rectangle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Square::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Circle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、创建一个工厂类ShapeFactory，生成基于给定信息的实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">   <span class="comment">//使用 getShape 方法获取形状类型的对象</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(shapeType == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">      &#125;        </span><br><span class="line">      <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"SQUARE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、使用该工厂，通过传递类型信息来获取实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPatternDemo</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      ShapeFactory shapeFactory = <span class="keyword">new</span> ShapeFactory();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Circle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Circle 的 draw 方法</span></span><br><span class="line">      shape1.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Rectangle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Rectangle 的 draw 方法</span></span><br><span class="line">      shape2.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Square 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape3 = shapeFactory.getShape(<span class="string">"SQUARE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Square 的 draw 方法</span></span><br><span class="line">      shape3.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inside Circle::draw() method.</span><br><span class="line">Inside Rectangle::draw() method.</span><br><span class="line">Inside Square::draw() method.</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/factory-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/factory-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-工厂模式/" data-id="cjuie7wgd000xl4s62d3ujik1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-设计模式-代理模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/11/设计模式-代理模式/" class="article-date">
@@ -124,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjuidlamk001a9ks6k8ii2hsh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjuie7whv001bl4s6lb8rcgvc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -173,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/10/设计模式-备忘录模式/" data-id="cjuidlako000u9ks663c2dhl5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/10/设计模式-备忘录模式/" data-id="cjuie7wgb000vl4s6ka6maetr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -235,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/05/设计模式-策略模式/" data-id="cjuidlal400119ks6o3kfht2r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/05/设计模式-策略模式/" data-id="cjuie7wgf000zl4s6pjq5wlu1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -276,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/05/设计模式-RMI/" data-id="cjuidlako000v9ks604c24zvq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/05/设计模式-RMI/" data-id="cjuie7wga000tl4s6mdh4oq65" class="article-share-link">Share</a>
       
       
     </footer>
@@ -323,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/Java-对象导论/" data-id="cjuidlak300019ks6zfpa32ig" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/Java-对象导论/" data-id="cjuie7wf20001l4s6tygxp9wy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -363,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/30/数据库总结/" data-id="cjuidlako000n9ks6r9grwief" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/30/数据库总结/" data-id="cjuie7wg3000kl4s614cmc40k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -446,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/30/OS设备管理/" data-id="cjuidlane001d9ks6h4tloapk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/30/OS设备管理/" data-id="cjuie7wid001fl4s6b5cqx5jv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -527,7 +581,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/OS文件管理/" data-id="cjuidlamf00179ks6ovnknihz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/OS文件管理/" data-id="cjuie7whq0017l4s6kk67vr2l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -621,59 +675,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/OS存储管理/" data-id="cjuidlane001c9ks64vbiwqyr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-OS处理机管理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/28/OS处理机管理/" class="article-date">
-  <time datetime="2019-03-28T09:56:31.303Z" itemprop="datePublished">2019-03-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/28/OS处理机管理/">操作系统-处理机管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、调度的性能准则:<br>– （平均）周转时间：作业从提交到完成的时间（用户角度）<br>周转时间：Ti=Tc-Ts<br>Tc作业完成时刻；<br>Ts作业进入系统时刻</p>
-<p>平均周转时间：（T1+T2+…+Tn)/n</p>
-<p>– （平均）带权周转时间：周转时间 / CPU运行时间（用户角度）<br>带权周转时间:<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi7.png?raw=true" alt="Image text"></p>
-<p>平均带权周转时间：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi8.png?raw=true" alt="Image text"></p>
-<p>– 吞吐量：单位时间内所完成的作业数<br>– 处理机利用率：CPU运行时间 / 总时间<br>– 各种设备的均衡利用：如CPU繁忙的作业和I/O繁忙的作业搭配</p>
-<p>调度的类型:<br>– 作业：又称为”宏观调度”、”高级调度”。从用户工作流程的角度，一次提交的若干个流程。<br>– 内外存交换：又称为”中级调度”。从存储器资源的角度。将进程的部分或全部换出到外存上，将当前所需部分换入到内存。指令和数据必须在内存里才能被CPU直接访问。<br>– 进程：又称为”微观调度”<br>、<br>“低级调度”。从CPU资源<br>的角度，执行的单位。时间上通常是毫秒。因为执行频<br>繁，要求在实现时达到高效率</p>
-<p>2、处理机调度算法<br>2.1 先 来 先 服 务（非抢占方式）<br>按先后顺序进行调度</p>
-<p>2.2 短 作 业 优 先（非抢占方式）<br>又称为“短进程优先”SPN(Shortest Process<br>Next)；这是对FCFS算法的改进，其目标是减少平均周<br>转时间</p>
-<p>– 优点：<br>• 比FCFS改善平均周转时间和平均带权周转时间，缩短作业<br>的等待时间；<br>• 提高系统的吞吐量；<br>– 缺点：<br>• 对长作业非常不利，可能长时间得不到执行；<br>• 未能依据作业的紧迫程度来划分执行的优先级；<br>• 难以准确估计作业（进程）的执行时间，从而影响调度性<br>能</p>
-<p>2.3 最短剩余时间优先（抢占式）<br>允许比当前进程剩余时间更短的进程来抢占</p>
-<p>2.4 最高响应比优先（非抢占方式）<br>• 响应比R = (等待时间 + 要求执行时间) / 要求执行时间<br>• 是FCFS和SJF的折衷</p>
-<p>2.5 时间片轮转(Round Robin)算法<br>本算法主要用于微观调度，说明怎样并发运行，即切换的方式；设计目标是提高资源利用率。<br>其基本思路是通过时间片轮转，提高进程并发性和响应时间特性，从而提高资源利用率；</p>
-<p>2.6 多级队列算法(Multiple-level Queue)<br>各队列的不同处理：不同队列可有不同的优先级、时间片长度、调度策略等</p>
-<p>2.7 优先级算法(Priority Scheduling)（可分成抢先式和非抢先式）<br>1）静态优先级<br>– 创建进程时就确定，直到进程终止前都不改变。通常是一个整数</p>
-<p>2）动态优先级<br>在就绪队列中，等待时间延长则优先级提高，从而使优先级较低的进程在等待足够的时间后，其优先级提高到可被调度执行；<br>– 进程每执行一个时间片，就降低其优先级，从而一个进程持续执行时，其优先级降低到出让CPU</p>
-<p>注意：<br>I/O型进程：让其进入最高优先级队列，以及时响应I/O交互。通常执行一个小时间片，要求可处理完一次I/O请求的数据，然后转入到阻塞队列。<br>– 计算型进程：每次都执行完时间片，进入更低级队列。最终采用最大时间片来执行，减少调度次数。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/OS处理机管理/" data-id="cjuidlajv00009ks6qkrq00o3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/OS存储管理/" data-id="cjuie7wic001el4s6fq404azs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -719,6 +721,10 @@
       <ul>
         
           <li>
+            <a href="/2019/04/15/设计模式-模板模式/">设计模式-模板模式</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/15/设计模式-观察者模式/">设计模式-观察者模式</a>
           </li>
         
@@ -732,10 +738,6 @@
         
           <li>
             <a href="/2019/04/15/Spring-jdbcTemplate/">Spring-jdbcTemplate</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/14/Spring-AOP/">Spring-AOP</a>
           </li>
         
       </ul>

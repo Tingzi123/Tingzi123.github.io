@@ -62,6 +62,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-设计模式-模板模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/15/设计模式-模板模式/" class="article-date">
+  <time datetime="2019-04-15T13:11:28.043Z" itemprop="datePublished">2019-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/15/设计模式-模板模式/">设计模式-模板模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><p>   在模板模式（Template Pattern）中，一个抽象类公开定义了执行它的方法的方式/模板。它的子类可以按需要重写方法实现，但调用将以抽象类中定义的方式进行。这种类型的设计模式属于行为型模式。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h3><p>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<h3 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h3><p>一些方法通用，却在每一个子类都重新写了这一方法。</p>
+<h3 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h3><p>在抽象类实现，其他步骤在子类实现。</p>
+<h3 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h3><p>1、在造房子的时候，地基、走线、水管都一样，只有在建筑的后期才有加壁橱加栅栏等差异。<br>2、spring 中对 Hibernate 的支持，将一些已经定好的方法封装起来，比如开启事务、获取 Session、关闭 Session 等，程序员不重复写那些已经规范好的代码，直接丢一个实体就可以保存。</p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p> 1、封装不变部分，扩展可变部分。<br> 2、提取公共代码，便于维护。<br> 3、行为由父类控制，子类实现。</p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>每一个不同的实现都需要一个子类来实现，导致类的个数增加，使得系统更加庞大。</p>
+<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><p> 1、有多个子类共有的方法，且逻辑相同。<br> 2、重要的、复杂的方法，可以考虑作为模板方法。</p>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>为防止恶意操作，一般模板方法都加上 final 关键词。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>1）创建一个定义操作的 Game 抽象类，其中，模板方法设置为 final，这样它就不会被重写。<br>2）Cricket 和 Football 是扩展了 Game 的实体类，它们重写了抽象类的方法。<br>3）TemplatePatternDemo，我们的演示类使用 Game 来演示模板模式的用法。</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/template.png?raw=true" alt="Image text"></p>
+<p>1、创建一个抽象类Game，它的模板方法被设置为 final。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//模板</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//初始化游戏</span></span><br><span class="line">      initialize();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//开始游戏</span></span><br><span class="line">      startPlay();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//结束游戏</span></span><br><span class="line">      endPlay();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建扩展了Game类的实体类Cricket和 Football。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cricket</span> <span class="keyword">extends</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Cricket Game Finished!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Cricket Game Initialized! Start playing."</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Cricket Game Started. Enjoy the game!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Football</span> <span class="keyword">extends</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Football Game Finished!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Football Game Initialized! Start playing."</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Football Game Started. Enjoy the game!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、在测试类TemplatePatternDemo使用 Game 的模板方法 play() 来演示游戏的定义方式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TemplatePatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      Game game = <span class="keyword">new</span> Cricket();</span><br><span class="line">      game.play();</span><br><span class="line">      System.out.println();</span><br><span class="line">      game = <span class="keyword">new</span> Football();</span><br><span class="line">      game.play();      </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Cricket Game Initialized! Start playing.</span><br><span class="line">Cricket Game Started. Enjoy the game!</span><br><span class="line">Cricket Game Finished!</span><br><span class="line"></span><br><span class="line">Football Game Initialized! Start playing.</span><br><span class="line">Football Game Started. Enjoy the game!</span><br><span class="line">Football Game Finished!</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/template-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/template-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/15/设计模式-模板模式/" data-id="cjuie7wge000yl4s643mxkc7t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-设计模式-观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/15/设计模式-观察者模式/" class="article-date">
@@ -99,7 +152,8 @@
 <p>4）ObserverPatternDemo，演示类，使用 Subject 和实体类对象来演示观察者模式。</p>
 <p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/observer.png?raw=true" alt="Image text"></p>
 <p>1、创建 Subject 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">private</span> List&lt;Observer&gt; observers </span><br><span class="line">      = <span class="keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getState</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(<span class="keyword">int</span> state)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;</span><br><span class="line">      notifyAllObservers();</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Observer observer)</span></span>&#123;</span><br><span class="line">      observers.add(observer);      </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyAllObservers</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">for</span> (Observer observer : observers) &#123;</span><br><span class="line">         observer.update();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、创建 Observer 抽象类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> Subject subject;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>、创建实体观察者类BinaryObserver、OctalObserver和HexaObserver。</span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryObserver</span> <span class="keyword">extends</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">BinaryObserver</span><span class="params">(Subject subject)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.subject = subject;</span><br><span class="line">      <span class="keyword">this</span>.subject.attach(<span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println( <span class="string">"Binary String: "</span> </span><br><span class="line">      + Integer.toBinaryString( subject.getState() ) ); </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建 Observer 抽象类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> Subject subject;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、创建实体观察者类BinaryObserver、OctalObserver和HexaObserver。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryObserver</span> <span class="keyword">extends</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">BinaryObserver</span><span class="params">(Subject subject)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.subject = subject;</span><br><span class="line">      <span class="keyword">this</span>.subject.attach(<span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println( <span class="string">"Binary String: "</span> </span><br><span class="line">      + Integer.toBinaryString( subject.getState() ) ); </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OctalObserver</span> <span class="keyword">extends</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">OctalObserver</span><span class="params">(Subject subject)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.subject = subject;</span><br><span class="line">      <span class="keyword">this</span>.subject.attach(<span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     System.out.println( <span class="string">"Octal String: "</span> </span><br><span class="line">     + Integer.toOctalString( subject.getState() ) ); </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HexaObserver</span> <span class="keyword">extends</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">HexaObserver</span><span class="params">(Subject subject)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.subject = subject;</span><br><span class="line">      <span class="keyword">this</span>.subject.attach(<span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println( <span class="string">"Hex String: "</span> </span><br><span class="line">      + Integer.toHexString( subject.getState() ).toUpperCase() ); </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>4、在测试类ObserverPatternDemo中使用 Subject 和实体观察者对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObserverPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Subject subject = <span class="keyword">new</span> Subject();</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">new</span> HexaObserver(subject);</span><br><span class="line">      <span class="keyword">new</span> OctalObserver(subject);</span><br><span class="line">      <span class="keyword">new</span> BinaryObserver(subject);</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"First state change: 15"</span>);   </span><br><span class="line">      subject.setState(<span class="number">15</span>);</span><br><span class="line">      System.out.println(<span class="string">"Second state change: 10"</span>);  </span><br><span class="line">      subject.setState(<span class="number">10</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -109,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/15/设计模式-观察者模式/" data-id="cjuidlako000w9ks6tcfc0oc3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/15/设计模式-观察者模式/" data-id="cjuie7wgf0010l4s68nbfqsqm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -170,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/15/设计模式-装饰器模式/" data-id="cjuidlako000x9ks6zhonv24u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/15/设计模式-装饰器模式/" data-id="cjuie7wgg0011l4s64in4b8ei" class="article-share-link">Share</a>
       
       
     </footer>
@@ -231,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/15/设计模式-适配器模式/" data-id="cjuidlako000y9ks6qg2368k6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/15/设计模式-适配器模式/" data-id="cjuie7wgh0012l4s6zx5ljtxh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -270,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/15/Spring-jdbcTemplate/" data-id="cjuidlak700039ks60i5qlkmp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/15/Spring-jdbcTemplate/" data-id="cjuie7wf20004l4s60hyhvtbb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -334,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/14/Spring-AOP/" data-id="cjuidlamc00169ks6qo6435aq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/14/Spring-AOP/" data-id="cjuie7whs0018l4s6l9qcoxxt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -388,7 +442,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/14/Spring-注解方式实现bean管理/" data-id="cjuidlak900049ks6668jewxp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/14/Spring-注解方式实现bean管理/" data-id="cjuie7wf20005l4s6q3pca99f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -490,7 +544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/Spring-IOC/" data-id="cjuidlamg00189ks6ok14psc3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/Spring-IOC/" data-id="cjuie7wht0019l4s68d71kuta" class="article-share-link">Share</a>
       
       
     </footer>
@@ -550,7 +604,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-单例模式/" data-id="cjuidlamn001b9ks69dqfv58y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-单例模式/" data-id="cjuie7whx001cl4s6xe1k8m1q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -607,61 +661,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-抽象工厂模式/" data-id="cjuidlal4000z9ks68e0zkgoa" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-设计模式-工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/11/设计模式-工厂模式/" class="article-date">
-  <time datetime="2019-04-11T07:09:10.455Z" itemprop="datePublished">2019-04-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/11/设计模式-工厂模式/">设计模式-工厂模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式（Factory Pattern）是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。</p>
-<h3 id="简单工厂模式："><a href="#简单工厂模式：" class="headerlink" title="简单工厂模式："></a>简单工厂模式：</h3><p>   定义一个创建对象的类，由这个类来封装实例化对象的行为。简单工厂模式不是 23 种里的一种，简而言之，就是有一个专门生产某个产品的类。</p>
-<h3 id="工厂模式："><a href="#工厂模式：" class="headerlink" title="工厂模式："></a>工厂模式：</h3><p>   定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行</p>
-<h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>创建过程在其子类执行。</p>
-<h4 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h4><p> 1、您需要一辆汽车，可以直接从工厂里面提货，而不用去管这辆汽车是怎么做出来的，以及这个汽车里面的具体实现。<br> 2、Hibernate 换数据库只需换方言和驱动就可以。</p>
-<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。</p>
-<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p> 每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</p>
-<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><p>作为一种创建类模式，在任何需要生成复杂对象的地方，都可以使用工厂方法模式。有一点需要注意的地方就是复杂对象适合使用工厂模式，而简单对象，特别是只需要通过 new 就可以完成创建的对象，无需使用工厂模式。如果使用工厂模式，就需要引入一个工厂类，会增加系统的复杂度。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建一个 Shape 接口和实现 Shape 接口的实体类。下一步是定义工厂类 ShapeFactory。<br>FactoryPatternDemo，演示类使用 ShapeFactory 来获取 Shape 对象。它将向 ShapeFactory 传递信息（CIRCLE / RECTANGLE / SQUARE），以便获取它所需对象的类型。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/factory.png?raw=true" alt="Image text"></p>
-<p>1、创建一个接口Shape。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、创建实现接口的实体类Rectangle、Square、Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Rectangle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Square::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Circle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、创建一个工厂类ShapeFactory，生成基于给定信息的实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">   <span class="comment">//使用 getShape 方法获取形状类型的对象</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(shapeType == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">      &#125;        </span><br><span class="line">      <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"SQUARE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>4、使用该工厂，通过传递类型信息来获取实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPatternDemo</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      ShapeFactory shapeFactory = <span class="keyword">new</span> ShapeFactory();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Circle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Circle 的 draw 方法</span></span><br><span class="line">      shape1.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Rectangle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Rectangle 的 draw 方法</span></span><br><span class="line">      shape2.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Square 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape3 = shapeFactory.getShape(<span class="string">"SQUARE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Square 的 draw 方法</span></span><br><span class="line">      shape3.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>5、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inside Circle::draw() method.</span><br><span class="line">Inside Rectangle::draw() method.</span><br><span class="line">Inside Square::draw() method.</span><br></pre></td></tr></table></figure></p>
-<p>参考：<a href="http://www.runoob.com/design-pattern/factory-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/factory-pattern.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-工厂模式/" data-id="cjuidlal400109ks6uq8dmruf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-抽象工厂模式/" data-id="cjuie7wgc000wl4s6eqk5tq97" class="article-share-link">Share</a>
       
       
     </footer>
@@ -707,6 +707,10 @@
       <ul>
         
           <li>
+            <a href="/2019/04/15/设计模式-模板模式/">设计模式-模板模式</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/15/设计模式-观察者模式/">设计模式-观察者模式</a>
           </li>
         
@@ -720,10 +724,6 @@
         
           <li>
             <a href="/2019/04/15/Spring-jdbcTemplate/">Spring-jdbcTemplate</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/14/Spring-AOP/">Spring-AOP</a>
           </li>
         
       </ul>
