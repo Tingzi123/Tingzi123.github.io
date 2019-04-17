@@ -62,6 +62,279 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Spring-注解方式实现bean管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/14/Spring-注解方式实现bean管理/" class="article-date">
+  <time datetime="2019-04-14T08:44:16.195Z" itemprop="datePublished">2019-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/14/Spring-注解方式实现bean管理/">Spring的bean管理（注解方式）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>1、代码里面的特殊标记，使用注解可以完成某些功能<br>2、注解写法：@注解名称（属性名称=属性值）<br>3、注解使用在类、方法、属性上面</p>
+<h3 id="注解开发准备"><a href="#注解开发准备" class="headerlink" title="注解开发准备"></a>注解开发准备</h3><p>1、创建类User<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"add......."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建配置文件，引入约束<br>（1）IOC基本功能，引入beans约束<br>（2）IOC注解开发，还需引入spring-context约束</p>
+<p>3、<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---开启注解扫描</span><br><span class="line">    （<span class="number">1</span>）到包里面扫描类、方法、属性上面是否有注解</span><br><span class="line">---&gt;</span><br><span class="line">&lt;context:component-scan base-package="com"&gt;&lt;/context:component-scan&gt;</span><br><span class="line">&lt;!---base-<span class="keyword">package</span>属性为要开启注解扫描的包---&gt;</span><br><span class="line"></span><br><span class="line">&lt;!---</span><br><span class="line">    只扫描属性上面是否有注解</span><br><span class="line">---&gt;</span><br><span class="line">&lt;context:annotation-config&gt;&lt;/context:annotation-config&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="注解创建对象"><a href="#注解创建对象" class="headerlink" title="注解创建对象"></a>注解创建对象</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com</span><br><span class="line"></span><br><span class="line"><span class="comment">//在类上方使用注解创建对象，相当于&lt;bean id="user" class="com.User"&gt;&lt;/bean&gt;</span></span><br><span class="line"><span class="meta">@Component</span>(value=<span class="string">"user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"add......."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestIOC</span></span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//1、加载spring配置文件，扫描注解</span></span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"bean.xml"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、得到注解创建的对象</span></span><br><span class="line">        User user=(User)context.getBean(<span class="string">"user"</span>);</span><br><span class="line">        user.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建对象的四个注解"><a href="#创建对象的四个注解" class="headerlink" title="创建对象的四个注解"></a>创建对象的四个注解</h3><p>1、@Component<br>2、@Controller：web层<br>3、@Service：业务层<br>4、@Repository：持久层<br>目前四个注解功能一样，都是创建对象，后三个注解为了让类标注本身的用途清晰，spring后续版本会对其增强。</p>
+<h3 id="注解创建多实例对象"><a href="#注解创建多实例对象" class="headerlink" title="注解创建多实例对象"></a>注解创建多实例对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com</span><br><span class="line"></span><br><span class="line"><span class="comment">//@Scope(value="propertype)指明创建多实例对象</span></span><br><span class="line"><span class="meta">@Component</span>(value=<span class="string">"user"</span>)</span><br><span class="line"><span class="meta">@Scope</span>(value=<span class="string">"propertype"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"add......."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="注解注入属性"><a href="#注解注入属性" class="headerlink" title="注解注入属性"></a>注解注入属性</h2><p>1、创建UserService类，用注解@Component(value=”userService”)创建该类对象userService<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建UserDao类，用注解@Component(value=”userDao”)创建该类对象userDao<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userDao"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"dao........"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、在 UserService类中，把UserDao作为一个属性，并在该属性上使用注解@Autowired自动装配，完成对象注入（根据类名UserDao找到该类并自动注入值）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">    <span class="comment">//（1）把UserDao对象作为类型属性</span></span><br><span class="line">    <span class="comment">//（2）在UserDao属性上使用注解完成对象注入,@Autowired自动装配</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以用@Resource(name=”userDao”)完成对象注入<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">    <span class="comment">//（1）把UserDao对象作为类型属性</span></span><br><span class="line">    <span class="comment">//（2）@Resource(name="userDao"),name的属性值为注解创建UserDao对象时的value值，</span></span><br><span class="line">    <span class="comment">// 这里创建UserDao对象的注解是@Component(value="userDao")</span></span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"userDao"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置文件和注解混合使用"><a href="#配置文件和注解混合使用" class="headerlink" title="配置文件和注解混合使用"></a>配置文件和注解混合使用</h3><p>1、创建对象操作使用配置文件方式实现<br>2、注入属性操作使用注解方式实现</p>
+<p>1）创建UserService类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建UserDao1类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"dao1........"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、创建UserDao2类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"dao2........"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、创建配置文件创建对象<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---开启注解扫描</span><br><span class="line">    （<span class="number">1</span>）到包里面扫描类、方法、属性上面是否有注解</span><br><span class="line">---&gt;</span><br><span class="line">&lt;context:component-scan base-package="com"&gt;&lt;/context:component-scan&gt;</span><br><span class="line"></span><br><span class="line">&lt;!---配置对象---&gt;</span><br><span class="line">&lt;bean id="userService" class="com.UserService"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id="userDao1" class="com.UserDao1"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id="userDao2" class="com.UserDao2"&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>5、在UserService中使用注解@Resource注入属性<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"userDao1"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao1 userDao1;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"userDao2"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao2 userDao2;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao1.add();</span><br><span class="line">        userDao2.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/14/Spring-注解方式实现bean管理/" data-id="cjul6pif50007tws6ym0mtm9i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Spring-IOC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/11/Spring-IOC/" class="article-date">
+  <time datetime="2019-04-11T14:17:56.441Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/Spring-IOC/">spring-IOC</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="spring概念"><a href="#spring概念" class="headerlink" title="spring概念"></a>spring概念</h2><p>1、是开源的轻量级框架</p>
+<h4 id="2、核心两部分"><a href="#2、核心两部分" class="headerlink" title="2、核心两部分"></a>2、核心两部分</h4><blockquote>
+<p>1）aop：面向切面编程，扩展功能不是修改源代码实现<br>2）ioc：控制反转，比如有一个类，类里有方法（不是静态方法），若要调用该类的方法，则需要先创建类的对象，通过对象来调用方法，而创建对象需要用new， 而控制反转则是对象的创建不通过new方式实现，而是交给spring框架配置创建类的对象，控制权不在开发者手中，而在上层框架中。</p>
+</blockquote>
+<h4 id="3、一站式框架"><a href="#3、一站式框架" class="headerlink" title="3、一站式框架"></a>3、一站式框架</h4><p>spring在JavaEE三层结构中，每一层都提供不同的解决技术<br>web层：springMVC<br>service层：spring的IOC<br>dao层：spring的jdbcTemplate</p>
+<blockquote>
+<p>注意：<br>1、单例类只能有一个实例。<br>2、单例类必须自己创建自己的唯一实例。<br>3、单例类必须给所有其他对象提供这一实例。</p>
+</blockquote>
+<h2 id="IOC底层原理"><a href="#IOC底层原理" class="headerlink" title="IOC底层原理"></a>IOC底层原理</h2><p>1、底层原理使用技术</p>
+<blockquote>
+<ul>
+<li>1）xml配置文件</li>
+<li>2）dom4j解析xml</li>
+<li>3）工厂设计模式</li>
+<li>4）反射 </li>
+</ul>
+</blockquote>
+<p>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServlet</span></span>&#123;</span><br><span class="line">    <span class="comment">//得到UserService的对象</span></span><br><span class="line">    <span class="comment">//常规方法：new创建</span></span><br><span class="line">    <span class="comment">//IOC方法：工厂模式创建</span></span><br><span class="line">    UserFactory. getService();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一步：创建xml配置文件，配置要创建对象的类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"userService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.ct.UserService"</span>&gt;</span><br><span class="line"><span class="comment">//class属性里要写全类名</span></span><br></pre></td></tr></table></figure></p>
+<p>第二步：创建工厂类，使用dom4j解析配置文件+反射<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserFactory</span></span>&#123;</span><br><span class="line">    <span class="comment">//得到UserService对象的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> UserService <span class="title">getService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//1、使用dom4j解析xml文件，根据id值userService得到class属性值</span></span><br><span class="line">        String classValue=<span class="string">"class属性值"</span>;</span><br><span class="line">        <span class="comment">//2、使用反射创建类对象</span></span><br><span class="line">        Class clazz=Class.forName(classValue);</span><br><span class="line">        <span class="comment">//3、创建类对象</span></span><br><span class="line">        UserService service=clazz.newInstance();</span><br><span class="line">        <span class="keyword">return</span> service;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="spring的IOC操作"><a href="#spring的IOC操作" class="headerlink" title="spring的IOC操作"></a>spring的IOC操作</h2><p>1、把对象的创建交给spring进行管理</p>
+<p>2、IOC操作两部分<br>1）IOC的配置文件方式<br>2）IOC的注解方式</p>
+<h2 id="spring的bean管理（xml方式）"><a href="#spring的bean管理（xml方式）" class="headerlink" title="spring的bean管理（xml方式）"></a>spring的bean管理（xml方式）</h2><p>bean实例化的三种方式<br>1）实用类的默认无参构造函数创建（重点）<br>若类中没有无参构造函数，则出现异常</p>
+<p>2）使用静态工厂创建<br>创建静态方法，返回类对象<br>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserFactory</span></span>&#123;</span><br><span class="line">    <span class="comment">//得到UserService对象的静态方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> UserService <span class="title">getService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> UserService();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---使用静态工厂创建对象---&gt;</span><br><span class="line">&lt;bean id="userService" class="com.UserFactioy" factory-method="getService"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;!---<span class="class"><span class="keyword">class</span>属性值为工厂类的全类名，<span class="title">factory</span>-<span class="title">method</span>的属性值为返回所要创建对象的静态方法名---&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3）使用实例工厂创建<br>创建不是静态方法，返回类对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserFactory</span></span>&#123;</span><br><span class="line">    <span class="comment">//得到UserService对象的普通方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  UserService <span class="title">getService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> UserService();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---使用实例工厂创建对象---&gt;</span><br><span class="line">&lt;!---创建工厂对象---&gt;</span><br><span class="line">&lt;bean id="userFactory" class="com.UserFactioy"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id="userService" class="com.UserFactioy" factory-method="getService"&gt;&lt;/bean&gt;</span><br><span class="line"><span class="comment">//class属性值为工厂类的全类名，factory-method的属性值为返回所要创建对象的方法名</span></span><br></pre></td></tr></table></figure>
+<h2 id="属性注入"><a href="#属性注入" class="headerlink" title="属性注入"></a>属性注入</h2><p>1、创建对象的时候，向类里面的属性设置属性值</p>
+<p>2、Java中属性注入方式</p>
+<blockquote>
+<p>1）set方法注入<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//setName方法为属性name注入值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>2）有参数构造方法注入<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//有参构造方法为属性name注入值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>3）接口注入<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">userName</span><span class="params">(String name)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//接口实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserImpl</span> <span class="keyword">implements</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//在实现类中实现方法并注入属性</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">userName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>3、spring中属性注入方法<br>spring中只支持前两种属性注入方法</p>
+<blockquote>
+<p>1）set方法注入（重点）<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---set方法注入---&gt;</span><br><span class="line">&lt;bean id=<span class="string">"user"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.User"</span>&gt;</span><br><span class="line">    &lt;!---将value中的值注入到User类的属性name中---&gt;</span><br><span class="line">    &lt;property name="name" value="张三李四" &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>2）有参数构造方法注入<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---有参数构造方法注入---&gt;</span><br><span class="line">&lt;bean id=<span class="string">"user"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.User"</span>&gt;</span><br><span class="line">    &lt;!---将value中的值注入到User类的属性name中---&gt;</span><br><span class="line">    &lt;constructor-arg name="name" value="张三李四" &lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="注入对象类型属性（重点）"><a href="#注入对象类型属性（重点）" class="headerlink" title="注入对象类型属性（重点）"></a>注入对象类型属性（重点）</h2><p>例：<br>1、创建UserService和UserDao类<br>1）在UserService中得到UserDao对象<br>具体实现：<br>（1）在UserService里把UserDao对象作为类型属性<br>（2）创建生成UserDao对象属性的set方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">    <span class="comment">//（1）把UserDao对象作为类型属性</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//（2）set方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDao</span><span class="params">(UserDao userDao)</span></span>&#123;</span><br><span class="line">    <span class="comment">//（1）在UserService里把UserDao对象作为类型属性</span></span><br><span class="line">        <span class="keyword">this</span>.userDao=userDao;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"dao........"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）在配置文件中配置注入关系<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---注入对象类型属性---&gt;</span><br><span class="line">&lt;!---<span class="number">1</span>、配置UserService和UserDao对象---&gt;</span><br><span class="line">&lt;bean id="userDao" class="com.UserDao"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id=<span class="string">"userService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.UserService"</span>&gt;</span><br><span class="line">    &lt;!---注入UserDao对象</span><br><span class="line">        name属性值：UserService类里的对象属性名称</span><br><span class="line">        ref属性：UserDao配置的bean标签中的id值</span><br><span class="line">        由ref属性代替value属性，因为这里配置的是对象，value的值为字符串</span><br><span class="line">    ---&gt;</span><br><span class="line">    &lt;property name="userDao" ref="userDao" &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="p名称空间注入"><a href="#p名称空间注入" class="headerlink" title="p名称空间注入"></a>p名称空间注入</h3><p>1、加一条schema约束<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:p=<span class="string">"http://www.springframework.org/schema/p"</span></span><br></pre></td></tr></table></figure></p>
+<p>2、创建User类及其属性userName<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String userName;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//有参构造方法为属性name注入值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String userName)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userName=userName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、注入属性<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id="user" class="com.User" p:userName="张三"&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="spring注入复杂数据"><a href="#spring注入复杂数据" class="headerlink" title="spring注入复杂数据"></a>spring注入复杂数据</h3><p>1、数组<br>2、list集合<br>3、map集合<br>4、properties类型</p>
+<p>第一步：编写测试类Person<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String pname;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPname</span><span class="params">(String pname)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pname = pname;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String[] arrs;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; list;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,String&gt; map;</span><br><span class="line">    <span class="keyword">private</span> Properties properties;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setArrs</span><span class="params">(String[] arrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.arrs = arrs;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setList</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.list = list;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMap</span><span class="params">(Map&lt;String, String&gt; map)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.map = map;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProperties</span><span class="params">(Properties properties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.properties = properties;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第二步：配置bean<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---注入复杂类型属性值---&gt;</span><br><span class="line">&lt;bean id=<span class="string">"person"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.Person"</span>&gt;</span><br><span class="line">    &lt;!---<span class="number">1</span>、数组---&gt;</span><br><span class="line">    &lt;property name=<span class="string">"arrs"</span>&gt;</span><br><span class="line">        &lt;!---name中为要注入的属性名称---&gt;</span><br><span class="line">        &lt;list&gt;</span><br><span class="line">            &lt;value&gt;小王&lt;/value&gt;</span><br><span class="line">            &lt;value&gt;小李&lt;/value&gt;</span><br><span class="line">            &lt;value&gt;小马&lt;/value&gt;</span><br><span class="line">        &lt;/list&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!---<span class="number">2</span>、list---&gt;</span><br><span class="line">    &lt;property name=<span class="string">"list"</span>&gt;</span><br><span class="line">        &lt;!---name中为要注入的属性名称---&gt;</span><br><span class="line">        &lt;list&gt;</span><br><span class="line">            &lt;value&gt;小五&lt;/value&gt;</span><br><span class="line">            &lt;value&gt;小六&lt;/value&gt;</span><br><span class="line">            &lt;value&gt;小七&lt;/value&gt;</span><br><span class="line">        &lt;/list&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!---<span class="number">3</span>、map---&gt;</span><br><span class="line">    &lt;property name=<span class="string">"map"</span>&gt;</span><br><span class="line">        &lt;!---name中为要注入的属性名称---&gt;</span><br><span class="line">        &lt;map&gt;</span><br><span class="line">            &lt;entry key="aa" value="小喵"&gt;&lt;/entry&gt;</span><br><span class="line">            &lt;entry key="bb" value="小猪"&gt;&lt;/entry&gt;</span><br><span class="line">            &lt;entry key="cc" value="小狗"&gt;&lt;/entry&gt;</span><br><span class="line">        &lt;/map&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!---<span class="number">4</span>、properties---&gt;</span><br><span class="line">    &lt;property name=<span class="string">"properties"</span>&gt;</span><br><span class="line">        &lt;!---name中为要注入的属性名称---&gt;</span><br><span class="line">        &lt;props&gt;</span><br><span class="line">            &lt;prop key="driverclass"&gt;com.mysql.jdbc.Driver&lt;/prop&gt;</span><br><span class="line">            &lt;prop key="username"&gt;root&lt;/prop&gt;</span><br><span class="line">        &lt;/props&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="IOC与DI的区别"><a href="#IOC与DI的区别" class="headerlink" title="IOC与DI的区别"></a>IOC与DI的区别</h2><p>1、IOC：控制反转，把对象创建交给spring进行配置（本质工作是创建对象）<br>例：在spring中利用bean配置来创建对象<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---创建User类的对象---&gt;</span><br><span class="line">&lt;bean id=<span class="string">"user"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.User"</span>&gt;</span><br><span class="line">   </span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2、DI：依赖注入，向类里面的属性注入值（本质工作是为一个已经创建好的对象设置它的属性值）<br>例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"user"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.User"</span>&gt;</span><br><span class="line">    &lt;!---为User类的对象中的username属性设置值为张三李四---&gt;</span><br><span class="line">    &lt;property name="username" value="张三李四" &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3、关系：依赖注入不能单独存在，需要在IOC基础之上完成操作（想要为一个对象设置它的属性值，必须要先创建对象）</p>
+<h2 id="Spring整合web项目原理"><a href="#Spring整合web项目原理" class="headerlink" title="Spring整合web项目原理"></a>Spring整合web项目原理</h2><p>例：如下<br>1、Person类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String pname;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPname</span><span class="params">(String pname)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pname = pname;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(pname+<span class="string">":test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、bean配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"person"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.Person"</span>&gt;</span><br><span class="line">    &lt;!---将value中的值注入到User类的属性name中---&gt;</span><br><span class="line">    &lt;property name="pname" value="张三李四" &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3、得到Person对象并调用其test1（）方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestIOC</span></span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//1、加载spring配置文件，根据配置文件创建对象</span></span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"bean.xml"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、得到配置文件中创建的对象</span></span><br><span class="line">        Person person=(Person)context.getBean(<span class="string">"person"</span>);</span><br><span class="line">        person.test1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>整合原理：<br>1、加载spring核心配置文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、加载spring配置文件，根据配置文件创建对象</span></span><br><span class="line">ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"bean.xml"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>ApplicationContext是多实例的，每次new ClassPathXmlApplicationContext()这个对象将会使得效率很低，因为每创建一个对象就会调用一次。</p>
+<p>2、改善思想：把加载配置文件和创建对象过程，在服务器启动时完成，把压力交给服务器。</p>
+<p>3、实现原理：<br>1）ServletContext对象<br>2）监听器</p>
+<p>（1）在服务器启动的时候，为每个项目创建一个ServletContext对象<br>（2）在ServletContext对象创建的时候，使用监听器可以知道ServletContext对象什么时候创建<br>（3）当监听器知道ServletContext对象创建时，就加载spring配置文件，把配置文件配置的对象创建出来<br>（4）把创建出来的对象放到ServletContext域对象里面（setAttribute方法可以实现该功能）<br>（5）获取对象时，到ServletContext域中得到（getAttribute方法得到）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/11/Spring-IOC/" data-id="cjul6piiv001btws6woa2frvt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/11/设计模式-单例模式/" class="article-date">
+  <time datetime="2019-04-11T08:33:56.871Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/设计模式-单例模式/">设计模式-单例模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
+<blockquote>
+<p>注意：<br>1、单例类只能有一个实例。<br>2、单例类必须自己创建自己的唯一实例。<br>3、单例类必须给所有其他对象提供这一实例。</p>
+</blockquote>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<h4 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h4><p>一个全局使用的类频繁地创建与销毁。</p>
+<h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>构造函数是私有的。</p>
+<h4 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h4><p>1、一个班级只有一个班主任。<br>2、Windows 是多进程多线程的，在操作一个文件的时候，就不可避免地出现多个进程或线程同时操作一个文件的现象，所以所有文件的处理必须通过唯一的实例来进行。<br>3、一些设备管理器常常设计为单例模式，比如一个电脑有两台打印机，在输出的时候就要处理不能两台打印机打印同一个文件。</p>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>1、在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。<br>2、避免对资源的多重占用（比如写文件操作）。</p>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p>没有接口，不能继承，与单一职责原则冲突，一个类应该只关心内部逻辑，而不关心外面怎么样来实例化。</p>
+<h4 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h4><p>1、要求生产唯一序列号。<br>2、WEB 中的计数器，不用每次刷新都在数据库里加一次，用单例先缓存起来。<br>3、创建的一个对象需要消耗的资源过多，比如 I/O 与数据库的连接等。</p>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><p>getInstance() 方法中需要使用同步锁 synchronized (Singleton.class) 防止多线程同时进入造成 instance 被多次实例化。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建一个 SingleObject 类。SingleObject 类有它的私有构造函数和本身的一个静态实例。<br>SingleObject 类提供了一个静态方法，供外界获取它的静态实例。<br>SingletonPatternDemo，演示类使用 SingleObject 类来获取 SingleObject 对象。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/singleton.png?raw=true" alt="Image text"></p>
+<p>1、创建一个 Singleton 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//创建 SingleObject 的一个对象</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//让构造函数为 private，这样该类就不会被实例化</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//获取唯一可用的对象</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Hello World!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、从 singleton 类获取唯一的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//不合法的构造函数</span></span><br><span class="line">      <span class="comment">//编译时错误：构造函数 SingleObject() 是不可见的</span></span><br><span class="line">      <span class="comment">//SingleObject object = new SingleObject();</span></span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取唯一可用的对象</span></span><br><span class="line">      SingleObject object = SingleObject.getInstance();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//显示消息</span></span><br><span class="line">      object.showMessage();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World!</span><br></pre></td></tr></table></figure></p>
+<h2 id="单例模式的几种实现方式"><a href="#单例模式的几种实现方式" class="headerlink" title="单例模式的几种实现方式"></a>单例模式的几种实现方式</h2><p>1、懒汉式，线程不安全<br>是否 Lazy 初始化：是<br>是否多线程安全：否<br>实现难度：易<br>描述：这种方式是最基本的实现方式，这种实现最大的问题就是不支持多线程。因为没有加锁 synchronized，所以严格意义上它并不算单例模式。<br>这种方式 lazy loading 很明显，不要求线程安全，在多线程不能正常工作。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、懒汉式，线程安全<br>是否 Lazy 初始化：是<br>是否多线程安全：是<br>实现难度：易<br>描述：这种方式具备很好的 lazy loading，能够在多线程中很好的工作，但是，效率很低，99% 情况下不需要同步。<br>优点：第一次调用才初始化，避免内存浪费。<br>缺点：必须加锁 synchronized 才能保证单例，但加锁会影响效率。<br>getInstance() 的性能对应用程序不是很关键（该方法使用不太频繁）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、饿汉式<br>是否 Lazy 初始化：否<br>是否多线程安全：是<br>实现难度：易<br>描述：这种方式比较常用，但容易产生垃圾对象。<br>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。<br>它基于 classloader 机制避免了多线程的同步问题，不过，instance 在类装载时就实例化，虽然导致类装载的原因有很多种，在单例模式中大多数都是调用 getInstance 方法， 但是也不能确定有其他的方式（或者其他的静态方法）导致类装载，这时候初始化 instance 显然没有达到 lazy loading 的效果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、双检锁/双重校验锁（DCL，即 double-checked locking）<br>JDK 版本：JDK1.5 起<br>是否 Lazy 初始化：是<br>是否多线程安全：是<br>实现难度：较复杂<br>描述：这种方式采用双锁机制，安全且在多线程情况下能保持高性能。<br>getInstance() 的性能对应用程序很关键。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;  </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();  </span><br><span class="line">        &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> singleton;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5、登记式/静态内部类<br>是否 Lazy 初始化：是<br>是否多线程安全：是<br>实现难度：一般<br>描述：这种方式能达到双检锁方式一样的功效，但实现更简单。对静态域使用延迟初始化，应使用这种方式而不是双检锁方式。这种方式只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。<br>这种方式同样利用了 classloader 机制来保证初始化 instance 时只有一个线程，它跟第 3 种方式不同的是：第 3 种方式只要 Singleton 类被装载了，那么 instance 就会被实例化（没有达到 lazy loading 效果），而这种方式是 Singleton 类被装载了，instance 不一定被初始化。因为 SingletonHolder 类没有被主动使用，只有通过显式调用 getInstance 方法时，才会显式装载 SingletonHolder 类，从而实例化 instance。想象一下，如果实例化 instance 很消耗资源，所以想让它延迟加载，另外一方面，又不希望在 Singleton 类加载时就实例化，因为不能确保 Singleton 类还可能在其他的地方被主动使用从而被加载，那么这个时候实例化 instance 显然是不合适的。这个时候，这种方式相比第 3 种方式就显得很合理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> SingletonHolder.INSTANCE;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6、枚举<br>JDK 版本：JDK1.5 起<br>是否 Lazy 初始化：否<br>是否多线程安全：是<br>实现难度：易<br>描述：这种实现方式还没有被广泛采用，但这是实现单例模式的最佳方法。它更简洁，自动支持序列化机制，绝对防止多次实例化。<br>这种方式是 Effective Java 作者 Josh Bloch 提倡的方式，它不仅能避免多线程同步问题，而且还自动支持序列化机制，防止反序列化重新创建新的对象，绝对防止多次实例化。不过，由于 JDK1.5 之后才加入 enum 特性，用这种方式写不免让人感觉生疏，在实际工作中，也很少用。<br>不能通过 reflection attack 来调用私有构造方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Singleton &#123;  </span><br><span class="line">    INSTANCE;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whateverMethod</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一般情况下，不建议使用第 1 种和第 2 种懒汉方式，建议使用第 3 种饿汉方式。只有在要明确实现 lazy loading 效果时，才会使用第 5 种登记方式。如果涉及到反序列化创建对象时，可以尝试使用第 6 种枚举方式。如果有其他特殊的需求，可以考虑使用第 4 种双检锁方式。</p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/singleton-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/singleton-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-单例模式/" data-id="cjul6piiv001gtws64418qnfa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式-抽象工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/11/设计模式-抽象工厂模式/" class="article-date">
+  <time datetime="2019-04-11T07:53:16.967Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/设计模式-抽象工厂模式/">设计模式-抽象工厂模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="依赖抽象原则"><a href="#依赖抽象原则" class="headerlink" title="依赖抽象原则"></a>依赖抽象原则</h2><p>1、变量不要持有具体类的引用<br>2、不要让类继承自具体类，要继承自抽象类或接口<br>3、不要覆盖基类中已实现的方法</p>
+<h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><p>抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂创建其他工厂。该超级工厂又称为其他工厂的工厂。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显式指定它们的类。每个生成的工厂都能按照工厂模式提供对象。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+<h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>在一个工厂里聚合多个同类产品。</p>
+<h4 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h4><p>工作了，为了参加一些聚会，肯定有两套或多套衣服，比如说有商务装（成套，一系列具体产品）、时尚装（成套，一系列具体产品），甚至对于一个家庭来说，可能有商务女装、商务男装、时尚女装、时尚男装，这些也都是成套的，即一系列具体产品。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建 Shape 和 Color 接口和实现这些接口的实体类。<br>下一步是创建抽象工厂类 AbstractFactory。接着定义工厂类 ShapeFactory 和 ColorFactory，这两个工厂类都是扩展了 AbstractFactory。<br>然后创建一个工厂创造器/生成器类 FactoryProducer。<br>AbstractFactoryPatternDemo，演示类使用 FactoryProducer 来获取 AbstractFactory 对象。它将向 AbstractFactory 传递形状信息 Shape（CIRCLE / RECTANGLE / SQUARE），以便获取它所需对象的类型。同时它还向 AbstractFactory 传递颜色信息 Color（RED / GREEN / BLUE），以便获取它所需对象的类型。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/absfactory.png?raw=true" alt="Image text"></p>
+<p>1、为形状创建一个接口Shape。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建实现接口Shape的实体类Rectangle、Square、Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Rectangle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Square::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Circle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、为颜色创建一个接口Color<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">fill</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、创建实现接口Color的实体类Red、Green、Blue。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Red</span> <span class="keyword">implements</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fill</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Red::fill() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Green</span> <span class="keyword">implements</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fill</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Green::fill() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Blue</span> <span class="keyword">implements</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fill</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Blue::fill() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5、为 Color 和 Shape 对象创建抽象类来获取工厂。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Color <span class="title">getColor</span><span class="params">(String color)</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Shape <span class="title">getShape</span><span class="params">(String shape)</span> </span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6、创建扩展了 AbstractFactory 的工厂类ShapeFactory和ColorFactory，基于给定的信息生成实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(shapeType == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">      &#125;        </span><br><span class="line">      <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"SQUARE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorFactory</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Color <span class="title">getColor</span><span class="params">(String color)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(color == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">      &#125;        </span><br><span class="line">      <span class="keyword">if</span>(color.equalsIgnoreCase(<span class="string">"RED"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Red();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(color.equalsIgnoreCase(<span class="string">"GREEN"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Green();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(color.equalsIgnoreCase(<span class="string">"BLUE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Blue();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>7、创建一个工厂创造器/生成器类，通过传递形状或颜色信息来获取工厂。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryProducer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AbstractFactory <span class="title">getFactory</span><span class="params">(String choice)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(choice.equalsIgnoreCase(<span class="string">"SHAPE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ShapeFactory();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(choice.equalsIgnoreCase(<span class="string">"COLOR"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> ColorFactory();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>8、使用 FactoryProducer 来获取 AbstractFactory，通过传递类型信息来获取实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactoryPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取形状工厂</span></span><br><span class="line">      AbstractFactory shapeFactory = FactoryProducer.getFactory(<span class="string">"SHAPE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取形状为 Circle 的对象</span></span><br><span class="line">      Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Circle 的 draw 方法</span></span><br><span class="line">      shape1.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取形状为 Rectangle 的对象</span></span><br><span class="line">      Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Rectangle 的 draw 方法</span></span><br><span class="line">      shape2.draw();</span><br><span class="line">      </span><br><span class="line">      <span class="comment">//获取形状为 Square 的对象</span></span><br><span class="line">      Shape shape3 = shapeFactory.getShape(<span class="string">"SQUARE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Square 的 draw 方法</span></span><br><span class="line">      shape3.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取颜色工厂</span></span><br><span class="line">      AbstractFactory colorFactory = FactoryProducer.getFactory(<span class="string">"COLOR"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取颜色为 Red 的对象</span></span><br><span class="line">      Color color1 = colorFactory.getColor(<span class="string">"RED"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Red 的 fill 方法</span></span><br><span class="line">      color1.fill();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取颜色为 Green 的对象</span></span><br><span class="line">      Color color2 = colorFactory.getColor(<span class="string">"Green"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Green 的 fill 方法</span></span><br><span class="line">      color2.fill();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取颜色为 Blue 的对象</span></span><br><span class="line">      Color color3 = colorFactory.getColor(<span class="string">"BLUE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Blue 的 fill 方法</span></span><br><span class="line">      color3.fill();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>9、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Inside Circle::draw() method.</span><br><span class="line">Inside Rectangle::draw() method.</span><br><span class="line">Inside Square::draw() method.</span><br><span class="line">Inside Red::fill() method.</span><br><span class="line">Inside Green::fill() method.</span><br><span class="line">Inside Blue::fill() method.</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/factory-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/factory-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-抽象工厂模式/" data-id="cjul6pig60010tws6ois190qm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-设计模式-工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/11/设计模式-工厂模式/" class="article-date">
@@ -106,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-工厂模式/" data-id="cjuie7wgd000xl4s62d3ujik1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-工厂模式/" data-id="cjul6pig6000ztws6qz8gbthk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -178,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjuie7whv001bl4s6lb8rcgvc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/设计模式-代理模式/" data-id="cjul6piiv001ftws6z1bygmys" class="article-share-link">Share</a>
       
       
     </footer>
@@ -227,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/10/设计模式-备忘录模式/" data-id="cjuie7wgb000vl4s6ka6maetr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/10/设计模式-备忘录模式/" data-id="cjul6pig60011tws6wcx5maye" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/05/设计模式-策略模式/" data-id="cjuie7wgf000zl4s6pjq5wlu1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/05/设计模式-策略模式/" data-id="cjul6piga0012tws6v8hggr40" class="article-share-link">Share</a>
       
       
     </footer>
@@ -330,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/05/设计模式-RMI/" data-id="cjuie7wga000tl4s6mdh4oq65" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/05/设计模式-RMI/" data-id="cjul6pify000ttws6tl2bwug3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -377,305 +650,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/01/Java-对象导论/" data-id="cjuie7wf20001l4s6tygxp9wy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-数据库总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/30/数据库总结/" class="article-date">
-  <time datetime="2019-03-30T08:55:03.830Z" itemprop="datePublished">2019-03-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/30/数据库总结/">数据库总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、 where、having之间的区别和用法<br>聚合函数是比较where、having 的关键。 </p>
-<p>where、聚合函数、having 在from后面的执行顺序：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">where&gt;聚合函数(sum,min,max,avg,count)&gt;having</span><br></pre></td></tr></table></figure></p>
-<p>注意事项 ：<br>1、where 后不能跟聚合函数，因为where执行顺序大于聚合函数。<br>2、where 子句的作用是在对查询结果进行分组前，将不符合where条件的行去掉，即在分组之前过滤数据，条件中不能包含聚组函数，<br>使用where条件显示特定的行。</p>
-<p>3、having 子句的作用是筛选满足条件的组，即在分组之后过滤数据，条件中经常包含聚组函数，使用having 条件显示特定的组，也可以使用多个分组标准进行分组。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/30/数据库总结/" data-id="cjuie7wg3000kl4s614cmc40k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-OS设备管理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/30/OS设备管理/" class="article-date">
-  <time datetime="2019-03-30T08:07:25.857Z" itemprop="datePublished">2019-03-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/30/OS设备管理/">操作系统-设备管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、概 述<br>1 、 I / O 的 特 点<br>（1）I/O性能经常成为系统性能的瓶颈，CPU性能越高，与I/O差距越大<br>（2）操作系统庞大复杂的原因之一是：资源多、杂，并发，均来自I/O<br>（3）异步性<br>处理机与I/O设备各自以不同的速度工作，可以并行工作，无需相互等待，通过中断方式或DMA方式交互。<br>（4）接口通用性<br>I/O设备与处理机连接通过通用接口。</p>
-<p>1.1 设备的分类<br>（1）按使用特性分类<br>存储型设备：用来保存信息的设备，比如磁盘磁带等。<br>输入型设备：键盘、鼠标、物理传感设备<br>输出型设备：打印机、绘图仪（可保存）<br>输入输出型设备（交互型设备）</p>
-<p>（2）按信息交换单位分类<br>块设备：<br>以数据块为单位存储、传输信息；比如磁盘、磁带、光盘等<br>字符设备：<br>以字符为单位存储、传输信息；不寻址，没有查找操作；比如键盘、鼠标、打印机等</p>
-<p>（3）按外部设备的从属关系分<br>系统设备：<br>指操作系统生成时，登记在系统中的标准设备（如终端、打印机、磁盘机等）；<br>用户设备：<br>指在系统生成时，未登记在系统中的非标准设备（如鼠标）。</p>
-<p>（4）按资源分配角度分<br>独占设备：<br>在一段时间内只能有一个进程使用的设备，一般为低速I/O设备（如打印机，磁带等）<br>共享设备：<br>在一段时间内可有多个进程共同使用的设备，多个进程以交叉的方式来使用设备，其资源利用率高（如硬盘）<br>虚拟设备：<br>在一类设备上模拟另一类设备，常用共享设备模拟独占设备，目的是为了提高利用率</p>
-<p>1.2 设 备 管 理 的 目 标 和 任 务<br>（1）按照用户的请求，控制设备的各种操作，完成I/O设备与内存之间的数据交换（包括设备分配与回收；设备中断处理；缓冲区管理），<br>最终完成用户的I/O请求<br>– 设备分配与回收<br>– 建立统一的独立于设备的接口<br>– 实现真正的I/O操作<br>– 处理外部设备的中断处理<br>– 管理I/O缓冲区，减少外设和内存及CPU之间的速度不匹配问题</p>
-<p>（2）向用户提供使用外部设备的方便接口，使用户摆脱繁琐的编程负担</p>
-<p>（3）充分利用各种技术（通道，中断，缓冲等）提高CPU与设备、设备与设备之间的并行工作能力，充分利用资源，提高资源利用率</p>
-<p>2、数据传输控制<br>2.1 程序控制I/O技术<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev1.png?raw=true" alt="Image text"><br>– 由处理器提供I/O相关指令来实现<br>– I/O处理单元处理请求并设置I/O状态寄存器相关位<br>– 不中断处理器，也不给处理器警告信息<br>– 处理器定期轮询I/O单元的状态，直到处理完毕<br>– I/O软件包含直接操纵I/O的指令<br>• 控制指令: 用于激活外设，并告诉它做什么<br>• 状态指令: 用于测试I/O控制中的各种状态和条件<br>• 数据传送指令: 用于在设备和主存之间来回传送数据</p>
-<p>– 程序直接控制方式简单，不需要多少硬件支持，但是存在以下缺点：<br>• CPU和外设只能串行工作。由于CPU处理速度远快于外设，CPU的大量时间都处于循环测试等待状态，使得处理机利用率大大降低<br>• CPU在一段时间内只能和一台外设交换数据，从而不能实现设备之间的并行工作<br>• 由于程序直接控制方式通过不断测试状态位来控制数据传送，因此无法发现和处理其他设备的问题</p>
-<p>2.2 中断驱动I/O技术<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev2.png?raw=true" alt="Image text"><br>– 首先，进程发出指令启动外设，同时将状态寄存器中的中断允许位打开；<br>– 进程发出指令后，该进程放弃处理机，进程调度程序调度其他就绪进程占据处理机；<br>– 当输入完成时，I/O控制器通过中断请求线向CPU发出中断信号，CPU接收到信号后做相应处理（将缓冲寄存器中数据送到指定内存单元，<br>把阻塞进程唤醒，再返回到被中断进程继续执行）<br>– 在以后的“某个时刻”，被唤醒进程（就绪态）被进程调度程序选中重新占据处理机，从约定的内存单元中取数据进一步处理<br>（如果数据没完，重复）<br>– 优点：<br>• 不再循环测试状态位，提高CPU利用率且支持设备和设备以及设备和CPU之间的并行工作。<br>– 缺点：<br>• 由于数据缓冲寄存器较小，故中断次数较多，这仍将损耗大量CPU时间，同时有可能造成数据丢失（数据缓冲寄存器的数据来不及取走）</p>
-<p>2.3 D M A 技 术<br>• 直接存储器访问（DMA：Direct Memory Access）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev3.png?raw=true" alt="Image text"><br>• 在外设和内存之间开辟直接的数据交换通路，目的是为了减少CPU的干预<br>• 自动控制数据在内存和I/O单元间的传送<br>• 大大提高处理I/O的效能<br>– 当处理器需要读写数据时给DMA控制单元发送一条命令。<br>– 处理器发送完命令后就可处理其它事情<br>– DMA控制器将自动管理数据的传送<br>– 当这个过程完成后，它会给处理器发一个中断<br>– 处理器只在开始传送和传送结束时关注一下即可<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev4.png?raw=true" alt="Image text"></p>
-<p>DMA方式与中断的主要区别:<br>– 中断方式是在数据缓冲寄存器满后，发中断请求，CPU进行中断处理<br>– DMA方式则是在所要求传送的数据块全部传送结束时要求CPU进行中断处理<br>– 大大减少了CPU进行中断处理的次数<br>– 中断方式的数据传送是由CPU控制完成的<br>– 而DMA方式则是在DMA控制器的控制下不经过CPU控制完成的</p>
-<p>DMA 方式的局限性；<br>– 数据传送方向、内存始址、数据长度等都由CPU控制；并且每台设备需一个DMA控制器，当外设较多时控制会进一步复杂化。</p>
-<p>3、通 道<br>– 通道又称为I/O处理机<br>– 引入通道的目的:<br>• 为了使CPU从I/O事务中解脱出来<br>• 为了提高CPU与设备、设备与设备之间的并行度</p>
-<p>– 定义：<br>• 通道是独立于CPU的专门负责数据输入/输出传输工作的处理机，对外部设备实现统一管理，代替CPU对输入/输出操作进行控制，从而使输入，输出操作可与CPU并行操作。<br>– 通道有自己的通道指令。</p>
-<p>通道分类：<br>1）字节多路通道<br>• 字节多路通道以字节为单位传输信息，它可以分时地执行多个通道程序。<br>– 主要连接以字节为单位的低速I/O设备。如打印机，终端。<br>– 以字节为单位交叉传输，当一台传送一个字节后，立即转去为另一台传送字节</p>
-<p>2）选择通道<br>• 选择通道是以成组方式工作的，即每次传送一批数据，故传送速度很高。选择通道在一段时间内只能执行一个通道程序，<br>只允许一台设备进行数据传输</p>
-<p>3）数组(成组)多路通道<br>• 它结合了选择通道传送速度高和字节多路通道能进行分时并行操作的优点。它先为一台设备执行一条通道指令，然后自动转接，<br>为另一台设备执行一条通道指令<br>– 主要连接高速设备</p>
-<p>4、中断技术<br>– 中断机制是操作系统得以正常工作的最重要的手段<br>– 它使得OS可以捕获普通程序发出的系统功能调用<br>– 及时处理设备的中断请求<br>– 防止用户程序中破坏性的活动等等</p>
-<p>4.1 中断的概念<br>• 指CPU对系统中或系统外发生随机事件的响应<br>• 如外部设备完成数据传输，出现异常等<br>• CPU对系统发生的某个事件作出的一种反应<br>– CPU暂停正在执行的程序，保留现场后自动转去执行相应事件的处理程序，处理完成后返回断点，继续执行被打断的程序<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev5.png?raw=true" alt="Image text"></p>
-<p>引入中断的目的<br>• 解决主机与外设的并行工作问题<br>• 提高可靠性<br>• 实现实时控制<br>– 特点：<br>• 中断是随机的<br>• 中断是可恢复的<br>• 中断是自动处理的<br>– 中断源：引起中断发生的事件<br>– 中断寄存器：记录中断<br>– 中断字：中断寄存器的内容</p>
-<p>– 系统堆栈:<br>在内存开辟的一块区域，用于临时保存现场</p>
-<p>– 关中断：某些情况下，尽管中断源发出了中断请求，但CPU的PSW的中断允许位已被消除，从而不允许CPU响应中断<br>– 开中断：当设置PSW的中断允许位时，CPU可以接受中断<br>– 开中断和关中断是为了保证某些程序执行的原子性<br>– 中断屏蔽：指系统用软件方式有选择地封锁部分中断而允许其他部分的中断仍能得到响应。比如PSW可以设置优先级，可以屏蔽掉优先级低的中断</p>
-<p>4.2 中断类型<br>强迫性中断<br>• 正在运行的程序所不期望的，由于某种硬件故障或外部请求引起的<br>– 自愿性中断<br>• 用户在程序中有意识安排的中断，是由于用户在编制程序时因为要求操作系统提供服务，有意使用“访管”指令或系统调用，使中断发生</p>
-<p>强迫性中断<br>• 输入/输出(I/O)中断：主要来自外部设备通道<br>• 程序性中断：运行程序中本身的中断(如溢出,缺页中断,缺段中断,地址越界)<br>• 时钟中断<br>• 硬件故障</p>
-<p>自愿性中断<br>• 执行I/O，创建进程，分配内存<br>• 信号量操作，发送/接收消息</p>
-<p>– 外中断<br>来自处理机和内存外部的中断，包括I/O中断、时钟中断等，也称为中断<br>– 内中断<br>与外中断相反，比如溢出、系统调用等，称为陷阱</p>
-<p>在多级中断系统中，可能同时有多个中断请求，CPU接受中断优先级为最高的那个中断<br>– 忽略其中断优先级较低的那些中断<br>– 在一些机器中，中断优先级按中断类型划分：<br>• 机器故障中断的优先级最高<br>• 程序中断和访问管理程序中断次之<br>• 外部中断更次之<br>• 输入输出的优先级最低</p>
-<p>中断和陷阱的区别：<br>陷阱的优先级一般高于中断<br>• 陷阱通常由正在执行的指令引起的（比如系统调用），而中断则是由与现行指令无关的中断源引起的<br>• 陷阱处理程序的服务为当前进程所用，而中断处理程序提供的服务则不是为了当前进程的<br>• CPU在执行完一条指令后，下一条指令之前响应中断，而在一条指令执行中也可以响应陷阱</p>
-<p>中断处理过程：<br>（1）设备给处理器发一个中断信号<br>（2）处理器处理完当前指令后响应中断，延迟非常短（前提是处理器没有关闭中断）<br>（3）保存中断点的程序执行上下文环境，这通常包括程序状态字PSW，程序计数器PC中的下一条指令位置，一些寄存器的值，它们通常保存在系统栈中,处理器状态被切换到管态<br>（4）处理器根据中断源查询中断向量表，获得与该中断相联系的处理程序入口地址，并将PC置成该地址，处理器开始一个新的指令周期，控制转移到中断处理程序<br>（5）中断处理程序开始工作，包括检查I/O相关的状态信息，操纵I/O设备或者在设备和主存之间传送数<br>据等等<br>（6）中断处理结束时，处理器检测到中断返回指令，被中断程序的上下文环境从系统栈中被恢复，处理器状态恢复成原来的状态。<br>（7）PSW和PC被恢复成中断前的值，处理器开始一个新的指令周期，中断处理结束</p>
-<p>多个中断的处理：<br>– 若中断处理过程中又发生中断，引起多中断处理问题<br>– 两种策略方法：<br>– 第一种：<br>• 处理一个中断时禁止中断，对任何新中断置之不理，在这期间发生的中断将保持挂起状态<br>– 实现方法：<br>• 在任何中断处理前使用禁止中断指令<br>• 在处理结束后开放中断指令<br>• 所有中断严格按照发生顺序处理<br>• 不考虑中断紧急程度，无法达到较严格时间要求</p>
-<p>– 第二种：中断按照优先度分级<br>• 允许优先级高中断打断优先级低的中断处理过程<br>• 这样中断优先级技术将引起中断处理的嵌套<br>• 只要合适地定义中断的优先级别，方法一的弊端大都可以克服</p>
-<p>典型的中断处理：<br>1）时钟中断<br>• 维护软件时钟：系统有若干个软件时钟，控制定时任务以及进程的处理器时间配额，时钟中断需要维护、定时更新这些软件时钟<br>• 处理器时间调度：维护当前进程时间片软件时钟，并在当前进程时间片到时以后运行调度程序选择下一个被调度的进程<br>• 控制系统定时任务：通过软件时钟和调度程序定时激活一些系统任务，如监测死锁、系统记帐、系统审计等</p>
-<p>2）硬件故障中断<br>– 保存现场，使用一定警告手段，提供些辅助诊断信息<br>– 在高可靠系统中，中断处理程序还要评估系统可用性，尽可能恢复系统</p>
-<p>5、缓冲技术<br>– 引入原因<br>• 缓和CPU和I/O设备速度失配的矛盾<br>• 减少CPU中断频率，放宽对中断响应时间的限制。<br>• 提高CPU和设备之间的并行性<br>– 缓冲的实现方法<br>• 采用硬件缓冲器，比如数据缓冲寄存器<br>• 在内存中划出专用缓冲区存放数据</p>
-<p>5.1 缓冲种类<br>根据系统设置的缓冲器的个数，可把缓冲技术分为：<br>（1） 单缓冲<br>单缓冲是在设备和处理机之间设置一个缓冲器。设备和设备之间不能通过单缓冲达到并行操作。</p>
-<p>（2） 双缓冲<br>双缓冲只是一种说明设备和设备、CPU和设备并行操作的简单模型，并不能用于实际系统中的并行操作。</p>
-<p>（3） 多缓冲（ 缓冲队列 、 环形缓冲队列）<br>多缓冲是把多个缓冲区连接起来组成两部分，一部分专门用于输入，另一部分专门用于输出的缓冲结构。</p>
-<p>（4） 缓冲池<br>缓冲池则是把多个缓冲区连接起来统一管理，既可用于输入又可用于输出的缓冲结构</p>
-<p>缓冲池的结构<br>缓冲池由多个缓冲区组成。而一个缓冲区由两部分组成： 一部分是用来标识该缓冲区和用于管理的缓冲首部，另一部分是用于存放数据的缓冲体。<br>这两部分有一一对应的映射关系。对缓冲池的管理是通过对每一个缓冲器的缓冲首部进行操作实现的<br>系统把各缓冲区按其使用状况连成三种队列：<br>• 空白缓冲队列em，其队首指针为F(em)，队尾指针为L(em);<br>• 装满输入数据的输入缓冲队列in，其队首指针为F(in)，队尾指针为L(in);<br>• 装满输出数据的输出缓冲队列out，其队首指针为F(out)，队尾指针为L(out)。</p>
-<p>6、设备分配<br>设备分配用数据结构：<br>– 设备控制表DCT<br>系统中每个设备都必须有一张DCT，且在系统生成时或在该设备和系统连接时创建，但表中的内容则根据系统执行情况而被动态地修改。</p>
-<p>– 控制器控制表COCT<br>– COCT也是每个控制器一张，它反映I/O控制器的使用状态以及和通道的连接情况等(在DMA方式时，该项是没有的)。</p>
-<p>– 通道控制表CHCT<br>该表只在通道控制方式的系统中存在，也是每个通道一张。包括通道标识符、通道忙/闲标识、等待获得<br>该通道的进程等待队列的队首指针与队尾指针等</p>
-<p>– 系统设备表SDT<br>系统设备表SDT整个系统一张，它记录已被连接到系统中的所有物理设备的情况，并为每个物理设备设一表项</p>
-<p>6.1 设备分配<br>(1) 先请求先分配<br>– 当有多个进程对某一设备提出I/O请求时，或者是在同一设备上进行多次I/O操作时，系统按提出I/O请求的先后顺序，将进程发出的I/O请求命令排成队列，其队首指向被请求设备的DCT。</p>
-<p>(2) 优先级高者先分配<br>系统能从I/O请求队列队首取下一个具有最高优先级进程发来的I/O请求命令，并将设备分配给发出该命令的进程<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev6.png?raw=true" alt="Image text"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/30/OS设备管理/" data-id="cjuie7wid001fl4s6b5cqx5jv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-OS文件管理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/29/OS文件管理/" class="article-date">
-  <time datetime="2019-03-29T13:50:30.819Z" itemprop="datePublished">2019-03-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/29/OS文件管理/">操作系统-文件管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、 文件与文件系统<br>（1）文件的概念<br>文件指的是一组带标识的在逻辑上有完整意义的信息项（构成文件内容的基本单元）的序列，或者是相关联纪录的集合。文件存放在磁盘或磁带等存<br>储介质上。<br>文件是一个抽象机制，它提供了一种把信息保存在存储介质上，而且便于以后存取的方法，用户不必关心实现细节</p>
-<p>（2）文件系统<br>• 是操作系统中统一管理信息资源的一种软件，管理文件的存储、检索、更新，提供安全可靠的共享和保护手段，并且方便用户使用</p>
-<p>1.1 文件系统的功能：<br>（1）统一管理文件的存储空间，实施存储空间的分配与回收；<br>（2）为用户提供可见的文件逻辑结构，实现文件的按名存取；名字空间 → → → 存储空间<br>（3）对文件及文件目录的管理，这是文件系统最基本的功能，包括文件（目录）的建立、删除、读写等；<br>（4）提供操作系统与用户的接口（提供对文件的操作命令：信息存取、加工等）。</p>
-<p>1.2 文件的分类<br>（1）按文件性质和用途分类<br>• 系统文件：<br>有关OS及有关系统所组成文件，不能直接访问<br>• 用户文件：<br>用户委托系统保存的文件<br>• 库文件：<br>标准子程序及常用应用程序组成文件，允许用户使用但不能修改</p>
-<p>2、文件的结构和存取方式<br>（1）流式文件（无结构文件）：<br>• 构成文件的基本单位是字符，文件是有逻辑意义的、无结构的一串字符的集合。<br>• 管理简单，操作方便，但查找比较麻烦，对基本信息单位操作不多的文件比较适合用字符流的无结构方式，比如源程序文件。<br>（2）记录式文件（有结构文件）：<br>• 文件是由若干个记录组成，每个记录有一个键，可按键进行查找，每条记录有其内部结构。<br>• 方便用户进行各种操作比如添加、删除、修改、查找等</p>
-<p>2.1 文件的存取方法<br>常用存取方法：<br>①顺序存取。<br>顺序存取是按照文件的逻辑地址顺序存取。比如当前读取的记录为Ri，则下一条读取的记录被自动确定为Ri的下一个相邻的记录Ri+1。<br>②随机存取。<br>允许用户根据记录的编号来存取文件的任一记录。前两种方法用于一般OS，下面方法适用数据库系统。<br>③按键存取。</p>
-<p>2.2 文件的物理结构<br>– 文件系统中，文件存储设备通常分块，每块1k或者512字节或其他大小，与此对应，文件信息也被划分为与物理块大小相等的逻辑块<br>（1）连续结构（顺序）<br>– 文件的信息存放在若干连续的物理块中。系统为每个文件都建立一个文件控制块FCB。对于顺序文件，只要从FCB中得到文件的第一个块的物理块<br>号和文件长度，便可确定位置。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile1.png?raw=true" alt="Image text"><br>– 优点: 简单<br>• 支持顺序存取和随机存取<br>• 顺序存取速度快<br>• 所需的磁盘寻道次数和寻道时间最少</p>
-<p>– 缺点:<br>• 不利于文件动态增长重新分配和移动<br>• 不利于文件插入和删除（大量移动）<br>• 外部碎片问题</p>
-<p>（2）链接结构<br>– 一个文件的信息存放在若干不连续的物理块中，各块之间通过指针连接，前一个物理块指向下一个物理块<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile2.png?raw=true" alt="Image text"><br>– 优点：<br>• 提高了磁盘空间利用率,不存在外部碎片问题<br>• 有利于文件插入和删除<br>• 有利于文件动态扩充</p>
-<p>– 缺点：<br>• 存取速度慢，不适于随机存取<br>• 可靠性问题，如指针出错<br>• 更多的寻道次数和寻道时间<br>• 链接指针占用一定的空间</p>
-<p>（3）索引结构<br>• 一个文件的信息存放在若干不连续物理块中，系统为每个文件建立一个专用数据结构——索引表，并将这些块的块号存放在一个索引表中。<br>• 一个索引表就是磁盘块地址数组,其中第i个条目指向文件的第i块<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile3.png?raw=true" alt="Image text"></p>
-<p>– 优点：<br>• 保持了链接结构的优点，又解决了其缺点：既能顺序存取，又能随机存取<br>• 满足了文件动态增长、插入删除的要求<br>• 能充分利用外存空间<br>– 缺点：<br>• 较多的寻道次数和寻道时间<br>• 索引表本身带来了系统开销<br>• 存取文件时至少访问存储器两次，一次是获得地址，一次是对物理块的访问。为了提高速度，将索引表放入内存，减少访问磁盘次数</p>
-<p>文件的物理结构:<br>UNIX文件系统采用的是多级索引结构。每个文件的索引表为13个索引项，每项2个字节。最前面10项直接登记存放文件信息的物理块号（直接寻址）</p>
-<p>如果文件大于10块，则利用第11项指向一个物理块，该块中最多可放256个文件物理块的块号（一次间接寻址）。对于更大的文件还可利用第12和第13项作为二次和三次间接寻址</p>
-<p>– UNIX中采用了三级索引结构后，文件最大可达16兆个物理块<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile4.png?raw=true" alt="Image text"></p>
-<p>文件存储介质：<br>（1）物理块<br>在文件系统中，文件的存储设备常常划分为若干大小相等的物理块。同时也将文件信息划分成相同大小的逻辑块，所有块统一编号以块为单位进行信息的存储、传输、分配</p>
-<p>（2）磁带<br>永久保存大容量数据<br>– 顺序存取设备：前面的物理块被存取访问之后，才能存取后续的物理块的内容<br>– 存取速度较慢，主要用于后备存储，或存储不经常用的信息</p>
-<p>（3）磁盘<br>– 直接（随机）存取设备：<br>• 存取磁盘上任一物理块的时间不依赖于该物理块所处的位置</p>
-<p>完成过程由三个动作组成：<br>• 寻道（时间）：磁头移动定位到指定磁道<br>• 旋转延迟（时间）：等待指定扇区从磁头下旋转经过<br>• 数据传输（时间）：数据在磁盘与内存之间的实际传输</p>
-<p>3、文件目录<br>3.1 基本概念<br>– 文件控制块（FCB）：<br>• 文件控制块是操作系统为管理文件而设置的数据结构，存放了为管理文件所需的所有有关信息。<br>• 文件控制块是文件存在的标志</p>
-<p>– 文件目录：<br>• 把所有的FCB组织在一起，就构成了文件目录，即文件控制块的有序集合。<br>– 目录项：<br>• 构成文件目录的项目（目录项就是FCB）。<br>– 目录文件：<br>• 为了实现对文件目录的管理，通常将文件目录以文件的形式保存在外存，这个文件就叫目录文件</p>
-<p>目录结构：<br>（1）一级目录结构<br>– 为所有文件建立一个目录文件（组成一线性表）<br>– 优点：<br>• 简单，易实现</p>
-<p>– 缺点：<br>• 限制了用户对文件的命名<br>• 文件平均检索时间长</p>
-<p>（2）二级目录结构<br>– 为解决一级目录文件目录命名冲突，并提高对目录文件检索速度而改进。<br>– 目录分为两级：<br>• 一级称为主文件目录（MFD），给出用户名，用户子目录所在的物理位置；<br>• 二级称为用户文件目录（UFD），给出该用户所有文件的FCB<br>– 使用二级目录可以解决文件重名和文件共享问题，并可以获得较高的搜索速度。</p>
-<p>– 优点：解决了文件的重名问题和共享问题<br>用户名|文件名<br>查找时间降低<br>– 缺点：增加了系统开销<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile5.png?raw=true" alt="Image text"></p>
-<p>（3）多级目录结构（树型目录）<br>– 优点：<br>• 层次结构清晰，便于管理和保护；有利于文件分类；解决重名问题；提高文件检索速度；能进行存取权限的控制 。<br>– 缺点：<br>• 查找一个文件按路径名逐层检查，由于每个文件都放在外存，多次访盘影响速度。</p>
-<p>（4）文件目录改进<br>– 为加快目录检索可采用目录项分解法：把FCB分成两部分：<br>– 符号目录顶<br>文件名，文件号<br>– 基本目录项<br>除文件名外的所有项目</p>
-<p>3.2 文 件 存 储 空 间 管 理：<br>– 辅存空间分配常采用以下两种办法。<br>– 连续分配：<br>• 文件被存放在辅存空间连续存储区中，在建立文件时，用户必须给出文件大小；<br>• 然后，查找到能满足的连续存储区供使用；否则文件不能建立。<br>– 连续分配的优点是文件查找速度快，管理较为简单，但为了获得足够大的连续存储区。需定时进行‘碎片’收集。因而，不适宜于文件频繁进行动态扩充和缩小的情况，用户事先不知道文件长度也无法进行分配。</p>
-<p>非连续分配：<br>• 一种非连续分配方法是以块（或扇区）为单位，按文件动态要求分配给它若干扇区，这些扇区不一定要连续。<br>• 另一种非连续分配方法是以簇为单位，簇是由若干个连续扇区组成的分配单位；实质上是连续分配和非连续分配的结合。各个簇可以用链指针、索<br>引表，位示图来管理。非连续分配的优点是辅存空间管理效率高，访问文件执行速度快，特别是以簇为单位的分配方法已被广泛使用。</p>
-<p>3.3 文件系统的使用<br>– 在文件系统中提供对文件的各种操作，形式分别为：系统调用或命令。</p>
-<ol>
-<li><p>主要操作<br>– 提供设置和修改对用户文件存取权限<br>– 提供建立、修改、改变、删除目录的服务<br>– 提供文件共享，设置访问路径的服务<br>– 提供创建、打开、读、写、关闭、撤消文件等服务<br>– 文件系统维护</p>
-</li>
-<li><p>操作介绍<br>（1）建立文件<br>实质是建立文件的FCB，并建立必要的存储空间，分配空FCB，根据提供的参数及需要填写有关内容，返回一个文件描述。<br>目的：建立系统与文件的联系<br>（2）打开文件<br>使用文件的第一步，任何一个文件使用前都要先打开，即把FCB送到内存</p>
-</li>
-</ol>
-<p>3.4 文件系统的可靠性<br>– 可靠性：<br>• 系统抵抗和预防各种物理性破坏和人为性破坏的能力。<br>– 备份<br>• 通过转储操作，形成文件或文件系统的多个副本</p>
-<p>3.5 磁盘冗余阵列 RAID<br>– RAID(Reundant Array of Independent Disks)<br>– 它是利用一台磁盘阵列控制器统一管理和控制一组磁盘驱动器。<br>– 其策略是:用一组较小容量的、独立的、可并行工作的磁盘驱动器组成阵列来代替单一的大容量磁盘，独立的I/O请求能被并行地从多个磁盘驱动器同时存取数据，从而，改进了I/O性能和系统可靠性</p>
-<p>3.6 文 件 系 统 的 性 能<br>（1） 磁盘调度<br>当多个访盘请求在等待时，采用一定的策略，对这些请求的服务顺序调整安排，旨在降低平均磁盘服务时间，达到公平、高效<br>– 公平：一个I/O请求在有限时间内满足<br>– 高效：减少设备机械运动所带来的时间浪费</p>
-<p>（2）磁盘调度考虑的问题：<br>一次访盘时间 = 寻道时间+旋转延迟时间+存取时间<br>– 减少寻道时间<br>– 减少延迟时间</p>
-<p>（3）磁盘调度算法<br>1） 先来先服务：按访问请求到达的先后次序服务<br>例：假设磁盘访问序列：98，183，37，122，14，124，65，67，读写头起始位置：53，安排磁头服务序列，计算磁头移动总距离（道数）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile6.png?raw=true" alt="Image text"><br>– 优点：简单，公平；<br>– 缺点：效率不高，相临两次请求可能会造成最内到<br>最外的柱面寻道，使磁头反复移动，增加了服务时间，<br>对机械也不利。</p>
-<p>2）最 短 寻 道 时 间 优 先<br>– 最短寻道时间优先：优先选择距当前磁头最近的访问请求进行服务，主要考虑寻道优先<br>– 优点：改善了磁盘平均服务时间；<br>– 缺点：造成某些访问请求长期等待得不到服务</p>
-<p>例：假设磁盘访问序列：98，183，37，122，14，124，65，67，读写头起始位置：53，安排磁头服务序列，计算磁头移动总距离（道数）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile7.png?raw=true" alt="Image text"><br>– 采用最短寻道时间优先调度下的总移动道数：236<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile8.png?raw=true" alt="Image text"></p>
-<p>3）电梯算法<br>克服了最短寻道优先的缺点，既考虑了距离，同时又考虑了方向。<br>– 当设备无访问请求时，磁头不动；当有访问请求时，磁头按一个方向移动，在移动过程中对遇到的访问请求进行服务，然后判断该方向上是否还有访问请求，如果有则继续扫描；否则改变移动方向，并为经过的访问请求服务，如此反复<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile9.png?raw=true" alt="Image text"></p>
-<p>4）单 向 扫 描 调 度 算 法<br>– 总是从0号磁道开始向里扫描<br>– 按照各自所要访问的磁道位置的次序去选择访问者<br>– 移动臂到达最后个一个磁道后，立即带动读写磁头快速返回到0号磁道<br>– 返回时不为任何的等待访问者服务<br>– 返回后可再次进行扫描</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/OS文件管理/" data-id="cjuie7whq0017l4s6kk67vr2l" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-OS存储管理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/29/OS存储管理/" class="article-date">
-  <time datetime="2019-03-29T03:31:30.832Z" itemprop="datePublished">2019-03-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/29/OS存储管理/">操作系统-存储管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、存 储 概 述<br>由于任何程序、数据必须占用主存空间后才能执行，因此存储管理直接影响系统的性能。</p>
-<p>– 主存储空间一般分为两部分：<br>• 一部分是系统区，存放操作系统常驻内存部分；<br>• 另一部分是用户区，存放用户的程序和数据等</p>
-<p>存储管理主要是对用户区域进行管理，当然也包括对辅存的管理。目的是要尽可能地方便用户使用和提高主存储器的效率</p>
-<p>存储层次结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey1.png?raw=true" alt="Image text"></p>
-<p>存储管理应具有的四大功能:<br>1 ） 内存空间管理<br>– 记录每个内存单元的使用情况<br>– 内存分配<br>– 位示图：用一位（bit）表示一个空闲页面（0：空闲，1：占用）</p>
-<p>2）地址变换（重定位，地址映射）<br>我们把用户编程时使用的地址称为逻辑地址，把程序在内存中的实际地址称为物理地址。为了保证程序的正确运行，必须把程序和数据的逻<br>辑地址转换为物理地址，这一工作称为地址转换或重定位。</p>
-<p>– 静态地址转换<br>• 当用户程序被装入内存时，一次性实现逻辑地址到物理地址的转换，以后不再转换。<br>• 一般在装入内存时由重定位装入程序完成。</p>
-<p>– 动态地址转换<br>• 在程序运行过程中要访问数据时再进行地址变换（即在逐条指令执行时完成地址映射。一般为了提高效率，此工作由硬件地址映射机制来<br>完成。硬件支持，软硬件结合完成）。<br>• 一对寄存器（VR，BR）</p>
-<p>静态重定位：<br>– 优点：无须硬件支持；<br>– 缺点：<br>（1）不支持虚拟存储，原因是执行期间程序不能移动，因而不能实现重新分配内存，而虚拟存储则将部分程序装入内存。<br>（2）不能共享。因为每个程序必须占用连续的内存空间，因此很难做到。</p>
-<p>动态重定位：<br>– 过程：<br>（1）设置基址寄存器BR，虚拟地址寄存器VR<br>（2）将程序首址送入BR<br>（3）程序执行时，将需要访问的虚址送入VR<br>（4）将BR和VR相加，得到实际访问的地址。</p>
-<p>– 优点：<br>（1）可以对内存进行非连续分配，对于不同程序段设置不同的BR即可。<br>（2）提供了实现虚拟存储的基础，动态重定位可以部分地、动态地分配内存。<br>（3）有利于共享。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey2.png?raw=true" alt="Image text"></p>
-<p>3）内 存 扩 充<br>内存的容量是受实际的存储单元限制的，而运行的程序又不受内存大小的限制，这就需要有效的存储管理技术来实现内存的逻辑扩充，这种扩充不是增加实际的存储单元，而是通过虚拟存储技术、覆盖技术、交换技术等技术来实现的。</p>
-<p>4）内存共享和保护<br>– 为了更有效地使用内存空间，要求共享内存<br>– 为多个程序共享内存提供保障，使在内存中的各道程序，只能访问它自己的区域，避免各道程序间相互干扰，特别是当一道程序发生错误时，不致于影响其他程序的运行<br>– 保护过程—-防止地址越界<br>– 保护过程—-防止操作越权</p>
-<p>2、存储管理的一些技术<br>2.1 覆盖(overlay)<br>– 引入：其目标是在较小的可用内存中运行较大的程序。常用于多道程序系统，与分区存储管理配合使用<br>– 引入：其目标是在较小的可用内存中运行较大的程序。常用于多道程序系统，与分区存储管理配合使用<br>• 不存在调用关系的模块不必同时装入到内存，从而可以相互覆盖。(即不同时用的模块可共用一个分区)<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey3.png?raw=true" alt="Image text"></p>
-<p>2.2 交换(swapping)<br>– 引入：多个程序并发执行，可以将暂时不能执行的程序送到外存中，从而获得空闲内存空间来装入新程序，或读入保存在外存中而目前到达就绪状态的进程。交换单位为整个进程的地址空间。<br>• 程序暂时不能执行的可能原因：处于阻塞状态，低优先级（确保高优先级程序执行）；</p>
-<p>– 原理：暂停执行内存中的进程，将整个进程的地址空间保存到外存的交换区中（换出swa pout）而将外存中由阻塞变为就绪的进程的地址空间读<br>入到内存中，并将该进程送到就绪队列（换入swap in）。</p>
-<p>– 优点：增加并发运行的程序数目，并且给用户提供适当的响应时间；编写程序时不影响程序结构，对用户透明。<br>– 缺点：对换入和换出的控制增加处理机开销；程序整个地址空间都进行传送，没有考虑执行过程中地址访问的统计特性。<br>– 覆盖技术和交换技术的发展导致了虚拟存储技术的出现</p>
-<p>2.3 虚拟存储技术<br>虚存：把内存与外存有机的结合起来使用，从而得到一个容量很大的“内存”，这就是虚存<br>– 实现思想：当进程运行时，先将一部分程序装入内存，另一部分暂时留在外存，当要执行的指令不在内存时，由系统自动完成将它们从外存调入内存工作<br>– 目的：提高内存利用率</p>
-<p>虚存的物质基础：<br>系统要有足够大的外存；<br>– 要有一定容量的内存来存放运行作业的部分程序<br>– 要有动态地址转换机构，实现逻辑地址转换；</p>
-<p>特征：<br>– 虚拟性：指逻辑上扩大了内存容量，使用户看到的内存空间大于实际空间；<br>– 离散性：指内存在分配时采用的是离散分配的方式，目的是为了避免内存空间的浪费；<br>– 多次性：指一个作业不是全部一次性装入内存，而是在需要时装入部分；<br>– 交换性：指在一个进程运行期间，将暂不使用的程序和数据从内存调至外存，被调出的程序和数据在需要时再调入内存中。<br>– 总容量不超过物理内存和外存交换区容量之和</p>
-<p>3、分区存储管理<br>– 把内存分为一些大小相等或不等的分区(partition)，每个应用进程占用一个分区。操作系统占用其中一个分区。<br>– 问题：可能存在内碎片和外碎片。<br>• 内碎片：占用分区之内未被利用的空间<br>• 外碎片：占用分区之间难以利用的空闲分区（通常是小空闲分区）。</p>
-<p>3.1 固定分区(fixed partitioning)<br>– 把内存划分为若干个固定大小的连续分区。每个分区装一个且只能装一个作业。<br>• 分区大小相等：<br>• 分区大小不等：多个小分区、适量的中等分区、少量的大分区。根据程序的大小，分配当前空闲的、适当大小的分区。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey4.png?raw=true" alt="Image text"><br>优点：易于实现，开销小。<br>– 缺点：<br>• 内碎片造成浪费<br>• 分区总数固定，限制了并发执行的程序数目。</p>
-<p>3.2 动态分区(dynamic partitioning)<br>基本思想:<br>• 作业装入时，根据作业的需求和内存空间的使用情况来决定是否分配<br>• 若有足够的空间，则按需要分割一部分分区给该进程；否则令其等待内存空间</p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey5.png?raw=true" alt="Image text"></p>
-<p>– 分区分配算法：寻找某个空闲分区，其大小需大于或等于程序的要求。若是大于要求，则将该分区分割成两个分区，其中一个分区为要求的大小并标记为“占用”，而另一个分区为余下部分并标记为“空闲”。分区的先后次序通常是从内存低端到高端。<br>– 分区释放算法：需要将相邻的空闲分区合并成一个空闲分区。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）最先适应法(first-fit)：按分区的先后次序，从头查找，找到符合要求的第一个分区</span><br><span class="line"><span class="number">2</span>）下次适应法(next-fit)：按分区的先后次序，从上次分配的分区起查找（到最后分区时再回到开头），找到符合要求的第一个分区</span><br><span class="line"><span class="number">3</span>）最佳适应法(best-fit)：找到其大小与要求相差最小的空闲分区</span><br><span class="line"><span class="number">4</span>）最坏适应法(worst-fit)：找到最大的空闲分区</span><br></pre></td></tr></table></figure></p>
-<p>3.3 碎 片 问 题<br>– 紧凑技术：通过在内存移动程序，将所有小的空闲区域合并为大的空闲区域<br>(内存紧凑(compaction)：将各个占用分区向内存一端移动。使各个空闲分区聚集在另一端，然后将各个空闲分区合并成为一个空闲分区)</p>
-<p>3.4 分区的回收及保护<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）该空闲区的上下相邻分区都是空闲区。将三个空闲区合并，合并后的起始地址为上空闲区的起始地址，修改可用表或自由链（取消下，修改上）</span><br><span class="line"><span class="number">2</span>）该空闲区的上相邻区是空闲区。与上相邻区合并，合并后的起始地址为上空闲区的起始地址，修改可用表或自由链（修改上的大小）。</span><br><span class="line"><span class="number">3</span>）该空闲区的下相邻区是空闲区。与下相邻区合并，合并后的起始地址为释放区的起始地址，修改可用表或自由链（修改下的始址和大小）。</span><br><span class="line"><span class="number">4</span>）该空闲区不与其他空闲区相邻,作为一个新空闲区插入可用表或自由链</span><br></pre></td></tr></table></figure></p>
-<p>4、页式存储管理<br>4.1 基本思想:<br>– 用户程序划分<br>• 把用户程序按逻辑页划分成大小相等的部分，称为页。从0开始编制页号，页内地址是相对于0编址<br>– 逻辑地址<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey6.png?raw=true" alt="Image text"><br>内存空间<br>• 按页的大小划分为大小相等的区域，称为内存块（物理页面）<br>– 内存分配<br>• 以页为单位进行分配，并按作业的页数多少来分配。<br>• 逻辑上相邻的页，物理上不一定相邻</p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey7.png?raw=true" alt="Image text"></p>
-<p>4.2 管理<br>– 页表：系统为每个进程建立一个页表，页表给出逻辑页号和具体内存块号相应的关系<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey8.png?raw=true" alt="Image text"></p>
-<p>地址映射机制：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey9.png?raw=true" alt="Image text"></p>
-<p>地址映射机制（含快表）：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey10.png?raw=true" alt="Image text"></p>
-<p>4.3 静态页式管理<br>– 将程序的逻辑地址空间和物理内存划分为固定大小的页或页面(Page or Page frame)，程序加载时，分配其所需的所有页，这些页不必连续<br>静态页式管理的地址变换：<br>– 指令所给出地址分为两部分：逻辑页号，页内偏移地址－&gt;查进程页表，得物理页号－&gt;物理地址</p>
-<p>– 优点：<br>• 没有外碎片，每个内碎片不超过页大小（因为页面大小固定 要多少有多少）。<br>• 一个程序不必连续存放。<br>• 便于改变程序占用空间的大小。即随着程序运行<br>而动态生成的数据增多，地址空间可相应增长。<br>– 缺点：<br>• 程序全部装入内存，受到内存可用页面数的限制。</p>
-<p>4.4 动态（请求）页式管理<br>– 在进程开始运行之前，不是装入全部页面，而是装入部分页面，之后根据进程运行的需要，动态装入其它页面；当内存空间已满，而又需要装入新的页面时，则根据某种算法淘汰某个页面，以便装入新的页面。</p>
-<p>页表表项：<br>– 页号、驻留位、内存块号、外存始址、访问位、修改位<br>– 驻留位（中断位）：表示该页是在内存还是在外存<br>– 访问位：根据访问位来决定淘汰哪页（由不同的算法决定）<br>– 修改位：查看此页是否在内存中被修改过<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey11.png?raw=true" alt="Image text"></p>
-<p>缺页中断处理：<br>在地址映射过程中，在页表中发现所要访问的页不在内存，则产生缺页中断。操作系统接到此中断信号后，就调出缺页中断处理程序，根据页表中给出的外存地址，将该页调入内存，使作业继续运行下去<br>– 如果内存中有空闲块，则分配一页，将新调入页装入内存，并修改页表中相应表项<br>– 若此时内存中没有空闲块，则要淘汰某页，若该页在内存期间被修改过，则要将其写回外存<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey12.png?raw=true" alt="Image text"></p>
-<p>页面置换算法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">– 随机置换算法</span><br><span class="line">– 先进先出算法(FIFO)</span><br><span class="line">– 最近最久未使用算法(LRU, Least Recently Used)</span><br><span class="line">– 时钟页面替换算法(Clock Policy) </span><br><span class="line">– 最佳置换算法(OPT, optimal)</span><br></pre></td></tr></table></figure></p>
-<p>1）先进先出算法( F I F O )<br>– 选择建立最早的页面被置换，性能较差，较早调入的页往往是经常被访问的页，这些页在FIFO算法下被反复调入和调出。<br>– 并且有Belady现象。<br>– Belady现象：采用FIFO算法时，如果对一个进程未分配它所要求的全部页面，有时就会出现分配的页面数增多，缺页率反而提高的异常现象。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey13.png?raw=true" alt="Image text"></p>
-<p>2）最近最久未使用算法( L R U )<br>– 该算法淘汰的页面是在最近一段时间里较久未被访问的那一页。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey14.png?raw=true" alt="Image text"></p>
-<p>3）最佳算法(OPT, optimal)<br>– 选择“未来不再使用的”或“在离当前最远位置上出现的”页面被置换，这是一种理想情况。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey15.png?raw=true" alt="Image text"></p>
-<p>影 响 缺 页 次 数 的 因 素：<br>(1) 分配给进程的物理页面数<br>(2) 页面本身的大小<br>(3) 程序的编制方法<br>(4) 页面淘汰算法</p>
-<p>4.5 页式管理的优缺点<br>– 相对于分区管理而言，静态页式有效的解决了外部碎片的问题（当然有少量的内部碎片）；<br>– 但是，静态页式要求全部装入，不支持虚拟存储，因而有了请求（动态）页式，允许部分装入；<br>– 显然地，请求页式更能有效利用有限的内存页面，不过，这种方式需要有效解决缺页率的问题，尤其是页面置换的问题；</p>
-<p>5、段式存储管理<br>5.1 基本原理<br>用户程序划分<br>•按程序自身的逻辑关系划分为若干个程序段，每个程序段都有一个段名，且有一个段号。段号从0开始，每一段也从0开始编址，段内地址是连续的</p>
-<p>– 逻辑地址（二维地址）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey16.png?raw=true" alt="Image text"></p>
-<p>基本原理：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey17.png?raw=true" alt="Image text"></p>
-<p>内存划分方式：<br>– 内存划分<br>内存空间被动态的划分为若干个长度不相同的区域，称为物理段，每个物理段由起始地址和长度确定<br>– 内存分配<br>以段为单位分配内存，每一个段在内存中占据连续空间（内存随机分割，需要多少分配多少），但各段之间可以不连续存放</p>
-<p>段式管理：<br>(1) 段表：每进程一个<br>(2) 空闲表：系统一个（管理同动态分区）array of (addr,size)<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey18.png?raw=true" alt="Image text"></p>
-<p>内存分配：<br>（1）有足够空闲区（同动态分区）<br>最先适应<br>最佳适应<br>最坏适应<br>（2）没有足够空闲区（同请求页式）<br>FIFO，LRU，如果淘汰一段不能满足要求，就要进行多次淘汰</p>
-<p>地址映射：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey19.png?raw=true" alt="Image text"></p>
-<p>页式管理与段式管理的比较：<br>– 分页是出于系统管理的需要，分段是出于用户应用的需要<br>– 页大小是系统固定的，而段大小则通常不固定。<br>– 逻辑地址表示：<br>• 分页是一维的，各个模块在链接时必须组织成同一个地址空间；<br>• 分段是二维的，各个模块在链接时可以每个段组织成一个地址空间。<br>– 通常段比页大，因而段表比页表短，可以缩短查找时间，提高访问速度。</p>
-<p>6、段页式存储管理<br>– 分段结构具有逻辑上清晰的优点，但它的一个致命弱点是每个段必须占据主存储器的连续区域，为了克服这个缺点，可兼用分段和分页的方法，构成段页式存储管理。<br>– 每个作业仍按逻辑分段，把每个段再分成若干个页面，每一段不必占据连续的主存空间，可把它按页存放在不连续的主存块中。</p>
-<p>6.1  基 本 思 想<br>– 用户程序划分：按段式划分（对用户来讲，按段的逻辑关系进行划分；对系统讲，按页划分每一段）<br>内存划分：按页式存储管理方案<br>内存分配：以页为单位进行分配<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey20.png?raw=true" alt="Image text"></p>
-<p>段 表 和 页 表：<br>（1）在段页式系统中,每个分段又被分成若干个固定大小的页面，那么每个段又必须建立一张页表把段中的虚页变换成内存中的实际页面。显然，与页式管理时相同，页表中也要有相应的实现缺页中断处理和页面保护等功能表项。<br>（2）每个段有一个页表，段表中应有专项指出该段所对应页表的页表始址和页表长度</p>
-<p>段 表 、 页 表 与 内 存 关 系：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey21.png?raw=true" alt="Image text"></p>
-<p>段页式地址变换：<br>注：在段页式系统中，为了获取一条指令或数据，需三次访问内存。<br>• 第一次访问，是访问内存中的段表，从中取得页表始址<br>• 第二次访问，是访问内存中的页表，从中取得物理块号，并将该块号与页内地址一起形成指令或数据的物理地址<br>• 第三次访问，才是真正从第二次访问的地址中，取得指令和数据</p>
-<p>抖 动：<br>– 虚存中，页面在内存与外存之间频繁调度，以至于调度页面所需时间比进程实际运行的时间还多，此时系统效率急剧下降，甚至导致系统崩溃。这种现象称为颠簸或抖动<br>– 原因：<br>• 页面淘汰算法不合理<br>• 分配给进程的物理页面数</p>
-<p>一点总结：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey22.png?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey23.png?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey24.png?raw=true" alt="Image text"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/OS存储管理/" data-id="cjuie7wic001el4s6fq404azs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/01/Java-对象导论/" data-id="cjul6piex0002tws68lnuv75f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -721,23 +696,23 @@
       <ul>
         
           <li>
+            <a href="/2019/04/17/JVM类加载/">JVM类加载</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/shell运算符/">shell运算符</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Shell编程/">shell编程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/JVM内存模型/">JVM内存模型</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/15/设计模式-模板模式/">设计模式-模板模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/15/设计模式-观察者模式/">设计模式-观察者模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/15/设计模式-装饰器模式/">设计模式-装饰器模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/15/设计模式-适配器模式/">设计模式-适配器模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/15/Spring-jdbcTemplate/">Spring-jdbcTemplate</a>
           </li>
         
       </ul>
