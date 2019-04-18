@@ -62,6 +62,126 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-操作系统概述" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/27/操作系统概述/" class="article-date">
+  <time datetime="2019-03-27T12:35:30.855Z" itemprop="datePublished">2019-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/操作系统概述/">操作系统概述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、计算机系统的组成<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op1.png?raw=true" alt="Image text"></p>
+<p>操作系统的地位：<br>紧贴系统硬件之上，所有其他软件之下<br>（是其他软件的共同环境）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op2.png?raw=true" alt="Image text"></p>
+<p>2、操作系统的作用:<br>(1)OS是计算机硬件、软件资源的管理者<br>管理的对象：CPU、存储器、外部设备、信息（数<br>据和软件）；<br>– 管理的内容：<br>1、资源的当前状态（数量和使用情况）<br>2、资源的分配、回收和访问操作<br>3、相应管理策略（包括用户权限）</p>
+<p>(2)OS是用户使用系统硬件、软件的接口。<br>系统命令（命令行、菜单式、命令脚本式）；<br>– 系统调用（形式上类似于过程调用，在应用编程<br>中使用API）；<br>– 图形用户接口GUI</p>
+<p>（3）OS是扩展机(extended machine)/虚拟机(virtual machine)。<br>在裸机上添加：设备管理、文件管理、存储管理（包括内存和外存）、处理机管理（针对CPU）；<br>– 另外，为合理组织工作流程：作业管理、进程管理</p>
+<p>– 通道：用于控制I/O设备与内存间的数据传输。启动后可<br>独立于CPU运行，实现CPU与I/O的并行。<br>• 通道有专用的I/O处理器，可与CPU并行工作<br>• 可实现 I/O联机处理<br>– 中断是指CPU在收到外部中断信号后，停止原来工作，转<br>去处理该中断事件，完毕后回到原来断点继续工作。<br>• 中断处理过程：中断请求，中断响应，中断点（暂停当前任务并<br>保存现场），中断处理例程，中断返回（恢复中断点的现场并继续原<br>有任务</p>
+<p>3、通道和中断技术<br>通道：用于控制I/O设备与内存间的数据传输。启动后可<br>独立于CPU运行，实现CPU与I/O的并行。 </p>
+<p>中断是指CPU在收到外部中断信号后，停止原来工作，转<br>去处理该中断事件，完毕后回到原来断点继续工作。<br>• 中断处理过程：中断请求，中断响应，中断点（暂停当前任务并<br>保存现场），中断处理例程，中断返回（恢复中断点的现场并继续原<br>有任务</p>
+<p>3.1、手工操作<br>计算机的工作特点<br>• 用户独占全机：不出现资源被其他用户占用，资源利<br>用率低；<br>• CPU等待用户：计算前，手工装入纸带或卡片；计算完<br>成后，手工卸取纸带或卡片；CPU利用率低；</p>
+<p>3.2、单道批处理系统<br>联机批处理：输入输出设备和主机直接相连，串行工作<br>脱机批处理：利用卫星机完成输入输出功能。主机与卫星机可<br>并行工作。<br>– 卫星机：完成面向用户的输入输出（纸带或卡<br>片），中间结果暂存在磁带或磁盘上。<br>– 优点：同一批内各作业的自动依次更替，改善了<br>主机CPU和I/O设备的使用效率，提高了吞吐量。<br>– 缺点：磁带或磁盘需要人工装卸，作业需要人工<br>分类，监督程序易遭到用户程序的破坏（由人工干预<br>才可恢复）</p>
+<p>3.3 多道批处理系统<br>多道批处理的运行特征<br>• 多道：内存中同时存放几个作业；<br>• 宏观上并行运行：都处于运行状态，但都未运行完；<br>• 微观上串行运行：各作业交替使用CPU；<br>在当前运行的作业需作I/O处理时，CPU转而执行<br>另一个作业。<br>优点：<br>• 资源利用率高：CPU和内存利用率较高；<br>• 作业吞吐量大：单位时间内完成的工作总量大；<br>– 缺点：<br>• 用户交互性差：整个作业完成后或中间出错时，<br>才与用户交互，不利于调试和修改；<br>• 作业平均周转时间长：短作业的周转时间显著<br>增长；</p>
+<p>3.4 分 时 系 统<br>许多个联机用户同时使用一台计算机系统进行计算的操作<br>系统称分时操作系统<br>系统把中央处理器的时间划分成时间片 ，按时间片轮流<br>把处理机分配给联机作业<br>– “分时”的含义分时是指多个用户分享使用同一台计算机。<br>多个程序分时共享硬件和软件资源<br>– 人机交互性好：在调试和运行程序时由用户自己<br>操作。<br>– 共享主机：多个用户同时使用。<br>– 用户独立性：对每个用户而言好象独占主机</p>
+<p>3.5 实 时 系 统<br>– 要求：响应时间短，在规定的时间之内（s, ms,<br>us）；系统可靠性高</p>
+<p>3.6 通用操作系统<br>目前的操作系统，通常具有分时、实时和批处理<br>功能，又称作通用操作系统。</p>
+<p>4、操作系统的分类<br>4.1 批处理操作系统<br>批处理系统中作业处理及状态：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op3.png?raw=true" alt="Image text"></p>
+<p>单道和多道批处理的比较<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op4.png?raw=true" alt="Image text"></p>
+<p>– 多道程序系统和多重处理系统(multi-processing<br>system)的区别：<br>• 前者指多个程序同时在内存中交替运行<br>• 后者指多个处理器</p>
+<p>多道批处理系统上的技术<br>– 作业调度：作业的现场保存和恢复－－上下文切换<br>– 资源共享：资源的竞争和同步－－互斥(exclusion)<br>和同步(synchronization)机制<br>– 内存使用：提高内存使用效率（为当前由CPU执行<br>的程序提供足够的内存）－－覆盖(overlay)，交换<br>(swap)和虚拟存储(virtual memory)<br>– 内存保护：系统存储区和各应用程序存储区不可冲<br>突－－存储保护</p>
+<p>4.2 分时操作系统<br>– 多路性：多个用户同时工作。<br>– 独立性：各用户独立操作，互不干扰。<br>– 交互性：系统能及时对用户的操作进行响应，显<br>著提高调试和修改程序的效率：缩短了周转时间。<br>（对批处理的改进）</p>
+<p>4.3 实时操作系统<br>– 实时操作系统主要用于过程控制、事务处理等有<br>实时要求的领域，其主要特征是实时性和可靠性</p>
+<p>5、 操作系统的特征<br>5.1 并 发 ( c o n c u r r e n c y )<br>– 多个事件在同一时间段内发生。操作系统是一个并<br>发系统，各进程间的并发，系统与应用间的并发。操作<br>系统要完成这些并发过程的管理。并行(parallel)是指<br>在同一时刻发生。<br>– 在多道程序处理时，宏观上并发，微观上交替执行<br>（在单处理器情况下）。<br>– 程序的静态实体是可执行文件，而动态实体是进程<br>（或称作任务），并发指的是进程。</p>
+<p> 5.2 共 享 (sharing)<br> 多个进程共享有限的计算机系统资源。操作系统要<br>对系统资源进行合理分配和使用。资源在一个时间段内<br>交替被多个进程所用。<br>– 互斥共享（如视频设备）：资源分配后到释放前，<br>不能被其他进程所用</p>
+<p>5.3 虚 拟 (virtual)<br>– 一个物理实体映射为若干个对应的逻辑实体－－分<br>时或分空间。虚拟是操作系统管理系统资源的重要手段，<br>可提高资源利用率</p>
+<p>5.4 异步性 ( asynchronism )<br>– 也称不确定性，指进程的执行顺序和执行时间的不<br>确定性；<br>– 进程的运行速度不可预知：分时系统中，多个进程<br>并发执行，程序是以走走停停的方式运行的。系统中的<br>每个程序何时执行，执行顺序，完成时间都是不确定的。</p>
+<p>6、操作系统的功能<br>6.1 处 理 机 管 理<br>– 完成处理机资源的分配调度等功能。处理机调度的<br>单位可为进程或线程。<br>– 进程控制：创建、撤销、状态转换<br>– 进程同步：对并发执行的进程进行协调<br>– 进程通信：负责完成进程间的信息交换<br>– 进程调度：按一定算法进行处理机分配</p>
+<p>6.2 存 储 管 理<br>– 内存分配：按一定的策略分配内存并负责回收<br>– 内存保护：保证进程间互不干扰、相互保密<br>– 地址变换：进程逻辑地址到内存物理地址的映射；<br>– 内存扩充：为允许大型作业或多个作业运行，借助<br>虚拟技术获得更大逻辑内存的效果；</p>
+<p>6.3 设备管理<br>– 设备分配：为了使设备与主机并行工作，一定的分<br>配原则对设备进行分配，常采用缓冲技术和虚拟技术<br>– 设备传输控制：实现物理的输入/输出操作<br>– 设备独立性：用户向系统申请的设备和实际操作的<br>设备无关</p>
+<p>6.4 文 件 管 理<br>– 文件存储空间管理：存储空间的分配和回收。<br>– 目录管理：解决信息检索问题。<br>– 文件操作管理：实现文件的操作，负责完成数据的<br>读写<br>– 文件保护：提供文件保护功能，防止文件遭到破坏</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/27/操作系统概述/" data-id="cjumr707f001fa0s64wdbx2xl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计网-应用层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/27/计网-应用层/" class="article-date">
+  <time datetime="2019-03-27T11:43:49.837Z" itemprop="datePublished">2019-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/计网-应用层/">计网-应用层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、 域名系统 DNS (Domain Name System)<br>互联网采用了层次树状结构的命名方法。<br>任何一个连接在互联网上的主机或路由器，都有一个唯一的层次结构的名字，即域名。<br>域名的结构由标号序列组成，各标号之间用点隔开： … . 三级域名 . 二级域名 . 顶级域名</p>
+<p>(1) 国家顶级域名 nTLD<br>    .cn 表示中国，<br>    .us 表示美国，<br>    .uk 表示英国，等等。</p>
+<p>(2) 通用顶级域名 gTLD<br>    最早的顶级域名是：<br>    .com    （公司和企业）<br>    .net    （网络服务机构<br>    .org    （非赢利性组织）<br>    .edu    （美国专用的教育机构）<br>    .gov    （美国专用的政府部门）<br>    .mil    （美国专用的军事部门）<br>    .int    （国际组织）</p>
+<p>(3) 基础结构域名 (infrastructure domain)<br>    这种顶级域名只有一个，即 arpa，<br>    用于反向域名解析，因此又称为反向域名。</p>
+<p>互联网的域名空间 ：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp1.png?raw=true" alt="Image text"></p>
+<p>DNS 服务器的管辖范围不是以“域”为单位，而是以“区”为单位。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp2.png?raw=true" alt="Image text"></p>
+<p>域名服务器有以下四种类型<br>根域名服务器 :在互联网上共有 13 个不同 IP 地址的根域名服务器，它们的名字是用一个英文字母命名，从 a  一直到 m（前 13 个字母）。<br>根域名服务器共有 13 套装置，不是 13 个机器。到2016年2月，全世界已经在 588 个地点安装了根域名服务器，使世界上大部分 DNS 域名服务器都能就近找到一个根域名服务器。 </p>
+<p>顶级域名服务器 :级域名服务器（即 TLD 服务器）负责管理在该顶级域名服务器注册的所有二级域名。<br>权限域名服务器 :负责一个区的域名服务器。</p>
+<p>本地域名服务器 :本地域名服务器对域名系统非常重要。<br>当一个主机发出 DNS 查询请求时，这个查询请求报文就发送给本地域名服务器。每一个互联网服务提供者 ISP，或一个大学，甚至一个大学里的系，都可以拥有一个本地域名服务器，<br>这种域名服务器有时也称为默认域名服务器。 </p>
+<p>2、文件传送协议<br>文件传送协议 FTP (File Transfer Protocol) 是互联网上使用得最广泛的文件传送协议。<br>文件传送协议 FTP 只提供文件传送的一些基本的服务，它使用 TCP 可靠的运输服务。</p>
+<p>FTP 使用的两个 TCP 连接<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp3.png?raw=true" alt="Image text"></p>
+<p>3、远程终端协议 TELNET<br>TELNET 是一个简单的远程终端协议，也是互联网的正式标准。<br>TELNET 能将用户的击键传到远地主机，同时也能将远地主机的输出通过 TCP 连接返回到用户屏幕。这种服务是透明的，因为用户感觉到好像键盘和显示器是直接连在远地主机上。 </p>
+<p>4、万维网 WWW<br>万维网 WWW (World Wide Web)是一个大规模的、联机式的信息储藏所。<br>万维网用链接的方法能非常方便地从互联网上的一个站点访问另一个站点，从而主动地按需获取丰富的信息。<br>这种访问方式称为“链接”。<br>使用统一资源定位符 URL (Uniform Resource Locator) 来标志万维网上的各种文档。<br>使每一个文档在整个互联网的范围内具有唯一的标识符 URL。<br>在万维网客户程序与万维网服务器程序之间进行交互所使用的协议，是超文本传送协议 HTTP (HyperText Transfer Protocol)。<br>HTTP 是一个应用层协议，它使用 TCP 连接进行可靠的传送。 </p>
+<p>5、超文本传送协议 HTTP<br>从层次的角度看，HTTP 是面向事务的(transaction-oriented)应用层协议，它是万维网上能够可靠地交换文件（包括文本、声音、图像等各种多媒体文件）的重要基础。<br>HTTP 是面向事务的客户服务器协议。<br>HTTP 1.0 协议是无状态的 (stateless)。<br>HTTP 协议本身也是无连接的，虽然它使用了面向连接的 TCP 向上提供的服务。HTTP/1.1 协议使用持续连接 (persistent connection)。<br>万维网服务器在发送响应后仍然在一段时间内保持这条连接，使同一个客户（浏览器）和该服务器可以继续在这条连接上传送后续的 HTTP 请求报文和响应报文。<br>这并不局限于传送同一个页面上链接的文档，而是只要这些文档都在同一个服务器上就行。</p>
+<p>代理服务器 (proxy server) 又称为万维网高速缓存 (Web cache)，它代表浏览器发出 HTTP 请求。</p>
+<p>HTTP 的报文结构 HTTP 有两类报文：<br>请求报文——从客户向服务器发送请求报文。<br>响应报文——从服务器到客户的回答。<br>由于 HTTP 是面向正文的 (text-oriented)，因此在报文中的每一个字段都是一些 ASCII 码串，因而每个字段的长度都是不确定的。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp4.png?raw=true" alt="Image text"></p>
+<p>状态码都是三位数字<br>1xx 表示通知信息的，如请求收到了或正在进行处理。<br>2xx 表示成功，如接受或知道了。<br>3xx 表示重定向，表示要完成请求还必须采取进一步的行动。<br>4xx 表示客户的差错，如请求中有错误的语法或不能完成。<br>5xx 表示服务器的差错，如服务器失效无法完成请求。</p>
+<p>6、电子邮件<br>发送邮件的协议：SMTP<br>读取邮件的协议：POP3 和 IMAP<br>MIME 在其邮件首部中说明了邮件的数据类型(如文本、声音、图像、视像等)，使用 MIME 可在邮件中同时传送多种类型的数据。 </p>
+<p>7、动态主机配置协议 DHCP<br>为了将软件协议做成通用的和便于移植，协议软件的编写者把协议软件参数化。这就使得在很多台计算机上使用同一个经过编译的二进制代码成为可能。<br>需要配置的项目<br>    (1) IP 地址<br>    (2) 子网掩码<br>    (3) 默认路由器的 IP 地址<br>    (4) 域名服务器的 IP 地址<br>这些信息通常存储在一个配置文件中，计算机在引导过程中可以对这个文件进行存取。<br>互联网广泛使用的动态主机配置协议 DHCP (Dynamic Host Configuration Protocol) 提供了即插即用连网 (plug-and-play networking) 的机制。<br>这种机制允许一台计算机加入新的网络和获取IP 地址而不用手工参与。<br>DHCP 服务器分配给 DHCP 客户的 IP 地址的临时的，因此 DHCP 客户只能在一段有限的时间内使用这个分配到的 IP 地址。DHCP 协议称这段时间为租用期。<br>租用期的数值应由 DHCP 服务器自己决定</p>
+<p>8、简单网络管理协议 SNMP<br>网络管理包括对硬件、软件和人力的使用、综合与协调，以便对网络资源进行监视、测试、配置、分析、评价和控制，这样就能以合理的价格满足网络的一些需求，如实时运行性能，服务质量等。网络管理常简称为网管。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/27/计网-应用层/" data-id="cjumr705o000ta0s6f5h6x7i5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-计网-传输层" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/27/计网-传输层/" class="article-date">
@@ -132,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/计网-传输层/" data-id="cjul6pik4001ktws6g3yq1u9m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/计网-传输层/" data-id="cjumr708a001ma0s6g06pcnns" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/计网-网络层/" data-id="cjul6pig2000utws60ugfcn6m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/计网-网络层/" data-id="cjumr705o000ua0s6xq2689vi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -245,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/26/计网-链路层/" data-id="cjul6pig2000vtws60r45144f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/26/计网-链路层/" data-id="cjumr7064000ya0s6bchyn6ya" class="article-share-link">Share</a>
       
       
     </footer>
@@ -335,7 +455,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/23/Java集合总结/" data-id="cjul6piiv0019tws6aci9xug3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/23/Java集合总结/" data-id="cjumr706z0018a0s6tuijge1l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -372,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/19/Linux-小结/" data-id="cjul6pif10005tws6bxwi2jyi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/19/Linux-小结/" data-id="cjumr704t0002a0s6s1swhd52" class="article-share-link">Share</a>
       
       
     </footer>
@@ -411,7 +531,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/18/算法-递归/" data-id="cjul6pify000rtws6hf6q025h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/18/算法-递归/" data-id="cjumr705o000pa0s697ye6msn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -450,7 +570,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/18/快速排序/" data-id="cjul6pifq000jtws6xm06d89x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/18/快速排序/" data-id="cjumr705o000ga0s6csed3u4s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -489,91 +609,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/18/堆排序/" data-id="cjul6pif5000dtws6yulcf5au" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-计算机网络" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/计算机网络/" class="article-date">
-  <time datetime="2019-03-17T10:37:39.527Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/计算机网络/">计算机网络</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、计算机网络：计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的（例如，传送数据或视频信号）。这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
-<p>2、网络分类：<br>广域网 WAN (Wide Area Network)：作用范围通常为几十到几千公里。<br>城域网 MAN (Metropolitan Area Network)：作用距离约为  5 ~ 50 公里。<br>局域网 LAN (Local Area Network) ：局限在较小的范围（如 1 公里左右）。<br>个人区域网 PAN (Personal Area Network) ：范围很小，大约在 10 米左右。</p>
-<p>注意：若中央处理机之间的距离非常近（如仅1米的数量级甚至更小些），则一般就称之为多处理机系统，而不称它为计算机网络。 </p>
-<p>3、接入网：<br>接入网 AN (Access Network)，它又称为本地接入网或居民接入网。<br>接入网是一类比较特殊的计算机网络，用于将用户接入互联网。<br>接入网本身既不属于互联网的核心部分，也不属于互联网的边缘部分。<br>接入网是从某个用户端系统到互联网中的第一个路由器（也称为边缘路由器）之间的一种网络。</p>
-<p>4、计算机网络体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0txjg.png?raw=true" alt="Image text"></p>
-<p>5、各层工作过程<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0xyfw.png?raw=true" alt="Image text"><br>1)OSI 参考模型把对等层次之间传送的数据单位称为该层的协议数据单元 PDU (Protocol Data Unit)。<br>2)协议是“水平的”，即协议是控制对等实体之间通信的规则。<br>3）服务是“垂直的”，即服务是由下层向上层通过层间接口提供的。</p>
-<p>6、TCP/IP体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0tcpip.png?raw=true" alt="Image text"></p>
-<p>物理层中继系统：转发器 (repeater)。<br>数据链路层中继系统：网桥 或 桥接器 (bridge)。<br>网络层中继系统：路由器 (router)。<br>网桥和路由器的混合物：桥路器 (brouter)。<br>网络层以上的中继系统：网关 (gateway)。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/计算机网络/" data-id="cjul6pig2000wtws68qqenm2d" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-归并排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/归并排序/" class="article-date">
-  <time datetime="2019-03-17T08:47:50.804Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/归并排序/">归并排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、归并排序"><a href="#1、归并排序" class="headerlink" title="1、归并排序"></a>1、归并排序</h3><p>1、和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是O(n log n）的时间复杂度。代价是需要额外的内存空间。</p>
-<p>2、归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。归并排序是一种稳定的排序方法。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为2-路归并</p>
-<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(n)  最差情况：T(n) = O(nlogn)  平均情况：T(n) = O(nlogn)</p>
-<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergesort.gif?raw=true" alt="Image text"></p>
-<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> [] re=mergeSort(a);</span><br><span class="line">		printArr(re);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] mergeSort(<span class="keyword">int</span> [] a) &#123;</span><br><span class="line">		<span class="keyword">if</span>(a.length&lt;<span class="number">2</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> a;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> mid=a.length/<span class="number">2</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> [] left=Arrays.copyOfRange(a,<span class="number">0</span>, mid);</span><br><span class="line">		<span class="keyword">int</span> [] right=Arrays.copyOfRange(a,mid, a.length);</span><br><span class="line">		<span class="keyword">return</span> merge(mergeSort(left),mergeSort(right));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] merge(<span class="keyword">int</span> [] left,<span class="keyword">int</span> [] right) &#123;</span><br><span class="line">		<span class="keyword">int</span> [] re=<span class="keyword">new</span> <span class="keyword">int</span>[left.length+right.length];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> index=<span class="number">0</span>,i=<span class="number">0</span>,j=<span class="number">0</span>;index&lt;re.length;index++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i&gt;=left.length) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=right.length) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&gt;right[j]) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&lt;right[j]) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> re;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/归并排序/" data-id="cjul6pifl000gtws6u4sk9d7i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/18/堆排序/" data-id="cjumr705o000ea0s6363tphl7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -619,6 +655,14 @@
       <ul>
         
           <li>
+            <a href="/2019/04/18/jvm类加载3/">jvm类加载3</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/jvm类加载2/">JVM类加载2</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/17/JVM类加载/">JVM类加载</a>
           </li>
         
@@ -628,14 +672,6 @@
         
           <li>
             <a href="/2019/04/16/Shell编程/">shell编程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/16/JVM内存模型/">JVM内存模型</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/15/设计模式-模板模式/">设计模式-模板模式</a>
           </li>
         
       </ul>
