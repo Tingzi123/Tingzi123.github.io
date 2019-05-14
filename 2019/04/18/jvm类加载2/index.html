@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JVM接口初始化规则1、当一个接口再初始化时，并不要求其父接口都完成初始化，只有当真正使用到父接口时（如引用接口中定义的常量时）才会初始化。（对于类来说，子类初始化之前，它的父类要先全部初始化）2、当一个类初始化时，并不要求先初始化其所实现的接口注：1）只有当程序首次使用特定接口的静态变量时，才会导致该接口的初始化。2）只有当程序访问的静态变量或静态方法确实在当前类或接口中定义时，才可以认为是对类">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-18T14:39:34.377Z">
+<meta property="og:updated_time" content="2019-04-19T03:00:45.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM类加载2">
 <meta name="twitter:description" content="JVM接口初始化规则1、当一个接口再初始化时，并不要求其父接口都完成初始化，只有当真正使用到父接口时（如引用接口中定义的常量时）才会初始化。（对于类来说，子类初始化之前，它的父类要先全部初始化）2、当一个类初始化时，并不要求先初始化其所实现的接口注：1）只有当程序首次使用特定接口的静态变量时，才会导致该接口的初始化。2）只有当程序访问的静态变量或静态方法确实在当前类或接口中定义时，才可以认为是对类">
@@ -88,7 +88,7 @@
       
         <h2 id="JVM接口初始化规则"><a href="#JVM接口初始化规则" class="headerlink" title="JVM接口初始化规则"></a>JVM接口初始化规则</h2><p>1、当一个接口再初始化时，并不要求其父接口都完成初始化，只有当真正使用到父接口时（如引用接口中定义的常量时）才会初始化。（对于类来说，子类初始化之前，它的父类要先全部初始化）<br>2、当一个类初始化时，并不要求先初始化其所实现的接口<br>注：1）只有当程序首次使用特定接口的静态变量时，才会导致该接口的初始化。<br>2）只有当程序访问的静态变量或静态方法确实在当前类或接口中定义时，才可以认为是对类或接口的主动使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterFaceClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Childs.b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line"><span class="comment">//接口中的属性就是static和final，这里显示定义为了更加清楚</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Childs</span> <span class="keyword">extends</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> b=<span class="number">6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure></p>
-<p>在上面这个例子中，<br>再看下面的代码：Childs.b调用子接口的属性b，属性b的定义为public static final int b=6，这是一个常量，在编译期间会被放入调用它的类的常量池中，这时，不会初始化Childs类，虽然子接口继承自父接口，但没有使用到父接口，所以没有主动使用父接口，不会初始化父接口，将子接口的class文件删除也不影响运行。（子接口初始化，父接口不一定初始化）</p>
+<p>在上面这个例子中，<br>Childs.b调用子接口的属性b，属性b的定义为public static final int b=6，这是一个常量，在编译期间会被放入调用它的类的常量池中，这时，不会初始化Childs类，虽然子接口继承自父接口，但没有使用到父接口，所以没有主动使用父接口，不会初始化父接口，将子接口的class文件删除也不影响运行。（子接口初始化，父接口不一定初始化）</p>
 <p>再看下面的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterFaceClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Childs.b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Childs</span> <span class="keyword">extends</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> b=<span class="keyword">new</span> Random().nextInt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2024458112</span></span><br></pre></td></tr></table></figure></p>
 <p>在上面的例子中，Childs.b调用子接口的属性b,但b的定义为public static final int b=new Random().nextInt()，是一个随机数，要在运行期间才能确定，所以这个值不会被放到调用它的类的常量池中，这时会主动使用父接口，使父接口初始化，若把父接口的class文件删除，会报找不到对象异常。</p>
@@ -129,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/18/jvm类加载2/" data-id="cjumr707u001ja0s6e548ynkw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/18/jvm类加载2/" data-id="cjvnfjit3001qjos6v88uqxsj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -174,7 +174,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -187,23 +187,23 @@
       <ul>
         
           <li>
-            <a href="/2019/04/18/jvm类加载3/">jvm类加载3</a>
+            <a href="/2019/05/13/springboot-web开发-crud/">SpringBoot与Web开发crud</a>
           </li>
         
           <li>
-            <a href="/2019/04/18/jvm类加载2/">JVM类加载2</a>
+            <a href="/2019/05/13/springboot-web开发-入门/">SpringBoot与Web开发入门</a>
           </li>
         
           <li>
-            <a href="/2019/04/17/JVM类加载/">JVM类加载</a>
+            <a href="/2019/05/12/Springboot-日志/">SpringBoot与日志</a>
           </li>
         
           <li>
-            <a href="/2019/04/16/shell运算符/">shell运算符</a>
+            <a href="/2019/05/12/springboot-配置/">SpringBoot配置</a>
           </li>
         
           <li>
-            <a href="/2019/04/16/Shell编程/">shell编程</a>
+            <a href="/2019/04/23/SpringBoot/">SpringBoot入门</a>
           </li>
         
       </ul>

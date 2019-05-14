@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JVM类加载1、Java中，类型的加载、连接与初始化过程都是在程序运行期间完成的。1）加载：查找并加载类的二进制数据（将类从磁盘文件写入内存）2）连接：（1）验证：确保被加载的类的正确性（2）准备：为类的静态变量分配内存，并将其初始化为默认值（例如，静态的整型值初始化为默认值为0，由Java虚拟机来完成）（3）解析：把类中的符号引用转换为直接引用3）初始化：为类的静态变量赋正确的初始值（程序员主观">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-18T05:28:33.057Z">
+<meta property="og:updated_time" content="2019-04-19T03:24:59.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM类加载">
 <meta name="twitter:description" content="JVM类加载1、Java中，类型的加载、连接与初始化过程都是在程序运行期间完成的。1）加载：查找并加载类的二进制数据（将类从磁盘文件写入内存）2）连接：（1）验证：确保被加载的类的正确性（2）准备：为类的静态变量分配内存，并将其初始化为默认值（例如，静态的整型值初始化为默认值为0，由Java虚拟机来完成）（3）解析：把类中的符号引用转换为直接引用3）初始化：为类的静态变量赋正确的初始值（程序员主观">
@@ -104,7 +104,7 @@
 <h3 id="编译期常量与运行期常量的区别"><a href="#编译期常量与运行期常量的区别" class="headerlink" title="编译期常量与运行期常量的区别"></a>编译期常量与运行期常量的区别</h3><p>上面的例子是编译期常量，下面演示运行期常量<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(MyParent.str);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParent</span></span>&#123;</span><br><span class="line">	<span class="comment">//UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准</span></span><br><span class="line">	<span class="comment">//UUID.randomUUID().toString()是随机的，编译器无法确定</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String str=UUID.randomUUID().toString();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"UUID CODE"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UUID CODE</span><br><span class="line">f624dd9f-<span class="number">5</span>d47-<span class="number">42f</span>4-<span class="number">8f</span>b2-<span class="number">41812</span>b231bda</span><br></pre></td></tr></table></figure></p>
 <p>注意：当一个常量并非编译器可以确定，那么其值就不会被放到调用类的常量池中，这时程序运行时，会会主动使用定义这个常量所在的类，则会导致该类被初始化（在这个例子中，对于public static final String str=UUID.randomUUID().toString()，是随机的，在编译器无法确定，则会加载它所在的类MyParent,从而输出UUID CODE）</p>
-<h3 id="数组创建本质"><a href="#数组创建本质" class="headerlink" title="数组创建本质"></a>数组创建本质</h3><p>一个前言<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		TestArray a=<span class="keyword">new</span> TestArray();<span class="comment">//首次实例化</span></span><br><span class="line">		TestArray b=<span class="keyword">new</span> TestArray();<span class="comment">//再次实例化</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="数组创建本质"><a href="#数组创建本质" class="headerlink" title="数组创建本质"></a>数组创建本质</h3><p>对于数组类型，它的类加载器是由Java虚拟机在运行期动态创建的，Java虚拟机返回的类加载器类型与数组中元素的类加载器类型一样（例如一个string类型的数组，String的类加载器是根类加载器，那么Java虚拟机为数组类型创建的类加载器也是根类加载器，），如果元素类型为原生类型，则没有类加载器（例如int类型）。<br>一个前言<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		TestArray a=<span class="keyword">new</span> TestArray();<span class="comment">//首次实例化</span></span><br><span class="line">		TestArray b=<span class="keyword">new</span> TestArray();<span class="comment">//再次实例化</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TestArray.........</span><br></pre></td></tr></table></figure></p>
 <p>结果分析：当对一个类首次实例化时，会主动调用并初始化，再次则不会主动使用了，所以实例化两次，只打印一次。</p>
 <p>正文：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TestArray[] a=<span class="keyword">new</span> TestArray[<span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -126,7 +126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/17/JVM类加载/" data-id="cjumr706z0019a0s62v23nlvz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/17/JVM类加载/" data-id="cjvnfjir40019jos6wmlfx9yt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +171,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -184,23 +184,23 @@
       <ul>
         
           <li>
-            <a href="/2019/04/18/jvm类加载3/">jvm类加载3</a>
+            <a href="/2019/05/13/springboot-web开发-crud/">SpringBoot与Web开发crud</a>
           </li>
         
           <li>
-            <a href="/2019/04/18/jvm类加载2/">JVM类加载2</a>
+            <a href="/2019/05/13/springboot-web开发-入门/">SpringBoot与Web开发入门</a>
           </li>
         
           <li>
-            <a href="/2019/04/17/JVM类加载/">JVM类加载</a>
+            <a href="/2019/05/12/Springboot-日志/">SpringBoot与日志</a>
           </li>
         
           <li>
-            <a href="/2019/04/16/shell运算符/">shell运算符</a>
+            <a href="/2019/05/12/springboot-配置/">SpringBoot配置</a>
           </li>
         
           <li>
-            <a href="/2019/04/16/Shell编程/">shell编程</a>
+            <a href="/2019/04/23/SpringBoot/">SpringBoot入门</a>
           </li>
         
       </ul>
