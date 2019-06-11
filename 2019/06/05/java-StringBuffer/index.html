@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java-String，StringBuilder，StringBuffer三者的区别 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Java中的String，StringBuilder，StringBuffer三者的区别　　最近在学习Java的时候，遇到了这样一个问题，就是String,StringBuilder以及StringBuffer这三个类之间有什么区别呢，自己从网上搜索了一些资料，有所了解了之后在这里整理一下，便于大家观看，也便于加深自己学习过程中对这些知识点的记忆，如果哪里有误，恳请指正。 　　这三个类之间的区别主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-String，StringBuilder，StringBuffer三者的区别">
+<meta property="og:url" content="http://yoursite.com/2019/06/05/java-StringBuffer/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java中的String，StringBuilder，StringBuffer三者的区别　　最近在学习Java的时候，遇到了这样一个问题，就是String,StringBuilder以及StringBuffer这三个类之间有什么区别呢，自己从网上搜索了一些资料，有所了解了之后在这里整理一下，便于大家观看，也便于加深自己学习过程中对这些知识点的记忆，如果哪里有误，恳请指正。 　　这三个类之间的区别主">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-05T05:39:58.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java-String，StringBuilder，StringBuffer三者的区别">
+<meta name="twitter:description" content="Java中的String，StringBuilder，StringBuffer三者的区别　　最近在学习Java的时候，遇到了这样一个问题，就是String,StringBuilder以及StringBuffer这三个类之间有什么区别呢，自己从网上搜索了一些资料，有所了解了之后在这里整理一下，便于大家观看，也便于加深自己学习过程中对这些知识点的记忆，如果哪里有误，恳请指正。 　　这三个类之间的区别主">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java-StringBuffer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/05/java-StringBuffer/" class="article-date">
+  <time datetime="2019-06-05T05:38:21.620Z" itemprop="datePublished">2019-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java-String，StringBuilder，StringBuffer三者的区别
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Java中的String，StringBuilder，StringBuffer三者的区别<br>　　最近在学习Java的时候，遇到了这样一个问题，就是String,StringBuilder以及StringBuffer这三个类之间有什么区别呢，自己从网上搜索了一些资料，有所了解了之后在这里整理一下，便于大家观看，也便于加深自己学习过程中对这些知识点的记忆，如果哪里有误，恳请指正。</p>
+<p>　　这三个类之间的区别主要是在两个方面，即运行速度和线程安全这两方面。</p>
+<p>首先说运行速度，或者说是执行速度，在这方面运行速度快慢为：StringBuilder &gt; StringBuffer &gt; String<br>　　String最慢的原因：</p>
+<p>　　String为字符串常量，而StringBuilder和StringBuffer均为字符串变量，即String对象一旦创建之后该对象是不可更改的，但后两者的对象是变量，是可以更改的。以下面一段代码为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> String str=<span class="string">"abc"</span>;</span><br><span class="line"><span class="number">2</span> System.out.println(str);</span><br><span class="line"><span class="number">3</span> str=str+<span class="string">"de"</span>;</span><br><span class="line"><span class="number">4</span> System.out.println(str);</span><br></pre></td></tr></table></figure>
+<p>　　如果运行这段代码会发现先输出“abc”，然后又输出“abcde”，好像是str这个对象被更改了，其实，这只是一种假象罢了，JVM对于这几行代码是这样处理的，首先创建一个String对象str，并把“abc”赋值给str，然后在第三行中，其实JVM又创建了一个新的对象也名为str，然后再把原来的str的值和“de”加起来再赋值给新的str，而原来的str就会被JVM的垃圾回收机制（GC）给回收掉了，所以，str实际上并没有被更改，也就是前面说的String对象一旦创建之后就不可更改了。所以，Java中对String对象进行的操作实际上是一个不断创建新的对象并且将旧的对象回收的一个过程，所以执行速度很慢。</p>
+<p>　　而StringBuilder和StringBuffer的对象是变量，对变量进行操作就是直接对该对象进行更改，而不进行创建和回收的操作，所以速度要比String快很多。</p>
+<p>　　另外，有时候我们会这样对字符串进行赋值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> String str=<span class="string">"abc"</span>+<span class="string">"de"</span>;</span><br><span class="line"><span class="number">2</span> StringBuilder stringBuilder=<span class="keyword">new</span> StringBuilder().append(<span class="string">"abc"</span>).append(<span class="string">"de"</span>);</span><br><span class="line"><span class="number">3</span> System.out.println(str);</span><br><span class="line"><span class="number">4</span> System.out.println(stringBuilder.toString());</span><br></pre></td></tr></table></figure>
+<p>　　这样输出结果也是“abcde”和“abcde”，但是String的速度却比StringBuilder的反应速度要快很多，这是因为第1行中的操作和</p>
+<p>　　String str=”abcde”;</p>
+<p>　　是完全一样的，所以会很快，而如果写成下面这种形式<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> String str1=<span class="string">"abc"</span>;</span><br><span class="line"><span class="number">2</span> String str2=<span class="string">"de"</span>;</span><br><span class="line"><span class="number">3</span> String str=str1+str2;</span><br></pre></td></tr></table></figure></p>
+<p>　　那么JVM就会像上面说的那样，不断的创建、回收对象来进行这个操作了。速度就会很慢。</p>
+<p>　　2. 再来说线程安全</p>
+<p>　　在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的</p>
+<p>　　如果一个StringBuffer对象在字符串缓冲区被多个线程使用时，StringBuffer中很多方法可以带有synchronized关键字，所以可以保证线程是安全的，但StringBuilder的方法则没有该关键字，所以不能保证线程安全，有可能会出现一些错误的操作。所以如果要进行的操作是多线程的，那么就要使用StringBuffer，但是在单线程的情况下，还是建议使用速度比较快的StringBuilder。</p>
+<p>　　3. 总结一下<br>　　String：适用于少量的字符串操作的情况</p>
+<p>　　StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况</p>
+<p>　　StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/05/java-StringBuffer/" data-id="cjwrsjqvo000anss6qepah8pj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/05/springboot-消息/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SpringBoot与消息
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/05/map遍历/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java-map遍历</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/05/springboot-消息/">SpringBoot与消息</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/java-StringBuffer/">java-String，StringBuilder，StringBuffer三者的区别</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/map遍历/">java-map遍历</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/27/SpringBoot-缓存/">SpringBoot与缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/23/springboot-启动配置原理/">SpringBoot启动配置原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
