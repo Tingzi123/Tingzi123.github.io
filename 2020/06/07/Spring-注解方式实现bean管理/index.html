@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Spring的bean管理（注解方式） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="注解1、代码里面的特殊标记，使用注解可以完成某些功能2、注解写法：@注解名称（属性名称=属性值）3、注解使用在类、方法、属性上面 注解开发准备1、创建类User1234567package compublic class User&amp;#123;    public void add()&amp;#123;        System.out.println(&quot;add.......&quot;);    &amp;#125;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring的bean管理（注解方式）">
+<meta property="og:url" content="http://yoursite.com/2020/06/07/Spring-注解方式实现bean管理/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="注解1、代码里面的特殊标记，使用注解可以完成某些功能2、注解写法：@注解名称（属性名称=属性值）3、注解使用在类、方法、属性上面 注解开发准备1、创建类User1234567package compublic class User&amp;#123;    public void add()&amp;#123;        System.out.println(&quot;add.......&quot;);    &amp;#125;&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-14T11:26:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring的bean管理（注解方式）">
+<meta name="twitter:description" content="注解1、代码里面的特殊标记，使用注解可以完成某些功能2、注解写法：@注解名称（属性名称=属性值）3、注解使用在类、方法、属性上面 注解开发准备1、创建类User1234567package compublic class User&amp;#123;    public void add()&amp;#123;        System.out.println(&quot;add.......&quot;);    &amp;#125;&amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Spring-注解方式实现bean管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/Spring-注解方式实现bean管理/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.764Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring的bean管理（注解方式）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>1、代码里面的特殊标记，使用注解可以完成某些功能<br>2、注解写法：@注解名称（属性名称=属性值）<br>3、注解使用在类、方法、属性上面</p>
+<h3 id="注解开发准备"><a href="#注解开发准备" class="headerlink" title="注解开发准备"></a>注解开发准备</h3><p>1、创建类User<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"add......."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建配置文件，引入约束<br>（1）IOC基本功能，引入beans约束<br>（2）IOC注解开发，还需引入spring-context约束</p>
+<p>3、<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---开启注解扫描</span><br><span class="line">    （<span class="number">1</span>）到包里面扫描类、方法、属性上面是否有注解</span><br><span class="line">---&gt;</span><br><span class="line">&lt;context:component-scan base-package="com"&gt;&lt;/context:component-scan&gt;</span><br><span class="line">&lt;!---base-<span class="keyword">package</span>属性为要开启注解扫描的包---&gt;</span><br><span class="line"></span><br><span class="line">&lt;!---</span><br><span class="line">    只扫描属性上面是否有注解</span><br><span class="line">---&gt;</span><br><span class="line">&lt;context:annotation-config&gt;&lt;/context:annotation-config&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="注解创建对象"><a href="#注解创建对象" class="headerlink" title="注解创建对象"></a>注解创建对象</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com</span><br><span class="line"></span><br><span class="line"><span class="comment">//在类上方使用注解创建对象，相当于&lt;bean id="user" class="com.User"&gt;&lt;/bean&gt;</span></span><br><span class="line"><span class="meta">@Component</span>(value=<span class="string">"user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"add......."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestIOC</span></span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//1、加载spring配置文件，扫描注解</span></span><br><span class="line">        ApplicationContext context=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"bean.xml"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、得到注解创建的对象</span></span><br><span class="line">        User user=(User)context.getBean(<span class="string">"user"</span>);</span><br><span class="line">        user.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建对象的四个注解"><a href="#创建对象的四个注解" class="headerlink" title="创建对象的四个注解"></a>创建对象的四个注解</h3><p>1、@Component<br>2、@Controller：web层<br>3、@Service：业务层<br>4、@Repository：持久层<br>目前四个注解功能一样，都是创建对象，后三个注解为了让类标注本身的用途清晰，spring后续版本会对其增强。</p>
+<h3 id="注解创建多实例对象"><a href="#注解创建多实例对象" class="headerlink" title="注解创建多实例对象"></a>注解创建多实例对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com</span><br><span class="line"></span><br><span class="line"><span class="comment">//@Scope(value="propertype)指明创建多实例对象</span></span><br><span class="line"><span class="meta">@Component</span>(value=<span class="string">"user"</span>)</span><br><span class="line"><span class="meta">@Scope</span>(value=<span class="string">"propertype"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"add......."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="注解注入属性"><a href="#注解注入属性" class="headerlink" title="注解注入属性"></a>注解注入属性</h2><p>1、创建UserService类，用注解@Component(value=”userService”)创建该类对象userService<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建UserDao类，用注解@Component(value=”userDao”)创建该类对象userDao<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userDao"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"dao........"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、在 UserService类中，把UserDao作为一个属性，并在该属性上使用注解@Autowired自动装配，完成对象注入（根据类名UserDao找到该类并自动注入值）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">    <span class="comment">//（1）把UserDao对象作为类型属性</span></span><br><span class="line">    <span class="comment">//（2）在UserDao属性上使用注解完成对象注入,@Autowired自动装配</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以用@Resource(name=”userDao”)完成对象注入<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(value=<span class="string">"userService"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">    <span class="comment">//（1）把UserDao对象作为类型属性</span></span><br><span class="line">    <span class="comment">//（2）@Resource(name="userDao"),name的属性值为注解创建UserDao对象时的value值，</span></span><br><span class="line">    <span class="comment">// 这里创建UserDao对象的注解是@Component(value="userDao")</span></span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"userDao"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置文件和注解混合使用"><a href="#配置文件和注解混合使用" class="headerlink" title="配置文件和注解混合使用"></a>配置文件和注解混合使用</h3><p>1、创建对象操作使用配置文件方式实现<br>2、注入属性操作使用注解方式实现</p>
+<p>1）创建UserService类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建UserDao1类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"dao1........"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、创建UserDao2类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"dao2........"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、创建配置文件创建对象<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!---开启注解扫描</span><br><span class="line">    （<span class="number">1</span>）到包里面扫描类、方法、属性上面是否有注解</span><br><span class="line">---&gt;</span><br><span class="line">&lt;context:component-scan base-package="com"&gt;&lt;/context:component-scan&gt;</span><br><span class="line"></span><br><span class="line">&lt;!---配置对象---&gt;</span><br><span class="line">&lt;bean id="userService" class="com.UserService"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id="userDao1" class="com.UserDao1"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;bean id="userDao2" class="com.UserDao2"&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>5、在UserService中使用注解@Resource注入属性<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"userDao1"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao1 userDao1;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Resource</span>(name=<span class="string">"userDao2"</span>)</span><br><span class="line">    <span class="keyword">private</span> UserDao2 userDao2;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"service........"</span>);</span><br><span class="line">        <span class="comment">//在service中得到Dao对象，才能调用Dao的方法</span></span><br><span class="line">        userDao1.add();</span><br><span class="line">        userDao2.add();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/Spring-注解方式实现bean管理/" data-id="ckb4u189p000ep4vi0kv5m1um" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/07/springboot-docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SpringBoot与Docker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/07/Spring-jdbcTemplate/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Spring-jdbcTemplate</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/07/test2020/">2020年test</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链队列/">链队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链栈/">链栈</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/选择排序/">选择排序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/设计模式-适配器模式/">设计模式-适配器模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

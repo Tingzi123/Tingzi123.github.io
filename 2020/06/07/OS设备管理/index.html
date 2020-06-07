@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>操作系统-设备管理 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、概 述1 、 I / O 的 特 点（1）I/O性能经常成为系统性能的瓶颈，CPU性能越高，与I/O差距越大（2）操作系统庞大复杂的原因之一是：资源多、杂，并发，均来自I/O（3）异步性处理机与I/O设备各自以不同的速度工作，可以并行工作，无需相互等待，通过中断方式或DMA方式交互。（4）接口通用性I/O设备与处理机连接通过通用接口。 1.1 设备的分类（1）按使用特性分类存储型设备：用来保存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统-设备管理">
+<meta property="og:url" content="http://yoursite.com/2020/06/07/OS设备管理/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、概 述1 、 I / O 的 特 点（1）I/O性能经常成为系统性能的瓶颈，CPU性能越高，与I/O差距越大（2）操作系统庞大复杂的原因之一是：资源多、杂，并发，均来自I/O（3）异步性处理机与I/O设备各自以不同的速度工作，可以并行工作，无需相互等待，通过中断方式或DMA方式交互。（4）接口通用性I/O设备与处理机连接通过通用接口。 1.1 设备的分类（1）按使用特性分类存储型设备：用来保存">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev1.png?raw=true">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev2.png?raw=true">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev3.png?raw=true">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev4.png?raw=true">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev5.png?raw=true">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev6.png?raw=true">
+<meta property="og:updated_time" content="2019-03-30T08:52:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统-设备管理">
+<meta name="twitter:description" content="1、概 述1 、 I / O 的 特 点（1）I/O性能经常成为系统性能的瓶颈，CPU性能越高，与I/O差距越大（2）操作系统庞大复杂的原因之一是：资源多、杂，并发，均来自I/O（3）异步性处理机与I/O设备各自以不同的速度工作，可以并行工作，无需相互等待，通过中断方式或DMA方式交互。（4）接口通用性I/O设备与处理机连接通过通用接口。 1.1 设备的分类（1）按使用特性分类存储型设备：用来保存">
+<meta name="twitter:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev1.png?raw=true">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-OS设备管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/OS设备管理/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.639Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      操作系统-设备管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、概 述<br>1 、 I / O 的 特 点<br>（1）I/O性能经常成为系统性能的瓶颈，CPU性能越高，与I/O差距越大<br>（2）操作系统庞大复杂的原因之一是：资源多、杂，并发，均来自I/O<br>（3）异步性<br>处理机与I/O设备各自以不同的速度工作，可以并行工作，无需相互等待，通过中断方式或DMA方式交互。<br>（4）接口通用性<br>I/O设备与处理机连接通过通用接口。</p>
+<p>1.1 设备的分类<br>（1）按使用特性分类<br>存储型设备：用来保存信息的设备，比如磁盘磁带等。<br>输入型设备：键盘、鼠标、物理传感设备<br>输出型设备：打印机、绘图仪（可保存）<br>输入输出型设备（交互型设备）</p>
+<p>（2）按信息交换单位分类<br>块设备：<br>以数据块为单位存储、传输信息；比如磁盘、磁带、光盘等<br>字符设备：<br>以字符为单位存储、传输信息；不寻址，没有查找操作；比如键盘、鼠标、打印机等</p>
+<p>（3）按外部设备的从属关系分<br>系统设备：<br>指操作系统生成时，登记在系统中的标准设备（如终端、打印机、磁盘机等）；<br>用户设备：<br>指在系统生成时，未登记在系统中的非标准设备（如鼠标）。</p>
+<p>（4）按资源分配角度分<br>独占设备：<br>在一段时间内只能有一个进程使用的设备，一般为低速I/O设备（如打印机，磁带等）<br>共享设备：<br>在一段时间内可有多个进程共同使用的设备，多个进程以交叉的方式来使用设备，其资源利用率高（如硬盘）<br>虚拟设备：<br>在一类设备上模拟另一类设备，常用共享设备模拟独占设备，目的是为了提高利用率</p>
+<p>1.2 设 备 管 理 的 目 标 和 任 务<br>（1）按照用户的请求，控制设备的各种操作，完成I/O设备与内存之间的数据交换（包括设备分配与回收；设备中断处理；缓冲区管理），<br>最终完成用户的I/O请求<br>– 设备分配与回收<br>– 建立统一的独立于设备的接口<br>– 实现真正的I/O操作<br>– 处理外部设备的中断处理<br>– 管理I/O缓冲区，减少外设和内存及CPU之间的速度不匹配问题</p>
+<p>（2）向用户提供使用外部设备的方便接口，使用户摆脱繁琐的编程负担</p>
+<p>（3）充分利用各种技术（通道，中断，缓冲等）提高CPU与设备、设备与设备之间的并行工作能力，充分利用资源，提高资源利用率</p>
+<p>2、数据传输控制<br>2.1 程序控制I/O技术<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev1.png?raw=true" alt="Image text"><br>– 由处理器提供I/O相关指令来实现<br>– I/O处理单元处理请求并设置I/O状态寄存器相关位<br>– 不中断处理器，也不给处理器警告信息<br>– 处理器定期轮询I/O单元的状态，直到处理完毕<br>– I/O软件包含直接操纵I/O的指令<br>• 控制指令: 用于激活外设，并告诉它做什么<br>• 状态指令: 用于测试I/O控制中的各种状态和条件<br>• 数据传送指令: 用于在设备和主存之间来回传送数据</p>
+<p>– 程序直接控制方式简单，不需要多少硬件支持，但是存在以下缺点：<br>• CPU和外设只能串行工作。由于CPU处理速度远快于外设，CPU的大量时间都处于循环测试等待状态，使得处理机利用率大大降低<br>• CPU在一段时间内只能和一台外设交换数据，从而不能实现设备之间的并行工作<br>• 由于程序直接控制方式通过不断测试状态位来控制数据传送，因此无法发现和处理其他设备的问题</p>
+<p>2.2 中断驱动I/O技术<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev2.png?raw=true" alt="Image text"><br>– 首先，进程发出指令启动外设，同时将状态寄存器中的中断允许位打开；<br>– 进程发出指令后，该进程放弃处理机，进程调度程序调度其他就绪进程占据处理机；<br>– 当输入完成时，I/O控制器通过中断请求线向CPU发出中断信号，CPU接收到信号后做相应处理（将缓冲寄存器中数据送到指定内存单元，<br>把阻塞进程唤醒，再返回到被中断进程继续执行）<br>– 在以后的“某个时刻”，被唤醒进程（就绪态）被进程调度程序选中重新占据处理机，从约定的内存单元中取数据进一步处理<br>（如果数据没完，重复）<br>– 优点：<br>• 不再循环测试状态位，提高CPU利用率且支持设备和设备以及设备和CPU之间的并行工作。<br>– 缺点：<br>• 由于数据缓冲寄存器较小，故中断次数较多，这仍将损耗大量CPU时间，同时有可能造成数据丢失（数据缓冲寄存器的数据来不及取走）</p>
+<p>2.3 D M A 技 术<br>• 直接存储器访问（DMA：Direct Memory Access）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev3.png?raw=true" alt="Image text"><br>• 在外设和内存之间开辟直接的数据交换通路，目的是为了减少CPU的干预<br>• 自动控制数据在内存和I/O单元间的传送<br>• 大大提高处理I/O的效能<br>– 当处理器需要读写数据时给DMA控制单元发送一条命令。<br>– 处理器发送完命令后就可处理其它事情<br>– DMA控制器将自动管理数据的传送<br>– 当这个过程完成后，它会给处理器发一个中断<br>– 处理器只在开始传送和传送结束时关注一下即可<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev4.png?raw=true" alt="Image text"></p>
+<p>DMA方式与中断的主要区别:<br>– 中断方式是在数据缓冲寄存器满后，发中断请求，CPU进行中断处理<br>– DMA方式则是在所要求传送的数据块全部传送结束时要求CPU进行中断处理<br>– 大大减少了CPU进行中断处理的次数<br>– 中断方式的数据传送是由CPU控制完成的<br>– 而DMA方式则是在DMA控制器的控制下不经过CPU控制完成的</p>
+<p>DMA 方式的局限性；<br>– 数据传送方向、内存始址、数据长度等都由CPU控制；并且每台设备需一个DMA控制器，当外设较多时控制会进一步复杂化。</p>
+<p>3、通 道<br>– 通道又称为I/O处理机<br>– 引入通道的目的:<br>• 为了使CPU从I/O事务中解脱出来<br>• 为了提高CPU与设备、设备与设备之间的并行度</p>
+<p>– 定义：<br>• 通道是独立于CPU的专门负责数据输入/输出传输工作的处理机，对外部设备实现统一管理，代替CPU对输入/输出操作进行控制，从而使输入，输出操作可与CPU并行操作。<br>– 通道有自己的通道指令。</p>
+<p>通道分类：<br>1）字节多路通道<br>• 字节多路通道以字节为单位传输信息，它可以分时地执行多个通道程序。<br>– 主要连接以字节为单位的低速I/O设备。如打印机，终端。<br>– 以字节为单位交叉传输，当一台传送一个字节后，立即转去为另一台传送字节</p>
+<p>2）选择通道<br>• 选择通道是以成组方式工作的，即每次传送一批数据，故传送速度很高。选择通道在一段时间内只能执行一个通道程序，<br>只允许一台设备进行数据传输</p>
+<p>3）数组(成组)多路通道<br>• 它结合了选择通道传送速度高和字节多路通道能进行分时并行操作的优点。它先为一台设备执行一条通道指令，然后自动转接，<br>为另一台设备执行一条通道指令<br>– 主要连接高速设备</p>
+<p>4、中断技术<br>– 中断机制是操作系统得以正常工作的最重要的手段<br>– 它使得OS可以捕获普通程序发出的系统功能调用<br>– 及时处理设备的中断请求<br>– 防止用户程序中破坏性的活动等等</p>
+<p>4.1 中断的概念<br>• 指CPU对系统中或系统外发生随机事件的响应<br>• 如外部设备完成数据传输，出现异常等<br>• CPU对系统发生的某个事件作出的一种反应<br>– CPU暂停正在执行的程序，保留现场后自动转去执行相应事件的处理程序，处理完成后返回断点，继续执行被打断的程序<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev5.png?raw=true" alt="Image text"></p>
+<p>引入中断的目的<br>• 解决主机与外设的并行工作问题<br>• 提高可靠性<br>• 实现实时控制<br>– 特点：<br>• 中断是随机的<br>• 中断是可恢复的<br>• 中断是自动处理的<br>– 中断源：引起中断发生的事件<br>– 中断寄存器：记录中断<br>– 中断字：中断寄存器的内容</p>
+<p>– 系统堆栈:<br>在内存开辟的一块区域，用于临时保存现场</p>
+<p>– 关中断：某些情况下，尽管中断源发出了中断请求，但CPU的PSW的中断允许位已被消除，从而不允许CPU响应中断<br>– 开中断：当设置PSW的中断允许位时，CPU可以接受中断<br>– 开中断和关中断是为了保证某些程序执行的原子性<br>– 中断屏蔽：指系统用软件方式有选择地封锁部分中断而允许其他部分的中断仍能得到响应。比如PSW可以设置优先级，可以屏蔽掉优先级低的中断</p>
+<p>4.2 中断类型<br>强迫性中断<br>• 正在运行的程序所不期望的，由于某种硬件故障或外部请求引起的<br>– 自愿性中断<br>• 用户在程序中有意识安排的中断，是由于用户在编制程序时因为要求操作系统提供服务，有意使用“访管”指令或系统调用，使中断发生</p>
+<p>强迫性中断<br>• 输入/输出(I/O)中断：主要来自外部设备通道<br>• 程序性中断：运行程序中本身的中断(如溢出,缺页中断,缺段中断,地址越界)<br>• 时钟中断<br>• 硬件故障</p>
+<p>自愿性中断<br>• 执行I/O，创建进程，分配内存<br>• 信号量操作，发送/接收消息</p>
+<p>– 外中断<br>来自处理机和内存外部的中断，包括I/O中断、时钟中断等，也称为中断<br>– 内中断<br>与外中断相反，比如溢出、系统调用等，称为陷阱</p>
+<p>在多级中断系统中，可能同时有多个中断请求，CPU接受中断优先级为最高的那个中断<br>– 忽略其中断优先级较低的那些中断<br>– 在一些机器中，中断优先级按中断类型划分：<br>• 机器故障中断的优先级最高<br>• 程序中断和访问管理程序中断次之<br>• 外部中断更次之<br>• 输入输出的优先级最低</p>
+<p>中断和陷阱的区别：<br>陷阱的优先级一般高于中断<br>• 陷阱通常由正在执行的指令引起的（比如系统调用），而中断则是由与现行指令无关的中断源引起的<br>• 陷阱处理程序的服务为当前进程所用，而中断处理程序提供的服务则不是为了当前进程的<br>• CPU在执行完一条指令后，下一条指令之前响应中断，而在一条指令执行中也可以响应陷阱</p>
+<p>中断处理过程：<br>（1）设备给处理器发一个中断信号<br>（2）处理器处理完当前指令后响应中断，延迟非常短（前提是处理器没有关闭中断）<br>（3）保存中断点的程序执行上下文环境，这通常包括程序状态字PSW，程序计数器PC中的下一条指令位置，一些寄存器的值，它们通常保存在系统栈中,处理器状态被切换到管态<br>（4）处理器根据中断源查询中断向量表，获得与该中断相联系的处理程序入口地址，并将PC置成该地址，处理器开始一个新的指令周期，控制转移到中断处理程序<br>（5）中断处理程序开始工作，包括检查I/O相关的状态信息，操纵I/O设备或者在设备和主存之间传送数<br>据等等<br>（6）中断处理结束时，处理器检测到中断返回指令，被中断程序的上下文环境从系统栈中被恢复，处理器状态恢复成原来的状态。<br>（7）PSW和PC被恢复成中断前的值，处理器开始一个新的指令周期，中断处理结束</p>
+<p>多个中断的处理：<br>– 若中断处理过程中又发生中断，引起多中断处理问题<br>– 两种策略方法：<br>– 第一种：<br>• 处理一个中断时禁止中断，对任何新中断置之不理，在这期间发生的中断将保持挂起状态<br>– 实现方法：<br>• 在任何中断处理前使用禁止中断指令<br>• 在处理结束后开放中断指令<br>• 所有中断严格按照发生顺序处理<br>• 不考虑中断紧急程度，无法达到较严格时间要求</p>
+<p>– 第二种：中断按照优先度分级<br>• 允许优先级高中断打断优先级低的中断处理过程<br>• 这样中断优先级技术将引起中断处理的嵌套<br>• 只要合适地定义中断的优先级别，方法一的弊端大都可以克服</p>
+<p>典型的中断处理：<br>1）时钟中断<br>• 维护软件时钟：系统有若干个软件时钟，控制定时任务以及进程的处理器时间配额，时钟中断需要维护、定时更新这些软件时钟<br>• 处理器时间调度：维护当前进程时间片软件时钟，并在当前进程时间片到时以后运行调度程序选择下一个被调度的进程<br>• 控制系统定时任务：通过软件时钟和调度程序定时激活一些系统任务，如监测死锁、系统记帐、系统审计等</p>
+<p>2）硬件故障中断<br>– 保存现场，使用一定警告手段，提供些辅助诊断信息<br>– 在高可靠系统中，中断处理程序还要评估系统可用性，尽可能恢复系统</p>
+<p>5、缓冲技术<br>– 引入原因<br>• 缓和CPU和I/O设备速度失配的矛盾<br>• 减少CPU中断频率，放宽对中断响应时间的限制。<br>• 提高CPU和设备之间的并行性<br>– 缓冲的实现方法<br>• 采用硬件缓冲器，比如数据缓冲寄存器<br>• 在内存中划出专用缓冲区存放数据</p>
+<p>5.1 缓冲种类<br>根据系统设置的缓冲器的个数，可把缓冲技术分为：<br>（1） 单缓冲<br>单缓冲是在设备和处理机之间设置一个缓冲器。设备和设备之间不能通过单缓冲达到并行操作。</p>
+<p>（2） 双缓冲<br>双缓冲只是一种说明设备和设备、CPU和设备并行操作的简单模型，并不能用于实际系统中的并行操作。</p>
+<p>（3） 多缓冲（ 缓冲队列 、 环形缓冲队列）<br>多缓冲是把多个缓冲区连接起来组成两部分，一部分专门用于输入，另一部分专门用于输出的缓冲结构。</p>
+<p>（4） 缓冲池<br>缓冲池则是把多个缓冲区连接起来统一管理，既可用于输入又可用于输出的缓冲结构</p>
+<p>缓冲池的结构<br>缓冲池由多个缓冲区组成。而一个缓冲区由两部分组成： 一部分是用来标识该缓冲区和用于管理的缓冲首部，另一部分是用于存放数据的缓冲体。<br>这两部分有一一对应的映射关系。对缓冲池的管理是通过对每一个缓冲器的缓冲首部进行操作实现的<br>系统把各缓冲区按其使用状况连成三种队列：<br>• 空白缓冲队列em，其队首指针为F(em)，队尾指针为L(em);<br>• 装满输入数据的输入缓冲队列in，其队首指针为F(in)，队尾指针为L(in);<br>• 装满输出数据的输出缓冲队列out，其队首指针为F(out)，队尾指针为L(out)。</p>
+<p>6、设备分配<br>设备分配用数据结构：<br>– 设备控制表DCT<br>系统中每个设备都必须有一张DCT，且在系统生成时或在该设备和系统连接时创建，但表中的内容则根据系统执行情况而被动态地修改。</p>
+<p>– 控制器控制表COCT<br>– COCT也是每个控制器一张，它反映I/O控制器的使用状态以及和通道的连接情况等(在DMA方式时，该项是没有的)。</p>
+<p>– 通道控制表CHCT<br>该表只在通道控制方式的系统中存在，也是每个通道一张。包括通道标识符、通道忙/闲标识、等待获得<br>该通道的进程等待队列的队首指针与队尾指针等</p>
+<p>– 系统设备表SDT<br>系统设备表SDT整个系统一张，它记录已被连接到系统中的所有物理设备的情况，并为每个物理设备设一表项</p>
+<p>6.1 设备分配<br>(1) 先请求先分配<br>– 当有多个进程对某一设备提出I/O请求时，或者是在同一设备上进行多次I/O操作时，系统按提出I/O请求的先后顺序，将进程发出的I/O请求命令排成队列，其队首指向被请求设备的DCT。</p>
+<p>(2) 优先级高者先分配<br>系统能从I/O请求队列队首取下一个具有最高优先级进程发来的I/O请求命令，并将设备分配给发出该命令的进程<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osdev6.png?raw=true" alt="Image text"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/OS设备管理/" data-id="ckb4u189k0009p4vi3fsgbuwo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/07/OS进程管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          操作系统-进程管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/07/os的硬件环境/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">操作系统的硬件环境</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/07/test2020/">2020年test</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链队列/">链队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链栈/">链栈</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/选择排序/">选择排序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/设计模式-适配器模式/">设计模式-适配器模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

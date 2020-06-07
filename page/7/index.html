@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-OS文件管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/OS文件管理/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.592Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/OS文件管理/">操作系统-文件管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、 文件与文件系统<br>（1）文件的概念<br>文件指的是一组带标识的在逻辑上有完整意义的信息项（构成文件内容的基本单元）的序列，或者是相关联纪录的集合。文件存放在磁盘或磁带等存<br>储介质上。<br>文件是一个抽象机制，它提供了一种把信息保存在存储介质上，而且便于以后存取的方法，用户不必关心实现细节</p>
+<p>（2）文件系统<br>• 是操作系统中统一管理信息资源的一种软件，管理文件的存储、检索、更新，提供安全可靠的共享和保护手段，并且方便用户使用</p>
+<p>1.1 文件系统的功能：<br>（1）统一管理文件的存储空间，实施存储空间的分配与回收；<br>（2）为用户提供可见的文件逻辑结构，实现文件的按名存取；名字空间 → → → 存储空间<br>（3）对文件及文件目录的管理，这是文件系统最基本的功能，包括文件（目录）的建立、删除、读写等；<br>（4）提供操作系统与用户的接口（提供对文件的操作命令：信息存取、加工等）。</p>
+<p>1.2 文件的分类<br>（1）按文件性质和用途分类<br>• 系统文件：<br>有关OS及有关系统所组成文件，不能直接访问<br>• 用户文件：<br>用户委托系统保存的文件<br>• 库文件：<br>标准子程序及常用应用程序组成文件，允许用户使用但不能修改</p>
+<p>2、文件的结构和存取方式<br>（1）流式文件（无结构文件）：<br>• 构成文件的基本单位是字符，文件是有逻辑意义的、无结构的一串字符的集合。<br>• 管理简单，操作方便，但查找比较麻烦，对基本信息单位操作不多的文件比较适合用字符流的无结构方式，比如源程序文件。<br>（2）记录式文件（有结构文件）：<br>• 文件是由若干个记录组成，每个记录有一个键，可按键进行查找，每条记录有其内部结构。<br>• 方便用户进行各种操作比如添加、删除、修改、查找等</p>
+<p>2.1 文件的存取方法<br>常用存取方法：<br>①顺序存取。<br>顺序存取是按照文件的逻辑地址顺序存取。比如当前读取的记录为Ri，则下一条读取的记录被自动确定为Ri的下一个相邻的记录Ri+1。<br>②随机存取。<br>允许用户根据记录的编号来存取文件的任一记录。前两种方法用于一般OS，下面方法适用数据库系统。<br>③按键存取。</p>
+<p>2.2 文件的物理结构<br>– 文件系统中，文件存储设备通常分块，每块1k或者512字节或其他大小，与此对应，文件信息也被划分为与物理块大小相等的逻辑块<br>（1）连续结构（顺序）<br>– 文件的信息存放在若干连续的物理块中。系统为每个文件都建立一个文件控制块FCB。对于顺序文件，只要从FCB中得到文件的第一个块的物理块<br>号和文件长度，便可确定位置。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile1.png?raw=true" alt="Image text"><br>– 优点: 简单<br>• 支持顺序存取和随机存取<br>• 顺序存取速度快<br>• 所需的磁盘寻道次数和寻道时间最少</p>
+<p>– 缺点:<br>• 不利于文件动态增长重新分配和移动<br>• 不利于文件插入和删除（大量移动）<br>• 外部碎片问题</p>
+<p>（2）链接结构<br>– 一个文件的信息存放在若干不连续的物理块中，各块之间通过指针连接，前一个物理块指向下一个物理块<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile2.png?raw=true" alt="Image text"><br>– 优点：<br>• 提高了磁盘空间利用率,不存在外部碎片问题<br>• 有利于文件插入和删除<br>• 有利于文件动态扩充</p>
+<p>– 缺点：<br>• 存取速度慢，不适于随机存取<br>• 可靠性问题，如指针出错<br>• 更多的寻道次数和寻道时间<br>• 链接指针占用一定的空间</p>
+<p>（3）索引结构<br>• 一个文件的信息存放在若干不连续物理块中，系统为每个文件建立一个专用数据结构——索引表，并将这些块的块号存放在一个索引表中。<br>• 一个索引表就是磁盘块地址数组,其中第i个条目指向文件的第i块<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile3.png?raw=true" alt="Image text"></p>
+<p>– 优点：<br>• 保持了链接结构的优点，又解决了其缺点：既能顺序存取，又能随机存取<br>• 满足了文件动态增长、插入删除的要求<br>• 能充分利用外存空间<br>– 缺点：<br>• 较多的寻道次数和寻道时间<br>• 索引表本身带来了系统开销<br>• 存取文件时至少访问存储器两次，一次是获得地址，一次是对物理块的访问。为了提高速度，将索引表放入内存，减少访问磁盘次数</p>
+<p>文件的物理结构:<br>UNIX文件系统采用的是多级索引结构。每个文件的索引表为13个索引项，每项2个字节。最前面10项直接登记存放文件信息的物理块号（直接寻址）</p>
+<p>如果文件大于10块，则利用第11项指向一个物理块，该块中最多可放256个文件物理块的块号（一次间接寻址）。对于更大的文件还可利用第12和第13项作为二次和三次间接寻址</p>
+<p>– UNIX中采用了三级索引结构后，文件最大可达16兆个物理块<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile4.png?raw=true" alt="Image text"></p>
+<p>文件存储介质：<br>（1）物理块<br>在文件系统中，文件的存储设备常常划分为若干大小相等的物理块。同时也将文件信息划分成相同大小的逻辑块，所有块统一编号以块为单位进行信息的存储、传输、分配</p>
+<p>（2）磁带<br>永久保存大容量数据<br>– 顺序存取设备：前面的物理块被存取访问之后，才能存取后续的物理块的内容<br>– 存取速度较慢，主要用于后备存储，或存储不经常用的信息</p>
+<p>（3）磁盘<br>– 直接（随机）存取设备：<br>• 存取磁盘上任一物理块的时间不依赖于该物理块所处的位置</p>
+<p>完成过程由三个动作组成：<br>• 寻道（时间）：磁头移动定位到指定磁道<br>• 旋转延迟（时间）：等待指定扇区从磁头下旋转经过<br>• 数据传输（时间）：数据在磁盘与内存之间的实际传输</p>
+<p>3、文件目录<br>3.1 基本概念<br>– 文件控制块（FCB）：<br>• 文件控制块是操作系统为管理文件而设置的数据结构，存放了为管理文件所需的所有有关信息。<br>• 文件控制块是文件存在的标志</p>
+<p>– 文件目录：<br>• 把所有的FCB组织在一起，就构成了文件目录，即文件控制块的有序集合。<br>– 目录项：<br>• 构成文件目录的项目（目录项就是FCB）。<br>– 目录文件：<br>• 为了实现对文件目录的管理，通常将文件目录以文件的形式保存在外存，这个文件就叫目录文件</p>
+<p>目录结构：<br>（1）一级目录结构<br>– 为所有文件建立一个目录文件（组成一线性表）<br>– 优点：<br>• 简单，易实现</p>
+<p>– 缺点：<br>• 限制了用户对文件的命名<br>• 文件平均检索时间长</p>
+<p>（2）二级目录结构<br>– 为解决一级目录文件目录命名冲突，并提高对目录文件检索速度而改进。<br>– 目录分为两级：<br>• 一级称为主文件目录（MFD），给出用户名，用户子目录所在的物理位置；<br>• 二级称为用户文件目录（UFD），给出该用户所有文件的FCB<br>– 使用二级目录可以解决文件重名和文件共享问题，并可以获得较高的搜索速度。</p>
+<p>– 优点：解决了文件的重名问题和共享问题<br>用户名|文件名<br>查找时间降低<br>– 缺点：增加了系统开销<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile5.png?raw=true" alt="Image text"></p>
+<p>（3）多级目录结构（树型目录）<br>– 优点：<br>• 层次结构清晰，便于管理和保护；有利于文件分类；解决重名问题；提高文件检索速度；能进行存取权限的控制 。<br>– 缺点：<br>• 查找一个文件按路径名逐层检查，由于每个文件都放在外存，多次访盘影响速度。</p>
+<p>（4）文件目录改进<br>– 为加快目录检索可采用目录项分解法：把FCB分成两部分：<br>– 符号目录顶<br>文件名，文件号<br>– 基本目录项<br>除文件名外的所有项目</p>
+<p>3.2 文 件 存 储 空 间 管 理：<br>– 辅存空间分配常采用以下两种办法。<br>– 连续分配：<br>• 文件被存放在辅存空间连续存储区中，在建立文件时，用户必须给出文件大小；<br>• 然后，查找到能满足的连续存储区供使用；否则文件不能建立。<br>– 连续分配的优点是文件查找速度快，管理较为简单，但为了获得足够大的连续存储区。需定时进行‘碎片’收集。因而，不适宜于文件频繁进行动态扩充和缩小的情况，用户事先不知道文件长度也无法进行分配。</p>
+<p>非连续分配：<br>• 一种非连续分配方法是以块（或扇区）为单位，按文件动态要求分配给它若干扇区，这些扇区不一定要连续。<br>• 另一种非连续分配方法是以簇为单位，簇是由若干个连续扇区组成的分配单位；实质上是连续分配和非连续分配的结合。各个簇可以用链指针、索<br>引表，位示图来管理。非连续分配的优点是辅存空间管理效率高，访问文件执行速度快，特别是以簇为单位的分配方法已被广泛使用。</p>
+<p>3.3 文件系统的使用<br>– 在文件系统中提供对文件的各种操作，形式分别为：系统调用或命令。</p>
+<ol>
+<li><p>主要操作<br>– 提供设置和修改对用户文件存取权限<br>– 提供建立、修改、改变、删除目录的服务<br>– 提供文件共享，设置访问路径的服务<br>– 提供创建、打开、读、写、关闭、撤消文件等服务<br>– 文件系统维护</p>
+</li>
+<li><p>操作介绍<br>（1）建立文件<br>实质是建立文件的FCB，并建立必要的存储空间，分配空FCB，根据提供的参数及需要填写有关内容，返回一个文件描述。<br>目的：建立系统与文件的联系<br>（2）打开文件<br>使用文件的第一步，任何一个文件使用前都要先打开，即把FCB送到内存</p>
+</li>
+</ol>
+<p>3.4 文件系统的可靠性<br>– 可靠性：<br>• 系统抵抗和预防各种物理性破坏和人为性破坏的能力。<br>– 备份<br>• 通过转储操作，形成文件或文件系统的多个副本</p>
+<p>3.5 磁盘冗余阵列 RAID<br>– RAID(Reundant Array of Independent Disks)<br>– 它是利用一台磁盘阵列控制器统一管理和控制一组磁盘驱动器。<br>– 其策略是:用一组较小容量的、独立的、可并行工作的磁盘驱动器组成阵列来代替单一的大容量磁盘，独立的I/O请求能被并行地从多个磁盘驱动器同时存取数据，从而，改进了I/O性能和系统可靠性</p>
+<p>3.6 文 件 系 统 的 性 能<br>（1） 磁盘调度<br>当多个访盘请求在等待时，采用一定的策略，对这些请求的服务顺序调整安排，旨在降低平均磁盘服务时间，达到公平、高效<br>– 公平：一个I/O请求在有限时间内满足<br>– 高效：减少设备机械运动所带来的时间浪费</p>
+<p>（2）磁盘调度考虑的问题：<br>一次访盘时间 = 寻道时间+旋转延迟时间+存取时间<br>– 减少寻道时间<br>– 减少延迟时间</p>
+<p>（3）磁盘调度算法<br>1） 先来先服务：按访问请求到达的先后次序服务<br>例：假设磁盘访问序列：98，183，37，122，14，124，65，67，读写头起始位置：53，安排磁头服务序列，计算磁头移动总距离（道数）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile6.png?raw=true" alt="Image text"><br>– 优点：简单，公平；<br>– 缺点：效率不高，相临两次请求可能会造成最内到<br>最外的柱面寻道，使磁头反复移动，增加了服务时间，<br>对机械也不利。</p>
+<p>2）最 短 寻 道 时 间 优 先<br>– 最短寻道时间优先：优先选择距当前磁头最近的访问请求进行服务，主要考虑寻道优先<br>– 优点：改善了磁盘平均服务时间；<br>– 缺点：造成某些访问请求长期等待得不到服务</p>
+<p>例：假设磁盘访问序列：98，183，37，122，14，124，65，67，读写头起始位置：53，安排磁头服务序列，计算磁头移动总距离（道数）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile7.png?raw=true" alt="Image text"><br>– 采用最短寻道时间优先调度下的总移动道数：236<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile8.png?raw=true" alt="Image text"></p>
+<p>3）电梯算法<br>克服了最短寻道优先的缺点，既考虑了距离，同时又考虑了方向。<br>– 当设备无访问请求时，磁头不动；当有访问请求时，磁头按一个方向移动，在移动过程中对遇到的访问请求进行服务，然后判断该方向上是否还有访问请求，如果有则继续扫描；否则改变移动方向，并为经过的访问请求服务，如此反复<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osfile9.png?raw=true" alt="Image text"></p>
+<p>4）单 向 扫 描 调 度 算 法<br>– 总是从0号磁道开始向里扫描<br>– 按照各自所要访问的磁道位置的次序去选择访问者<br>– 移动臂到达最后个一个磁道后，立即带动读写磁头快速返回到0号磁道<br>– 返回时不为任何的等待访问者服务<br>– 返回后可再次进行扫描</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/OS文件管理/" data-id="ckb4u189i0008p4vi8hkwzhp2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-OS存储管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/OS存储管理/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.577Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/OS存储管理/">操作系统-存储管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、存 储 概 述<br>由于任何程序、数据必须占用主存空间后才能执行，因此存储管理直接影响系统的性能。</p>
+<p>– 主存储空间一般分为两部分：<br>• 一部分是系统区，存放操作系统常驻内存部分；<br>• 另一部分是用户区，存放用户的程序和数据等</p>
+<p>存储管理主要是对用户区域进行管理，当然也包括对辅存的管理。目的是要尽可能地方便用户使用和提高主存储器的效率</p>
+<p>存储层次结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey1.png?raw=true" alt="Image text"></p>
+<p>存储管理应具有的四大功能:<br>1 ） 内存空间管理<br>– 记录每个内存单元的使用情况<br>– 内存分配<br>– 位示图：用一位（bit）表示一个空闲页面（0：空闲，1：占用）</p>
+<p>2）地址变换（重定位，地址映射）<br>我们把用户编程时使用的地址称为逻辑地址，把程序在内存中的实际地址称为物理地址。为了保证程序的正确运行，必须把程序和数据的逻<br>辑地址转换为物理地址，这一工作称为地址转换或重定位。</p>
+<p>– 静态地址转换<br>• 当用户程序被装入内存时，一次性实现逻辑地址到物理地址的转换，以后不再转换。<br>• 一般在装入内存时由重定位装入程序完成。</p>
+<p>– 动态地址转换<br>• 在程序运行过程中要访问数据时再进行地址变换（即在逐条指令执行时完成地址映射。一般为了提高效率，此工作由硬件地址映射机制来<br>完成。硬件支持，软硬件结合完成）。<br>• 一对寄存器（VR，BR）</p>
+<p>静态重定位：<br>– 优点：无须硬件支持；<br>– 缺点：<br>（1）不支持虚拟存储，原因是执行期间程序不能移动，因而不能实现重新分配内存，而虚拟存储则将部分程序装入内存。<br>（2）不能共享。因为每个程序必须占用连续的内存空间，因此很难做到。</p>
+<p>动态重定位：<br>– 过程：<br>（1）设置基址寄存器BR，虚拟地址寄存器VR<br>（2）将程序首址送入BR<br>（3）程序执行时，将需要访问的虚址送入VR<br>（4）将BR和VR相加，得到实际访问的地址。</p>
+<p>– 优点：<br>（1）可以对内存进行非连续分配，对于不同程序段设置不同的BR即可。<br>（2）提供了实现虚拟存储的基础，动态重定位可以部分地、动态地分配内存。<br>（3）有利于共享。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey2.png?raw=true" alt="Image text"></p>
+<p>3）内 存 扩 充<br>内存的容量是受实际的存储单元限制的，而运行的程序又不受内存大小的限制，这就需要有效的存储管理技术来实现内存的逻辑扩充，这种扩充不是增加实际的存储单元，而是通过虚拟存储技术、覆盖技术、交换技术等技术来实现的。</p>
+<p>4）内存共享和保护<br>– 为了更有效地使用内存空间，要求共享内存<br>– 为多个程序共享内存提供保障，使在内存中的各道程序，只能访问它自己的区域，避免各道程序间相互干扰，特别是当一道程序发生错误时，不致于影响其他程序的运行<br>– 保护过程—-防止地址越界<br>– 保护过程—-防止操作越权</p>
+<p>2、存储管理的一些技术<br>2.1 覆盖(overlay)<br>– 引入：其目标是在较小的可用内存中运行较大的程序。常用于多道程序系统，与分区存储管理配合使用<br>– 引入：其目标是在较小的可用内存中运行较大的程序。常用于多道程序系统，与分区存储管理配合使用<br>• 不存在调用关系的模块不必同时装入到内存，从而可以相互覆盖。(即不同时用的模块可共用一个分区)<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey3.png?raw=true" alt="Image text"></p>
+<p>2.2 交换(swapping)<br>– 引入：多个程序并发执行，可以将暂时不能执行的程序送到外存中，从而获得空闲内存空间来装入新程序，或读入保存在外存中而目前到达就绪状态的进程。交换单位为整个进程的地址空间。<br>• 程序暂时不能执行的可能原因：处于阻塞状态，低优先级（确保高优先级程序执行）；</p>
+<p>– 原理：暂停执行内存中的进程，将整个进程的地址空间保存到外存的交换区中（换出swa pout）而将外存中由阻塞变为就绪的进程的地址空间读<br>入到内存中，并将该进程送到就绪队列（换入swap in）。</p>
+<p>– 优点：增加并发运行的程序数目，并且给用户提供适当的响应时间；编写程序时不影响程序结构，对用户透明。<br>– 缺点：对换入和换出的控制增加处理机开销；程序整个地址空间都进行传送，没有考虑执行过程中地址访问的统计特性。<br>– 覆盖技术和交换技术的发展导致了虚拟存储技术的出现</p>
+<p>2.3 虚拟存储技术<br>虚存：把内存与外存有机的结合起来使用，从而得到一个容量很大的“内存”，这就是虚存<br>– 实现思想：当进程运行时，先将一部分程序装入内存，另一部分暂时留在外存，当要执行的指令不在内存时，由系统自动完成将它们从外存调入内存工作<br>– 目的：提高内存利用率</p>
+<p>虚存的物质基础：<br>系统要有足够大的外存；<br>– 要有一定容量的内存来存放运行作业的部分程序<br>– 要有动态地址转换机构，实现逻辑地址转换；</p>
+<p>特征：<br>– 虚拟性：指逻辑上扩大了内存容量，使用户看到的内存空间大于实际空间；<br>– 离散性：指内存在分配时采用的是离散分配的方式，目的是为了避免内存空间的浪费；<br>– 多次性：指一个作业不是全部一次性装入内存，而是在需要时装入部分；<br>– 交换性：指在一个进程运行期间，将暂不使用的程序和数据从内存调至外存，被调出的程序和数据在需要时再调入内存中。<br>– 总容量不超过物理内存和外存交换区容量之和</p>
+<p>3、分区存储管理<br>– 把内存分为一些大小相等或不等的分区(partition)，每个应用进程占用一个分区。操作系统占用其中一个分区。<br>– 问题：可能存在内碎片和外碎片。<br>• 内碎片：占用分区之内未被利用的空间<br>• 外碎片：占用分区之间难以利用的空闲分区（通常是小空闲分区）。</p>
+<p>3.1 固定分区(fixed partitioning)<br>– 把内存划分为若干个固定大小的连续分区。每个分区装一个且只能装一个作业。<br>• 分区大小相等：<br>• 分区大小不等：多个小分区、适量的中等分区、少量的大分区。根据程序的大小，分配当前空闲的、适当大小的分区。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey4.png?raw=true" alt="Image text"><br>优点：易于实现，开销小。<br>– 缺点：<br>• 内碎片造成浪费<br>• 分区总数固定，限制了并发执行的程序数目。</p>
+<p>3.2 动态分区(dynamic partitioning)<br>基本思想:<br>• 作业装入时，根据作业的需求和内存空间的使用情况来决定是否分配<br>• 若有足够的空间，则按需要分割一部分分区给该进程；否则令其等待内存空间</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey5.png?raw=true" alt="Image text"></p>
+<p>– 分区分配算法：寻找某个空闲分区，其大小需大于或等于程序的要求。若是大于要求，则将该分区分割成两个分区，其中一个分区为要求的大小并标记为“占用”，而另一个分区为余下部分并标记为“空闲”。分区的先后次序通常是从内存低端到高端。<br>– 分区释放算法：需要将相邻的空闲分区合并成一个空闲分区。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）最先适应法(first-fit)：按分区的先后次序，从头查找，找到符合要求的第一个分区</span><br><span class="line"><span class="number">2</span>）下次适应法(next-fit)：按分区的先后次序，从上次分配的分区起查找（到最后分区时再回到开头），找到符合要求的第一个分区</span><br><span class="line"><span class="number">3</span>）最佳适应法(best-fit)：找到其大小与要求相差最小的空闲分区</span><br><span class="line"><span class="number">4</span>）最坏适应法(worst-fit)：找到最大的空闲分区</span><br></pre></td></tr></table></figure></p>
+<p>3.3 碎 片 问 题<br>– 紧凑技术：通过在内存移动程序，将所有小的空闲区域合并为大的空闲区域<br>(内存紧凑(compaction)：将各个占用分区向内存一端移动。使各个空闲分区聚集在另一端，然后将各个空闲分区合并成为一个空闲分区)</p>
+<p>3.4 分区的回收及保护<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）该空闲区的上下相邻分区都是空闲区。将三个空闲区合并，合并后的起始地址为上空闲区的起始地址，修改可用表或自由链（取消下，修改上）</span><br><span class="line"><span class="number">2</span>）该空闲区的上相邻区是空闲区。与上相邻区合并，合并后的起始地址为上空闲区的起始地址，修改可用表或自由链（修改上的大小）。</span><br><span class="line"><span class="number">3</span>）该空闲区的下相邻区是空闲区。与下相邻区合并，合并后的起始地址为释放区的起始地址，修改可用表或自由链（修改下的始址和大小）。</span><br><span class="line"><span class="number">4</span>）该空闲区不与其他空闲区相邻,作为一个新空闲区插入可用表或自由链</span><br></pre></td></tr></table></figure></p>
+<p>4、页式存储管理<br>4.1 基本思想:<br>– 用户程序划分<br>• 把用户程序按逻辑页划分成大小相等的部分，称为页。从0开始编制页号，页内地址是相对于0编址<br>– 逻辑地址<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey6.png?raw=true" alt="Image text"><br>内存空间<br>• 按页的大小划分为大小相等的区域，称为内存块（物理页面）<br>– 内存分配<br>• 以页为单位进行分配，并按作业的页数多少来分配。<br>• 逻辑上相邻的页，物理上不一定相邻</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey7.png?raw=true" alt="Image text"></p>
+<p>4.2 管理<br>– 页表：系统为每个进程建立一个页表，页表给出逻辑页号和具体内存块号相应的关系<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey8.png?raw=true" alt="Image text"></p>
+<p>地址映射机制：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey9.png?raw=true" alt="Image text"></p>
+<p>地址映射机制（含快表）：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey10.png?raw=true" alt="Image text"></p>
+<p>4.3 静态页式管理<br>– 将程序的逻辑地址空间和物理内存划分为固定大小的页或页面(Page or Page frame)，程序加载时，分配其所需的所有页，这些页不必连续<br>静态页式管理的地址变换：<br>– 指令所给出地址分为两部分：逻辑页号，页内偏移地址－&gt;查进程页表，得物理页号－&gt;物理地址</p>
+<p>– 优点：<br>• 没有外碎片，每个内碎片不超过页大小（因为页面大小固定 要多少有多少）。<br>• 一个程序不必连续存放。<br>• 便于改变程序占用空间的大小。即随着程序运行<br>而动态生成的数据增多，地址空间可相应增长。<br>– 缺点：<br>• 程序全部装入内存，受到内存可用页面数的限制。</p>
+<p>4.4 动态（请求）页式管理<br>– 在进程开始运行之前，不是装入全部页面，而是装入部分页面，之后根据进程运行的需要，动态装入其它页面；当内存空间已满，而又需要装入新的页面时，则根据某种算法淘汰某个页面，以便装入新的页面。</p>
+<p>页表表项：<br>– 页号、驻留位、内存块号、外存始址、访问位、修改位<br>– 驻留位（中断位）：表示该页是在内存还是在外存<br>– 访问位：根据访问位来决定淘汰哪页（由不同的算法决定）<br>– 修改位：查看此页是否在内存中被修改过<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey11.png?raw=true" alt="Image text"></p>
+<p>缺页中断处理：<br>在地址映射过程中，在页表中发现所要访问的页不在内存，则产生缺页中断。操作系统接到此中断信号后，就调出缺页中断处理程序，根据页表中给出的外存地址，将该页调入内存，使作业继续运行下去<br>– 如果内存中有空闲块，则分配一页，将新调入页装入内存，并修改页表中相应表项<br>– 若此时内存中没有空闲块，则要淘汰某页，若该页在内存期间被修改过，则要将其写回外存<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey12.png?raw=true" alt="Image text"></p>
+<p>页面置换算法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">– 随机置换算法</span><br><span class="line">– 先进先出算法(FIFO)</span><br><span class="line">– 最近最久未使用算法(LRU, Least Recently Used)</span><br><span class="line">– 时钟页面替换算法(Clock Policy) </span><br><span class="line">– 最佳置换算法(OPT, optimal)</span><br></pre></td></tr></table></figure></p>
+<p>1）先进先出算法( F I F O )<br>– 选择建立最早的页面被置换，性能较差，较早调入的页往往是经常被访问的页，这些页在FIFO算法下被反复调入和调出。<br>– 并且有Belady现象。<br>– Belady现象：采用FIFO算法时，如果对一个进程未分配它所要求的全部页面，有时就会出现分配的页面数增多，缺页率反而提高的异常现象。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey13.png?raw=true" alt="Image text"></p>
+<p>2）最近最久未使用算法( L R U )<br>– 该算法淘汰的页面是在最近一段时间里较久未被访问的那一页。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey14.png?raw=true" alt="Image text"></p>
+<p>3）最佳算法(OPT, optimal)<br>– 选择“未来不再使用的”或“在离当前最远位置上出现的”页面被置换，这是一种理想情况。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey15.png?raw=true" alt="Image text"></p>
+<p>影 响 缺 页 次 数 的 因 素：<br>(1) 分配给进程的物理页面数<br>(2) 页面本身的大小<br>(3) 程序的编制方法<br>(4) 页面淘汰算法</p>
+<p>4.5 页式管理的优缺点<br>– 相对于分区管理而言，静态页式有效的解决了外部碎片的问题（当然有少量的内部碎片）；<br>– 但是，静态页式要求全部装入，不支持虚拟存储，因而有了请求（动态）页式，允许部分装入；<br>– 显然地，请求页式更能有效利用有限的内存页面，不过，这种方式需要有效解决缺页率的问题，尤其是页面置换的问题；</p>
+<p>5、段式存储管理<br>5.1 基本原理<br>用户程序划分<br>•按程序自身的逻辑关系划分为若干个程序段，每个程序段都有一个段名，且有一个段号。段号从0开始，每一段也从0开始编址，段内地址是连续的</p>
+<p>– 逻辑地址（二维地址）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey16.png?raw=true" alt="Image text"></p>
+<p>基本原理：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey17.png?raw=true" alt="Image text"></p>
+<p>内存划分方式：<br>– 内存划分<br>内存空间被动态的划分为若干个长度不相同的区域，称为物理段，每个物理段由起始地址和长度确定<br>– 内存分配<br>以段为单位分配内存，每一个段在内存中占据连续空间（内存随机分割，需要多少分配多少），但各段之间可以不连续存放</p>
+<p>段式管理：<br>(1) 段表：每进程一个<br>(2) 空闲表：系统一个（管理同动态分区）array of (addr,size)<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey18.png?raw=true" alt="Image text"></p>
+<p>内存分配：<br>（1）有足够空闲区（同动态分区）<br>最先适应<br>最佳适应<br>最坏适应<br>（2）没有足够空闲区（同请求页式）<br>FIFO，LRU，如果淘汰一段不能满足要求，就要进行多次淘汰</p>
+<p>地址映射：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey19.png?raw=true" alt="Image text"></p>
+<p>页式管理与段式管理的比较：<br>– 分页是出于系统管理的需要，分段是出于用户应用的需要<br>– 页大小是系统固定的，而段大小则通常不固定。<br>– 逻辑地址表示：<br>• 分页是一维的，各个模块在链接时必须组织成同一个地址空间；<br>• 分段是二维的，各个模块在链接时可以每个段组织成一个地址空间。<br>– 通常段比页大，因而段表比页表短，可以缩短查找时间，提高访问速度。</p>
+<p>6、段页式存储管理<br>– 分段结构具有逻辑上清晰的优点，但它的一个致命弱点是每个段必须占据主存储器的连续区域，为了克服这个缺点，可兼用分段和分页的方法，构成段页式存储管理。<br>– 每个作业仍按逻辑分段，把每个段再分成若干个页面，每一段不必占据连续的主存空间，可把它按页存放在不连续的主存块中。</p>
+<p>6.1  基 本 思 想<br>– 用户程序划分：按段式划分（对用户来讲，按段的逻辑关系进行划分；对系统讲，按页划分每一段）<br>内存划分：按页式存储管理方案<br>内存分配：以页为单位进行分配<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey20.png?raw=true" alt="Image text"></p>
+<p>段 表 和 页 表：<br>（1）在段页式系统中,每个分段又被分成若干个固定大小的页面，那么每个段又必须建立一张页表把段中的虚页变换成内存中的实际页面。显然，与页式管理时相同，页表中也要有相应的实现缺页中断处理和页面保护等功能表项。<br>（2）每个段有一个页表，段表中应有专项指出该段所对应页表的页表始址和页表长度</p>
+<p>段 表 、 页 表 与 内 存 关 系：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey21.png?raw=true" alt="Image text"></p>
+<p>段页式地址变换：<br>注：在段页式系统中，为了获取一条指令或数据，需三次访问内存。<br>• 第一次访问，是访问内存中的段表，从中取得页表始址<br>• 第二次访问，是访问内存中的页表，从中取得物理块号，并将该块号与页内地址一起形成指令或数据的物理地址<br>• 第三次访问，才是真正从第二次访问的地址中，取得指令和数据</p>
+<p>抖 动：<br>– 虚存中，页面在内存与外存之间频繁调度，以至于调度页面所需时间比进程实际运行的时间还多，此时系统效率急剧下降，甚至导致系统崩溃。这种现象称为颠簸或抖动<br>– 原因：<br>• 页面淘汰算法不合理<br>• 分配给进程的物理页面数</p>
+<p>一点总结：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey22.png?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey23.png?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osmey24.png?raw=true" alt="Image text"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/OS存储管理/" data-id="ckb4u189g0006p4vivo0e117y" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-OS处理机管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/OS处理机管理/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.561Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/OS处理机管理/">操作系统-处理机管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、调度的性能准则:<br>– （平均）周转时间：作业从提交到完成的时间（用户角度）<br>周转时间：Ti=Tc-Ts<br>Tc作业完成时刻；<br>Ts作业进入系统时刻</p>
+<p>平均周转时间：（T1+T2+…+Tn)/n</p>
+<p>– （平均）带权周转时间：周转时间 / CPU运行时间（用户角度）<br>带权周转时间:<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi7.png?raw=true" alt="Image text"></p>
+<p>平均带权周转时间：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi8.png?raw=true" alt="Image text"></p>
+<p>– 吞吐量：单位时间内所完成的作业数<br>– 处理机利用率：CPU运行时间 / 总时间<br>– 各种设备的均衡利用：如CPU繁忙的作业和I/O繁忙的作业搭配</p>
+<p>调度的类型:<br>– 作业：又称为”宏观调度”、”高级调度”。从用户工作流程的角度，一次提交的若干个流程。<br>– 内外存交换：又称为”中级调度”。从存储器资源的角度。将进程的部分或全部换出到外存上，将当前所需部分换入到内存。指令和数据必须在内存里才能被CPU直接访问。<br>– 进程：又称为”微观调度”<br>、<br>“低级调度”。从CPU资源<br>的角度，执行的单位。时间上通常是毫秒。因为执行频<br>繁，要求在实现时达到高效率</p>
+<p>2、处理机调度算法<br>2.1 先 来 先 服 务（非抢占方式）<br>按先后顺序进行调度</p>
+<p>2.2 短 作 业 优 先（非抢占方式）<br>又称为“短进程优先”SPN(Shortest Process<br>Next)；这是对FCFS算法的改进，其目标是减少平均周<br>转时间</p>
+<p>– 优点：<br>• 比FCFS改善平均周转时间和平均带权周转时间，缩短作业<br>的等待时间；<br>• 提高系统的吞吐量；<br>– 缺点：<br>• 对长作业非常不利，可能长时间得不到执行；<br>• 未能依据作业的紧迫程度来划分执行的优先级；<br>• 难以准确估计作业（进程）的执行时间，从而影响调度性<br>能</p>
+<p>2.3 最短剩余时间优先（抢占式）<br>允许比当前进程剩余时间更短的进程来抢占</p>
+<p>2.4 最高响应比优先（非抢占方式）<br>• 响应比R = (等待时间 + 要求执行时间) / 要求执行时间<br>• 是FCFS和SJF的折衷</p>
+<p>2.5 时间片轮转(Round Robin)算法<br>本算法主要用于微观调度，说明怎样并发运行，即切换的方式；设计目标是提高资源利用率。<br>其基本思路是通过时间片轮转，提高进程并发性和响应时间特性，从而提高资源利用率；</p>
+<p>2.6 多级队列算法(Multiple-level Queue)<br>各队列的不同处理：不同队列可有不同的优先级、时间片长度、调度策略等</p>
+<p>2.7 优先级算法(Priority Scheduling)（可分成抢先式和非抢先式）<br>1）静态优先级<br>– 创建进程时就确定，直到进程终止前都不改变。通常是一个整数</p>
+<p>2）动态优先级<br>在就绪队列中，等待时间延长则优先级提高，从而使优先级较低的进程在等待足够的时间后，其优先级提高到可被调度执行；<br>– 进程每执行一个时间片，就降低其优先级，从而一个进程持续执行时，其优先级降低到出让CPU</p>
+<p>注意：<br>I/O型进程：让其进入最高优先级队列，以及时响应I/O交互。通常执行一个小时间片，要求可处理完一次I/O请求的数据，然后转入到阻塞队列。<br>– 计算型进程：每次都执行完时间片，进入更低级队列。最终采用最大时间片来执行，减少调度次数。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/OS处理机管理/" data-id="ckb4u189f0004p4viro46ydic" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-map遍历" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/map遍历/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.545Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/map遍历/">java-map遍历</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Map集合：即 接口Map&lt;K,V&gt; </p>
+<p>map集合的两种取出方式：<br>    1.Set<k> keyset: 将map中所有的键存入到set集合（即将所有的key值存入到set中）， 因为Set具备迭代器，可以进行迭代遍历。 所有可以迭代方式取出所有的链，再根据get方法。获取每一个键对应的值。</k></p>
+<pre><code>    Map 集合的取出原理： 将map集合转成set集合。 再通过迭代器取出
+2. set&lt;Map.Entry&lt;k,v&gt;&gt;  entrySet: 将map集合中的映射关系（即键值对的方式存入到set中）存入到set集合中,而这个关系的数据类型就是：map.entry
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/map遍历/" data-id="ckb4u189z000rp4viaw0thls4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Linux-小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/Linux-小结/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.530Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/Linux-小结/">Linux小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、Linux严格区分大小写<br>2、Linux中所有内容以文件的形式保存，包括硬件、用户</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/Linux-小结/" data-id="ckb4u189e0003p4vihwedc8oa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jvm类加载3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/jvm类加载3/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.530Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/jvm类加载3/">jvm类加载3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java类加载过程（详细）"><a href="#Java类加载过程（详细）" class="headerlink" title="Java类加载过程（详细）"></a>Java类加载过程（详细）</h3><p>1、加载：查找并加载类的二进制数据（读入虚拟机）<br>2、连接：<br>（1）验证：确保被加载的类的正确性<br>（2）准备：Java虚拟机为类的静态变量分配内存，并将其初始化为默认值（例如，静态的整型值初始化为默认值为0，但是第三个阶段初始化阶段由程序员主观显示的赋值才是真正的初始化，这里Java虚拟机事先设置默认初值只是为了防止空异常）<br>（3）解析：在类型的常量池中寻找类、接口、字段和方法的符号引用，把这些符号引用替换成直接引用。<br>3、初始化：为类的静态变量赋正确的初始值（程序员主观初始化赋值，例static int a=1）<br>4、类实例化：<br>（1）为新的对象分配内存<br>（2）为实例变量赋默认值<br>（3）为实例变量赋正确的初始值<br>（4）Java编译器为它编译的每一个类文件都至少生成一个实例初始化方法，在Java的class文件中，这个实例初始化方法被称为“<init>”。针对源代码中的每一个类的构造方法，Java编译器都产生一个“<init>”方法。<br>5、卸载：从内存中销毁类</init></init></p>
+<h3 id="类的加载"><a href="#类的加载" class="headerlink" title="类的加载"></a>类的加载</h3><p>1、类的加载的最终产品是位于内存中的class对象<br>2、class对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区的数据结构的接口</p>
+<p>3、有两种类型的类加载器<br>1）Java虚拟机自带的加载器<br>（1）根类加载器（BootStrap 启动类加载器），没有父类加载器,由C++实现，不是ClassLoader的子类，内建于Jvm中，是jvm的一部分，会加载java.lang.ClassLoad一起其他的Java平台类，当jvm启动时，启动类加载器会加载扩展类加载器和系统类加载器。（除启动类加载器之外，其他类加载器都是由Java实现。启动类加载器是特定于平台的及其指令，负责开启震哥哥加载过程），启动类加载器还负责加载提供jre正常运行所需要的基本组件，包括java.util和java.lang中的包等等。 </p>
+<p>（2）扩展类加载器（Extension），父类加载器是根类加载器（需要将class文件打包成jar包，才能加载）<br>（3）系统（应用）类加载器（System），父类加载器是扩展类加载器</p>
+<p>注：除根类加载器没有父类加载器外，其他加载器都有且仅有一个父类加载器。当Java程序请求加载器时，首先会去请求其父类加载器，若父类加载器能完成加载，则由父类加载器完成，若不能，再由子类加载器完成，这种模式称为双亲加载机制。</p>
+<p>2）用户自定义的类加载器<br>（1）java.lang.ClassLoader的子类<br>（2）用户可以定制类的加载方式</p>
+<p>注：所有的用户自定义加载器都继承自CLassLoad类<br>注：类加载器并不需要等到某个类被“首次主动使用”时再加载它</p>
+<p>4、jvm规范允许类加载器再预料某个类将要被使用时就预先加载它，如果在预先加载的过程中遇到了.class文件缺失或存在错误，类加载器必须在程序首次主动使用该类时才报告错误（LinkageError错误）</p>
+<p>5、如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误。</p>
+<h3 id="类的验证"><a href="#类的验证" class="headerlink" title="类的验证"></a>类的验证</h3><p>1、类被加载后，进入连接阶段。连接就是将已经读入到内存中的类的二进制数据合并到虚拟机的运行时环境中去。</p>
+<p>2、类的验证的主要内容<br>（1）类文件的结构检查<br>（2）语义检查<br>（3）字节码验证<br>（4）二进制兼容性的验证</p>
+<h3 id="类的初始化"><a href="#类的初始化" class="headerlink" title="类的初始化"></a>类的初始化</h3><p>步骤：<br>1）假如类还没有加载和连接，那么就先加载和连接<br>2）假如类存在父类，并且父类还没有初始化，那就先初始化直接父类（不适用于接口）<br>3）假如类中存在初始化语句，那就依次执行这些初始化并语句  </p>
+<h3 id="类加载器的双亲委托机制"><a href="#类加载器的双亲委托机制" class="headerlink" title="类加载器的双亲委托机制"></a>类加载器的双亲委托机制</h3><p>1、在双亲委托机制中，各个加载器按照父子关系形成了逻辑上的树形结构（物理上没有关系），除了根类加载器之外，其余的类加载器都有且仅有一个父加载器<br>2、当Java程序请求加载器时，首先会去请求其父类加载器，若父类加载器能完成加载，则由父类加载器完成，若不能，再由子类加载器完成，这种模式称为双亲委托机制。（若父类再有父类，就继续委托给父类，层层往上委托一直到根类加载器）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/jvmclassload1.png?raw=true" alt="Image text"><br>3、定义类加载器：能够成功加载你所要加载类的加载器<br>4、初始化加载器：所有能成功返回Class对象引用的类加载器（包括定义类加载器）</p>
+<p>例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoadTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">		<span class="comment">//得到java.lang.String类</span></span><br><span class="line">		Class&lt;?&gt; clazz=Class.forName(<span class="string">"java.lang.String"</span>);</span><br><span class="line">		<span class="comment">//得到String类的类加载器</span></span><br><span class="line">		System.out.println(clazz.getClassLoader());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">null</span></span><br></pre></td></tr></table></figure></p>
+<p>若一个类的类加载器是根加载器，则用null来表示，因为根加载器是由C++实现的（不过不同版本jvm有不同的表示）。<br>由输出知：String类的加载器是根加载器</p>
+<p>例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoadTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">		<span class="comment">//得到LittleTest对类</span></span><br><span class="line">		Class&lt;?&gt; clazz=Class.forName(<span class="string">"jvm.LittleTest"</span>);</span><br><span class="line">		<span class="comment">//得到LittleTest类的类加载器</span></span><br><span class="line">		System.out.println(clazz.getClassLoader());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//自定义内部类LittleTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LittleTest</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sun.misc.Launcher$AppClassLoader@<span class="number">2</span>a139a55</span><br><span class="line"><span class="comment">//AppClassLoader应用类加载器</span></span><br></pre></td></tr></table></figure></p>
+<p>由输出知：内部类LittleTest的类加载器为应用（系统）类加载器</p>
+<p>注：对于数组类型，它的类加载器是由Java虚拟机在运行期动态创建的，Java虚拟机返回的类加载器类型与数组中元素的类加载器类型一样（例如一个string类型的数组，String的类加载器是根类加载器，那么Java虚拟机为数组类型创建的类加载器也是根类加载器，），如果元素类型为原生类型，则没有类加载器（例如int类型）。</p>
+<p>5、好处：<br>1）可以确保Java核心类库的安全：所有的Java应用都至少会引用java.lang.Object，也就是说说运行期java.lang.Object这个类会被加载到Java虚拟机中，如果这个加载过程是由Java自定义类加载器所完成的，那么很可能在jvm中存在多个不同版本的java.lang.Object类，而这些类是不兼容的，相互不可见（命名空间）<br>2）借助于双亲委托机制，Java核心库中的类加载工具都是由启动类加载器来统一完成的，从而确保了Java应用所使用的都是同一个版本的Java核心库，他们之间相互兼容。<br>3）可以确保Java核心库所提供的类不会被自定义的类所替代<br>3）不同的类加载器可以为相同名称的类创建额外的命名空间。相同名称的类可以并存在jvm中，只需要用不同的命名空间加载他们即可。不同类加载器所加载的类之间不兼容，相当于在Java虚拟机内部创建了一个又一个相互隔离的Java类空间。</p>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>1、每个类加载器都有自己的命名空间，命名空间由该加载器及其所有的父类加载器所加载的类组成<br>2、在同一个命名空间中不会出现类的完整名字（包括类的包名）相同的两个类，所以一个类只会被加载一次（再次加载价将返回同第一次已经加载的结果）<br>3、在不同的命名空间中，有可能会出现类的完整名字（包括类的包名）相同的两个类，完整名字（包括类的包名）相同的两个类可以分别的不同命名空间被加载<br>4、同一个命名空间内的类是相互可见的<br>5、子加载器的命名空间包括所有父类的命名空间，因此子加载器加载的类能看见父加载器加载的类。例如系统类加载器加载的类能看见根类加载器加载的类。<br>6、由父加载器加载的类不能看见子加载器加载的类<br>7、如果两个加载器之间没有直接或间接的父子关系，那么它们各自加载的类互不可见<br>8、在运行期，一个Java是由该类的全类名和用于加载该类的定义类加载器所共同决定的。如果同样名字（全类名）的类由两个不同的加载器所加载，那么这些类就是不同的，即便.class文件的字节码完全一样，并且从相同位置加载亦如此。</p>
+<p>注：子加载器所加载的类能够访问父加载器所加载的类，父加载器所加载的类无法访问子加载器所加载的类 </p>
+<h3 id="类的卸载"><a href="#类的卸载" class="headerlink" title="类的卸载"></a>类的卸载</h3><p>1、当一个类被加载、连接、初始化之后，它的生命周期就开始了。当这个类的class对象不再被引用，即不可触及时，class对象就会结束生命周期，该类在方法区内的数据也会被卸载，从而结束该类的生命周期。<br>2、一个类何时结束生命周期，取决于代表它的class对象何时结束生命周期。<br>3、由Java虚拟机自带的类加载器所加载的类，在虚拟机的生命周期中，始终不会被卸载。<br>4、Java虚拟机自带的类加载器包括根类加载器、扩展类加载器和系统类加载器。Java虚拟机会始终引用这些类加载器，而这些类加载器则会始终引用它们所加载的类的class对象，因此这些class对象始终是可触及的。<br>5、有用户自定义的类加载器所加载的类是可以被卸载的。</p>
+<h3 id="forName-方法分析"><a href="#forName-方法分析" class="headerlink" title="forName()方法分析"></a>forName()方法分析</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/jvm类加载3/" data-id="ckb4u189y000qp4viq7l35wct" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jvm类加载2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/jvm类加载2/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.514Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/jvm类加载2/">JVM类加载2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JVM接口初始化规则"><a href="#JVM接口初始化规则" class="headerlink" title="JVM接口初始化规则"></a>JVM接口初始化规则</h2><p>1、当一个接口再初始化时，并不要求其父接口都完成初始化，只有当真正使用到父接口时（如引用接口中定义的常量时）才会初始化。（对于类来说，子类初始化之前，它的父类要先全部初始化）<br>2、当一个类初始化时，并不要求先初始化其所实现的接口<br>注：1）只有当程序首次使用特定接口的静态变量时，才会导致该接口的初始化。<br>2）只有当程序访问的静态变量或静态方法确实在当前类或接口中定义时，才可以认为是对类或接口的主动使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterFaceClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Childs.b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line"><span class="comment">//接口中的属性就是static和final，这里显示定义为了更加清楚</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Childs</span> <span class="keyword">extends</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> b=<span class="number">6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure></p>
+<p>在上面这个例子中，<br>Childs.b调用子接口的属性b，属性b的定义为public static final int b=6，这是一个常量，在编译期间会被放入调用它的类的常量池中，这时，不会初始化Childs类，虽然子接口继承自父接口，但没有使用到父接口，所以没有主动使用父接口，不会初始化父接口，将子接口的class文件删除也不影响运行。（子接口初始化，父接口不一定初始化）</p>
+<p>再看下面的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterFaceClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Childs.b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Childs</span> <span class="keyword">extends</span> <span class="title">Parents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> b=<span class="keyword">new</span> Random().nextInt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2024458112</span></span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，Childs.b调用子接口的属性b,但b的定义为public static final int b=new Random().nextInt()，是一个随机数，要在运行期间才能确定，所以这个值不会被放到调用它的类的常量池中，这时会主动使用父接口，使父接口初始化，若把父接口的class文件删除，会报找不到对象异常。</p>
+<p>上面的例子不是很准确的说明接口的初始化的规则，但是我太懒了，并且上面的例子对于Final关键字有更深的理解，所以我懒得去改了，请看下面这个比较确切的例子：</p>
+<h3 id="验证接口初始化规则第二点："><a href="#验证接口初始化规则第二点：" class="headerlink" title="验证接口初始化规则第二点："></a>验证接口初始化规则第二点：</h3><p>当一个实现接口的类在初始化时，并不要求其接口初始化<br>1、接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterfaceInit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	    <span class="comment">//调用MyChilds的静态属性b</span></span><br><span class="line">		System.out.println(MyChilds.b);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyGrandpa..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyParents</span> <span class="keyword">extends</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyParents..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyChilds</span> <span class="keyword">implements</span> <span class="title">MyParents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> b=<span class="number">5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p>由输出可知：当初始化一个接口的实现类时，并不一定会初始化这个接口（接口初始化规则第二条）<br>1）MyChilds.b，在InterfaceInit类中调用MyChilds的静态属性b，主动使用MyChilds类并初始化它。<br>2）但是并没有主动使用它的接口MyParents，所以不会初始化MyParents类，也不会初始化MyParents的父类MyGrandpa</p>
+<p>2、把接口改成类<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterfaceInit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(MyChilds.b);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyGrandpa..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParents</span> <span class="keyword">extends</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyParents..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyChilds</span> <span class="keyword">extends</span> <span class="title">MyParents</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> b=<span class="number">5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyGrandpa...........</span><br><span class="line">MyParents...........</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p>由输出知：当初始化一个子类时，一定会先初始化它的父类<br>1）MyChilds.b，在InterfaceInit类中调用MyChilds的静态属性b，主动使用MyChilds类并初始化它。<br>2）由于MyChilds继承自MyParents类，所以会主动使用MyParents类，并初始化MyParents类<br>3）初始化MyParents类之前，由MyParents类继承自MyParents的父类MyGrandpa类，所以会主动使用MyGrandpa类，并且会初始化MyGrandpa类<br>4）在MyGrandpa类初始化阶段，它的静态属性初始化代码块中会打印”MyGrandpa………..”<br>5）MyGrandpa类初始化完之后，是MyParents类初始化，在MyParents类初始化阶段，它的静态属性初始化代码块中会打印”MyParents………..”</p>
+<p>3、把定义的静态变量改成final static变量<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterfaceInit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(MyChilds.b);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyGrandpa..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParents</span> <span class="keyword">extends</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyParents..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyChilds</span> <span class="keyword">extends</span> <span class="title">MyParents</span></span>&#123;</span><br><span class="line"><span class="comment">//静态常量属性</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> b=<span class="number">5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<p>由输出可知：<br>1）MyChilds.b，在InterfaceInit类中调用MyChilds的静态常量属性b，主动使用MyChilds类<br>2）但是b是静态常量，在编译阶段将b放入它的调用类InterfaceInit的常量池中，之后属性b的定义类MyChilds与它的调用类InterfaceInit就没有关系了，不会初始化MyChilds，就不会主动使用MyChilds的父类MyParents且不会初始化。</p>
+<h3 id="验证接口初始化规则第一点："><a href="#验证接口初始化规则第一点：" class="headerlink" title="验证接口初始化规则第一点："></a>验证接口初始化规则第一点：</h3><p>当一个接口在初始化时，并不要求其父接口都完成初始化<br>例子：<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterfaceInit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(MyParents.thread);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyGrandpa..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyParents</span> <span class="keyword">extends</span> <span class="title">MyGrandpa</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Thread thread=<span class="keyword">new</span> Thread()&#123;</span><br><span class="line">		<span class="comment">//一个实例化代码块</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">"MyParents..........."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MyParents...........</span><br><span class="line">Thread[Thread-<span class="number">0</span>,<span class="number">5</span>,main]<span class="comment">//Thread的toString()方法</span></span><br></pre></td></tr></table></figure></p>
+<p>由输出可知：<br>1）MyParents.thread，在InterfaceInit类中调用接口MyParents的静态属性thread，主动使用MyParents接口并初始化它的静态属性thread，在静态属性thread的初始化代码块中，打印”MyParents………..”<br>2）虽然接口MyParents继承自接口MyGrandpa，但是并没有初始化父接口MyGrandpa</p>
+<h3 id="类加载的准备阶段与初始化阶段"><a href="#类加载的准备阶段与初始化阶段" class="headerlink" title="类加载的准备阶段与初始化阶段"></a>类加载的准备阶段与初始化阶段</h3><p>类加载过程：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）加载：查找并加载类的二进制数据（将类从磁盘文件写入内存）</span><br><span class="line"><span class="number">2</span>）连接：</span><br><span class="line">（<span class="number">1</span>）验证：确保被加载的类的正确性</span><br><span class="line">（<span class="number">2</span>）准备：为类的静态变量分配内存，并将其初始化为默认值（例如，静态的整型值初始化为默认值为<span class="number">0</span>，由Java虚拟机来完成）</span><br><span class="line">（<span class="number">3</span>）解析：把类中的符号引用转换为直接引用</span><br><span class="line"><span class="number">3</span>）初始化：为类的静态变量赋正确的初始值（程序员主观初始化赋值，例<span class="keyword">int</span> a=<span class="number">1</span>）</span><br><span class="line"><span class="number">4</span>）使用</span><br><span class="line"><span class="number">5</span>）卸载：从内存中销毁类</span><br></pre></td></tr></table></figure></p>
+<p>例子：<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	    <span class="comment">//调用Singleton的静态方法来创建实例singleton</span></span><br><span class="line">		Singleton singleton=Singleton.getInstance();</span><br><span class="line">		System.out.println(singleton.count1);</span><br><span class="line">		System.out.println(singleton.count2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> count1;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> count2=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton=<span class="keyword">new</span> Singleton();</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">		count1++;</span><br><span class="line">		count2++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> singleton;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>由输出知：<br>1）Singleton.getInstance()调用Singleton的静态方法来创建实例singleton，所以会主动使用类Singleton，则先加载类，然后连接<br>2）在连接的第二阶段准备这个过程中，Java虚拟机为类Singleton的静态变量count1,count2,singleton分配内存，并将其初始化为默认值:count1=0,count2=0,singleton=null<br>3）连接完了以后是初始化过程，执行代码中显示赋初值的部分，public static int count2=0，private static Singleton singleton=new Singleton()<br>4）new Singleton()会执行构造函数，在构造函数中执行    count1++，count2++。<br>5）所以最后输出count1的值为1，count2的值为1。</p>
+<p>例子：<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Singleton singleton=Singleton.getInstance();</span><br><span class="line">		System.out.println(<span class="string">"main函数中的值"</span>);</span><br><span class="line">		System.out.println(singleton.count1);</span><br><span class="line">		System.out.println(singleton.count2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> count1;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton=<span class="keyword">new</span> Singleton();</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">		count1++;</span><br><span class="line">		count2++;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"构造函数内的值"</span>);</span><br><span class="line">		System.out.println(singleton.count1);</span><br><span class="line">		System.out.println(singleton.count2);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> count2=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> singleton;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">构造函数内的值</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">main函数中的值</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>由输出知：<br>1）Singleton.getInstance()调用Singleton的静态方法来创建实例singleton，所以会主动使用类Singleton，则先加载类，然后连接<br>2）在连接的第二阶段准备这个过程中，Java虚拟机为类Singleton的静态变量count1,count2,singleton分配内存，并将其初始化为默认值:count1=0,count2=0,singleton=null<br>3）连接完了以后是初始化过程，执行代码中显示赋初值的部分，private static Singleton singleton=new Singleton()<br>4）new Singleton()会执行构造函数，在构造函数中执行    count1++，count2++，构造函数中执行完两个语句后，count1的值为1，count2的值为1。<br>5）构造函数为属性singleton初始化之后，下一条初始化语句是public static int count2=0，这时将count2的值初始化为0<br>6）所以最后输出count1=1，count2=0</p>
+<h3 id="初始化进一步理解"><a href="#初始化进一步理解" class="headerlink" title="初始化进一步理解"></a>初始化进一步理解</h3><hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"FinalClass-------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(ChildTest.b);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ParentTest</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">3</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"ParentTest--------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChildTest</span> <span class="keyword">extends</span> <span class="title">ParentTest</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> b=<span class="number">4</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"ChildTest--------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FinalClass------</span><br><span class="line">ParentTest--------</span><br><span class="line">ChildTest--------</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<p>注：static代码块也被看做是要初始化的变量，同static变量一样<br>有输出知：<br>1）由主动使用的条件第六条（Java虚拟机启动时被标明为启动类的类（Java Test，包含main（）方法的类））知，含有main方法的类为启动类FinalClass，会主动使用并初始化，初始化阶段会执行static代码块打印”FinalClass——-“<br>2）初始化FinalClass类之后，执行main方法中的ChildTest.b代码<br>3）ChildTest.b调用ChildTest类的静态变量b，所以会主动使用ChildTest并初始化<br>4）在初始化ChildTest类之前会先初始化它的父类ParentTest，在父类ParentTest初始化时打印”ParentTest——–”<br>5）父类ParentTest初始化完之后，初始化ChildTest打印”ChildTest——–”<br>6）初始化ChildTest类完成之后，返回ChildTest类属性b的值到它的调用处main方法中并打印。</p>
+<h3 id="首次使用与再次使用类"><a href="#首次使用与再次使用类" class="headerlink" title="首次使用与再次使用类"></a>首次使用与再次使用类</h3><p>类仅会被初始化一次，在首次主动使用它时初始化。<br>例子:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"FinalClass-------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"----------"</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		ParentTest p;</span><br><span class="line">		System.out.println(<span class="string">"----------"</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		ParentTest pa=<span class="keyword">new</span> ParentTest();</span><br><span class="line">		System.out.println(<span class="string">"----------"</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		System.out.println(pa.a);</span><br><span class="line">		System.out.println(<span class="string">"----------"</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		System.out.println(ChildTest.b);</span><br><span class="line">		System.out.println(<span class="string">"----------"</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ParentTest</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">3</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"ParentTest--------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChildTest</span> <span class="keyword">extends</span> <span class="title">ParentTest</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> b=<span class="number">4</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"ChildTest--------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FinalClass-------</span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line">ParentTest--------</span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line">ChildTest--------</span><br><span class="line"><span class="number">4</span></span><br><span class="line">----------</span><br></pre></td></tr></table></figure></p>
+<p>由输出：<br>1）由主动使用的条件第六条（Java虚拟机启动时被标明为启动类的类（Java Test，包含main（）方法的类））知，含有main方法的类为启动类FinalClass，会主动使用并初始化，初始化阶段会执行static代码块打印”FinalClass——-“<br>2）对于”ParentTest p;“，并没有实例化ParentTest，所以没有主动使用ParentTest，也不会初始化，所以不会打印<br>3）对于”ParentTest pa=new ParentTest()“，是对ParentTest类的首次实例化，所以会初始化并打印其静态代码块中的内容”ParentTest——–“（ParentTest没有父类，所以直接初始化本身）<br>4）对于”pa.a“，是对”ParentTest pa=new ParentTest()“的首次实例化的结果，直接打印ParentTest的属性a。<br>5）对于”ChildTest.b“，调用ChildTest的静态属性b,会主动首次使用ChildTest类并对它初始化，在他初始化之前，应先初始化它的父类ParentTest，但在这里，它的父类已经初始化完成，不必再次初始化，所以不会再次打印父类静态代码块的内容，直接初始化ChildTest自身并打印”ChildTest——–”，然后打印”ChildTest.b“的结果。</p>
+<h3 id="静态变量（静态代码块也可看做静态变量）定义在哪个类，才会对哪个类主动使用并初始化"><a href="#静态变量（静态代码块也可看做静态变量）定义在哪个类，才会对哪个类主动使用并初始化" class="headerlink" title="静态变量（静态代码块也可看做静态变量）定义在哪个类，才会对哪个类主动使用并初始化"></a>静态变量（静态代码块也可看做静态变量）定义在哪个类，才会对哪个类主动使用并初始化</h3><p>例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstClassLoad</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Child1.a);</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		Child1.doSomething();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parents1</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">3</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Parents1!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"doSomething!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child1</span> <span class="keyword">extends</span> <span class="title">Parents1</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Child1!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Parents1!!!</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line">doSomething!!!</span><br></pre></td></tr></table></figure></p>
+<p>由输出知：<br>1）在main方法中有Child1.a，通过子类Child1调用父类的静态属性a,这时，静态变量定义在哪个类才会对哪个类初始化，所以不会初始化子类Child1，而是初始化父类Parents1，并打印“Parents1!!!”，再打印Child1.a的结果3<br>2）对于    Child1.doSomething()，doSomething()方法同样定义在父类，会主动使用父类并初始化，但是父类已经初始化过了，所以直接打印    Child1.doSomething()的结果。</p>
+<h3 id="反射导致一个类的初始化"><a href="#反射导致一个类的初始化" class="headerlink" title="反射导致一个类的初始化"></a>反射导致一个类的初始化</h3><p>加载类不是对类的主动使用，不会导致类的初始化，反射是对类的主动使用，会导致类的初始化。<br>例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassForName</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">		<span class="comment">//获取一个类加载器</span></span><br><span class="line">		ClassLoader loader=ClassLoader.getSystemClassLoader();</span><br><span class="line">		<span class="comment">//加载jvm.ClassLoadTest1</span></span><br><span class="line">		Class&lt;?&gt; clazz=loader.loadClass(<span class="string">"jvm.ClassLoadTest1"</span>);</span><br><span class="line">		System.out.println(clazz);</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		clazz=Class.forName(<span class="string">"jvm.ClassLoadTest1"</span>);<span class="comment">//反射</span></span><br><span class="line">		System.out.println(clazz);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassLoadTest1</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"ClassLoadTest!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">jvm</span>.<span class="title">ClassLoadTest1</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">ClassLoadTest</span>!!!</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">jvm</span>.<span class="title">ClassLoadTest1</span></span></span><br></pre></td></tr></table></figure></p>
+<p>由输出可知：<br>1）调用ClassLoader类的loadClass（）方法加载一个类，不是对类的主动使用，并不会导致类的初始化，所以不会初始化ClassLoadTest1类，不打印这个类中的静态代码块。<br>2）对于clazz=Class.forName(“jvm.ClassLoadTest1”)是一种反射，是对类ClassLoadTest1的主动使用，会导致类ClassLoadTest1的初始化，所以会打印静态代码块。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/jvm类加载2/" data-id="ckb4u189y000pp4viflctkwg1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JVM类加载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/JVM类加载/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.499Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/JVM类加载/">JVM类加载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JVM类加载"><a href="#JVM类加载" class="headerlink" title="JVM类加载"></a>JVM类加载</h2><p>1、Java中，类型的加载、连接与初始化过程都是在程序运行期间完成的。<br>1）加载：查找并加载类的二进制数据（将类从磁盘文件写入内存）<br>2）连接：<br>（1）验证：确保被加载的类的正确性<br>（2）准备：为类的静态变量分配内存，并将其初始化为默认值（例如，静态的整型值初始化为默认值为0，由Java虚拟机来完成）<br>（3）解析：把类中的符号引用转换为直接引用<br>3）初始化：为类的静态变量赋正确的初始值（程序员主观初始化赋值，例int a=1）<br>4）使用<br>5）卸载：从内存中销毁类</p>
+<p>2、类加载器：加载类，将类写入内存</p>
+<p>3、jvm结束生命周期的几种方式：<br>1）执行System.exit()方法<br>2）程序正常执行结束<br>3）程序执行过程中遇到异常或错误而异常终止<br>4）操作系统的错误</p>
+<p>4、Java程序对类的使用方式：<br>1）主动使用<br>（1）创建类的实例<br>（2）访问某个类或接口的静态变量（取值getStatic()），或对该静态变量赋值(putStatic()）<br>（3）调用类的静态方法(invokeStatic())<br>（4）反射（如Class.forName(“com.Test”)）<br>（5）初始化一个类的子类（初始化子类时，会先去初始化父类，这是一个对父类的主动使用）<br>（6）Java虚拟机启动时被标明为启动类的类（Java Test，包含main（）方法的类）<br>（7）JDK1.7开始提供的动态语言支持：<br>java.lang.invoke.MethodHandle实例的解析结果REF_getStatic,REF_putStatic,REF_invokeStatic句柄对应的类没有初始化，则初始化。</p>
+<p>2）被动使用<br>除以上七种情况外，其他使用Java类的方法都被看做是对类的被动使用，都不会导致类的初始化</p>
+<p>注：所有的Java虚拟机实现必须在每个类或接口被Java程序“首次主动使用”时才初始化他们<br>举个很有用栗子：一个父类Parent，一个子类Child<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"><span class="comment">//-XX:TraceClassLoading:用于追踪类的信息并打印出来</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoad</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">		<span class="comment">//用子类名调用父类的静态属性str</span></span><br><span class="line">		System.out.println(Child.str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line">    <span class="comment">//静态属性str</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> String str=<span class="string">"Hello world"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//静态代码块</span></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Parent!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line">	<span class="comment">//静态代码块</span></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Child!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Parent!!!</span><br><span class="line">Hello world</span><br><span class="line"><span class="comment">//用子类名调用父类的静态属性str,输出的是父类的静态代码块和父类的静态属性值</span></span><br><span class="line"><span class="comment">//因为调用父类的静态属性str，符合Java程序对类的主动使用第二点（访问某个类或接口的静态变量（取值getStatic()），或对该静态变量赋值(putStatic()）），则Child.str的过程就是对父类的主动使用，但是没有主动使用子类，所以Java虚拟机不会初始化子类，则不会执行，虽然子类没有初始化，但是依然加载了，可用TraceClassLoading助记符来追踪的知。</span></span><br></pre></td></tr></table></figure></p>
+<p>再看下面的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"><span class="comment">//-XX:TraceClassLoading:用于追踪类的信息并打印出来</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoad</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">		<span class="comment">//用子类名调用子类的静态属性str2</span></span><br><span class="line">		System.out.println(Child.str2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line"><span class="comment">//对于静态字段来说，只有直接定义了该字段的类才会被初始化</span></span><br><span class="line">    <span class="comment">//静态属性str</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> String str=<span class="string">"Hello world"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//静态代码块</span></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Parent!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line"><span class="comment">//对于静态字段来说，只有直接定义了该字段的类才会被初始化</span></span><br><span class="line"><span class="comment">//对一个子类初始化时，要求其父类已经全部初始化</span></span><br><span class="line">    <span class="comment">//子类静态属性str2</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String str2=<span class="string">"Hello world"</span>;</span><br><span class="line">	<span class="comment">//静态代码块</span></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Child!!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Parent!!!</span><br><span class="line">Child!!!</span><br><span class="line">Hello world</span><br><span class="line"><span class="comment">//用子类名调用子类的静态属性str2,输出的是父类的静态代码块、子类的静态代码块和子类的静态属性值</span></span><br><span class="line"><span class="comment">//因为调用子类的静态属性str，符合Java程序对类的主动使用第二点（访问某个类或接口的静态变量（取值getStatic()），或对该静态变量赋值(putStatic()）），则Child.str22的过程就是对子类的主动使用，又因为子类继承与父类，这也是一种对父类的主动使用，所以父类与子类都会初始化并执行。</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="类的加载"><a href="#类的加载" class="headerlink" title="类的加载"></a>类的加载</h3><p>是指将类的.class文件中的二进制数据读入内存，将其放在运行时数据区的方法区内，然后在内存中创建一个java.lang.Class对象,用来封装类在方法区内的数据结构</p>
+<p>1、加载.class文件的方式<br>1）从本地系统中直接加载<br>2）通过网络下载.class文件<br>3）从zip,jar等归档文件中加载<br>4）从专有数据库加载<br>5）将Java源文件动态编译为.class文件 </p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>编译阶段，常量会被存入调用这个常量的那个方法所在类的常量池中，本质上，调用类并没有直接引用到定义常量的类，因此并不会触发定义常量的类的初始化。之后定义常量的类与调用常量的类就没有任何关系了，删除定义常量的class文件也不影响运行。<br>例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangLiang</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(Test.str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> String str=<span class="string">"hello world"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Test类"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Test类</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></p>
+<p>再看下列代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangLiang</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(Test.str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="comment">//静态常量属性str</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String str=<span class="string">"hello world"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Test类"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br><span class="line"><span class="comment">//因为str是静态常量，在编译阶段，这个常量会被存入调用这个常量的那个方法所在类的常量池中，即str会被放在ChangLiang类的常量池中，本质上，调用类并没有直接引用到定义常量的类（Test类），因此并不会触发定义常量的类的初始化。之后定义常量的类（Test）与调用常量的类（ChangLiang）就没有任何关系了，删除定义常量（Test)的class文件也不影响运行。对调用常量的类ChangLiang反编译，会发现Test.str这一句代码直接被常量"hello world"替换。</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="编译期常量与运行期常量的区别"><a href="#编译期常量与运行期常量的区别" class="headerlink" title="编译期常量与运行期常量的区别"></a>编译期常量与运行期常量的区别</h3><p>上面的例子是编译期常量，下面演示运行期常量<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(MyParent.str);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParent</span></span>&#123;</span><br><span class="line">	<span class="comment">//UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准</span></span><br><span class="line">	<span class="comment">//UUID.randomUUID().toString()是随机的，编译器无法确定</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String str=UUID.randomUUID().toString();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"UUID CODE"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UUID CODE</span><br><span class="line">f624dd9f-<span class="number">5</span>d47-<span class="number">42f</span>4-<span class="number">8f</span>b2-<span class="number">41812</span>b231bda</span><br></pre></td></tr></table></figure></p>
+<p>注意：当一个常量并非编译器可以确定，那么其值就不会被放到调用类的常量池中，这时程序运行时，会会主动使用定义这个常量所在的类，则会导致该类被初始化（在这个例子中，对于public static final String str=UUID.randomUUID().toString()，是随机的，在编译器无法确定，则会加载它所在的类MyParent,从而输出UUID CODE）</p>
+<h3 id="数组创建本质"><a href="#数组创建本质" class="headerlink" title="数组创建本质"></a>数组创建本质</h3><p>对于数组类型，它的类加载器是由Java虚拟机在运行期动态创建的，Java虚拟机返回的类加载器类型与数组中元素的类加载器类型一样（例如一个string类型的数组，String的类加载器是根类加载器，那么Java虚拟机为数组类型创建的类加载器也是根类加载器，），如果元素类型为原生类型，则没有类加载器（例如int类型）。<br>一个前言<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		TestArray a=<span class="keyword">new</span> TestArray();<span class="comment">//首次实例化</span></span><br><span class="line">		TestArray b=<span class="keyword">new</span> TestArray();<span class="comment">//再次实例化</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TestArray.........</span><br></pre></td></tr></table></figure></p>
+<p>结果分析：当对一个类首次实例化时，会主动调用并初始化，再次则不会主动使用了，所以实例化两次，只打印一次。</p>
+<p>正文：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TestArray[] a=<span class="keyword">new</span> TestArray[<span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br>上面这个代码不会有任何输出，因为数组的类型实际上并不是TestArray。可以用getClass()方法查看数组的类型，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TestArray[] a=<span class="keyword">new</span> TestArray[<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//查看数组所属类型</span></span><br><span class="line">		System.out.println(a.getClass());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class [Ljvm.TestArray;</span><br></pre></td></tr></table></figure></p>
+<p>由输出可知，数组的类型是“[Ljvm.TestArray;”，这个类型由Java虚拟机在运行期动态创建。</p>
+<p>下面再看看二维数组：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TestArray[][] a=<span class="keyword">new</span> TestArray[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">		System.out.println(a.getClass());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class [[Ljvm.TestArray;</span><br></pre></td></tr></table></figure></p>
+<p>由输出知，二位数组的类型为“[[Ljvm.TestArray;”，比一维数组多一个方括号“[”。</p>
+<p>下面调用getSuperClass()方法查看一下这个数组类型的父类型<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TestArray[][] a=<span class="keyword">new</span> TestArray[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//查看数组类型</span></span><br><span class="line">		System.out.println(a.getClass());</span><br><span class="line">		<span class="comment">//查看数组类型的父类型</span></span><br><span class="line">		System.out.println(a.getClass().getSuperclass());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class [[Ljvm.TestArray;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">Object</span></span></span><br></pre></td></tr></table></figure></p>
+<p>由输出知，二位数组的类型为“[[Ljvm.TestArray;”，二位数组类型的父类型为“java.lang.Object”，经实验，一维数组的父类型也是“java.lang.Object”</p>
+<p>引用类型与基本数组类型的区别：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		TestArray[] a=<span class="keyword">new</span> TestArray[<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//查看引用（数组）类型</span></span><br><span class="line">		System.out.println(a.getClass());</span><br><span class="line">		<span class="comment">//查看引用（数组）类型的父类型</span></span><br><span class="line">		System.out.println(a.getClass().getSuperclass());</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span>[] ints=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//查看基本类型（int)的数组类型</span></span><br><span class="line">		System.out.println(ints.getClass());</span><br><span class="line">		<span class="comment">//查看基本类型（int)的数组类型的父类型</span></span><br><span class="line">		System.out.println(ints.getClass().getSuperclass());</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">char</span>[] chars=<span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//查看基本类型（int)的数组类型</span></span><br><span class="line">		System.out.println(chars.getClass());</span><br><span class="line">		<span class="comment">//查看基本类型（int)的数组类型的父类型</span></span><br><span class="line">		System.out.println(chars.getClass().getSuperclass());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestArray</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"TestArray........."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class [Ljvm.TestArray;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">Object</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line">class [I</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">Object</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line">class [C</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">Object</span></span></span><br></pre></td></tr></table></figure></p>
+<p>由输出可知：对于数组实例来说，其类型是jVM再运行期间动态创建的，表示为“[Ljvm.TestArray;”这种格式，对于基本类型的数组来说，如int类型表示为“[I”。父类都是object。<br>对于数组来说：javaDOC经常将构成数组的元素为Component，实际上就是将数组降低一个维度。</p>
+<h3 id="助记符"><a href="#助记符" class="headerlink" title="助记符"></a>助记符</h3><p>-XX:+<option>表示开启option选项<br>-XX:-</option><option>表示关闭option选项<br>-XX:</option><option>=<value>表示将option选项的值置为value</value></option></p>
+<p>TraceClassLoading:用于追踪类的信息并打印出来<br>ldc:表示将int、float或string类型二等常量从常量池中推送至栈顶<br>blpush:将单字节（-128至127）二等常量推送至栈顶<br>sipush:将短整型常量值（-32768至32767）二等常量推送至栈顶<br>iconst_1:将int型的1推送至栈顶（iconst_-1 - iconst_5共七个数）<br>anewarray:创建一个引用类型的（如类、接口、数组）数组，并将其引用值压入栈顶<br>newarray:创建一个指定额原始类型（如int、float、char）等，，并将其引用值压入栈顶</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/JVM类加载/" data-id="ckb4u189b0001p4vixhr6ksxq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JVM内存模型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/JVM内存模型/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.483Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/JVM内存模型/">JVM内存模型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>jvm启动流程：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/jvm00.png?raw=true" alt="Image text"></p>
+<h3 id="1、JVM-类加载器-classloader-执行引擎-execution-engine-运行时数据区域-runtime-data-area"><a href="#1、JVM-类加载器-classloader-执行引擎-execution-engine-运行时数据区域-runtime-data-area" class="headerlink" title="1、JVM = 类加载器(classloader) + 执行引擎(execution engine) + 运行时数据区域(runtime data area)"></a>1、JVM = 类加载器(classloader) + 执行引擎(execution engine) + 运行时数据区域(runtime data area)</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/jvmmey1.png?raw=true" alt="Image text"></p>
+<h3 id="2、运行时数据区域"><a href="#2、运行时数据区域" class="headerlink" title="2、运行时数据区域　"></a>2、运行时数据区域　</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则是依赖用户线程的启动和结束而建立和销毁。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/jvmmey2.png?raw=true" alt="Image text"></p>
+<h3 id="3、程序计数器（Program-Counter-Register）"><a href="#3、程序计数器（Program-Counter-Register）" class="headerlink" title="3、程序计数器（Program Counter Register）"></a>3、程序计数器（Program Counter Register）</h3><p>线程私有，它的生命周期与线程相同。<br>可以看做是当前线程所执行的字节码的行号指示器。<br>在虚拟机的概念模型里（仅是概念模型，各种虚拟机可能会通过一些更高效的方式去实现），字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，如：分支、循环、跳转、异常处理、线程恢复（多线程切换）等基础功能。<br>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是Natvie方法，这个计数器值则为空（undefined）。<br>程序计数器中存储的数据所占空间的大小不会随程序的执行而发生改变，所以此区域不会出现OutOfMemoryError的情况。</p>
+<h3 id="4、Java虚拟机栈（JVM-Stacks）"><a href="#4、Java虚拟机栈（JVM-Stacks）" class="headerlink" title="4、Java虚拟机栈（JVM Stacks）"></a>4、Java虚拟机栈（JVM Stacks）</h3><p>线程私有的，它的生命周期与线程相同。<br>虚拟机栈描述的是Java方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame）用于存储局部变量表、操作栈、动态链接、方法出口等信息。每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+<p>1）局部变量表<br>包含参数和局部变量，存放了编译期可知的各种基本数据类型（boolean、byte、char、short、int、float、long、double）、对象引用（reference类型），它不等同于对象本身，根据不同的虚拟机实现，它可能是一个指向对象起始地址的引用指针，也可能指向一个代表对象的句柄或者其他与此对象相关的位置）和returnAddress类型（指向了一条字节码指令的地址）。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。<br>该区域可能抛出以下异常：<br>当线程请求的栈深度超过最大值，会抛出 StackOverflowError 异常；<br>栈进行动态扩展时如果无法申请到足够内存，会抛出 OutOfMemoryError 异常。</p>
+<p>2） 操作数栈<br>Java没有寄存器，所有的参数传递使用操作数栈</p>
+<p>3）Java栈上分配<br>如果是小对象（一般几十个bytes），在没有逃逸的情况下，可直接分配在栈上，减轻堆的压力</p>
+<h3 id="5、本地方法栈（Native-Method-Stacks）"><a href="#5、本地方法栈（Native-Method-Stacks）" class="headerlink" title="5、本地方法栈（Native Method Stacks）"></a>5、本地方法栈（Native Method Stacks）</h3><p>与虚拟机栈非常相似，其区别不过是虚拟机栈为虚拟机执行Java方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native 方法服务。虚拟机规范中对本地方法栈中的方法使用的语言、使用方式与数据结构并没有强制规定，因此具体的虚拟机可以自由实现它。甚至有的虚拟机（譬如Sun HotSpot 虚拟机）直接就把本地方法栈和虚拟机栈合二为一。<br>与虚拟机栈一样，本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。</p>
+<h3 id="6、Java堆（Heap）"><a href="#6、Java堆（Heap）" class="headerlink" title="6、Java堆（Heap）"></a>6、Java堆（Heap）</h3><p>被所有线程共享，在虚拟机启动时创建，用来存放对象实例，几乎所有的对象实例都在这里分配内存。<br>对于大多数应用来说，Java堆（Java Heap）是Java虚拟机所管理的内存中最大的一块。<br>Java堆是垃圾收集器管理的主要区域，因此很多时候也被称做“GC堆”。如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，所以Java堆中还可以细分为：新生代和老年代；新生代又有Eden空间、From Survivor空间、To Survivor空间三部分。<br>Java 堆不需要连续内存，并且可以通过动态增加其内存，增加失败会抛出 OutOfMemoryError 异常。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/jvmmey3.png?raw=true" alt="Image text"></p>
+<h3 id="7、方法区（Method-Area）"><a href="#7、方法区（Method-Area）" class="headerlink" title="7、方法区（Method Area）"></a>7、方法区（Method Area）</h3><p>用于存放已被加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。<br>和 Java 堆一样不需要连续的内存，并且可以动态扩展，动态扩展失败一样会抛出 OutOfMemoryError 异常。<br>对这块区域进行垃圾回收的主要目标是对常量池的回收和对类的卸载，但是一般比较难实现，HotSpot 虚拟机把它当成永久代（Permanent Generation）来进行垃圾回收。<br>方法区逻辑上属于堆的一部分，但是为了与堆进行区分，通常又叫“非堆”。</p>
+<blockquote>
+<p>运行时常量池（Runtime Constant Pool）</p>
+</blockquote>
+<hr>
+<p>运行时常量池是方法区的一部分。<br>Class 文件中的常量池（编译器生成的各种字面量和符号引用）会在类加载后被放入这个区域。<br>除了在编译期生成的常量，还允许动态生成，例如 String 类的 intern()。这部分常量也会被放入运行时常量池。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/jvmmey4.png?raw=true" alt="Image text"><br>注：<br>在 JDK1.7之前，HotSpot 使用永久代实现方法区；HotSpot 使用 GC 分代实现方法区带来了很大便利；<br>从 JDK1.7 开始HotSpot 开始移除永久代。其中符号引用（Symbols）被移动到 Native Heap中，字符串常量和类引用被移动到 Java Heap中。<br>在 JDK1.8 中，永久代已完全被元空间(Meatspace)所取代。元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制。<br>直接内存（Direct Memory）<br>直接内存（Direct Memory）并不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域，但是这部分内存也被频繁地使用，而且也可能导致OutOfMemoryError 异常出现。<br>在 JDK 1.4 中新加入了 NIO 类，引入了一种基于通道（Channel）与缓冲区（Buffer）的 I/O方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆里的 DirectByteBuffer 对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在Java 堆和 Native 堆中来回复制数据。</p>
+<p>栈、堆、方法区交互<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/jvm01.png?raw=true" alt="Image text"></p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>一个线程修改了变量，其他线程可以立即知道</p>
+<p>保证可见性的方法：<br>1）volatile<br>2）synchronized（unlock之前，写变量值回主存）<br>3）final（一旦初始化完成，其他线程就可见）</p>
+<p>参考：<a href="http://baijiahao.baidu.com/s?id=1598140630731512683&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">http://baijiahao.baidu.com/s?id=1598140630731512683&amp;wfr=spider&amp;for=pc</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/JVM内存模型/" data-id="ckb4u18960000p4vi53zptkeo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java面试知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/java面试知识点/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.467Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/java面试知识点/">java面试知识点总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一，java中各种集合的关系图"><a href="#一，java中各种集合的关系图" class="headerlink" title="一，java中各种集合的关系图"></a>一，java中各种集合的关系图</h2><p>1、<br>Collection 接口的接口 对象的集合<br>├ List 子接口 按进入先后有序保存 可重复<br>│├ LinkedList 接口实现类 链表 插入删除 没有同步 线程不安全<br>│├ ArrayList 接口实现类 数组 随机访问 没有同步 线程不安全<br>│└ Vector 接口实现类 数组 同步 线程安全<br>│ 　 └ Stack<br>└ Set 子接口 仅接收一次，并做内部排序</p>
+<p>├ HashSet</p>
+<p>│ 　 └ LinkedHashSet<br>└ TreeSet</p>
+<p>1）对于 List ，关心的是顺序，它保证维护元素特定的顺序（允许有相同元素），使用此接口能够精确的控制每个元素插入的位置。用户能够使用索引（元素在 List 中的位置，类似于数组下标）来访问 List 中的元素。</p>
+<p>2）对于 Set ，只关心某元素是否属于 Set （不 允许有相同元素 ），而不关心它的顺序。</p>
+<p>2、<br>Map 接口 键值对的集合<br>├ Hashtable 接口实现类 同步 线程安全<br>├ HashMap 接口实现类 没有同步 线程不安全</p>
+<p>│├ LinkedHashMap</p>
+<p>│└ WeakHashMap</p>
+<p>├ TreeMap<br>└ IdentifyHashMap</p>
+<p>1）对于 Map ，最大的特点是键值映射，且为一一映射，键不能重复，值可以，所以是用键来索引值。 方法 put(Object key, Object value) 添加一个“值” ( 想要得东西 ) 和与“值”相关联的“键” (key) ( 使用它来查找 ) 。方法 get(Object key) 返回与给定“键”相关联的“值”。</p>
+<p>2）Map 同样对每个元素保存一份，但这是基于 ” 键 ” 的， Map 也有内置的排序，因而不关心元素添加的顺序。如果添加元素的顺序对你很重要，应该使用 LinkedHashSet 或者 LinkedHashMap.</p>
+<p>3）对于效率， Map 由于采用了哈希散列，查找元素时明显比 ArrayList 快。</p>
+<h3 id="简单的总结如下"><a href="#简单的总结如下" class="headerlink" title="简单的总结如下"></a>简单的总结如下</h3><p>1、Collection 是对象集合， Collection 有两个子接口 List 和 Set,List 可以通过下标 (1,2..) 来取得值，值可以重复,而 Set 只能通过游标来取值，并且值是不能重复的</p>
+<p>1）ArrayList ， Vector ， LinkedList 是 List 的实现类</p>
+<p>2）ArrayList 是线程不安全的， Vector 是线程安全的，这两个类底层都是由数组实现的</p>
+<p>3）LinkedList 是线程不安全的，底层是由链表实现的</p>
+<p>2、Map 是键值对集合</p>
+<p>HashTable 和 HashMap 是 Map 的实现类<br>HashTable 是线程安全的，不能存储 null 值<br>HashMap 不是线程安全的，可以存储 null 值</p>
+<h3 id="详细介绍"><a href="#详细介绍" class="headerlink" title="详细介绍"></a>详细介绍</h3><p>1 ， List 接口<br>　　 1）List 是有序的 Collection ，次序是 List 最重要的特点：它保证维护元素特定的顺序。使用此接口能够精确的控制每个元素插入的位置。用户能够使用索引（元素在 List 中的位置，类似于数组下标）来访问 List 中的元素，这类似于 Java 的数组。和下面要提到的 Set 不同， List 允许有相同的元素。<br>　 　除了具有 Collection 接口必备的 iterator() 方法外， List 还提供一个 listIterator() 方法，返回一个 ListIterator 接口，和标准的 Iterator 接口相比， ListIterator 多了一些 add() 之类的方法，允许添加，删除，设定元素， 还能向前或向后遍历。<br>　　实现 List 接口的常用类有 LinkedList ， ArrayList ， Vector 和 Stack 。其中，最常用的是 LinkedList 和 ArrayList 两个。<br>LinkedList 类<br>　 　2） LinkedList 实现了 List 接口，允许 null 元素。此外 LinkedList 提供额外的 addFirst(), addLast(), getFirst(), getLast(), removeFirst(), removeLast(), insertFirst(), insertLast() 方法在 LinkedList 的首部或尾部，这些方法（没有在任何接口或基类中定义过）使 LinkedList 可被用作堆栈（ stack ），队列（ queue ）或双向队列（ deque ）。</p>
+<p>注意 LinkedList 没有同步方法。如果多个线程同时访问一个 List ，则必须自己实现访问同步。一种解决方法是在创建 List 时构造一个同步的 List ：<br>　　　　 List list = Collections.synchronizedList(new LinkedList(…));</p>
+<p>特点：对顺序访问进行了优化，向 List 中间插入与删除的开销并不大。随机访问则相对较慢。 ( 使用 ArrayList 代替。 )</p>
+<p>3）ArrayList 类<br>　　 ArrayList 是由数组实现的 List ，并且实现了可变大小的数组。它允许所有元素，包括 null 。 ArrayList 没有同步。 size ， isEmpty ， get ， set 方法运行时间为常数。但是 add 方法开销为分摊的常数，添加 n 个元素需要 O(n) 的时间。其他的方法运行时间为线性。<br>　 　每个 ArrayList 实例都有一个容量（ Capacity ），即用于存储元素的数组的大小。这个容量可随着不断添加新元素而自动增加，但是增长算法并没有定义。当需要插入大量元素时，在插入前可以调用 ensureCapacity 方法来增加 ArrayList 的容量以提高插入效率。<br>　　和 LinkedList 一样， ArrayList 也是非同步的（ unsynchronized ）。</p>
+<p>特点：允许对元素进行快速随机访问，但是向 List 中间插入与移除元素的速度很慢。 ListIterator 只应该用来由后向前遍历 ArrayList, 而不是用来插入和移除元素。因为那比 LinkedList 开销要大很多。</p>
+<p>4）Vector 类<br>　 　 Vector 非常类似 ArrayList ，但是 Vector 是同步的。由 Vector 创建的 Iterator ，虽然和 ArrayList 创建的 Iterator 是同一接口，但是，因为 Vector 是同步的，当一个 Iterator 被创建而且正在被使用，另一个线程改变了 Vector 的状态（例如，添加或删除了一些元素），这时调用 Iterator 的方法时将抛出 ConcurrentModificationException ，因此必须捕获该异常。</p>
+<p> Stack 类： Stack 继承自 Vector ，实现一个后进先出的堆栈。 Stack 提供 5 个额外的方法使得 Vector 得以被当作堆栈使用。基本的 push 和 pop 方法，还有 peek 方法得到栈顶的元素， empty 方法测试堆栈是否为空， search 方法检测一个元素在堆栈中的位置。 Stack 刚创建后是空栈。 </p>
+<p>2 ， Set 接口<br>　　 1）Set 具有与 Collection 完全一样的接口，因此没有任何额外的功能，不像前面有几个不同的 List 。实际上 Set 就是 Collection ，只是行为不同。（这是继承与多态思想的典型应用：表现不同的行为）。其次， Set 是一种不包含重复的元素的 Collection ，加入 Set 的元素必须定义 equals() 方法以确保对象的唯一性 （ 即任意的两个元素 e1 和 e2 都有 e1.equals(e2)=false ），与 List 不同的是， Set 接口不保证维护元素的次序。最后， Set 最多有一个 null 元素。<br>　　很明显， Set 的构造函数有一个约束条件，传入的 Collection 参数不能包含重复的元素。<br>　　请注意：必须小心操作可变对象（ Mutable Object ）。如果一个 Set 中的可变元素改变了自身状态导致 Object.equals(Object)=true 将导致一些问题。</p>
+<p>2）HashSet 类</p>
+<p>为快速查找设计的 Set 。存入 HashSet 的对象必须定义 hashCode() 。</p>
+<p>3）LinkedHashSet 类：具有 HashSet 的查询速度，且内部使用链表维护元素的顺序 ( 插入的次序 ) 。于是在使用迭代器遍历 Set 时，结果会按元素插入的次序显示。</p>
+<p>4）TreeSet 类</p>
+<p>保存次序的 Set, 底层为树结构。使用它可以从 Set 中提取有序的序列。</p>
+<p>3、 Map 接口<br>　 　请注意， Map 没有继承 Collection 接口， Map 提供 key 到 value 的映射，你可以通过“键”查找“值”。一个 Map 中不能包含相同的 key ，每个 key 只能映射一个 value 。 Map 接口提供 3 种集合的视图， Map 的内容可以被当作一组 key 集合，一组 value 集合，或者一组 key-value 映射。<br>方法 put(Object key, Object value) 添加一个“值” ( 想要得东西 ) 和与“值”相关联的“键” (key) ( 使用它来查找 ) 。方法 get(Object key) 返回与给定“键”相关联的“值”。可以用 containsKey() 和 containsValue() 测试 Map 中是否包含某个“键”或“值”。 标准的 Java 类库中包含了几种不同的 Map ： HashMap, TreeMap, LinkedHashMap, WeakHashMap, IdentityHashMap 。它们都有同样的基本接口 Map ，但是行为、效率、排序策略、保存对象的生命周期和判定“键”等价的策略等各不相同。</p>
+<p>Map 同样对每个元素保存一份，但这是基于 ” 键 ” 的， Map 也有内置的排序，因而不关心元素添加的顺序。如果添加元素的顺序对你很重要，应该使用 LinkedHashSet 或者 LinkedHashMap.</p>
+<p>执行效率是 Map 的一个大问题。看看 get() 要做哪些事，就会明白为什么在 ArrayList 中搜索“键”是相当慢的。而这正是 HashMap 提高速度的地方。 HashMap 使用了特殊的值，称为“散列码” (hash code) ，来取代对键的缓慢搜索。“散列码”是“相对唯一”用以代表对象的 int 值，它是通过将该对象的某些信息进行转换而生成的（在下面总结二：需要的注意的地方有更进一步探讨）。所有 Java 对象都能产生散列码，因为 hashCode() 是定义在基类 Object 中的方法 。 HashMap 就是使用对象的 hashCode() 进行快速查询的。此方法能够显著提高性能。</p>
+<p>1）Hashtable 类<br>　　 Hashtable 继承 Map 接口，实现一个 key-value 映射的哈希表。任何非空（ non-null ）的对象都可作为 key 或者 value 。　　添加数据使用 put(key, value) ，取出数据使用 get(key) ，这两个基本操作的时间开销为常数。<br>Hashtable 通过初始化容量 (initial capacity) 和负载因子 (load factor) 两个参数调整性能。通常缺省的 load factor 0.75 较好地实现了时间和空间的均衡。增大 load factor 可以节省空间但相应的查找时间将增大，这会影响像 get 和 put 这样的操作。<br>使用 Hashtable 的简单示例如下，将 1 ， 2 ， 3 放到 Hashtable 中，他们的 key 分别是 ”one” ， ”two” ， ”three” ：<br>　　　　 Hashtable numbers = new Hashtable();<br>　　　　 numbers.put(“one”, new Integer(1));<br>　　　　 numbers.put(“two”, new Integer(2));<br>　　　　 numbers.put(“three”, new Integer(3));<br>　　要取出一个数，比如 2 ，用相应的 key ：<br>　　　　 Integer n = (Integer)numbers.get(“two”);<br>　　　　 System.out.println(“two = ” + n);<br>　 　由于作为 key 的对象将通过计算其散列函数来确定与之对应的 value 的位置，因此任何作为 key 的对象都必须实现 hashCode 方法和 equals 方法。 hashCode 方法和 equals 方法继承自根类 Object ，如果你用自定义的类当作 key 的话，要相当小心，按照散列函数的定义，如果两个对象相同，即 obj1.equals(obj2)=true ，则它们的 hashCode 必须相同，但如果两个对象不同，则它们的 hashCode 不一定不同，如果两个不同对象的 hashCode 相同，这种现象称为冲突，冲突会导致操作哈希表的时间开销增大，所以尽量定义好的 hashCode() 方法，能加快哈希表的操作。<br>　　如果相同的对象有不同的 hashCode ，对哈希表的操作会出现意想不到的结果（期待的 get 方法返回 null ），要避免这种问题，只需要牢记一条：要同时复写 equals 方法和 hashCode 方法，而不要只写其中一个。<br>　　 Hashtable 是同步的。</p>
+<p>2）HashMap 类<br>　 　 HashMap 和 Hashtable 类似，也是基于散列表的实现。不同之处在于 HashMap 是非同步的，并且允许 null ，即 null value 和 null key 。将 HashMap 视为 Collection 时（ values() 方法可返回 Collection ），插入和查询“键值对”的开销是固定的，但其迭代子操作时间开销和 HashMap 的容量成比例。因此，如果迭代操作的性能相当重要的话，不要将 HashMap 的初始化容量 (initial capacity) 设得过高，或者负载因子 (load factor) 过低。</p>
+<p>　　3） LinkedHashMap 类：类似于 HashMap ，但是迭代遍历它时，取得“键值对”的顺序是其插入次序，或者是最近最少使用 (LRU) 的次序。只比 HashMap 慢一点。而在迭代访问时发而更快，因为它使用链表维护内部次序。</p>
+<p>4）WeakHashMap 类：弱键（ weak key ） Map 是一种改进的 HashMap ，它是为解决特殊问题设计的，对 key 实行 “ 弱引用 ” ，如果一个 key 不再被外部所引用（没有 map 之外的引用），那么该 key 可以被垃圾收集器 (GC) 回收。</p>
+<p>5）TreeMap 类</p>
+<p>基于红黑树数据结构的实现。查看“键”或“键值对”时，它们会被排序 ( 次序由 Comparabel 或 Comparator 决定 ) 。 TreeMap 的特点在于，你得到的结果是经过排序的。 TreeMap 是唯一的带有 subMap() 方法的 Map ，它可以返回一个子树。</p>
+<p>5）IdentifyHashMap 类</p>
+<p>使用 == 代替 equals() 对“键”作比较的 hash map 。专为解决特殊问题而设计。</p>
+<p>总结一：比较</p>
+<p>1 ，数组 (Array) ，数组类 (Arrays)</p>
+<p>Java 所有“存储及随机访问一连串对象”的做法， array 是最有效率的一种。但缺点是容量固定且无法动态改变。 array 还有一个缺点是，无法判断其中实际存有多少元素， length 只是告诉我们 array 的容量。</p>
+<p>Java 中有一个数组类 (Arrays) ，专门用来操作 array 。数组类 (arrays) 中拥有一组 static 函数。</p>
+<p>equals() ：比较两个 array 是否相等。 array 拥有相同元素个数，且所有对应元素两两相等。</p>
+<p>fill() ：将值填入 array 中。</p>
+<p>sort() ：用来对 array 进行排序。</p>
+<p>binarySearch() ：在排好序的 array 中寻找元素。</p>
+<p>System.arraycopy() ： array 的复制。</p>
+<p>若编写程序时不知道究竟需要多少对象，需要在空间不足时自动扩增容量，则需要使用容器类库， array 不适用。</p>
+<p>2 ，容器类与数组的区别</p>
+<p>容器类仅能持有对象引用（指向对象的指针），而不是将对象信息 copy 一份至数列某位置。一旦将对象置入容器内，便损失了该对象的型别信息。</p>
+<p>3 ，容器 (Collection) 与 Map 的联系与区别</p>
+<p>Collection 类型，每个位置只有一个元素。</p>
+<p>Map 类型，持有 key-value 对 (pair) ，像个小型数据库。</p>
+<p>Collections 是针对集合类的一个帮助类。提供了一系列静态方法实现对各种集合的搜索、排序、线程完全化等操作。相当于对 Array 进行类似操作的类—— Arrays 。</p>
+<p>如， Collections.max(Collection coll); 取 coll 中最大的元素。</p>
+<p>Collections.sort(List list); 对 list 中元素排序<br>1<br>List ， Set ， Map 将持有对象一律视为 Object 型别。</p>
+<p>Collection 、 List 、 Set 、 Map 都是接口，不能实例化。继承自它们的 ArrayList, Vector, HashTable, HashMap 是具象 class ，这些才可被实例化。</p>
+<p>vector 容器确切知道它所持有的对象隶属什么型别。 vector 不进行边界检查。</p>
+<p>总结二：需要注意的地方</p>
+<p>1 、 Collection 只能通过 iterator() 遍历元素，没有 get() 方法来取得某个元素。</p>
+<p>2 、 Set 和 Collection 拥有一模一样的接口。但排除掉传入的 Collection 参数重复的元素。</p>
+<p>3 、 List ，可以通过 get() 方法来一次取出一个元素。使用数字来选择一堆对象中的一个， get(0)… 。 (add/get)</p>
+<p>4 、 Map 用 put(k,v) / get(k) ，还可以使用 containsKey()/containsValue() 来检查其中是否含有某个 key/value 。</p>
+<p>HashMap 会利用对象的 hashCode 来快速找到 key 。</p>
+<p>哈希码 (hashing) 就是将对象的信息经过一些转变形成一个独一无二的 int 值，这个值存储在一个 array 中。我们都知道所有存储结构中， array 查找速度是最快的。所以，可以加速查找。发生碰撞时，让 array 指向多个 values 。即，数组每个位置上又生成一个梿表。</p>
+<p>5 、 Map 中元素，可以将 key 序列、 value 序列单独抽取出来。</p>
+<p>使用 keySet() 抽取 key 序列，将 map 中的所有 keys 生成一个 Set 。</p>
+<p>使用 values() 抽取 value 序列，将 map 中的所有 values 生成一个 Collection 。</p>
+<p>为什么一个生成 Set ，一个生成 Collection ？那是因为， key 总是独一无二的， value 允许重复。</p>
+<p>总结三：如何选择</p>
+<p>从效率角度：</p>
+<p>在各种 Lists ，对于需要快速插入，删除元素，应该使用 LinkedList （可用 LinkedList 构造堆栈 stack 、队列 queue ），如果需要快速随机访问元素，应该使用 ArrayList 。最好的做法是以 ArrayList 作为缺省选择。 Vector 总是比 ArrayList 慢，所以要尽量避免使用。</p>
+<p>在各种 Sets 中， HashSet 通常优于 HashTree （插入、查找）。只有当需要产生一个经过排序的序列，才用 TreeSet 。 HashTree 存在的唯一理由：能够维护其内元素的排序状态。</p>
+<p>在各种 Maps 中 HashMap 用于快速查找。</p>
+<p>最后，当元素个数固定，用 Array ，因为 Array 效率是最高的。</p>
+<p>所以结论：最常用的是 ArrayList ， HashSet ， HashMap ， Array 。</p>
+<p>更近一步分析：</p>
+<p>如果程序在单线程环境中，或者访问仅仅在一个线程中进行，考虑非同步的类，其效率较高，如果多个线程可能同时操作一个类，应该使用同步的类。<br>要特别注意对哈希表的操作，作为 key 的对象要同时正确复写 equals 方法和 hashCode 方法。<br>尽量返回接口而非实际的类型，如返回 List 而非 ArrayList ，这样如果以后需要将 ArrayList 换成 LinkedList 时，客户端代码不用改变。这就是针对抽象编程。以上都是基础且非常重要,希望大家掌握。</p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>1、概述：<br>1）JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；<br>2）对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。</p>
+<p>2、反射的原理：<br>1）首先把Java文件保存到本地硬盘<br>2）编译Java文件成.class文件<br>3）用jvm把class文件加载到内存中，使用Class类来表示（一切皆对象）<br>4）当使用反射时，首先需要获取到class类，获取到class之后，就可以得到class文件中的所有内容，包括属性、构造方法、普通方法<br>5）属性通过Filed类表示<br>6）构造方法通过Constructor表示<br>7）普通方法通过Method表示</p>
+<p>3、使用反射操作类里卖弄的属性<br>1）首先获取到class<br>三种方式：<br>（1）类名.class<br>（2）对象.class<br>（3）Class.forName(“全类名”)</p>
+<p>2）对一个类实例化<br>（1）new()<br>（2）Class clazz=Class.forName(“com.Person”);Person p=clazz.newInstance();</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/java面试知识点/" data-id="ckb4u189x000op4viwphvximi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/07/test2020/">2020年test</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链队列/">链队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链栈/">链栈</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/选择排序/">选择排序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/设计模式-适配器模式/">设计模式-适配器模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
