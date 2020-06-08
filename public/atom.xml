@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-07T08:55:35.105Z</updated>
+  <updated>2020-06-08T10:14:25.883Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ct20200608</title>
+    <link href="http://yoursite.com/2020/06/08/ct20200608/"/>
+    <id>http://yoursite.com/2020/06/08/ct20200608/</id>
+    <published>2020-06-08T10:14:25.000Z</published>
+    <updated>2020-06-08T10:14:25.883Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>2020年test</title>
@@ -432,30 +447,6 @@
       
       
         &lt;p&gt;1、传输层与网络层的主要区别&lt;br&gt;网络层是为主机之间提供逻辑通信，&lt;br&gt;而运输层为应用进程之间提供端到端的逻辑通信。&lt;br&gt;&lt;img src=&quot;https://github.com/Tingzi123/blog/blob/master/_posts/picture/ne
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>算法-递归</title>
-    <link href="http://yoursite.com/2020/06/07/%E7%AE%97%E6%B3%95-%E9%80%92%E5%BD%92/"/>
-    <id>http://yoursite.com/2020/06/07/%E7%AE%97%E6%B3%95-%E9%80%92%E5%BD%92/</id>
-    <published>2020-06-07T07:38:07.170Z</published>
-    <updated>2019-03-18T09:38:26.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>递归重点：<br><em><br>    1、寻找相似性（可能需要主动构造）<br>    2、参数设置（参数分配不相同，否则死循环）<br>    3、出口设置<br>    （每次调用的层次不同，注意返回的次序）</em></p><p>例子：取球问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> recursion;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetBall</span> </span>&#123;</span><br><span class="line"><span class="comment">//在n个球中，任意取m个（不放回），求有多少种取法</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"><span class="keyword">int</span> k=getBall(<span class="number">10</span>,<span class="number">3</span>);</span><br><span class="line">System.out.println(k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getBall</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line"><span class="comment">//假设有一个球被标记，则规模变成</span></span><br><span class="line"><span class="comment">//1、被标记的球已取到，则还剩n-1,还需取 m-1,即f(n-1,m-1) </span></span><br><span class="line"><span class="comment">//2、被标记球一定不取，则需从剩下的 n-1 中取 m,即f(n-1,m)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(n&lt;m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(n==m) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> getBall(n-<span class="number">1</span>,m-<span class="number">1</span>)+getBall(n-<span class="number">1</span>,m);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;递归重点：&lt;br&gt;&lt;em&gt;&lt;br&gt;    1、寻找相似性（可能需要主动构造）&lt;br&gt;    2、参数设置（参数分配不相同，否则死循环）&lt;br&gt;    3、出口设置&lt;br&gt;    （每次调用的层次不同，注意返回的次序）
-&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;例子：取球问题&lt;br&gt;&lt;fig
       
     
     </summary>
