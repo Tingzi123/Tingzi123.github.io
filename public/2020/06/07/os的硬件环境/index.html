@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>操作系统的硬件环境 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、中央处理器（CPU）构成:处理器由运算器、控制器、一系列的寄存器以及高速缓存构成– 运算器：实现指令中的算术和逻辑运算– 控制器：负责控制程序运行的流程– 寄存器：具有最快的访问速度– 高速缓存：处于CPU和物理内存之间，访问速度快于内存，低于寄存器 两类寄存器:（1）用户编程寄存器—数据寄存器—地址寄存器—条件码寄存器  （2）控制状态寄存器—程序计数器PC—指令寄存器IR—程序状态字PSW">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统的硬件环境">
+<meta property="og:url" content="http://yoursite.com/2020/06/07/os的硬件环境/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、中央处理器（CPU）构成:处理器由运算器、控制器、一系列的寄存器以及高速缓存构成– 运算器：实现指令中的算术和逻辑运算– 控制器：负责控制程序运行的流程– 寄存器：具有最快的访问速度– 高速缓存：处于CPU和物理内存之间，访问速度快于内存，低于寄存器 两类寄存器:（1）用户编程寄存器—数据寄存器—地址寄存器—条件码寄存器  （2）控制状态寄存器—程序计数器PC—指令寄存器IR—程序状态字PSW">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/ophard1.png?raw=true">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/ophard2.png?raw=true">
+<meta property="og:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/ophard3.png?raw=true">
+<meta property="og:updated_time" content="2019-03-28T07:33:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统的硬件环境">
+<meta name="twitter:description" content="1、中央处理器（CPU）构成:处理器由运算器、控制器、一系列的寄存器以及高速缓存构成– 运算器：实现指令中的算术和逻辑运算– 控制器：负责控制程序运行的流程– 寄存器：具有最快的访问速度– 高速缓存：处于CPU和物理内存之间，访问速度快于内存，低于寄存器 两类寄存器:（1）用户编程寄存器—数据寄存器—地址寄存器—条件码寄存器  （2）控制状态寄存器—程序计数器PC—指令寄存器IR—程序状态字PSW">
+<meta name="twitter:image" content="https://github.com/Tingzi123/blog/blob/master/_posts/picture/ophard1.png?raw=true">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-os的硬件环境" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/os的硬件环境/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.623Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      操作系统的硬件环境
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、中央处理器（CPU）<br>构成:处理器由运算器、控制器、一系列的寄存器以及<br>高速缓存构成<br>– 运算器：实现指令中的算术和逻辑运算<br>– 控制器：负责控制程序运行的流程<br>– 寄存器：具有最快的访问速度<br>– 高速缓存：处于CPU和物理内存之间，访问速度快<br>于内存，低于寄存器</p>
+<p>两类寄存器:<br>（1）用户编程寄存器<br>—数据寄存器<br>—地址寄存器<br>—条件码寄存器 </p>
+<p>（2）控制状态寄存器<br>—程序计数器PC<br>—指令寄存器IR<br>—程序状态字PSW<br>—中断现场保护寄存器</p>
+<p>处理器的状态:<br>– 管态：操作系统管理程序运行的状态，<br>较高的特权级别，又称为特权态（特态）、<br>系统态<br>– 目态：用户程序运行时的状态，较低的<br>特权级别，又称为普通态（普态）、用户态<br>– 特权指令：只能由操作系统使用的指令</p>
+<p>管态和目态的差别:<br>– 处理器处于管态时：<br>• 全部指令（包括特权指令）可以执行<br>• 可使用所有资源<br>• 并具有改变处理器状态的能力<br>– 处理器处于目态时：<br>• 只有非特权指令能执行</p>
+<p>CPU 状 态 的 转 换:<br>目态——–管态<br>其转换的唯一途径就是通过中断</p>
+<p>管态——–目态<br>可用设置PSW实现</p>
+<p>2、程 序 状 态 字 P S W<br>特殊寄存器，用以表明处理器当前的工作状态。</p>
+<p>通常包括以下状态码：<br>（1）CPU的工作状态码——指明管态还是目态<br>（2）条件码——反映指令执行后的结果特征<br>（3）中断屏蔽码——指出是否允许中断</p>
+<p>3、存储系统<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/ophard1.png?raw=true" alt="Image text"></p>
+<p>存 储 访 问 局 部 性 原 理:<br>提高存储系统效能关键点：程序存储访问局部性原理,处理器主要和存储器的局部打交道</p>
+<p>4、中 断 机 制<br>中断机制是操作系统得以正常工作的最重<br>要的手段：<br>–它使得OS可以捕获普通程序发出的系统功能调用<br>–及时处理设备的中断请求<br>–防止用户程序中破坏性的活动等等</p>
+<p>中 断：– CPU对系统发生的某个事件作出的一种反应<br>– CPU暂停正在执行的程序，保留现场后自动转去执行<br>相应事件的处理程序，处理完成后返回断点，继续执行<br>被打断的程序</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/ophard2.png?raw=true" alt="Image text"></p>
+<p>– 引入中断的目的<br>• 解决主机与外设的并行工作问题<br>• 提高可靠性<br>• 实现实时控制<br>– 特点：<br>• 中断是随机的<br>• 中断是可恢复的<br>• 中断是自动处理的</p>
+<p>中 断 的 有 关 概 念：<br>– 中断源：引起中断发生的事件<br>– 中断寄存器：记录中断<br>– 中断字：中断寄存器的内容<br>– 系统堆栈:<br>在内存开辟的一块区域，用于临时保存现场</p>
+<p>中断类型:<br>– 强迫性中断<br>• 正在运行的程序所不期望的，由于某种硬件故障<br>或外部请求引起的<br>– 自愿性中断<br>• 用户在程序中有意识安排的中断，是由于用户在<br>编制程序时因为要求操作系统提供服务，有意使用<br>“访管”指令或系统调用，使中断发生</p>
+<p>强迫性中断<br>• 输入/输出(I/O)中断：主要来自外部设备通道<br>• 程序性中断：运行程序中本身的中断<br>(如溢出,缺页中断,缺段中断,地址越界)<br>• 时钟中断<br>• 硬件故障</p>
+<p>自愿性中断<br>• 执行I/O，创建进程，分配内存<br>• 信号量操作，发送/接收消息<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/ophard3.png?raw=true" alt="Image text"></p>
+<p>5、缓 冲 技 术<br>缓冲区是硬件设备之间进行数据传输时，<br>用来暂存数据的一个存储区域</p>
+<p>–缓冲技术三种用途:<br>• 处理器与主存储器之间<br>• 处理器和其它外部设备之间<br>• 设备与设备之间的通信</p>
+<p>–目的：解决部件之间速度不匹配的问题、使得部件并<br>行工作</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/os的硬件环境/" data-id="ckb4u18a0000sp4viwqdbwcfj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/07/OS设备管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          操作系统-设备管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/07/OS用户接口与作业调度/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">操作系统-用户接口与作业调度</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/06/07/test2020/">2020年test</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链队列/">链队列</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/链栈/">链栈</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/选择排序/">选择排序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/设计模式-适配器模式/">设计模式-适配器模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
