@@ -62,6 +62,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-计网-应用层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/计网-应用层/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.201Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/计网-应用层/">计网-应用层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、 域名系统 DNS (Domain Name System)<br>互联网采用了层次树状结构的命名方法。<br>任何一个连接在互联网上的主机或路由器，都有一个唯一的层次结构的名字，即域名。<br>域名的结构由标号序列组成，各标号之间用点隔开： … . 三级域名 . 二级域名 . 顶级域名</p>
+<p>(1) 国家顶级域名 nTLD<br>    .cn 表示中国，<br>    .us 表示美国，<br>    .uk 表示英国，等等。</p>
+<p>(2) 通用顶级域名 gTLD<br>    最早的顶级域名是：<br>    .com    （公司和企业）<br>    .net    （网络服务机构<br>    .org    （非赢利性组织）<br>    .edu    （美国专用的教育机构）<br>    .gov    （美国专用的政府部门）<br>    .mil    （美国专用的军事部门）<br>    .int    （国际组织）</p>
+<p>(3) 基础结构域名 (infrastructure domain)<br>    这种顶级域名只有一个，即 arpa，<br>    用于反向域名解析，因此又称为反向域名。</p>
+<p>互联网的域名空间 ：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp1.png?raw=true" alt="Image text"></p>
+<p>DNS 服务器的管辖范围不是以“域”为单位，而是以“区”为单位。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp2.png?raw=true" alt="Image text"></p>
+<p>域名服务器有以下四种类型<br>根域名服务器 :在互联网上共有 13 个不同 IP 地址的根域名服务器，它们的名字是用一个英文字母命名，从 a  一直到 m（前 13 个字母）。<br>根域名服务器共有 13 套装置，不是 13 个机器。到2016年2月，全世界已经在 588 个地点安装了根域名服务器，使世界上大部分 DNS 域名服务器都能就近找到一个根域名服务器。 </p>
+<p>顶级域名服务器 :级域名服务器（即 TLD 服务器）负责管理在该顶级域名服务器注册的所有二级域名。<br>权限域名服务器 :负责一个区的域名服务器。</p>
+<p>本地域名服务器 :本地域名服务器对域名系统非常重要。<br>当一个主机发出 DNS 查询请求时，这个查询请求报文就发送给本地域名服务器。每一个互联网服务提供者 ISP，或一个大学，甚至一个大学里的系，都可以拥有一个本地域名服务器，<br>这种域名服务器有时也称为默认域名服务器。 </p>
+<p>2、文件传送协议<br>文件传送协议 FTP (File Transfer Protocol) 是互联网上使用得最广泛的文件传送协议。<br>文件传送协议 FTP 只提供文件传送的一些基本的服务，它使用 TCP 可靠的运输服务。</p>
+<p>FTP 使用的两个 TCP 连接<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp3.png?raw=true" alt="Image text"></p>
+<p>3、远程终端协议 TELNET<br>TELNET 是一个简单的远程终端协议，也是互联网的正式标准。<br>TELNET 能将用户的击键传到远地主机，同时也能将远地主机的输出通过 TCP 连接返回到用户屏幕。这种服务是透明的，因为用户感觉到好像键盘和显示器是直接连在远地主机上。 </p>
+<p>4、万维网 WWW<br>万维网 WWW (World Wide Web)是一个大规模的、联机式的信息储藏所。<br>万维网用链接的方法能非常方便地从互联网上的一个站点访问另一个站点，从而主动地按需获取丰富的信息。<br>这种访问方式称为“链接”。<br>使用统一资源定位符 URL (Uniform Resource Locator) 来标志万维网上的各种文档。<br>使每一个文档在整个互联网的范围内具有唯一的标识符 URL。<br>在万维网客户程序与万维网服务器程序之间进行交互所使用的协议，是超文本传送协议 HTTP (HyperText Transfer Protocol)。<br>HTTP 是一个应用层协议，它使用 TCP 连接进行可靠的传送。 </p>
+<p>5、超文本传送协议 HTTP<br>从层次的角度看，HTTP 是面向事务的(transaction-oriented)应用层协议，它是万维网上能够可靠地交换文件（包括文本、声音、图像等各种多媒体文件）的重要基础。<br>HTTP 是面向事务的客户服务器协议。<br>HTTP 1.0 协议是无状态的 (stateless)。<br>HTTP 协议本身也是无连接的，虽然它使用了面向连接的 TCP 向上提供的服务。HTTP/1.1 协议使用持续连接 (persistent connection)。<br>万维网服务器在发送响应后仍然在一段时间内保持这条连接，使同一个客户（浏览器）和该服务器可以继续在这条连接上传送后续的 HTTP 请求报文和响应报文。<br>这并不局限于传送同一个页面上链接的文档，而是只要这些文档都在同一个服务器上就行。</p>
+<p>代理服务器 (proxy server) 又称为万维网高速缓存 (Web cache)，它代表浏览器发出 HTTP 请求。</p>
+<p>HTTP 的报文结构 HTTP 有两类报文：<br>请求报文——从客户向服务器发送请求报文。<br>响应报文——从服务器到客户的回答。<br>由于 HTTP 是面向正文的 (text-oriented)，因此在报文中的每一个字段都是一些 ASCII 码串，因而每个字段的长度都是不确定的。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp4.png?raw=true" alt="Image text"></p>
+<p>状态码都是三位数字<br>1xx 表示通知信息的，如请求收到了或正在进行处理。<br>2xx 表示成功，如接受或知道了。<br>3xx 表示重定向，表示要完成请求还必须采取进一步的行动。<br>4xx 表示客户的差错，如请求中有错误的语法或不能完成。<br>5xx 表示服务器的差错，如服务器失效无法完成请求。</p>
+<p>6、电子邮件<br>发送邮件的协议：SMTP<br>读取邮件的协议：POP3 和 IMAP<br>MIME 在其邮件首部中说明了邮件的数据类型(如文本、声音、图像、视像等)，使用 MIME 可在邮件中同时传送多种类型的数据。 </p>
+<p>7、动态主机配置协议 DHCP<br>为了将软件协议做成通用的和便于移植，协议软件的编写者把协议软件参数化。这就使得在很多台计算机上使用同一个经过编译的二进制代码成为可能。<br>需要配置的项目<br>    (1) IP 地址<br>    (2) 子网掩码<br>    (3) 默认路由器的 IP 地址<br>    (4) 域名服务器的 IP 地址<br>这些信息通常存储在一个配置文件中，计算机在引导过程中可以对这个文件进行存取。<br>互联网广泛使用的动态主机配置协议 DHCP (Dynamic Host Configuration Protocol) 提供了即插即用连网 (plug-and-play networking) 的机制。<br>这种机制允许一台计算机加入新的网络和获取IP 地址而不用手工参与。<br>DHCP 服务器分配给 DHCP 客户的 IP 地址的临时的，因此 DHCP 客户只能在一段有限的时间内使用这个分配到的 IP 地址。DHCP 协议称这段时间为租用期。<br>租用期的数值应由 DHCP 服务器自己决定</p>
+<p>8、简单网络管理协议 SNMP<br>网络管理包括对硬件、软件和人力的使用、综合与协调，以便对网络资源进行监视、测试、配置、分析、评价和控制，这样就能以合理的价格满足网络的一些需求，如实时运行性能，服务质量等。网络管理常简称为网管。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckb7q0dxh001qmovifx7iybch" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-计网-传输层" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/计网-传输层/" class="article-date">
@@ -132,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckb6r5la8001npcvifell1usa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckb7q0dxh001pmovif5q30vzm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckb6r5la6001kpcvikk686195" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckb7q0dxb001lmoviuorzt9gv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -215,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckb6r5la8001mpcvimfp130wr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckb7q0dxe001nmovitq2jjxqm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -254,7 +310,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckb6r5la7001lpcvit2ioxxd0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckb7q0dx8001kmovin4ex53mj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -300,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/查找/" data-id="ckb6r5la5001ipcvi75qrk4rb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/查找/" data-id="ckb7q0dx4001gmovisukl9jsy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -346,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/树的相关知识点/" data-id="ckb6r5la6001jpcvi7kya9qwb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/树的相关知识点/" data-id="ckb7q0dx7001jmovi2vco63g0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -386,7 +442,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/数据库总结/" data-id="ckb6r5la2001gpcvirpunwg8z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/数据库总结/" data-id="ckb7q0dx5001imovixbly6w9c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -450,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/操作系统概述/" data-id="ckb6r5la4001hpcvi8i09ir3m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/操作系统概述/" data-id="ckb7q0dx4001hmovintc69y9k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -500,46 +556,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/排序算法总结/" data-id="ckb6r5l9z001epcvipx6ggqk0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-插入排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/插入排序/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.092Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/插入排序/">插入排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、插入排序"><a href="#1、插入排序" class="headerlink" title="1、插入排序"></a>1、插入排序</h3><p>插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。</p>
-<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(n)   最坏情况：T(n) = O(n2)   平均情况：T(n) = O(n2)</p>
-<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/insertsort.gif?raw=true" alt="Image text"></p>
-<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertionSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		insertionSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> cur;<span class="comment">//记录即将插入的当前值</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length-<span class="number">1</span>;i++) &#123;<span class="comment">//比较a.length-1趟</span></span><br><span class="line">			<span class="keyword">int</span> index=i;<span class="comment">//记录有序数组的最后一位坐标</span></span><br><span class="line">			cur=a[i+<span class="number">1</span>];</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">while</span>(index&gt;=<span class="number">0</span> &amp;&amp; cur&lt;a[index]) &#123;<span class="comment">//当前值小于有序数组中的值时</span></span><br><span class="line">				a[index+<span class="number">1</span>]=a[index];<span class="comment">//记录后移</span></span><br><span class="line">				index--;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//当前值不小于前一个值时，把当前值赋给index+1</span></span><br><span class="line">			a[index+<span class="number">1</span>]=cur;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/插入排序/" data-id="ckb6r5la1001fpcvig1tienj8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/排序算法总结/" data-id="ckb7q0dx2001emovi63sowlh9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -585,6 +602,10 @@
       <ul>
         
           <li>
+            <a href="/2020/06/09/这是一个新的博客/">这是一个新的博客</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/09/test2020-1/">test2020</a>
           </li>
         
@@ -598,10 +619,6 @@
         
           <li>
             <a href="/2020/06/07/链队列/">链队列</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/07/链栈/">链栈</a>
           </li>
         
       </ul>
