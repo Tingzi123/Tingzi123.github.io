@@ -62,10 +62,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-循环链表" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/07/循环链表/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.061Z" itemprop="datePublished">2020-06-07</time>
+    <a href="/2020/06/07/排序/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.077Z" itemprop="datePublished">2020-06-07</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/循环链表/">循环链表的插入删除</a>
+      <a class="article-title" href="/2020/06/07/排序/">排序</a>
     </h1>
   
 
@@ -84,14 +84,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643911.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643911.html</a></p>
-<p>1、循环链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircularLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=head)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCircularList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		CircularLinkList list=<span class="keyword">new</span> CircularLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="一、插入排序"><a href="#一、插入排序" class="headerlink" title="一、插入排序"></a>一、插入排序</h2><h3 id="1、直接插入排序"><a href="#1、直接插入排序" class="headerlink" title="1、直接插入排序"></a>1、直接插入排序</h3><p>时间复杂度：O(n^2)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;L.length;i++)&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/循环链表/" data-id="ckb7rf798001czwviputjgc7t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/排序/" data-id="ckba6wy6t001a6oviaq5xz51b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -130,7 +128,46 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckb7rf79a001ezwviww6a0k99" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckba6wy6s00186ovic1l1b3u0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-循环链表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/循环链表/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.061Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/循环链表/">循环链表的插入删除</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643911.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643911.html</a></p>
+<p>1、循环链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircularLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=head)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCircularList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		CircularLinkList list=<span class="keyword">new</span> CircularLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/循环链表/" data-id="ckba6wy6w001e6ovisc0165hf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -170,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/归并排序/" data-id="ckb7rf798001bzwvieleu7n46" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/归并排序/" data-id="ckba6wy6u001b6oviyxwqgzlz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -210,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/希尔排序/" data-id="ckb7rf797001azwvihvsav4f7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/希尔排序/" data-id="ckba6wy6r00166ovi47gye2bq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -249,7 +286,46 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/堆排序/" data-id="ckb7rf78y0018zwvi0bkppc5r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/堆排序/" data-id="ckba6wy6q00156oviya05pivh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-双向循环链表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/双向循环链表/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.998Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/双向循环链表/">双向循环链表的插入删除</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643931.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643931.html</a></p>
+<p>1、实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> doubleList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.prev=head;</span><br><span class="line">		head.next=head;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		<span class="comment">//第一次插入</span></span><br><span class="line">		<span class="keyword">if</span>(head.prev==head) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			head.prev=node;</span><br><span class="line">			node.prev=head;</span><br><span class="line">			node.next=head;</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//末尾插入</span></span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.prev=temp;</span><br><span class="line">			node.next=head;</span><br><span class="line">			head.prev=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">			<span class="keyword">if</span>(temp.next.data.equals(e)) &#123;</span><br><span class="line">				temp.next=temp.next.next;</span><br><span class="line">				temp.next.prev=temp;</span><br><span class="line">			&#125;</span><br><span class="line">			temp=temp.next;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node prev;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、测试类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> doubleList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDoubleList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		DoubleLinkList list=<span class="keyword">new</span> DoubleLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line"></span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/双向循环链表/" data-id="ckba6wy6p00136ovijl3ie2zi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,46 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/单链表/" data-id="ckb7rf78w0015zwvirqtlflhk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-双向循环链表" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/双向循环链表/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.998Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/双向循环链表/">双向循环链表的插入删除</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643931.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643931.html</a></p>
-<p>1、实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> doubleList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.prev=head;</span><br><span class="line">		head.next=head;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		<span class="comment">//第一次插入</span></span><br><span class="line">		<span class="keyword">if</span>(head.prev==head) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			head.prev=node;</span><br><span class="line">			node.prev=head;</span><br><span class="line">			node.next=head;</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//末尾插入</span></span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.prev=temp;</span><br><span class="line">			node.next=head;</span><br><span class="line">			head.prev=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">			<span class="keyword">if</span>(temp.next.data.equals(e)) &#123;</span><br><span class="line">				temp.next=temp.next.next;</span><br><span class="line">				temp.next.prev=temp;</span><br><span class="line">			&#125;</span><br><span class="line">			temp=temp.next;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node prev;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> doubleList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDoubleList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		DoubleLinkList list=<span class="keyword">new</span> DoubleLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line"></span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/双向循环链表/" data-id="ckb7rf78z0019zwviudpgqfgz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/单链表/" data-id="ckba6wy6r00176ovijy22mzsw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -369,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/冒泡排序/" data-id="ckb7rf78x0017zwviib6ccd1q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/冒泡排序/" data-id="ckba6wy6q00146oviitt48qea" class="article-share-link">Share</a>
       
       
     </footer>
@@ -407,47 +444,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/二分查找/" data-id="ckb7rf78v0013zwvi9t25uycr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SpringMVC" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/SpringMVC/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.952Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/SpringMVC/">SpringMVC</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、springMVC<br>spring结构：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springmvc1.png?raw=true" alt="Image text"></p>
-<p>SpringMVC是Spring的一个模块，是基于MVC的web框架<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springmvc2.png?raw=true" alt="Image text"><br>1）用户端向前端控制器（DispatcherServlet)发起request请求<br>2）前端控制器向处理器映射器（HandlerMapping）发出请求查找处理器（Handler）（可根据XML和注解进行查找）<br>3）处理器映射器返回一个执行链给前端控制器<br>4）前端控制器请求处理器适配器（HandlerAdapter）执行handler<br>5）处理器适配器执行handler处理器<br>6）handler处理器返回ModelAndView给处理器适配器（ModelAndView是springmvc框架的一个底层对象）<br>7）处理器适配器将ModelAndView返回给前端控制器<br>8）前端控制器请求视图解析器（ViewResolver）进行视图解析（根据逻辑视图名解析成真正的视图）<br>9）视图解析器将view返回给前端控制器<br>10）前端控制器请求视图（view）进行视图渲染（视图渲染将模型数据（在ModelAndView对象中）填充到request域）<br>11）前端控制器向用户响应结果</p>
-<p>重要组件：<br>1）前端控制器（DispatcherServlet)：接受请求，响应结果，相当于转发器,通过前端控制器来交互，减少其他组件之间的耦合度<br>2）处理器映射器（HandlerMapping）：根据请求的url查找handler<br>3）处理器适配器（HandlerAdapter）：按照特定的规则去执行handler<br>4）处理器（handler）<br>注意：编写handler时按照handlerAdapter的要求去做才能正确执行handler<br>5）视图解析器（ViewResolver）：根据逻辑视图名解析成真正的视图（view）<br>6）视图（View）：是一个接口，通过实现类来支持不同的view类型（jsp、pdf……)</p>
-<p>例子：</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/SpringMVC/" data-id="ckb7rf78b000izwvi9ho090ne" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/二分查找/" data-id="ckba6wy6p00126ovi7npwlins" class="article-share-link">Share</a>
       
       
     </footer>
@@ -493,6 +490,10 @@
       <ul>
         
           <li>
+            <a href="/2020/06/11/区块链小白书/">区块链小白书</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/09/ppicturetest/">ppicturetest</a>
           </li>
         
@@ -506,10 +507,6 @@
         
           <li>
             <a href="/2020/06/07/链栈/">链栈</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/07/选择排序/">选择排序</a>
           </li>
         
       </ul>
