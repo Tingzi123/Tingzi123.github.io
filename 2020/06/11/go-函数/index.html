@@ -23,10 +23,10 @@
 <meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func7.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func8.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func9.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func10.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func11.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func10.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func11.png">
 <meta property="og:image" content="http://yoursite.com/2020/06/11/go-函数/func12.jpg">
-<meta property="og:updated_time" content="2020-06-11T07:27:00.830Z">
+<meta property="og:updated_time" content="2020-06-11T08:13:42.277Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go:函数">
 <meta name="twitter:description" content="1、函数1、函数调用底层机制有如下示例下图中的内存空间划分均为逻辑划分  从main函数入口开始执行程序在内存中会为main函数在栈上开辟一个空间，并为变量n1赋值10  2、调用函数test()逻辑上内存会为函数test()在栈上另外开辟一个空间（逻辑上），用于存放test（）函数中的数据 3、调用函数test()，并传入参数n1test（）函数接受main（）函数传过来的参数n1，在test栈">
@@ -144,7 +144,7 @@
 <li>在定义匿名函数时就直接调用，且只能调用一次</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    res1 := <span class="function"><span class="keyword">func</span><span class="params">(n1 <span class="keyword">int</span>, n2 <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n1 + n2</span><br><span class="line">     &#125;(<span class="number">10</span>,<span class="number">20</span>)</span><br><span class="line">     <span class="comment">//在定义匿名函数的同时就调用它</span></span><br><span class="line">     </span><br><span class="line">      fmt.Println(<span class="string">"res1="</span>,res1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过在紧跟匿名函数定义的后面传入参数调用<br><img src="/2020/06/11/go-函数/func10.jpg" alt="func10"></p>
+<p>通过在紧跟匿名函数定义的后面传入参数调用<br><img src="/2020/06/11/go-函数/func10.png" alt="func10"></p>
 <ul>
 <li>将匿名函数赋给一个变量（函数变量），再通过该变量来调用匿名函数</li>
 </ul>
@@ -157,8 +157,11 @@
 <p>对上面代码的说明</p>
 <ul>
 <li>AddUpper是一个函数，处于外层，返回数据类型时func(int) int</li>
-<li><p><strong>闭包</strong>的说明<br><img src="/2020/06/11/go-函数/func11.jpg" alt="func11"><br>在上图红框中可以看到，return返回一个匿名函数，处于内层，这个匿名函数<strong>引用到外层函数的变量n</strong>，因此这个<strong>匿名函数和变量n形成一个整体</strong>，构成<strong>闭包</strong></p>
-</li>
+<li><strong>闭包</strong>的说明</li>
+</ul>
+<p><img src="/2020/06/11/go-函数/func11.png" alt="func11"></p>
+<p>在上图红框中可以看到，return返回一个匿名函数，处于内层，这个匿名函数<strong>引用到外层函数的变量n</strong>，因此这个<strong>匿名函数和变量n形成一个整体</strong>，构成<strong>闭包</strong></p>
+<ul>
 <li><p>可以理解成：闭包是一个类，函数是操作，变量n是字段。函数和它使用到的字段n构成闭包</p>
 </li>
 <li><p>在main函数中，外层函数AddUpper只被调用一次，所以AddUpper函数中的n只被初始化一次</p>
