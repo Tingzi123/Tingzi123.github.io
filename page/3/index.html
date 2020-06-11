@@ -62,45 +62,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-算法-递归" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/算法-递归/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.170Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/算法-递归/">算法-递归</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>递归重点：<br><em><br>    1、寻找相似性（可能需要主动构造）<br>    2、参数设置（参数分配不相同，否则死循环）<br>    3、出口设置<br>    （每次调用的层次不同，注意返回的次序）
-</em></p>
-<p>例子：取球问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> recursion;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetBall</span> </span>&#123;</span><br><span class="line"><span class="comment">//在n个球中，任意取m个（不放回），求有多少种取法</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> k=getBall(<span class="number">10</span>,<span class="number">3</span>);</span><br><span class="line">		System.out.println(k);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getBall</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//假设有一个球被标记，则规模变成</span></span><br><span class="line">		<span class="comment">//1、被标记的球已取到，则还剩n-1,还需取 m-1,即f(n-1,m-1) </span></span><br><span class="line">		<span class="comment">//2、被标记球一定不取，则需从剩下的 n-1 中取 m,即f(n-1,m)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(n&lt;m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(n==m) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> getBall(n-<span class="number">1</span>,m-<span class="number">1</span>)+getBall(n-<span class="number">1</span>,m);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckba6wy6z001j6oviqfy0y6el" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-计算机网络" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/计算机网络/" class="article-date">
@@ -506,6 +467,45 @@
 
 
   
+    <article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/快速排序/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.061Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/快速排序/">快速排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、快速排序"><a href="#1、快速排序" class="headerlink" title="1、快速排序"></a>1、快速排序</h3><p>快速排序的基本思想：通过一趟排序将待排记录分隔成独立的两部分，其中一部分记录的关键字均比另一部分的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序。</p>
+<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(nlogn)   最差情况：T(n) = O(n2)   平均情况：T(n) = O(nlogn)　</p>
+<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/quicksort.gif?raw=true" alt="Image text"></p>
+<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuickSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>&#125;;</span><br><span class="line">		quickSort(a,<span class="number">0</span>,a.length-<span class="number">1</span>);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> [] a,<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(left&gt;right) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> key=a[left];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> low=left;</span><br><span class="line">		<span class="keyword">int</span> high=right;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(low!=high) &#123;</span><br><span class="line">			<span class="comment">//从右往左找</span></span><br><span class="line">			<span class="keyword">while</span>(a[high]&gt;key &amp;&amp; low&lt;high) &#123;</span><br><span class="line">				high=high-<span class="number">1</span>;</span><br><span class="line">			&#125;	</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//从左往右找</span></span><br><span class="line">			<span class="keyword">while</span>(a[low]&lt;key &amp;&amp; low&lt;high) &#123;</span><br><span class="line">				low=low+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//如果low和high没有相遇，则交换</span></span><br><span class="line">			<span class="keyword">if</span>(low&lt;high) &#123;</span><br><span class="line">				<span class="keyword">int</span> temp=a[low];</span><br><span class="line">				a[low]=a[high];</span><br><span class="line">				a[high]=temp;</span><br><span class="line">			&#125;	</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//key值归位</span></span><br><span class="line">		a[left]=a[low];</span><br><span class="line">		a[low]=key;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//递归调用子数组</span></span><br><span class="line">		quickSort(a,left,low-<span class="number">1</span>);</span><br><span class="line">		quickSort(a,low+<span class="number">1</span>,right);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.println(a[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckba6wy6s00186ovic1l1b3u0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -546,10 +546,6 @@
           </li>
         
           <li>
-            <a href="/2020/06/09/ppicturetest/">ppicturetest</a>
-          </li>
-        
-          <li>
             <a href="/2020/06/07/链队列/">链队列</a>
           </li>
         
@@ -559,6 +555,10 @@
         
           <li>
             <a href="/2020/06/07/选择排序/">选择排序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/06/07/设计模式-适配器模式/">设计模式-适配器模式</a>
           </li>
         
       </ul>
