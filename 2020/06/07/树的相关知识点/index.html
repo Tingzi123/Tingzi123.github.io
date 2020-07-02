@@ -7,17 +7,17 @@
   
   <title>树的相关知识点 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一.1.结点n=0，称为空树二. 二叉树的性质（树的深度从1开始计数）1、 第i层至多有2^（i-1）个结点2、 深度为k的二叉树至多有（2^k）-1个结点3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B* n=n0+n1+n2   n=B+1   B=n1+2n2 * n=n1+2n2+1  综合上式有：n0=n2+14、满二叉树：深度为k且含有结点数为">
+  <meta name="description" content="一.1.结点n=0，称为空树二. 二叉树的性质（树的深度从1开始计数）1、 第i层至多有2^（i-1）个结点2、 深度为k的二叉树至多有（2^k）-1个结点3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B* n=n0+n1+n2   n=B+1   B=n1+2n2 * n=n1+2n2+1  综合上式有：n0=n2+1  4、满二叉树：深度为k且含有结点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树的相关知识点">
 <meta property="og:url" content="http://yoursite.com/2020/06/07/树的相关知识点/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一.1.结点n=0，称为空树二. 二叉树的性质（树的深度从1开始计数）1、 第i层至多有2^（i-1）个结点2、 深度为k的二叉树至多有（2^k）-1个结点3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B* n=n0+n1+n2   n=B+1   B=n1+2n2 * n=n1+2n2+1  综合上式有：n0=n2+14、满二叉树：深度为k且含有结点数为">
+<meta property="og:description" content="一.1.结点n=0，称为空树二. 二叉树的性质（树的深度从1开始计数）1、 第i层至多有2^（i-1）个结点2、 深度为k的二叉树至多有（2^k）-1个结点3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B* n=n0+n1+n2   n=B+1   B=n1+2n2 * n=n1+2n2+1  综合上式有：n0=n2+1  4、满二叉树：深度为k且含有结点">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-18T06:11:52.000Z">
+<meta property="og:updated_time" content="2020-06-15T06:33:45.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树的相关知识点">
-<meta name="twitter:description" content="一.1.结点n=0，称为空树二. 二叉树的性质（树的深度从1开始计数）1、 第i层至多有2^（i-1）个结点2、 深度为k的二叉树至多有（2^k）-1个结点3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B* n=n0+n1+n2   n=B+1   B=n1+2n2 * n=n1+2n2+1  综合上式有：n0=n2+14、满二叉树：深度为k且含有结点数为">
+<meta name="twitter:description" content="一.1.结点n=0，称为空树二. 二叉树的性质（树的深度从1开始计数）1、 第i层至多有2^（i-1）个结点2、 深度为k的二叉树至多有（2^k）-1个结点3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B* n=n0+n1+n2   n=B+1   B=n1+2n2 * n=n1+2n2+1  综合上式有：n0=n2+1  4、满二叉树：深度为k且含有结点">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -92,15 +92,17 @@
   B=n1+2n2
 * n=n1+2n2+1
 </code></pre><ul>
-<li>综合上式有：n0=n2+1<h4 id="4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树"><a href="#4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树" class="headerlink" title="4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树"></a>4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树</h4><h4 id="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树"><a href="#5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树" class="headerlink" title="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树"></a>5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树</h4>特点：<pre><code>1）叶子结点只可能在层次最大的两层出现
-2）对任一结点，若其右分支下的子孙最大层次为l，则其左分支下的子孙的最大层次必为l或l+1
-</code></pre>####6、具有n个结点的完全二叉树的深度为log2（N）+1，log2（N）取下界</li>
+<li>综合上式有：n0=n2+1</li>
 </ul>
+<h4 id="4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树"><a href="#4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树" class="headerlink" title="4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树"></a>4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树</h4><h4 id="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树"><a href="#5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树" class="headerlink" title="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树"></a>5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树</h4><pre><code>特点：
+    1）叶子结点只可能在层次最大的两层出现
+    2）对任一结点，若其右分支下的子孙最大层次为l，则其左分支下的子孙的最大层次必为l或l+1
+</code></pre><p>####6、具有n个结点的完全二叉树的深度为log2（N）+1，log2（N）取下界</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/树的相关知识点/" data-id="ckbai1odt001ookvij8kb9p3s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/树的相关知识点/" data-id="ckc4hespk001rr0vitwc1vpe5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -158,6 +160,10 @@
       <ul>
         
           <li>
+            <a href="/2020/06/15/测试驱动开发TDD/">测试驱动开发TDD</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/11/go-goroutine、channel、反射/">go:goroutine、channel、反射</a>
           </li>
         
@@ -171,10 +177,6 @@
         
           <li>
             <a href="/2020/06/11/go-错误处理机制、数组、切片、map/">go:错误处理机制、数组、切片、map</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/11/go-函数/">go:函数</a>
           </li>
         
       </ul>
