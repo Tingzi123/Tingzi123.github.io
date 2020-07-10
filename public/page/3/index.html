@@ -62,6 +62,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-设计模式-备忘录模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-备忘录模式/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.280Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-备忘录模式/">设计模式-备忘录模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、备忘录模式：在不破坏封装的前提下，存储关键对象的重要状态，从而可以在将来吧对象还原到存储的哪个状态</p>
+<p>关键代码：客户不与备忘录类耦合，与备忘录管理类耦合。</p>
+<p>应用实例： 1、后悔药。<br>          2、打游戏时的存档。<br>          3、Windows 里的 ctri + z。 4、IE 中的后退。<br>          4、数据库的事务管理。</p>
+<p>优点：<br>1）状态存储在外面，不和关键对象混在一起，可以帮助维护内聚<br>2）提供了容易实现的恢复能力<br>3）保持了关键对象的数据封装</p>
+<p>缺点<br>1）存储和恢复状态的过程比较耗时</p>
+<p>2、实现<br>备忘录模式使用三个类 Memento、Originator 和 CareTaker。<br>Memento 包含了要被恢复的对象的状态。<br>Originator 创建并在 Memento 对象中存储状态。<br>Caretaker 对象负责从 Memento 中恢复对象的状态。<br>MementoPatternDemo，演示类，使用 CareTaker 和 Originator 对象来显示对象的状态恢复。</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/memento.png?raw=true" alt="Image text"></p>
+<p>1)创建 Memento类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Memento</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Memento</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2)创建 Originator 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Originator</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Memento <span class="title">saveStateToMemento</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Memento(state);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getStateFromMemento</span><span class="params">(Memento Memento)</span></span>&#123;</span><br><span class="line">      state = Memento.getState();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3)创建 CareTaker 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CareTaker</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> List&lt;Memento&gt; mementoList = <span class="keyword">new</span> ArrayList&lt;Memento&gt;();</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Memento state)</span></span>&#123;</span><br><span class="line">      mementoList.add(state);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Memento <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> mementoList.get(index);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4)创建 Originator和CareTaker对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MementoPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Originator originator = <span class="keyword">new</span> Originator();</span><br><span class="line">      CareTaker careTaker = <span class="keyword">new</span> CareTaker();</span><br><span class="line">      originator.setState(<span class="string">"State #1"</span>);</span><br><span class="line">      originator.setState(<span class="string">"State #2"</span>);</span><br><span class="line">      careTaker.add(originator.saveStateToMemento());</span><br><span class="line">      originator.setState(<span class="string">"State #3"</span>);</span><br><span class="line">      careTaker.add(originator.saveStateToMemento());</span><br><span class="line">      originator.setState(<span class="string">"State #4"</span>);</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"Current State: "</span> + originator.getState());    </span><br><span class="line">      originator.getStateFromMemento(careTaker.get(<span class="number">0</span>));</span><br><span class="line">      System.out.println(<span class="string">"First saved State: "</span> + originator.getState());</span><br><span class="line">      originator.getStateFromMemento(careTaker.get(<span class="number">1</span>));</span><br><span class="line">      System.out.println(<span class="string">"Second saved State: "</span> + originator.getState());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Current State: State #4</span><br><span class="line">First saved State: State #2</span><br><span class="line">Second saved State: State #3</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/memento-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/memento-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-备忘录模式/" data-id="ckcfu5hdz001yekviec25ln33" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-设计模式-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/设计模式-单例模式/" class="article-date">
@@ -112,7 +161,48 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-单例模式/" data-id="ckc4hespr0023r0vi6axitbva" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-单例模式/" data-id="ckcfu5he70022ekvicgqjagx9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式-RMI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-RMI/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.248Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-RMI/">设计模式总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、RMI远程方法调用是计算机之间通过网络实现对象调用的一种通讯机制</p>
+<p>2、设计模式的三个分类：<br>1）创建型模式：对象实例化的模式，该模式解耦了对象的实例化过程<br>简单工厂：一个工厂类根据传入的参量决定创建出哪种产品类的实例<br>工厂方法:定义一个创捷对象的接口，让子类决定实例化哪个类<br>抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类<br>单例模式：某个类只能有一个实例，提供一个全局访问点<br>生成器模式：封装一个复杂对象的构建过程，并可以按步骤构造<br>原型模式：通过复制现有的实例来创建新的实例（克隆）</p>
+<p>2）结构型模式：把类和对象结合在一起形成更大的结构<br>适配器模式：把一个类的方法接口转换成客户希望的另一个接口<br>组合模式：将对象组合成树形结构以表示“部分-整体”的层次结构<br>装饰模式：动态的给对象添加新的功能<br>代理模式：为其他对象提供一个代理以控制对这个对象的访问<br>蝇量模式:通过共享技术有效地支持大量细粒度的对象<br>外观模式：提供统一的方法来访问子系统的一群接口<br>桥接模式：将抽象部分与它的实现部分分离，使他们都可以独立地变化</p>
+<p>3）行为型模式：类和对象如何交互，划分责任和算法<br>模板模式：定义一个算法结构，而将一些步骤延迟到子类中实现<br>解释器模式：给定一个语言，定义它的文法的一种表示，并定义一个解释器<br>策略模式：定义一系列的算法，把它们封装起来，并且使他们可相互替换<br>状态模式：允许一个对象在其内部状态改变时改变它的行为<br>观察者模式：对象之间的一对多的依赖关系<br>备忘录模式：在不破坏封装性的前提下，保存对象的内部状态<br>中介者模式：用一个中介对象来封装一系列的对象交互<br>命令模式：将命令请求封装为一个对象，使得可用不同的请求来进行参数化<br>访问者模式：在不改变数据结构的前提下，增加作用于一组对象元素新的功能</p>
+<p>责任链：请求发送者和接收者之间解耦，使得多个对象都有机会处理这个请求<br>迭代器：一种遍历访问聚合对象中各个元素的方法，不暴露该对象的内部结构</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-RMI/" data-id="ckcfu5hdz001xekvijobhuz6q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -184,48 +274,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-代理模式/" data-id="ckc4hespm001vr0vi0sb0fmfi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-设计模式-RMI" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/设计模式-RMI/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.248Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/设计模式-RMI/">设计模式总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、RMI远程方法调用是计算机之间通过网络实现对象调用的一种通讯机制</p>
-<p>2、设计模式的三个分类：<br>1）创建型模式：对象实例化的模式，该模式解耦了对象的实例化过程<br>简单工厂：一个工厂类根据传入的参量决定创建出哪种产品类的实例<br>工厂方法:定义一个创捷对象的接口，让子类决定实例化哪个类<br>抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类<br>单例模式：某个类只能有一个实例，提供一个全局访问点<br>生成器模式：封装一个复杂对象的构建过程，并可以按步骤构造<br>原型模式：通过复制现有的实例来创建新的实例（克隆）</p>
-<p>2）结构型模式：把类和对象结合在一起形成更大的结构<br>适配器模式：把一个类的方法接口转换成客户希望的另一个接口<br>组合模式：将对象组合成树形结构以表示“部分-整体”的层次结构<br>装饰模式：动态的给对象添加新的功能<br>代理模式：为其他对象提供一个代理以控制对这个对象的访问<br>蝇量模式:通过共享技术有效地支持大量细粒度的对象<br>外观模式：提供统一的方法来访问子系统的一群接口<br>桥接模式：将抽象部分与它的实现部分分离，使他们都可以独立地变化</p>
-<p>3）行为型模式：类和对象如何交互，划分责任和算法<br>模板模式：定义一个算法结构，而将一些步骤延迟到子类中实现<br>解释器模式：给定一个语言，定义它的文法的一种表示，并定义一个解释器<br>策略模式：定义一系列的算法，把它们封装起来，并且使他们可相互替换<br>状态模式：允许一个对象在其内部状态改变时改变它的行为<br>观察者模式：对象之间的一对多的依赖关系<br>备忘录模式：在不破坏封装性的前提下，保存对象的内部状态<br>中介者模式：用一个中介对象来封装一系列的对象交互<br>命令模式：将命令请求封装为一个对象，使得可用不同的请求来进行参数化<br>访问者模式：在不改变数据结构的前提下，增加作用于一组对象元素新的功能</p>
-<p>责任链：请求发送者和接收者之间解耦，使得多个对象都有机会处理这个请求<br>迭代器：一种遍历访问聚合对象中各个元素的方法，不暴露该对象的内部结构</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-RMI/" data-id="ckc4hespn001wr0vihipya8gk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-代理模式/" data-id="ckcfu5he10021ekvitmw8xcge" class="article-share-link">Share</a>
       
       
     </footer>
@@ -271,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-链路层/" data-id="ckc4hespm001ur0vivixxmjfn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-链路层/" data-id="ckcfu5hdy001wekvi0hq33ygq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -338,7 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-网络层/" data-id="ckc4hespn001xr0vivjrnat0s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-网络层/" data-id="ckcfu5hdw001uekvi742zpv2x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -394,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckc4hespo001yr0vihbi29ha3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckcfu5he0001zekvi3dvix0z9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -474,7 +523,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckc4hespl001tr0vik6y1ztdg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckcfu5hdw001vekvi81rcu1ol" class="article-share-link">Share</a>
       
       
     </footer>
@@ -518,7 +567,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckc4hespj001qr0vih4xjn6n7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckcfu5hdu001sekvig7bfme8h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -557,46 +606,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckc4hespk001sr0victc9y18z" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-用栈实现进制转换" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/用栈实现进制转换/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.155Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/用栈实现进制转换/">用栈实现十进制转换为X进制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4645247.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4645247.html</a></p>
-<p>1、链栈的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node base;</span><br><span class="line">	Node top;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		base=<span class="keyword">new</span> Node();</span><br><span class="line">		top=<span class="keyword">new</span> Node();</span><br><span class="line">		</span><br><span class="line">		base.data=<span class="keyword">null</span>;</span><br><span class="line">		base.next=<span class="keyword">null</span>;</span><br><span class="line">		</span><br><span class="line">		top.data=<span class="keyword">null</span>;</span><br><span class="line">		top.next=base;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//入栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//第一次入栈</span></span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			node.next=base;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			node.next=top.next;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//出栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">"栈中没有元素！"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(top.next.data);</span><br><span class="line">            top.next=top.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node temp=top;</span><br><span class="line">		<span class="keyword">while</span>(temp.next!=base) &#123;</span><br><span class="line">			temp=temp.next;</span><br><span class="line">			System.out.println(temp.data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		Object data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、进制转换</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DToX</span> </span>&#123;</span><br><span class="line"><span class="comment">//十进制转X进制</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		LinkStack stack=<span class="keyword">new</span> LinkStack();</span><br><span class="line">		stack.init();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> d=<span class="number">16</span>;<span class="comment">//十进制数100</span></span><br><span class="line">		<span class="keyword">int</span> x=<span class="number">2</span>;<span class="comment">//转为二进制</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(d!=<span class="number">0</span>) &#123;</span><br><span class="line">			stack.push(d%x);</span><br><span class="line">			d=d/x;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(!stack.isEmpty())</span><br><span class="line">	        &#123;</span><br><span class="line">	            stack.pop();</span><br><span class="line">	        &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckc4hespi001pr0virj9ipgov" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckcfu5hdv001tekvi5sch1wpa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -629,7 +639,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -640,6 +650,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/07/02/hexo博客迁移/">hexo博客迁移</a>
+          </li>
         
           <li>
             <a href="/2020/06/15/测试驱动开发TDD/">测试驱动开发TDD</a>
@@ -655,10 +669,6 @@
         
           <li>
             <a href="/2020/06/11/go-结构体、方法、工厂模式、OOP三大特性、类型断言、接口/">go:结构体、方法、工厂模式、OOP三大特性、类型断言、接口</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/11/go-错误处理机制、数组、切片、map/">go:错误处理机制、数组、切片、map</a>
           </li>
         
       </ul>
