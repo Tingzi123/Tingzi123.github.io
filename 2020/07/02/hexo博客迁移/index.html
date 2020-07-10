@@ -7,19 +7,19 @@
   
   <title>hexo博客迁移 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="hexo博客迁移1、安装hexo博客必要的软件1、下载安装Git客户端2、安装node js 2、Github添加新电脑生成的密钥打开git bash输入如下命令：1ssh-keygen -t rsa -C &quot;xxxxx@xxx.com&quot; 邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-">
+  <meta name="description" content="1、安装hexo博客必要的软件1、下载安装Git客户端2、安装node js 2、Github添加新电脑生成的密钥打开git bash输入如下命令：1ssh-keygen -t rsa -C &quot;xxxxx@xxx.com&quot; 邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-‘SSH and">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo博客迁移">
 <meta property="og:url" content="http://yoursite.com/2020/07/02/hexo博客迁移/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="hexo博客迁移1、安装hexo博客必要的软件1、下载安装Git客户端2、安装node js 2、Github添加新电脑生成的密钥打开git bash输入如下命令：1ssh-keygen -t rsa -C &quot;xxxxx@xxx.com&quot; 邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-">
+<meta property="og:description" content="1、安装hexo博客必要的软件1、下载安装Git客户端2、安装node js 2、Github添加新电脑生成的密钥打开git bash输入如下命令：1ssh-keygen -t rsa -C &quot;xxxxx@xxx.com&quot; 邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-‘SSH and">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2020/07/02/hexo博客迁移/hexo1.png">
 <meta property="og:image" content="http://yoursite.com/2020/07/02/hexo博客迁移/hexo2.png">
-<meta property="og:updated_time" content="2020-07-10T06:31:05.661Z">
+<meta property="og:updated_time" content="2020-07-10T06:36:34.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo博客迁移">
-<meta name="twitter:description" content="hexo博客迁移1、安装hexo博客必要的软件1、下载安装Git客户端2、安装node js 2、Github添加新电脑生成的密钥打开git bash输入如下命令：1ssh-keygen -t rsa -C &quot;xxxxx@xxx.com&quot; 邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-">
+<meta name="twitter:description" content="1、安装hexo博客必要的软件1、下载安装Git客户端2、安装node js 2、Github添加新电脑生成的密钥打开git bash输入如下命令：1ssh-keygen -t rsa -C &quot;xxxxx@xxx.com&quot; 邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-‘SSH and">
 <meta name="twitter:image" content="http://yoursite.com/2020/07/02/hexo博客迁移/hexo1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -89,7 +89,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="hexo博客迁移"><a href="#hexo博客迁移" class="headerlink" title="hexo博客迁移"></a>hexo博客迁移</h2><h4 id="1、安装hexo博客必要的软件"><a href="#1、安装hexo博客必要的软件" class="headerlink" title="1、安装hexo博客必要的软件"></a>1、安装hexo博客必要的软件</h4><p>1、下载安装Git客户端<br>2、安装node js</p>
+        <h4 id="1、安装hexo博客必要的软件"><a href="#1、安装hexo博客必要的软件" class="headerlink" title="1、安装hexo博客必要的软件"></a>1、安装hexo博客必要的软件</h4><p>1、下载安装Git客户端<br>2、安装node js</p>
 <h4 id="2、Github添加新电脑生成的密钥"><a href="#2、Github添加新电脑生成的密钥" class="headerlink" title="2、Github添加新电脑生成的密钥"></a>2、Github添加新电脑生成的密钥</h4><p>打开git bash输入如下命令：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"xxxxx@xxx.com"</span></span><br></pre></td></tr></table></figure></p>
 <p>邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-‘SSH and GPG keys’-‘SSH keys’中。</p>
 <p>使用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com   测试公钥是否添加成功</span><br></pre></td></tr></table></figure></p>
