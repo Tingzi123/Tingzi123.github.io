@@ -62,6 +62,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-设计模式-工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-工厂模式/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.295Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-工厂模式/">设计模式-工厂模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式（Factory Pattern）是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。</p>
+<h3 id="简单工厂模式："><a href="#简单工厂模式：" class="headerlink" title="简单工厂模式："></a>简单工厂模式：</h3><p>   定义一个创建对象的类，由这个类来封装实例化对象的行为。简单工厂模式不是 23 种里的一种，简而言之，就是有一个专门生产某个产品的类。</p>
+<h3 id="工厂模式："><a href="#工厂模式：" class="headerlink" title="工厂模式："></a>工厂模式：</h3><p>   定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行</p>
+<h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>创建过程在其子类执行。</p>
+<h4 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h4><p> 1、您需要一辆汽车，可以直接从工厂里面提货，而不用去管这辆汽车是怎么做出来的，以及这个汽车里面的具体实现。<br> 2、Hibernate 换数据库只需换方言和驱动就可以。</p>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。</p>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p> 每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</p>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><p>作为一种创建类模式，在任何需要生成复杂对象的地方，都可以使用工厂方法模式。有一点需要注意的地方就是复杂对象适合使用工厂模式，而简单对象，特别是只需要通过 new 就可以完成创建的对象，无需使用工厂模式。如果使用工厂模式，就需要引入一个工厂类，会增加系统的复杂度。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建一个 Shape 接口和实现 Shape 接口的实体类。下一步是定义工厂类 ShapeFactory。<br>FactoryPatternDemo，演示类使用 ShapeFactory 来获取 Shape 对象。它将向 ShapeFactory 传递信息（CIRCLE / RECTANGLE / SQUARE），以便获取它所需对象的类型。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/factory.png?raw=true" alt="Image text"></p>
+<p>1、创建一个接口Shape。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建实现接口的实体类Rectangle、Square、Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Rectangle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Square::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Circle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、创建一个工厂类ShapeFactory，生成基于给定信息的实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">   <span class="comment">//使用 getShape 方法获取形状类型的对象</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(shapeType == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">      &#125;        </span><br><span class="line">      <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"SQUARE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、使用该工厂，通过传递类型信息来获取实体类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPatternDemo</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      ShapeFactory shapeFactory = <span class="keyword">new</span> ShapeFactory();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Circle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Circle 的 draw 方法</span></span><br><span class="line">      shape1.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Rectangle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Rectangle 的 draw 方法</span></span><br><span class="line">      shape2.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Square 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape3 = shapeFactory.getShape(<span class="string">"SQUARE"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//调用 Square 的 draw 方法</span></span><br><span class="line">      shape3.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inside Circle::draw() method.</span><br><span class="line">Inside Rectangle::draw() method.</span><br><span class="line">Inside Square::draw() method.</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/factory-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/factory-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-工厂模式/" data-id="ckcfuejtx00238kvi91h2gfpz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-设计模式-备忘录模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/设计模式-备忘录模式/" class="article-date">
@@ -101,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-备忘录模式/" data-id="ckcfu5hdz001yekviec25ln33" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-备忘录模式/" data-id="ckcfuejtw00228kvi5yin3rkt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -161,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-单例模式/" data-id="ckcfu5he70022ekvicgqjagx9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-单例模式/" data-id="ckcfuejtu00218kvijxlzarpl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-RMI/" data-id="ckcfu5hdz001xekvijobhuz6q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-RMI/" data-id="ckcfuejtk001x8kviq75ouqls" class="article-share-link">Share</a>
       
       
     </footer>
@@ -274,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-代理模式/" data-id="ckcfu5he10021ekvitmw8xcge" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-代理模式/" data-id="ckcfuejtt00208kvi4r2w5aez" class="article-share-link">Share</a>
       
       
     </footer>
@@ -320,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-链路层/" data-id="ckcfu5hdy001wekvi0hq33ygq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-链路层/" data-id="ckcfuejtm001z8kvic4bzsu8e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -387,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-网络层/" data-id="ckcfu5hdw001uekvi742zpv2x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-网络层/" data-id="ckcfuejtl001y8kviedz679qj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -443,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckcfu5he0001zekvi3dvix0z9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckcfuejtj001w8kviidrhjimv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -523,51 +577,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckcfu5hdw001vekvi81rcu1ol" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-计算机网络" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/计算机网络/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.170Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/计算机网络/">计算机网络</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、计算机网络：计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的（例如，传送数据或视频信号）。这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
-<p>2、网络分类：<br>广域网 WAN (Wide Area Network)：作用范围通常为几十到几千公里。<br>城域网 MAN (Metropolitan Area Network)：作用距离约为  5 ~ 50 公里。<br>局域网 LAN (Local Area Network) ：局限在较小的范围（如 1 公里左右）。<br>个人区域网 PAN (Personal Area Network) ：范围很小，大约在 10 米左右。</p>
-<p>注意：若中央处理机之间的距离非常近（如仅1米的数量级甚至更小些），则一般就称之为多处理机系统，而不称它为计算机网络。 </p>
-<p>3、接入网：<br>接入网 AN (Access Network)，它又称为本地接入网或居民接入网。<br>接入网是一类比较特殊的计算机网络，用于将用户接入互联网。<br>接入网本身既不属于互联网的核心部分，也不属于互联网的边缘部分。<br>接入网是从某个用户端系统到互联网中的第一个路由器（也称为边缘路由器）之间的一种网络。</p>
-<p>4、计算机网络体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0txjg.png?raw=true" alt="Image text"></p>
-<p>5、各层工作过程<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0xyfw.png?raw=true" alt="Image text"><br>1)OSI 参考模型把对等层次之间传送的数据单位称为该层的协议数据单元 PDU (Protocol Data Unit)。<br>2)协议是“水平的”，即协议是控制对等实体之间通信的规则。<br>3）服务是“垂直的”，即服务是由下层向上层通过层间接口提供的。</p>
-<p>6、TCP/IP体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0tcpip.png?raw=true" alt="Image text"></p>
-<p>物理层中继系统：转发器 (repeater)。<br>数据链路层中继系统：网桥 或 桥接器 (bridge)。<br>网络层中继系统：路由器 (router)。<br>网桥和路由器的混合物：桥路器 (brouter)。<br>网络层以上的中继系统：网关 (gateway)。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckcfu5hdu001sekvig7bfme8h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckcfuejti001v8kvi3zsxdnna" class="article-share-link">Share</a>
       
       
     </footer>
@@ -606,7 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckcfu5hdv001tekvi5sch1wpa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckcfuejtg001s8kviqje4n39l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -652,6 +662,10 @@
       <ul>
         
           <li>
+            <a href="/2020/07/10/GO：工作区和GOPATH/">GO：工作区和GOPATH</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/02/hexo博客迁移/">hexo博客迁移</a>
           </li>
         
@@ -665,10 +679,6 @@
         
           <li>
             <a href="/2020/06/11/go-文件操作、json/">go:文件操作、json</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/11/go-结构体、方法、工厂模式、OOP三大特性、类型断言、接口/">go:结构体、方法、工厂模式、OOP三大特性、类型断言、接口</a>
           </li>
         
       </ul>
