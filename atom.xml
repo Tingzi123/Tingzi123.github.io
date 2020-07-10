@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-02T07:41:05.680Z</updated>
+  <updated>2020-07-02T07:53:23.506Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo博客迁移</title>
+    <link href="http://yoursite.com/2020/07/02/hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB/"/>
+    <id>http://yoursite.com/2020/07/02/hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB/</id>
+    <published>2020-07-02T07:53:23.000Z</published>
+    <updated>2020-07-02T07:53:23.506Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>测试驱动开发TDD</title>
@@ -427,30 +442,6 @@
       
       
         &lt;h2 id=&quot;工厂模式&quot;&gt;&lt;a href=&quot;#工厂模式&quot; class=&quot;headerlink&quot; title=&quot;工厂模式&quot;&gt;&lt;/a&gt;工厂模式&lt;/h2&gt;&lt;p&gt;工厂模式（Factory Pattern）是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式-备忘录模式</title>
-    <link href="http://yoursite.com/2020/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2020/06/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/</id>
-    <published>2020-06-07T07:38:07.280Z</published>
-    <updated>2019-04-11T02:57:18.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>1、备忘录模式：在不破坏封装的前提下，存储关键对象的重要状态，从而可以在将来吧对象还原到存储的哪个状态</p><p>关键代码：客户不与备忘录类耦合，与备忘录管理类耦合。</p><p>应用实例： 1、后悔药。<br>          2、打游戏时的存档。<br>          3、Windows 里的 ctri + z。 4、IE 中的后退。<br>          4、数据库的事务管理。</p><p>优点：<br>1）状态存储在外面，不和关键对象混在一起，可以帮助维护内聚<br>2）提供了容易实现的恢复能力<br>3）保持了关键对象的数据封装</p><p>缺点<br>1）存储和恢复状态的过程比较耗时</p><p>2、实现<br>备忘录模式使用三个类 Memento、Originator 和 CareTaker。<br>Memento 包含了要被恢复的对象的状态。<br>Originator 创建并在 Memento 对象中存储状态。<br>Caretaker 对象负责从 Memento 中恢复对象的状态。<br>MementoPatternDemo，演示类，使用 CareTaker 和 Originator 对象来显示对象的状态恢复。</p><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/memento.png?raw=true" alt="Image text"></p><p>1)创建 Memento类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Memento</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Memento</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>2)创建 Originator 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Originator</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Memento <span class="title">saveStateToMemento</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Memento(state);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getStateFromMemento</span><span class="params">(Memento Memento)</span></span>&#123;</span><br><span class="line">      state = Memento.getState();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>3)创建 CareTaker 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CareTaker</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> List&lt;Memento&gt; mementoList = <span class="keyword">new</span> ArrayList&lt;Memento&gt;();</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Memento state)</span></span>&#123;</span><br><span class="line">      mementoList.add(state);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Memento <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> mementoList.get(index);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>4)创建 Originator和CareTaker对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MementoPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Originator originator = <span class="keyword">new</span> Originator();</span><br><span class="line">      CareTaker careTaker = <span class="keyword">new</span> CareTaker();</span><br><span class="line">      originator.setState(<span class="string">"State #1"</span>);</span><br><span class="line">      originator.setState(<span class="string">"State #2"</span>);</span><br><span class="line">      careTaker.add(originator.saveStateToMemento());</span><br><span class="line">      originator.setState(<span class="string">"State #3"</span>);</span><br><span class="line">      careTaker.add(originator.saveStateToMemento());</span><br><span class="line">      originator.setState(<span class="string">"State #4"</span>);</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"Current State: "</span> + originator.getState());    </span><br><span class="line">      originator.getStateFromMemento(careTaker.get(<span class="number">0</span>));</span><br><span class="line">      System.out.println(<span class="string">"First saved State: "</span> + originator.getState());</span><br><span class="line">      originator.getStateFromMemento(careTaker.get(<span class="number">1</span>));</span><br><span class="line">      System.out.println(<span class="string">"Second saved State: "</span> + originator.getState());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>输出<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Current State: State #4</span><br><span class="line">First saved State: State #2</span><br><span class="line">Second saved State: State #3</span><br></pre></td></tr></table></figure></p><p>参考：<a href="http://www.runoob.com/design-pattern/memento-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/memento-pattern.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;1、备忘录模式：在不破坏封装的前提下，存储关键对象的重要状态，从而可以在将来吧对象还原到存储的哪个状态&lt;/p&gt;
-&lt;p&gt;关键代码：客户不与备忘录类耦合，与备忘录管理类耦合。&lt;/p&gt;
-&lt;p&gt;应用实例： 1、后悔药。&lt;br&gt;          2、打游戏时的存档。&lt;br&gt;    
       
     
     </summary>
