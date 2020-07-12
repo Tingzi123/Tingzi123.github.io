@@ -5,22 +5,22 @@
   
 
   
-  <title>GO：工作区和GOPATH | Hexo</title>
+  <title>GO：1.2 命令源码文件 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、Go基础知识导图 2、工作区和GOPATH1、Go 3个环境变量 GOROOT：Go语言安装根目录的路径，也就是GO语言的安装路径 GOPATH：若干工作区目录的路径，是我们自己定义的工作空间 GOBIN：Go程序生成的可执行文件的路径  2、GOPATH有什么意义 可以把GOPATH简单理解成Go语言的工作目录，它的值是一个目录的路径，也可以是多个目录的路径，每个目录都代表Go语言的一个工作">
+  <meta name="description" content="我们已经知道，环境变量 GOPATH 指向的是一个或多个工作区，每个工作区中都会有以代码包为基本组织形式的源码文件。 这里的源码文件又分为三种，即：命令源码文件、库源码文件和测试源码文件，它们都有着不同的用途和编写规则。 1、命令源码文件的用途是什么，怎样编写它？1、命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。我们可以通过构建或安装，生成与其对应的可执行文件，后者一般会与该命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GO：工作区和GOPATH">
-<meta property="og:url" content="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/index.html">
+<meta property="og:title" content="GO：1.2 命令源码文件">
+<meta property="og:url" content="http://yoursite.com/2020/07/10/GO：1-2-命令源码文件/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1、Go基础知识导图 2、工作区和GOPATH1、Go 3个环境变量 GOROOT：Go语言安装根目录的路径，也就是GO语言的安装路径 GOPATH：若干工作区目录的路径，是我们自己定义的工作空间 GOBIN：Go程序生成的可执行文件的路径  2、GOPATH有什么意义 可以把GOPATH简单理解成Go语言的工作目录，它的值是一个目录的路径，也可以是多个目录的路径，每个目录都代表Go语言的一个工作">
+<meta property="og:description" content="我们已经知道，环境变量 GOPATH 指向的是一个或多个工作区，每个工作区中都会有以代码包为基本组织形式的源码文件。 这里的源码文件又分为三种，即：命令源码文件、库源码文件和测试源码文件，它们都有着不同的用途和编写规则。 1、命令源码文件的用途是什么，怎样编写它？1、命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。我们可以通过构建或安装，生成与其对应的可执行文件，后者一般会与该命令">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/go1.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/gopath1.png">
-<meta property="og:updated_time" content="2020-07-10T11:21:18.638Z">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/GO：1-2-命令源码文件/command1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/10/GO：1-2-命令源码文件/gopath1.png">
+<meta property="og:updated_time" content="2020-07-12T07:52:14.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GO：工作区和GOPATH">
-<meta name="twitter:description" content="1、Go基础知识导图 2、工作区和GOPATH1、Go 3个环境变量 GOROOT：Go语言安装根目录的路径，也就是GO语言的安装路径 GOPATH：若干工作区目录的路径，是我们自己定义的工作空间 GOBIN：Go程序生成的可执行文件的路径  2、GOPATH有什么意义 可以把GOPATH简单理解成Go语言的工作目录，它的值是一个目录的路径，也可以是多个目录的路径，每个目录都代表Go语言的一个工作">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/go1.jpg">
+<meta name="twitter:title" content="GO：1.2 命令源码文件">
+<meta name="twitter:description" content="我们已经知道，环境变量 GOPATH 指向的是一个或多个工作区，每个工作区中都会有以代码包为基本组织形式的源码文件。 这里的源码文件又分为三种，即：命令源码文件、库源码文件和测试源码文件，它们都有着不同的用途和编写规则。 1、命令源码文件的用途是什么，怎样编写它？1、命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。我们可以通过构建或安装，生成与其对应的可执行文件，后者一般会与该命令">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/10/GO：1-2-命令源码文件/command1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -67,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-GO：工作区和GOPATH" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-GO：1-2-命令源码文件" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/07/10/GO：工作区和GOPATH/" class="article-date">
-  <time datetime="2020-07-10T06:27:34.000Z" itemprop="datePublished">2020-07-10</time>
+    <a href="/2020/07/10/GO：1-2-命令源码文件/" class="article-date">
+  <time datetime="2020-07-10T11:25:13.000Z" itemprop="datePublished">2020-07-10</time>
 </a>
     
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      GO：工作区和GOPATH
+      GO：1.2 命令源码文件
     </h1>
   
 
@@ -89,7 +89,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1、Go基础知识导图"><a href="#1、Go基础知识导图" class="headerlink" title="1、Go基础知识导图"></a>1、Go基础知识导图</h3><p><img src="/2020/07/10/GO：工作区和GOPATH/go1.jpg" alt="go1.jpg"></p>
+        <p>我们已经知道，环境变量 GOPATH 指向的是一个或多个工作区，每个工作区中都会有以代码包为基本组织形式的源码文件。</p>
+<p>这里的源码文件又分为三种，即：<strong>命令源码文件、库源码文件和测试源码文件</strong>，它们都有着不同的用途和编写规则。<br><img src="/2020/07/10/GO：1-2-命令源码文件/command1.png" alt="command1.png"></p>
+<h3 id="1、命令源码文件的用途是什么，怎样编写它？"><a href="#1、命令源码文件的用途是什么，怎样编写它？" class="headerlink" title="1、命令源码文件的用途是什么，怎样编写它？"></a>1、命令源码文件的用途是什么，怎样编写它？</h3><p>1、命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。我们可以通过构建或安装，生成与其对应的可执行文件，后者一般会与该命令源码文件的直接父目录同名。</p>
+<p>2、如果一个源码文件声明属于main包，并且包含一个无参数声明且无结果声明的main函数，那么它就是命令源码文件。 就像下面这段代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  fmt.Println(<span class="string">"Hello, world!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果你把这段代码存成 demo1.go 文件，那么运行go run demo1.go命令后就会在屏幕（标准输出）中看到Hello, world!</p>
+<p>注：<br>1、当需要模块化编程时，我们往往会将代码拆分到多个文件，甚至拆分到不同的代码包中。但无论怎样，对于一个独立的程序来说，<strong>命令源码文件永远只会也只能有一个</strong>。如果有与命令源码文件同包的源码文件，那么它们也应该声明属于main包。</p>
+<p>2、通过构建或安装命令源码文件，<strong>生成的可执行文件就可以被视为“命令”</strong>，既然是命令，那么就应该具备接收参数的能力。</p>
 <h3 id="2、工作区和GOPATH"><a href="#2、工作区和GOPATH" class="headerlink" title="2、工作区和GOPATH"></a>2、工作区和GOPATH</h3><h4 id="1、Go-3个环境变量"><a href="#1、Go-3个环境变量" class="headerlink" title="1、Go 3个环境变量"></a>1、Go 3个环境变量</h4><ul>
 <li>GOROOT：Go语言安装根目录的路径，也就是GO语言的安装路径</li>
 <li>GOPATH：若干工作区目录的路径，是我们自己定义的工作空间</li>
@@ -118,7 +124,7 @@
 <p>那么执行命令<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> insatll github.com/labstack/echo</span><br></pre></td></tr></table></figure></p>
 <p>生成的归档文件的相对目录就是github.com/labstack，文件名为echo.a。</p>
 <p>3、上面这个代码包导入路径还有一层含义，即：该代码包的源码文件存在于github网站的labstack组的代码仓库echo中</p>
-<p>4、归档文件的相对目录与pkg目录之间还有一级目录，称为平台相关目录。平台相关目录的名称是由“build”的目标操作系统、下划线和目标计算架构的代号组成的。比如，构建某个代码包的目标擦欧总系统时Linux，目标计算架构是64位，对应的平台相关目录就是linux_amd64。<br>因此，上述代码包的归档文件就会被放置在当前工作区的子目录<br>pkg/linux_amd64/github.com/labstack中。<br>gopath与工作区：<br><img src="/2020/07/10/GO：工作区和GOPATH/gopath1.png" alt="gopath1.png"></p>
+<p>4、归档文件的相对目录与pkg目录之间还有一级目录，称为平台相关目录。平台相关目录的名称是由“build”的目标操作系统、下划线和目标计算架构的代号组成的。比如，构建某个代码包的目标擦欧总系统时Linux，目标计算架构是64位，对应的平台相关目录就是linux_amd64。<br>因此，上述代码包的归档文件就会被放置在当前工作区的子目录<br>pkg/linux_amd64/github.com/labstack中。<br>gopath与工作区：<br><img src="/2020/07/10/GO：1-2-命令源码文件/gopath1.png" alt="gopath1.png"></p>
 <p>5、某个工作区的src子目录下的源码文件在安装后一般会被放置到当前工作区的pkg子目录下对应的目录中，或者直接被放置到该工作区的bin子目录中。</p>
 <h4 id="3、理解构建和安装Go程序的过程"><a href="#3、理解构建和安装Go程序的过程" class="headerlink" title="3、理解构建和安装Go程序的过程"></a>3、理解构建和安装Go程序的过程</h4><p>构建与安装的异同：<br>1、构建使用命令go build，安装使用命令go install。构建和安装代码包的时候都会执行编译、打包等操作，并且，这些操作生成的任何文件都会先被保存到某个临时的目录中。</p>
 <p>2、构建源码文件</p>
@@ -150,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/" data-id="ckcis79j200026cvi6xfpz5pa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/10/GO：1-2-命令源码文件/" data-id="ckcis79is00006cvi5akzvcq6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -159,19 +165,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/07/10/GO：1-2-命令源码文件/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          GO：1.2 命令源码文件
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/07/02/hexo博客迁移/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/07/10/GO：工作区和GOPATH/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">hexo博客迁移</div>
+      <div class="article-nav-title">GO：工作区和GOPATH</div>
     </a>
   
 </nav>
