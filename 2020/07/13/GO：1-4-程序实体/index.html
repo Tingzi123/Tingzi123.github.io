@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>GO：1.4 程序实体 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Go 语言中的程序实体包括变量、常量、函数、结构体和接口。 Go 语言是静态类型的编程语言，所以我们在声明变量或常量的时候，都需要指定它们的类型，或者给予足够的信息，这样才可以让 Go 语言能够推导出它们的类型。 1、变量在 Go 语言中，变量的类型可以是其预定义的那些类型，也可以是程序自定义的函数、结构体或接口。常量的合法类型不多，只能是那些 Go 语言预定义的基本类型。它的声明方式也更简单一些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GO：1.4 程序实体">
+<meta property="og:url" content="http://yoursite.com/2020/07/13/GO：1-4-程序实体/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Go 语言中的程序实体包括变量、常量、函数、结构体和接口。 Go 语言是静态类型的编程语言，所以我们在声明变量或常量的时候，都需要指定它们的类型，或者给予足够的信息，这样才可以让 Go 语言能够推导出它们的类型。 1、变量在 Go 语言中，变量的类型可以是其预定义的那些类型，也可以是程序自定义的函数、结构体或接口。常量的合法类型不多，只能是那些 Go 语言预定义的基本类型。它的声明方式也更简单一些">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/07/13/GO：1-4-程序实体/app1.png">
+<meta property="og:updated_time" content="2020-07-13T07:14:34.180Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GO：1.4 程序实体">
+<meta name="twitter:description" content="Go 语言中的程序实体包括变量、常量、函数、结构体和接口。 Go 语言是静态类型的编程语言，所以我们在声明变量或常量的时候，都需要指定它们的类型，或者给予足够的信息，这样才可以让 Go 语言能够推导出它们的类型。 1、变量在 Go 语言中，变量的类型可以是其预定义的那些类型，也可以是程序自定义的函数、结构体或接口。常量的合法类型不多，只能是那些 Go 语言预定义的基本类型。它的声明方式也更简单一些">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/13/GO：1-4-程序实体/app1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-GO：1-4-程序实体" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/13/GO：1-4-程序实体/" class="article-date">
+  <time datetime="2020-07-13T02:42:07.000Z" itemprop="datePublished">2020-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GO：1.4 程序实体
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Go 语言中的<strong>程序实体包括变量、常量、函数、结构体和接口</strong>。 Go 语言是<strong>静态类型</strong>的编程语言，所以我们在声明变量或常量的时候，都需要指定它们的类型，或者给予足够的信息，这样才可以让 Go 语言能够推导出它们的类型。</p>
+<h3 id="1、变量"><a href="#1、变量" class="headerlink" title="1、变量"></a>1、变量</h3><p>在 Go 语言中，<strong>变量的类型可以是其预定义的那些类型，也可以是程序自定义的函数、结构体或接口</strong>。常量的合法类型不多，只能是那些 Go 语言预定义的基本类型。它的声明方式也更简单一些。</p>
+<h4 id="1、声明变量有几种方式？"><a href="#1、声明变量有几种方式？" class="headerlink" title="1、声明变量有几种方式？"></a>1、声明变量有几种方式？</h4><p>1、先声明后赋值<br>一个很简单的命令源码文件，命名为 demo7.go。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"flag"</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">var</span> name <span class="keyword">string</span> <span class="comment">// 先声明</span></span><br><span class="line">  flag.StringVar(&amp;name, <span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>) <span class="comment">// 后赋值</span></span><br><span class="line">  flag.Parse()</span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %v!\n"</span>, name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、使用var声明变量的同时赋值<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"flag"</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">var</span> name = flag.String(<span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>)<span class="comment">//声明的同时赋值</span></span><br><span class="line">  flag.Parse()</span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %v!\n"</span>, *name)。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>flag.String函数返回的结果值的类型是<em>string而不是string。类型</em>string代表的是字符串的指针类型，而不是字符串类型。因此，这里的变量name代表的是一个指向字符串值的指针。</p>
+<p>注：</p>
+<ul>
+<li>1、声明变量name的同时，还为它赋了值，而这时声明中并没有显式指定name的类型。之前的变量声明语句是var name string。这里利用了 Go 语言自身的类型推断，而省去了对该变量的类型的声明。</li>
+<li>2、类型推断是一种编程语言在编译期自动解释表达式类型的能力。</li>
+<li>3、类型推断只能用于对变量或常量的初始化。</li>
+</ul>
+<p>3、使用”:=”短变量声明的同时赋值<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"flag"</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  name := flag.String(<span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>)<span class="comment">//声明的同时赋值</span></span><br><span class="line">  flag.Parse()</span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %v!\n"</span>, *name)。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注：</p>
+<ul>
+<li>1、短变量声明，实际上就是 Go 语言的类型推断再加上一点点语法糖，<strong>只能在函数体内部使用短变量声明</strong></li>
+<li>在编写if、for或switch语句的时候，我们经常把它安插在初始化子句中，并用来声明一些临时的变量。而相比之下，第一种方式更加通用，它可以被用在任何地方。<br><img src="/2020/07/13/GO：1-4-程序实体/app1.png" alt="app1"></li>
+</ul>
+<h4 id="2、Go-语言的类型推断可以带来哪些好处？"><a href="#2、Go-语言的类型推断可以带来哪些好处？" class="headerlink" title="2、Go 语言的类型推断可以带来哪些好处？"></a>2、Go 语言的类型推断可以带来哪些好处？</h4><p>在写代码时，我们通过使用 Go 语言的类型推断，而节省下来的键盘敲击次数几乎可以忽略不计。但它真正的好处，往往会体现在我们写代码之后的那些事情上，比如<strong>代码重构</strong>。</p>
+<p>通过调用一个函数在声明name变量的同时为它赋值，这个函数是由我们自己定义的函数getTheFlag。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/13/GO：1-4-程序实体/" data-id="ckck7afnu0003h8viqloubz74" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/07/12/GO：1-3-库源码文件/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">GO：1.3 库源码文件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/13/GO：1-4-程序实体/">GO：1.4 程序实体</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/12/GO：1-3-库源码文件/">GO：1.3 库源码文件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/10/GO：1-2-命令源码文件/">GO：1.2 命令源码文件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/10/GO：工作区和GOPATH/">GO：工作区和GOPATH</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/02/hexo博客迁移/">hexo博客迁移</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
