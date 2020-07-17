@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>GO：2.1 数组和切片 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、数组（array）类型和切片（slice）类型的异同1、相同数组（array）类型和切片（slice）类型的共同点是都属于集合类的类型，并且，它们的值也都可以用来存储某一种类型的值（或者说元素）。 2、区别它们最重要的不同是：数组类型的值（以下简称数组）的长度是固定的，而切片类型的值（以下简称切片）是可变长的。 数组的长度在声明它的时候就必须给定，并且之后不会再改变。可以说，数组的长度是其类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GO：2.1 数组和切片">
+<meta property="og:url" content="http://yoursite.com/2020/07/16/GO：2-1-数组和切片/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、数组（array）类型和切片（slice）类型的异同1、相同数组（array）类型和切片（slice）类型的共同点是都属于集合类的类型，并且，它们的值也都可以用来存储某一种类型的值（或者说元素）。 2、区别它们最重要的不同是：数组类型的值（以下简称数组）的长度是固定的，而切片类型的值（以下简称切片）是可变长的。 数组的长度在声明它的时候就必须给定，并且之后不会再改变。可以说，数组的长度是其类型">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/07/16/GO：2-1-数组和切片/arrslice1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/16/GO：2-1-数组和切片/arrslice2.png">
+<meta property="og:updated_time" content="2020-07-17T08:58:27.479Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GO：2.1 数组和切片">
+<meta name="twitter:description" content="1、数组（array）类型和切片（slice）类型的异同1、相同数组（array）类型和切片（slice）类型的共同点是都属于集合类的类型，并且，它们的值也都可以用来存储某一种类型的值（或者说元素）。 2、区别它们最重要的不同是：数组类型的值（以下简称数组）的长度是固定的，而切片类型的值（以下简称切片）是可变长的。 数组的长度在声明它的时候就必须给定，并且之后不会再改变。可以说，数组的长度是其类型">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/16/GO：2-1-数组和切片/arrslice1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-GO：2-1-数组和切片" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/16/GO：2-1-数组和切片/" class="article-date">
+  <time datetime="2020-07-16T11:06:12.000Z" itemprop="datePublished">2020-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GO：2.1 数组和切片
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、数组（array）类型和切片（slice）类型的异同"><a href="#1、数组（array）类型和切片（slice）类型的异同" class="headerlink" title="1、数组（array）类型和切片（slice）类型的异同"></a>1、数组（array）类型和切片（slice）类型的异同</h3><h4 id="1、相同"><a href="#1、相同" class="headerlink" title="1、相同"></a>1、相同</h4><p>数组（array）类型和切片（slice）类型的共同点是都属于集合类的类型，并且，它们的值也都可以用来存储某一种类型的值（或者说元素）。</p>
+<h4 id="2、区别"><a href="#2、区别" class="headerlink" title="2、区别"></a>2、区别</h4><p>它们最重要的不同是：<strong>数组类型的值（以下简称数组）的长度是固定的，而切片类型的值（以下简称切片）是可变长的。</strong></p>
+<p>数组的长度在声明它的时候就必须给定，并且之后不会再改变。可以说，<strong>数组的长度是其类型的一部分</strong>。比如，<strong>[1]string和[2]string就是两个不同的数组类型</strong>。</p>
+<p>而<strong>切片的类型字面量中只有元素的类型，而没有长度</strong>。切片的长度可以自动地随着其中元素数量的增长而增长，但不会随着元素数量的减少而减小。<br><img src="/2020/07/16/GO：2-1-数组和切片/arrslice1.png" alt="arrslice1"></p>
+<p>我们其实可以<strong>把切片看做是对数组的一层简单的封装</strong>，因为在每个切片的底层数据结构中，一定会包含一个数组。<strong>数组可以被叫做切片的底层数组，而切片也可以被看作是对数组的某个连续片段的引用。</strong></p>
+<ul>
+<li><p>也正因为如此，Go 语言的<strong>切片类型属于引用类型</strong>，同属<strong>引用类型的还有字典类型、通道类型、函数类型等</strong>；而 Go 语言的<strong>数组类型则属于值类型</strong>，同属<strong>值类型的有基础数据类型以及结构体类型</strong>。注意，Go 语言里不存在像 Java 等编程语言中令人困惑的“传值或传引用”问题。在 Go 语言中，我们判断所谓的“传值”或者“传引用”只要看被传递的值的类型就好了。如果传递的值是引用类型的，那么就是“传引用”。如果传递的值是值类型的，那么就是“传值”。从传递成本的角度讲，引用类型的值往往要比值类型的值低很多。我们在数组和切片之上都可以应用索引表达式，得到的都会是某个元素。我们在它们之上也都可以应用切片表达式，也都会得到一个新的切片</p>
+</li>
+<li><p>通过调用内建函数len，得到数组和切片的长度。通过调用内建函数cap，我们可以得到它们的容量。但要注意，<strong>数组的容量永远等于其长度，都是不可变的</strong>。切片的容量却不是这样，并且它的变化是有规律可寻的。</p>
+</li>
+</ul>
+<h3 id="2、怎样正确估算切片的长度和容量？"><a href="#2、怎样正确估算切片的长度和容量？" class="headerlink" title="2、怎样正确估算切片的长度和容量？"></a>2、怎样正确估算切片的长度和容量？</h3><p>1、如下例子demo15.go<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">// 示例1。</span></span><br><span class="line">  s1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>)</span><br><span class="line">  <span class="comment">//用内建函数make声明了一个[]int类型的变量s1，传给make函数的第二个参数是5，从而指明了该切片的长度</span></span><br><span class="line">  </span><br><span class="line">  fmt.Printf(<span class="string">"The length of s1: %d\n"</span>, <span class="built_in">len</span>(s1))</span><br><span class="line">  fmt.Printf(<span class="string">"The capacity of s1: %d\n"</span>, <span class="built_in">cap</span>(s1))</span><br><span class="line">  fmt.Printf(<span class="string">"The value of s1: %d\n"</span>, s1)</span><br><span class="line">  </span><br><span class="line">  s2 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>, <span class="number">8</span>)</span><br><span class="line">  <span class="comment">//同样的方式声明了切片s2，多传入了一个参数8以指明该切片的容量。</span></span><br><span class="line">  </span><br><span class="line">  fmt.Printf(<span class="string">"The length of s2: %d\n"</span>, <span class="built_in">len</span>(s2))</span><br><span class="line">  fmt.Printf(<span class="string">"The capacity of s2: %d\n"</span>, <span class="built_in">cap</span>(s2))</span><br><span class="line">  fmt.Printf(<span class="string">"The value of s2: %d\n"</span>, s2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>切片s1和s2的容量都是多少？<br>切片s1的容量是5，s2的容量是8</li>
+</ul>
+<p>2、通过切片表达式基于某个数组或切片生成新切片的时候，情况就变得复杂起来了。<br>如下例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s3 := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;</span><br><span class="line"><span class="comment">//s3中有 8 个元素，分别是从1到8的整数，s3的长度和容量都是8。</span></span><br><span class="line"></span><br><span class="line">s4 := s3[<span class="number">3</span>:<span class="number">6</span>]</span><br><span class="line"><span class="comment">//用切片表达式s3[3:6]初始化了切片s4</span></span><br><span class="line"></span><br><span class="line">fmt.Printf(<span class="string">"The length of s4: %d\n"</span>, <span class="built_in">len</span>(s4))</span><br><span class="line">fmt.Printf(<span class="string">"The capacity of s4: %d\n"</span>, <span class="built_in">cap</span>(s4))</span><br><span class="line">fmt.Printf(<span class="string">"The value of s4: %d\n"</span>, s4)</span><br></pre></td></tr></table></figure></p>
+<p>运行<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The length of s4: <span class="number">3</span></span><br><span class="line">The capacity of s4: <span class="number">5</span></span><br><span class="line">The value of s4: [<span class="number">4</span> <span class="number">5</span> <span class="number">6</span>]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>1、s4的长度是多少？<br>长度是3</li>
+</ul>
+<p>切片表达式中s3[3:6]取数范围为[3,6)，即从索引3开始取，取到索引6但不包含索引6。</p>
+<p>这里的3可被称为起始索引，6可被称为结束索引。那么s4的长度就是6减去3，即3。</p>
+<p>可以说，s4中的索引从0到2指向的元素对应的是s3及其底层数组中索引从3到5的那 3 个元素。<br><img src="/2020/07/16/GO：2-1-数组和切片/arrslice2.png" alt="arrslice2"></p>
+<ul>
+<li><p>2、再来看s4的容量是多少?<br>容量是5</p>
+<p><strong>切片的容量代表了它的底层数组的长度，但这仅限于使用make函数或者切片值字面量初始化切片的情况。</strong></p>
+</li>
+</ul>
+<p>更通用的规则是：<strong>一个切片的容量可以被看作是透过这个窗口最多可以看到的底层数组中元素的个数。</strong></p>
+<p>由于s4是通过在s3上施加切片操作得来的，所以s3的底层数组就是s4的底层数组。</p>
+<p>又因为，在底层数组不变的情况下，切片代表的窗口可以向右扩展，直至其底层数组的末尾。</p>
+<p>所以，s4的容量就是其底层数组的长度8, 减去上述切片表达式中的那个起始索引3，即5。</p>
+<p>注意，切片代表的窗口是无法向左扩展的。也就是说，我们永远无法透过s4看到s3中最左边的那 3 个元素。</p>
+<ul>
+<li>把切片的窗口向右扩展到最大的方法。<br>对于s4来说，切片表达式s4[0:cap(s4)]就可以做到。我想你应该能看懂。该表达式的结果值（即一个新的切片）会是[]int{4, 5, 6, 7, 8}，其长度和容量都是5。 </li>
+</ul>
+<h3 id="3、怎样估算切片容量的增长？"><a href="#3、怎样估算切片容量的增长？" class="headerlink" title="3、怎样估算切片容量的增长？"></a>3、怎样估算切片容量的增长？</h3><p>一旦一个切片无法容纳更多的元素，Go 语言就会想办法扩容。但它并不会改变原来的切片，而是会生成一个容量更大的切片，然后将把原有的元素和新元素一并拷贝到新切片中。<strong>在一般的情况下，你可以简单地认为新切片的容量（以下简称新容量）将会是原切片容量（以下简称原容量）的 2 倍。</strong></p>
+<p>但是，当<strong>原切片的长度（以下简称原长度）大于或等于1024时</strong>，Go 语言将会<strong>以原容量的1.25倍作为新容量的基准（以下新容量基准）</strong>。<strong>新容量基准会被调整（不断地与1.25相乘），直到结果不小于原长度与要追加的元素数量之和（以下简称新长度）</strong>。最终，新容量往往会比新长度大一些，当然，相等也是可能的。</p>
+<p>另外，如果我们一次追加的元素过多，以至于<strong>使新长度比原容量的 2 倍还要大</strong>，那么<strong>新容量就会以新长度为基准</strong>。注意，与前面那种情况一样，最终的新容量在很多时候都要比新容量基准更大一些。</p>
+<h3 id="4、切片的底层数组什么时候会被替换？"><a href="#4、切片的底层数组什么时候会被替换？" class="headerlink" title="4、切片的底层数组什么时候会被替换？"></a>4、切片的底层数组什么时候会被替换？</h3><p>确切地说，一个切片的底层数组永远不会被替换。为什么？虽然在扩容的时候 Go 语言一定会生成新的底层数组，但是它也同时生成了新的切片。</p>
+<p>它只是把新的切片作为了新底层数组的窗口，而没有对原切片，及其底层数组做任何改动。</p>
+<p>在无需扩容时，append函数返回的是指向原底层数组的新切片，而在需要扩容时，append函数返回的是指向新底层数组的新切片。所以，严格来讲，“扩容”这个词用在这里虽然形象但并不合适。</p>
+<p>只要新长度不会超过切片的原容量，那么使用append函数对其追加元素的时候就不会引起扩容。这只会使紧邻切片窗口右边的（底层数组中的）元素被新的元素替换掉</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/16/GO：2-1-数组和切片/" data-id="ckcpzrdo70004sovi5igia74d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/07/13/GO：1-4-程序实体/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">GO：1.4 程序实体</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/16/GO：2-1-数组和切片/">GO：2.1 数组和切片</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/13/GO：1-4-程序实体/">GO：1.4 程序实体</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/12/GO：1-3-库源码文件/">GO：1.3 库源码文件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/10/GO：1-2-命令源码文件/">GO：1.2 命令源码文件</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/10/GO：工作区和GOPATH/">GO：工作区和GOPATH</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
