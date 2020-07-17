@@ -5,19 +5,19 @@
   
 
   
-  <title>java-map遍历 | Hexo</title>
+  <title>GO：2.2 container包中的容器 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Map集合：即 接口Map&amp;lt;K,V&amp;gt;  map集合的两种取出方式：    1.Set keyset: 将map中所有的键存入到set集合（即将所有的key值存入到set中）， 因为Set具备迭代器，可以进行迭代遍历。 所有可以迭代方式取出所有的链，再根据get方法。获取每一个键对应的值。     Map 集合的取出原理： 将map集合转成set集合。 再通过迭代器取出 2. set&amp;l">
+  <meta name="description" content="Go 语言的链表实现在标准库的container/list代码包中。这个代码包中有两个公开的程序实体——List和Element，List 实现了一个双向链表（以下简称链表），而 Element 则代表了链表中元素的结构。 1、可以把自己生成的Element类型值传给链表吗？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java-map遍历">
-<meta property="og:url" content="http://yoursite.com/2020/06/07/map遍历/index.html">
+<meta property="og:title" content="GO：2.2 container包中的容器">
+<meta property="og:url" content="http://yoursite.com/2020/07/17/GO：2-2-container包中的容器/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Map集合：即 接口Map&amp;lt;K,V&amp;gt;  map集合的两种取出方式：    1.Set keyset: 将map中所有的键存入到set集合（即将所有的key值存入到set中）， 因为Set具备迭代器，可以进行迭代遍历。 所有可以迭代方式取出所有的链，再根据get方法。获取每一个键对应的值。     Map 集合的取出原理： 将map集合转成set集合。 再通过迭代器取出 2. set&amp;l">
+<meta property="og:description" content="Go 语言的链表实现在标准库的container/list代码包中。这个代码包中有两个公开的程序实体——List和Element，List 实现了一个双向链表（以下简称链表），而 Element 则代表了链表中元素的结构。 1、可以把自己生成的Element类型值传给链表吗？">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-05T05:34:18.000Z">
+<meta property="og:updated_time" content="2020-07-17T09:07:42.773Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java-map遍历">
-<meta name="twitter:description" content="Map集合：即 接口Map&amp;lt;K,V&amp;gt;  map集合的两种取出方式：    1.Set keyset: 将map中所有的键存入到set集合（即将所有的key值存入到set中）， 因为Set具备迭代器，可以进行迭代遍历。 所有可以迭代方式取出所有的链，再根据get方法。获取每一个键对应的值。     Map 集合的取出原理： 将map集合转成set集合。 再通过迭代器取出 2. set&amp;l">
+<meta name="twitter:title" content="GO：2.2 container包中的容器">
+<meta name="twitter:description" content="Go 语言的链表实现在标准库的container/list代码包中。这个代码包中有两个公开的程序实体——List和Element，List 实现了一个双向链表（以下简称链表），而 Element 则代表了链表中元素的结构。 1、可以把自己生成的Element类型值传给链表吗？">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -64,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-map遍历" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-GO：2-2-container包中的容器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/07/map遍历/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.545Z" itemprop="datePublished">2020-06-07</time>
+    <a href="/2020/07/17/GO：2-2-container包中的容器/" class="article-date">
+  <time datetime="2020-07-17T09:01:43.000Z" itemprop="datePublished">2020-07-17</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java-map遍历
+      GO：2.2 container包中的容器
     </h1>
   
 
@@ -86,15 +86,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Map集合：即 接口Map&lt;K,V&gt; </p>
-<p>map集合的两种取出方式：<br>    1.Set<k> keyset: 将map中所有的键存入到set集合（即将所有的key值存入到set中）， 因为Set具备迭代器，可以进行迭代遍历。 所有可以迭代方式取出所有的链，再根据get方法。获取每一个键对应的值。</k></p>
-<pre><code>    Map 集合的取出原理： 将map集合转成set集合。 再通过迭代器取出
-2. set&lt;Map.Entry&lt;k,v&gt;&gt;  entrySet: 将map集合中的映射关系（即键值对的方式存入到set中）存入到set集合中,而这个关系的数据类型就是：map.entry
-</code></pre>
+        <p>Go 语言的链表实现在标准库的container/list代码包中。这个代码包中有两个公开的程序实体——List和Element，List 实现了一个双向链表（以下简称链表），而 Element 则代表了链表中元素的结构。</p>
+<h3 id="1、可以把自己生成的Element类型值传给链表吗？"><a href="#1、可以把自己生成的Element类型值传给链表吗？" class="headerlink" title="1、可以把自己生成的Element类型值传给链表吗？"></a>1、可以把自己生成的Element类型值传给链表吗？</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/map遍历/" data-id="ckcq03bw20015a4vit5jnc3f7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/17/GO：2-2-container包中的容器/" data-id="ckcq03bux0003a4vitocxyzpn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -103,19 +100,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/06/07/OS处理机管理/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          操作系统-处理机管理
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/06/07/Linux-小结/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/07/16/GO：2-1-数组和切片/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Linux小结</div>
+      <div class="article-nav-title">GO：2.1 数组和切片</div>
     </a>
   
 </nav>
