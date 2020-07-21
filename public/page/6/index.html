@@ -62,6 +62,45 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-堆排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/堆排序/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.014Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/堆排序/">堆排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、堆排序"><a href="#1、堆排序" class="headerlink" title="1、堆排序"></a>1、堆排序</h3><p>1堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(nlogn) 最差情况：T(n) = O(nlogn) 平均情况：T(n) = O(nlogn)</p>
+<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/heapsort1.gif?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/heapsort2.gif?raw=true" alt="Image text"></p>
+<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		heapSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//堆排序</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapSort</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> len=a.length;</span><br><span class="line">		<span class="keyword">if</span>(len&lt;<span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//构造一个最大堆</span></span><br><span class="line">		bulidMaxHeap(a);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//循环将最大值与最末位交换，再调整成最大堆</span></span><br><span class="line">		<span class="keyword">while</span>(len&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			swap(a,<span class="number">0</span>,len-<span class="number">1</span>);</span><br><span class="line">			len--;</span><br><span class="line">			adjustHeap(a,<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//建立初始大顶堆</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bulidMaxHeap</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//从最后一个非叶子节点开始</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=(a.length-<span class="number">1</span>)/<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">			adjustHeap(a,i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//调整堆</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">adjustHeap</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> max=i;<span class="comment">//记录最大值的下标</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//如果有左孩子，比较是否大于左孩子</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="number">2</span>*i&lt;a.length &amp;&amp; a[<span class="number">2</span>*i]&gt;a[max]) &#123;</span><br><span class="line">			max=<span class="number">2</span>*i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//如果有右孩子，比较大小</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="number">2</span>*i+<span class="number">1</span>&lt;a.length &amp;&amp; a[<span class="number">2</span>*i+<span class="number">1</span>]&gt;a[max]) &#123;</span><br><span class="line">			max=<span class="number">2</span>*i+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//如果父节点不是最大值，则与最大值交换，并递归调整被交换的最大值的位置</span></span><br><span class="line">		<span class="keyword">if</span>(max!=i) &#123;</span><br><span class="line">			swap(a,max,i);</span><br><span class="line">			adjustHeap(a,max);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> m,<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> temp=a[m];</span><br><span class="line">		a[m]=a[n];</span><br><span class="line">		a[n]=temp;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/堆排序/" data-id="ckcule6mg001mroviojxntdgw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-单链表" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/单链表/" class="article-date">
@@ -92,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/单链表/" data-id="ckcukir77001hh8vi4ucgnfmz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/单链表/" data-id="ckcule6me001krovic6xa4vfe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -131,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/双向循环链表/" data-id="ckcukir79001lh8viq94x0m5c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/双向循环链表/" data-id="ckcule6mf001lrovi4xhpslhm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -172,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/冒泡排序/" data-id="ckcukir76001gh8viywo968aj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/冒泡排序/" data-id="ckcule6md001irovifkfnuwwk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -210,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/二分查找/" data-id="ckcukir76001fh8vi25j49cjw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/二分查找/" data-id="ckcule6mc001hrovi9yq4ojxq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -284,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/SpringBoot/" data-id="ckcukir6o000ph8vi8hxwl40j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/SpringBoot/" data-id="ckcule6lt000rrovi8ocdbbbg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -324,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/SpringMVC/" data-id="ckcukir6p000rh8vi78484fro" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/SpringMVC/" data-id="ckcule6lu000srovi1dml8iwl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -474,7 +513,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/springboot-配置/" data-id="ckcukir78001ih8vivt718dv9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/springboot-配置/" data-id="ckcule6mc001groviqjsb8635" class="article-share-link">Share</a>
       
       
     </footer>
@@ -627,7 +666,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/SpringBoot-缓存/" data-id="ckcukir6o000qh8vink91bup0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/SpringBoot-缓存/" data-id="ckcule6ls000qrovirqvg3dtp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -742,92 +781,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/springboot-消息/" data-id="ckcukir75001eh8viclwq56ok" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Springboot-日志" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/Springboot-日志/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.873Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/Springboot-日志/">SpringBoot与日志</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、日志框架"><a href="#1、日志框架" class="headerlink" title="1、日志框架"></a>1、日志框架</h3><p>小张；开发一个大型系统；</p>
-<p>​    1、System.out.println(“”)；将关键数据打印在控制台；去掉？写在一个文件？</p>
-<p>​    2、框架来记录系统的一些运行时信息；日志框架 ； zhanglogging.jar；</p>
-<p>​    3、高大上的几个功能？异步模式？自动归档？xxxx？ zhanglogging-good.jar？</p>
-<p>​    4、将以前框架卸下来？换上新的框架，重新修改之前相关的API；zhanglogging-prefect.jar；</p>
-<p>​    5、JDBC—数据库驱动；</p>
-<p>​    写了一个统一的接口层；日志门面（日志的一个抽象层）；logging-abstract.jar；</p>
-<p>​    给项目中导入具体的日志实现就行了；我们之前的日志框架都是实现的抽象层；</p>
-<p>市面上的日志框架；</p>
-<p>JUL、JCL、Jboss-logging、logback、log4j、log4j2、slf4j….<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog1.png?raw=true" alt="Image text"><br>左边选一个门面（抽象层）、右边来选一个实现；</p>
-<p>日志门面： SLF4J；</p>
-<p>日志实现：Logback；</p>
-<p>SpringBoot：底层是Spring框架，Spring框架默认是用JCL；</p>
-<p>SpringBoot选用 SLF4j和logback；</p>
-<p>2、SLF4j使用</p>
-<p>1、如何在系统中使用SLF4j <a href="https://www.slf4j.org" target="_blank" rel="noopener">https://www.slf4j.org</a></p>
-<p>以后开发的时候，日志记录方法的调用，不应该来直接调用日志的实现类，而是调用日志抽象层里面的方法；</p>
-<p>给系统里面导入slf4j的jar和 logback的实现jar<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Logger logger = LoggerFactory.getLogger(HelloWorld<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    logger.info(<span class="string">"Hello World"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>图示；<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog2.png?raw=true" alt="Image text"></p>
-<p>注：每一个日志的实现框架都有自己的配置文件。使用slf4j以后，配置文件还是做成日志实现框架自己本身的配置文件；</p>
-<p>2、遗留问题</p>
-<p>a系统：（slf4j+logback）: 依赖Spring（commons-logging）、Hibernate（jboss-logging）、MyBatis、xxxx<br>这时：<br>需要统一日志记录，即使是别的框架和我一起统一使用slf4j进行输出<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog3.png?raw=true" alt="Image text"></p>
-<p>如何让系统中所有的日志都统一到slf4j；<br>1、将系统中其他日志框架先排除出去；<br>2、用中间包来替换原有的日志框架；<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog4.png?raw=true" alt="Image text"><br>3、我们导入slf4j其他的实现<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog5.png?raw=true" alt="Image text"></p>
-<h3 id="3、SpringBoot日志关系"><a href="#3、SpringBoot日志关系" class="headerlink" title="3、SpringBoot日志关系"></a>3、SpringBoot日志关系</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<p>SpringBoot使用它来做日志功能；<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-<p>底层依赖关系<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog6.png?raw=true" alt="Image text"></p>
-<p>总结：</p>
-<p>​    1）、SpringBoot底层也是使用slf4j+logback的方式进行日志记录</p>
-<p>​    2）、SpringBoot也把其他的日志都替换成了slf4j；</p>
-<p>​    3）、中间替换包<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"rawtypes"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">LogFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> String UNSUPPORTED_OPERATION_IN_JCL_OVER_SLF4J = <span class="string">"http://www.slf4j.org/codes.html#unsupported_operation_in_jcl_over_slf4j"</span>;<span class="comment">//替换包为jcl</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> LogFactory logFactory = <span class="keyword">new</span> SLF4JLogFactory();<span class="comment">//本质创建SLF4JLogFactory工厂</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog7.png?raw=true" alt="Image text"></p>
-<p>​    4）、如果我们要引入其他框架？一定要把这个框架的默认日志依赖移除掉，不然会发生冲突<br>​    Spring框架用的是commons-logging；<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-core&lt;/artifactId&gt;</span><br><span class="line">	&lt;exclusions&gt;</span><br><span class="line">		&lt;exclusion&gt;</span><br><span class="line">			&lt;groupId&gt;commons-logging&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;commons-logging&lt;/artifactId&gt;</span><br><span class="line">		&lt;/exclusion&gt;</span><br><span class="line">	&lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-<p>注：SpringBoot能自动适配所有的日志，而且底层使用slf4j+logback的方式记录日志，引入其他框架的时候，只需要把这个框架依赖的日志框架排除掉即可，不然会发生冲突。</p>
-<p>4、日志使用；</p>
-<p>1、默认配置<br>SpringBoot默认帮我们配置好了日志；<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//记录器</span></span><br><span class="line">Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//System.out.println();</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//日志的级别；</span></span><br><span class="line">	<span class="comment">//由低到高   trace&lt;debug&lt;info&lt;warn&lt;error</span></span><br><span class="line">	<span class="comment">//可以调整输出的日志级别；日志就只会在这个级别以以后的高级别生效</span></span><br><span class="line">	logger.trace(<span class="string">"这是trace日志..."</span>);</span><br><span class="line">	logger.debug(<span class="string">"这是debug日志..."</span>);</span><br><span class="line">	<span class="comment">//SpringBoot默认给我们使用的是info级别的，没有指定级别的就用SpringBoot默认规定的级别；root级别</span></span><br><span class="line">	logger.info(<span class="string">"这是info日志..."</span>);</span><br><span class="line">	logger.warn(<span class="string">"这是warn日志..."</span>);</span><br><span class="line">	logger.error(<span class="string">"这是error日志..."</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  日志输出格式：</span><br><span class="line">%d表示日期时间，</span><br><span class="line">%thread表示线程名，</span><br><span class="line">%-<span class="number">5l</span>evel：级别从左显示<span class="number">5</span>个字符宽度</span><br><span class="line">%logger&#123;<span class="number">50</span>&#125; 表示logger名字最长<span class="number">50</span>个字符，否则按照句点分割。 </span><br><span class="line">%msg：日志消息，</span><br><span class="line">%n是换行符</span><br><span class="line">  --&gt;</span><br><span class="line">  %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %-<span class="number">5l</span>evel %logger&#123;<span class="number">50</span>&#125; - %msg%n</span><br></pre></td></tr></table></figure>
-</code></pre><p>SpringBoot修改日志的默认配置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">logging.level.com.autoconfig=trace</span><br><span class="line"></span><br><span class="line">#logging.path=</span><br><span class="line"># 不指定路径在当前项目下生成springboot.log日志</span><br><span class="line"># 可以指定完整的路径；</span><br><span class="line">#logging.file=G:/springboot.log</span><br><span class="line"></span><br><span class="line"># 在当前磁盘的根路径下创建spring文件夹和里面的log文件夹；使用 spring.log 作为默认文件</span><br><span class="line">logging.path=/spring/log</span><br><span class="line"></span><br><span class="line">#  在控制台输出的日志的格式</span><br><span class="line">logging.pattern.console=%d&#123;yyyy-MM-dd&#125; [%thread] %-<span class="number">5l</span>evel %logger&#123;<span class="number">50</span>&#125; - %msg%n</span><br><span class="line"># 指定文件中日志输出的格式</span><br><span class="line">logging.pattern.file=%d&#123;yyyy-MM-dd&#125; === [%thread] === %-<span class="number">5l</span>evel === %logger&#123;<span class="number">50</span>&#125; ==== %msg%n</span><br></pre></td></tr></table></figure></p>
-<p> <img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog8.png?raw=true" alt="Image text"></p>
-<p>2、指定配置<br>给类路径下放上每个日志框架自己的配置文件即可；SpringBoot就不使用他默认配置的了<br> <img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootlog9.png?raw=true" alt="Image text"></p>
-<p>logback.xml：直接就被日志框架识别了；</p>
-<p>logback-spring.xml：日志框架就先不加载日志的配置项，由SpringBoot解析日志配置，可以使用SpringBoot的高级Profile功能<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;springProfile name=<span class="string">"staging"</span>&gt;</span><br><span class="line">    &lt;!-- configuration to be enabled when the <span class="string">"staging"</span> profile is active --&gt;</span><br><span class="line">  	可以指定某段配置只在某个环境下生效</span><br><span class="line">&lt;/springProfile&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;appender name=<span class="string">"stdout"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;</span><br><span class="line">        &lt;!--</span><br><span class="line">        日志输出格式：</span><br><span class="line">			%d表示日期时间，</span><br><span class="line">			%thread表示线程名，</span><br><span class="line">			%-<span class="number">5l</span>evel：级别从左显示<span class="number">5</span>个字符宽度</span><br><span class="line">			%logger&#123;<span class="number">50</span>&#125; 表示logger名字最长<span class="number">50</span>个字符，否则按照句点分割。 </span><br><span class="line">			%msg：日志消息，</span><br><span class="line">			%n是换行符</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;layout <span class="class"><span class="keyword">class</span></span>=<span class="string">"ch.qos.logback.classic.PatternLayout"</span>&gt;</span><br><span class="line">            &lt;springProfile name=<span class="string">"dev"</span>&gt;</span><br><span class="line">                &lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; ----&gt; [%thread] ---&gt; %-5level %logger&#123;50&#125; - %msg%n&lt;/pattern&gt;</span><br><span class="line">            &lt;/springProfile&gt;</span><br><span class="line">            &lt;springProfile name=<span class="string">"!dev"</span>&gt;</span><br><span class="line">                &lt;pattern&gt;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; ==== [%thread] ==== %-5level %logger&#123;50&#125; - %msg%n&lt;/pattern&gt;</span><br><span class="line">            &lt;/springProfile&gt;</span><br><span class="line">        &lt;/layout&gt;</span><br><span class="line">    &lt;/appender&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如果使用logback.xml作为日志配置文件，还要使用profile功能，会有以下错误</p>
-<p>no applicable action for [springProfile]</p>
-<p>推荐使用spring-logbac.xml 是由Spring Boot识别，可以使用新功能</p>
-<p>5、切换日志框架</p>
-<p>可以按照slf4j的日志适配图，进行相关的切换；</p>
-<p>slf4j+log4j的方式；<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">  &lt;exclusions&gt;</span><br><span class="line">    &lt;exclusion&gt;</span><br><span class="line">      &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;</span><br><span class="line">      &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;</span><br><span class="line">    &lt;/exclusion&gt;</span><br><span class="line">    &lt;exclusion&gt;</span><br><span class="line">      &lt;artifactId&gt;log4j-over-slf4j&lt;/artifactId&gt;</span><br><span class="line">      &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">    &lt;/exclusion&gt;</span><br><span class="line">  &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-<p>切换为log4j2<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">            &lt;exclusions&gt;</span><br><span class="line">                &lt;exclusion&gt;</span><br><span class="line">                    &lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;</span><br><span class="line">                    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">                &lt;/exclusion&gt;</span><br><span class="line">            &lt;/exclusions&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-log4j2&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/Springboot-日志/" data-id="ckcukir6q000sh8vi8yja5es9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/springboot-消息/" data-id="ckcule6mb001frovio0tpowsi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -873,6 +827,10 @@
       <ul>
         
           <li>
+            <a href="/2020/07/20/GO：2-4-通道channel/">GO：2.4 通道channel</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/20/GO：2-3-字典的操作和约束/">GO：2.3 字典的操作和约束</a>
           </li>
         
@@ -886,10 +844,6 @@
         
           <li>
             <a href="/2020/07/13/GO：1-4-程序实体/">GO：1.4 程序实体</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/12/GO：1-3-库源码文件/">GO：1.3 库源码文件</a>
           </li>
         
       </ul>

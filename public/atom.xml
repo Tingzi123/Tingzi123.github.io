@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-20T13:51:07.260Z</updated>
+  <updated>2020-07-20T14:15:50.367Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GO：2.4 通道channel</title>
+    <link href="http://yoursite.com/2020/07/20/GO%EF%BC%9A2-4-%E9%80%9A%E9%81%93channel/"/>
+    <id>http://yoursite.com/2020/07/20/GO%EF%BC%9A2-4-%E9%80%9A%E9%81%93channel/</id>
+    <published>2020-07-20T13:54:35.000Z</published>
+    <updated>2020-07-20T14:15:50.367Z</updated>
+    
+    <content type="html"><![CDATA[<p>作为 Go 语言最有特色的数据类型，通道（channel）完全可以与 goroutine（也可称为 go 程）并驾齐驱，共同代表 Go 语言独有的并发编程模式和编程哲学。</p><hr><p>Don’t communicate by sharing memory; share memory by communicating. （不要通过共享内存来通信，而应该通过通信来共享内存。）</p><hr><p>这句话充分体现了 Go 语言最重要的编程理念。通道类型是后半句话的完美实现，我们可以利用通道在多个 goroutine 之间传递数据。</p><h3 id="1、通道的基础知识"><a href="#1、通道的基础知识" class="headerlink" title="1、通道的基础知识"></a>1、通道的基础知识</h3><p><strong>通道类型的值本身就是并发安全的</strong>，这也是 Go 语言自带的、唯一一个可以满足并发安全性的类型。它使用起来十分简单，并不会徒增我们的心智负担。</p><p>在声明并初始化一个通道的时候，我们需要用到 Go 语言的内建函数make。就像用make初始化切片那样，我们传给这个函数的第一个参数代表通道的具体类型的类型字面量。</p><p>在声明一个通道类型变量的时候，我们首先要确定该通道类型的元素类型，这决定了我们可以通过这个通道传递什么类型的数据。</p><p>比如，类型字面量chan int，其中的chan是表示通道类型的关键字，而int则说明了该通道类型的元素类型。又比如，chan string代表了一个元素类型为string的通道类型。</p><p>在初始化通道的时候，make函数除了必须接收这样的类型字面量作为参数，还可以接收一个int类型的参数。</p><p>后者是可选的，用于表示该通道的容量。所谓通道的容量，就是指通道最多可以缓存多少个元素值。由此，虽然这个参数是int类型的，但是它是不能小于0的。</p><p>当<strong>容量为0</strong>时，我们可以称<strong>通道为非缓冲通道</strong>，也就是不带缓冲的通道。而当<strong>容量大于0</strong>时，我们可以称为<strong>缓冲通道</strong>，也就是带有缓冲的通道。非缓冲通道和缓冲通道有着不同的数据传递方式。</p><p><strong>一个通道相当于一个先进先出（FIFO）的队列</strong>。也就是说，<strong>通道中的各个元素值都是严格地按照发送的顺序排列的，先被发送通道的元素值一定会先被接收</strong>。元素值的发送和接收都需要用到操作符&lt;-。我们也可以叫它接送操作符。一个左尖括号紧接着一个减号形象地代表了元素值的传输方向。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  ch1 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">3</span>)</span><br><span class="line">  ch1 &lt;- <span class="number">2</span></span><br><span class="line">  ch1 &lt;- <span class="number">1</span></span><br><span class="line">  ch1 &lt;- <span class="number">3</span></span><br><span class="line">  elem1 := &lt;-ch1</span><br><span class="line">  fmt.Printf(<span class="string">"The first element received from channel ch1: %v\n"</span>,</span><br><span class="line">    elem1)<span class="comment">//2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>声明并初始化了一个元素类型为int、容量为3的通道ch1，并用三条语句，向该通道先后发送了三个元素值2、1和3。</p><p>由于该通道的容量为 3，所以，我可以在通道不包含任何元素值的时候，连续地向该通道发送三个值，此时这三个值都会被缓存在通道之中。</p><h3 id="2、对通道的发送和接收操作都有哪些基本的特性？"><a href="#2、对通道的发送和接收操作都有哪些基本的特性？" class="headerlink" title="2、对通道的发送和接收操作都有哪些基本的特性？"></a>2、对通道的发送和接收操作都有哪些基本的特性？</h3><p>它们的基本特性如下：</p><ul><li><p>对于同一个通道，发送操作之间是互斥的，接收操作之间也是互斥的。</p></li><li><p>发送操作和接收操作中对元素值的处理都是不可分割的。</p></li><li><p>发送操作在完全完成之前会被阻塞。接收操作也是如此。</p></li></ul><h4 id="1、第一个基本特性"><a href="#1、第一个基本特性" class="headerlink" title="1、第一个基本特性"></a>1、第一个基本特性</h4><p> 在同一时刻，Go 语言的运行时系统（以下简称运行时系统）只会执行对同一个通道的任意个发送操作中的某一个。</p><p> 直到这个元素值被完全复制进该通道之后，其他针对该通道的发送操作才可能被执行。</p><p> 类似的，在同一时刻，运行时系统也只会执行，对同一个通道的任意个接收操作中的某一个。</p><p> 直到这个元素值完全被移出该通道之后，其他针对该通道的接收操作才可能被执行。即使这些操作是并发执行的也是如此。</p><p> 这里所谓的并发执行，你可以这样认为，多个代码块分别在不同的 goroutine 之中，并有机会在同一个时间段内被执行。</p><p> 另外，<strong>对于通道中的同一个元素值来说，发送操作和接收操作之间也是互斥的</strong>。例如，虽然会出现，正在被复制进通道但还未复制完成的元素值，但是这时它绝不会被想接收它的一方看到和取走。</p><p> 这里要注意的一个细节是，<strong>元素值从外界进入通道时会被复制。更具体地说，进入通道的并不是在接收操作符右边的那个元素值，而是它的副本。</strong></p><p> 另一方面，元素值从通道进入外界时会被移动。这个移动操作实际上包含了两步，<strong>第一步是生成正在通道中的这个元素值的副本，并准备给到接收方</strong>，<strong>第二步是删除在通道中的这个元素值。</strong></p><h4 id="2、第二个基本特性"><a href="#2、第二个基本特性" class="headerlink" title="2、第二个基本特性"></a>2、第二个基本特性</h4><p> 这里的“不可分割”的意思是，它们<strong>处理元素值时都是一气呵成</strong>的，绝不会被打断。</p><p> 例如，发送操作要么还没复制元素值，要么已经复制完毕，绝不会出现只复制了一部分的情况。</p><p> 又例如，接收操作在准备好元素值的副本之后，一定会删除掉通道中的原值，绝不会出现通道中仍有残留的情况。</p><p> 这既是为了保证通道中元素值的完整性，也是为了保证通道操作的唯一性。对于通道中的同一个元素值来说，它只可能是某一个发送操作放入的，同时也只可能被某一个接收操作取出。</p><h4 id="2、第三个基本特性"><a href="#2、第三个基本特性" class="headerlink" title="2、第三个基本特性"></a>2、第三个基本特性</h4><p> 一般情况下，<strong>发送操作</strong>包括了“<strong>复制元素值</strong>”和“<strong>放置副本到通道内部</strong>”这两个步骤。</p><p> 在这两个步骤完全完成之前，发起这个发送操作的那句代码会一直阻塞在那里。也就是说，在它之后的代码不会有执行的机会，直到这句代码的阻塞解除。</p><p> 更细致地说，在通道完成发送操作之后，运行时系统会通知这句代码所在的 goroutine，以使它去争取继续运行代码的机会。</p><p> 另外，<strong>接收操作</strong>通常包含了“<strong>复制通道内的元素值</strong>”“<strong>放置副本到接收方</strong>”“<strong>删掉原值</strong>”三个步骤。</p><p> 在所有这些步骤完全完成之前，发起该操作的代码也会一直阻塞，直到该代码所在的 goroutine 收到了运行时系统的通知并重新获得运行机会为止。</p><p> <strong>如此阻塞代码其实就是为了实现操作的互斥和元素值的完整。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;作为 Go 语言最有特色的数据类型，通道（channel）完全可以与 goroutine（也可称为 go 程）并驾齐驱，共同代表 Go 语言独有的并发编程模式和编程哲学。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Don’t communicate by sharing memory; sh
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>GO：2.3 字典的操作和约束</title>
@@ -431,28 +455,6 @@
       
       
         &lt;p&gt;参考：&lt;a href=&quot;https://www.cnblogs.com/lixiaolun/p/4644141.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/lixiaolun/p/4644141.
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>选择排序</title>
-    <link href="http://yoursite.com/2020/06/07/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/"/>
-    <id>http://yoursite.com/2020/06/07/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</id>
-    <published>2020-06-07T07:38:07.389Z</published>
-    <updated>2019-03-17T06:37:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、选择排序"><a href="#1、选择排序" class="headerlink" title="1、选择排序"></a>1、选择排序</h3><p>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n2)的时间复杂度，所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了吧。理论上讲，选择排序可能也是平时排序一般人想到的最多的排序方法了吧。<br>选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p><hr><h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(n)   最差情况：T(n) = O(n^2)   平均情况：T(n) = O(n^2)</p><hr><h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/selectsort.gif?raw=true" alt="Image text"></p><h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectionSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"><span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">selectionSort(a);</span><br><span class="line">printArr(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectionSort</span><span class="params">(<span class="keyword">int</span> [] arr)</span> </span>&#123;</span><br><span class="line"><span class="comment">//选择小的，从小排到大</span></span><br><span class="line"><span class="keyword">int</span> min;<span class="comment">//min记录最小值的下标</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length-<span class="number">1</span>;i++) &#123;<span class="comment">//比arr.length-1趟</span></span><br><span class="line">min=i;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;arr.length;j++) &#123;</span><br><span class="line"><span class="keyword">if</span>(arr[j]&lt;arr[min]) &#123;</span><br><span class="line">min=j;<span class="comment">//记录下标</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//把最小的排到数组前</span></span><br><span class="line"><span class="keyword">int</span> temp=arr[i];</span><br><span class="line">arr[i]=arr[min];</span><br><span class="line">arr[min]=temp;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;1、选择排序&quot;&gt;&lt;a href=&quot;#1、选择排序&quot; class=&quot;headerlink&quot; title=&quot;1、选择排序&quot;&gt;&lt;/a&gt;1、选择排序&lt;/h3&gt;&lt;p&gt;表现最稳定的排序算法之一，因为无论什么数据进去都是O(n2)的时间复杂度，所以用到它的时候，数据规模越小越好
       
     
     </summary>
