@@ -62,6 +62,45 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-链队列" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/链队列/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.420Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/链队列/">链队列</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4646312.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4646312.html</a></p>
+<p>1、链队列的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node front;</span><br><span class="line">	Node rear;</span><br><span class="line">	Node head;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		front=<span class="keyword">new</span> Node();</span><br><span class="line">		rear=<span class="keyword">new</span> Node();</span><br><span class="line">		</span><br><span class="line">		front=head;</span><br><span class="line">		rear=head;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//入队</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enQueue</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//第一次入队</span></span><br><span class="line">		<span class="keyword">if</span>(rear==head) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			front.next=node;</span><br><span class="line">			rear=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			rear.next=node;</span><br><span class="line">			rear=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(rear==head) &#123;</span><br><span class="line">			<span class="comment">//队列为空</span></span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//队中只有一个元素</span></span><br><span class="line">			<span class="keyword">if</span>(front.next==rear) &#123;</span><br><span class="line">				rear=front;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				front.next=front.next.next;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		<span class="keyword">while</span>(temp!=rear) &#123;</span><br><span class="line">			System.out.println(temp.next.data);</span><br><span class="line">			temp=temp.next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		Object data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		LinkQueue qu=<span class="keyword">new</span> LinkQueue();</span><br><span class="line">		qu.init();</span><br><span class="line">		qu.enQueue(<span class="string">"ddd"</span>);</span><br><span class="line">		qu.enQueue(<span class="number">8</span>);</span><br><span class="line">		qu.enQueue(<span class="string">"ct"</span>);</span><br><span class="line">		qu.enQueue(<span class="number">99</span>);</span><br><span class="line">		<span class="comment">//qu.deQueue();</span></span><br><span class="line">		qu.printQueue();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/链队列/" data-id="ckcxigkst002khwviwl661iff" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-链栈" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/链栈/" class="article-date">
@@ -91,7 +130,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/链栈/" data-id="ckcw0o38f002iigvirmbpuey4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/链栈/" data-id="ckcxigksv002lhwvi4geh2mp5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -133,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/选择排序/" data-id="ckcw0o38g002jigvi6rqomvkj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/选择排序/" data-id="ckcxigksp002ghwvi5q7bm4wd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-适配器模式/" data-id="ckcw0o38f002higvijcnlr1a3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-适配器模式/" data-id="ckcxigkss002jhwvivr8dqi59" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,68 +291,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-观察者模式/" data-id="ckcw0o38d002figvidtjmkcn2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-设计模式-装饰器模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/设计模式-装饰器模式/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.342Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/设计模式-装饰器模式/">设计模式-装饰器模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><pre><code>装饰器模式（Decorator Pattern）
-允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。
-这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。
-</code></pre><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h3><p>动态地给一个对象添加一些额外的职责。就增加功能来说，装饰器模式相比生成子类更为灵活</p>
-<h3 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h3><p>一般的，我们为了扩展一个类经常使用继承方式实现，由于继承为类引入静态特征，并且随着扩展功能的增多，子类会很膨胀。</p>
-<h3 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h3><p>1、Component 类充当抽象角色，不应该具体实现。<br>2、修饰类引用和继承 Component 类，具体扩展类重写父类方法。</p>
-<h3 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h3><p> 1、孙悟空有 72 变，当他变成”庙宇”后，他的根本还是一只猴子，但是他又有了庙宇的功能<br> 2、不论一幅画有没有画框都可以挂在墙上，但是通常都是有画框的，并且实际上是画框被挂在墙上。在挂在墙上之前，画可以被蒙上玻璃，装到框子里；这时画、玻璃和画框形成了一个物体。</p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。</p>
-<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>多层装饰比较复杂。</p>
-<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><p>1、扩展一个类的功能。<br>2、动态增加功能，动态撤销。</p>
-<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>可代替继承。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>1）创建一个 Shape 接口</p>
-<p>2)创建实现了Shape 接口的实现类Rectangle和Circle。</p>
-<p>3）创建一个实现了 Shape 接口的抽象装饰类 ShapeDecorator，并把 Shape 对象作为它的实例变量。</p>
-<p>4）RedShapeDecorator 是实现了 ShapeDecorator 的实体类。</p>
-<p>5）DecoratorPatternDemo，演示类，使用 RedShapeDecorator 来装饰 Shape 对象。</p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/decorator.png?raw=true" alt="Image text"></p>
-<p>1、创建接口Shape<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、创建接口的实现类Rectangle和Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Rectangle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Circle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、创建实现了 Shape 接口的抽象装饰类ShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeDecorator</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> Shape decoratedShape;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ShapeDecorator</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.decoratedShape = decoratedShape;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">      decoratedShape.draw();</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>4、创建扩展了 ShapeDecorator 类的实体装饰类RedShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedShapeDecorator</span> <span class="keyword">extends</span> <span class="title">ShapeDecorator</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">RedShapeDecorator</span><span class="params">(Shape decoratedShape)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">super</span>(decoratedShape);     </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      decoratedShape.draw();         </span><br><span class="line">      setRedBorder(decoratedShape);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setRedBorder</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Border Color: Red"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>5、在测试类DecoratorPatternDemo中使用 RedShapeDecorator 来装饰 Shape 对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecoratorPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      Shape circle = <span class="keyword">new</span> Circle();</span><br><span class="line"> </span><br><span class="line">      Shape redCircle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Circle());</span><br><span class="line"> </span><br><span class="line">      Shape redRectangle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Rectangle());</span><br><span class="line">      System.out.println(<span class="string">"Circle with normal border"</span>);</span><br><span class="line">      circle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nCircle of red border"</span>);</span><br><span class="line">      redCircle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nRectangle of red border"</span>);</span><br><span class="line">      redRectangle.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>6、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Circle with normal border</span><br><span class="line">Shape: Circle</span><br><span class="line"></span><br><span class="line">Circle of red border</span><br><span class="line">Shape: Circle</span><br><span class="line">Border Color: Red</span><br><span class="line"></span><br><span class="line">Rectangle of red border</span><br><span class="line">Shape: Rectangle</span><br><span class="line">Border Color: Red</span><br></pre></td></tr></table></figure></p>
-<p>参考：<a href="https://www.zybuluo.com/mdeditor#1212370" target="_blank" rel="noopener">https://www.zybuluo.com/mdeditor#1212370</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-装饰器模式/" data-id="ckcw0o38c002eigvicj4hz8pw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-观察者模式/" data-id="ckcxigksp002fhwvi9il3t6u7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -375,7 +353,68 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-策略模式/" data-id="ckcw0o38e002gigviw7uy3y3l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-策略模式/" data-id="ckcxigksq002hhwvi25kkpmqx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式-装饰器模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-装饰器模式/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.342Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-装饰器模式/">设计模式-装饰器模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><pre><code>装饰器模式（Decorator Pattern）
+允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。
+这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。
+</code></pre><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h3><p>动态地给一个对象添加一些额外的职责。就增加功能来说，装饰器模式相比生成子类更为灵活</p>
+<h3 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h3><p>一般的，我们为了扩展一个类经常使用继承方式实现，由于继承为类引入静态特征，并且随着扩展功能的增多，子类会很膨胀。</p>
+<h3 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h3><p>1、Component 类充当抽象角色，不应该具体实现。<br>2、修饰类引用和继承 Component 类，具体扩展类重写父类方法。</p>
+<h3 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h3><p> 1、孙悟空有 72 变，当他变成”庙宇”后，他的根本还是一只猴子，但是他又有了庙宇的功能<br> 2、不论一幅画有没有画框都可以挂在墙上，但是通常都是有画框的，并且实际上是画框被挂在墙上。在挂在墙上之前，画可以被蒙上玻璃，装到框子里；这时画、玻璃和画框形成了一个物体。</p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。</p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>多层装饰比较复杂。</p>
+<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><p>1、扩展一个类的功能。<br>2、动态增加功能，动态撤销。</p>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>可代替继承。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>1）创建一个 Shape 接口</p>
+<p>2)创建实现了Shape 接口的实现类Rectangle和Circle。</p>
+<p>3）创建一个实现了 Shape 接口的抽象装饰类 ShapeDecorator，并把 Shape 对象作为它的实例变量。</p>
+<p>4）RedShapeDecorator 是实现了 ShapeDecorator 的实体类。</p>
+<p>5）DecoratorPatternDemo，演示类，使用 RedShapeDecorator 来装饰 Shape 对象。</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/decorator.png?raw=true" alt="Image text"></p>
+<p>1、创建接口Shape<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建接口的实现类Rectangle和Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Rectangle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Circle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、创建实现了 Shape 接口的抽象装饰类ShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeDecorator</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> Shape decoratedShape;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ShapeDecorator</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.decoratedShape = decoratedShape;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">      decoratedShape.draw();</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、创建扩展了 ShapeDecorator 类的实体装饰类RedShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedShapeDecorator</span> <span class="keyword">extends</span> <span class="title">ShapeDecorator</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">RedShapeDecorator</span><span class="params">(Shape decoratedShape)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">super</span>(decoratedShape);     </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      decoratedShape.draw();         </span><br><span class="line">      setRedBorder(decoratedShape);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setRedBorder</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Border Color: Red"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5、在测试类DecoratorPatternDemo中使用 RedShapeDecorator 来装饰 Shape 对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecoratorPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      Shape circle = <span class="keyword">new</span> Circle();</span><br><span class="line"> </span><br><span class="line">      Shape redCircle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Circle());</span><br><span class="line"> </span><br><span class="line">      Shape redRectangle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Rectangle());</span><br><span class="line">      System.out.println(<span class="string">"Circle with normal border"</span>);</span><br><span class="line">      circle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nCircle of red border"</span>);</span><br><span class="line">      redCircle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nRectangle of red border"</span>);</span><br><span class="line">      redRectangle.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Circle with normal border</span><br><span class="line">Shape: Circle</span><br><span class="line"></span><br><span class="line">Circle of red border</span><br><span class="line">Shape: Circle</span><br><span class="line">Border Color: Red</span><br><span class="line"></span><br><span class="line">Rectangle of red border</span><br><span class="line">Shape: Rectangle</span><br><span class="line">Border Color: Red</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="https://www.zybuluo.com/mdeditor#1212370" target="_blank" rel="noopener">https://www.zybuluo.com/mdeditor#1212370</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-装饰器模式/" data-id="ckcxigksr002ihwvit7f4xkpu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -428,7 +467,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-模板模式/" data-id="ckcw0o38c002digvin0e5trnv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-模板模式/" data-id="ckcxigksn002dhwvi463l5wbn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -485,7 +524,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-抽象工厂模式/" data-id="ckcw0o38b002cigvihrzc9ubz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-抽象工厂模式/" data-id="ckcxigksm002bhwvix3lh7rgs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -539,56 +578,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-工厂模式/" data-id="ckcw0o38a002aigviukbefort" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-设计模式-备忘录模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/设计模式-备忘录模式/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.280Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/设计模式-备忘录模式/">设计模式-备忘录模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、备忘录模式：在不破坏封装的前提下，存储关键对象的重要状态，从而可以在将来吧对象还原到存储的哪个状态</p>
-<p>关键代码：客户不与备忘录类耦合，与备忘录管理类耦合。</p>
-<p>应用实例： 1、后悔药。<br>          2、打游戏时的存档。<br>          3、Windows 里的 ctri + z。 4、IE 中的后退。<br>          4、数据库的事务管理。</p>
-<p>优点：<br>1）状态存储在外面，不和关键对象混在一起，可以帮助维护内聚<br>2）提供了容易实现的恢复能力<br>3）保持了关键对象的数据封装</p>
-<p>缺点<br>1）存储和恢复状态的过程比较耗时</p>
-<p>2、实现<br>备忘录模式使用三个类 Memento、Originator 和 CareTaker。<br>Memento 包含了要被恢复的对象的状态。<br>Originator 创建并在 Memento 对象中存储状态。<br>Caretaker 对象负责从 Memento 中恢复对象的状态。<br>MementoPatternDemo，演示类，使用 CareTaker 和 Originator 对象来显示对象的状态恢复。</p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/memento.png?raw=true" alt="Image text"></p>
-<p>1)创建 Memento类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Memento</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Memento</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2)创建 Originator 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Originator</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String state;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.state = state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Memento <span class="title">saveStateToMemento</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Memento(state);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getStateFromMemento</span><span class="params">(Memento Memento)</span></span>&#123;</span><br><span class="line">      state = Memento.getState();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3)创建 CareTaker 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CareTaker</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> List&lt;Memento&gt; mementoList = <span class="keyword">new</span> ArrayList&lt;Memento&gt;();</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Memento state)</span></span>&#123;</span><br><span class="line">      mementoList.add(state);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Memento <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> mementoList.get(index);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>4)创建 Originator和CareTaker对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MementoPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Originator originator = <span class="keyword">new</span> Originator();</span><br><span class="line">      CareTaker careTaker = <span class="keyword">new</span> CareTaker();</span><br><span class="line">      originator.setState(<span class="string">"State #1"</span>);</span><br><span class="line">      originator.setState(<span class="string">"State #2"</span>);</span><br><span class="line">      careTaker.add(originator.saveStateToMemento());</span><br><span class="line">      originator.setState(<span class="string">"State #3"</span>);</span><br><span class="line">      careTaker.add(originator.saveStateToMemento());</span><br><span class="line">      originator.setState(<span class="string">"State #4"</span>);</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"Current State: "</span> + originator.getState());    </span><br><span class="line">      originator.getStateFromMemento(careTaker.get(<span class="number">0</span>));</span><br><span class="line">      System.out.println(<span class="string">"First saved State: "</span> + originator.getState());</span><br><span class="line">      originator.getStateFromMemento(careTaker.get(<span class="number">1</span>));</span><br><span class="line">      System.out.println(<span class="string">"Second saved State: "</span> + originator.getState());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Current State: State #4</span><br><span class="line">First saved State: State #2</span><br><span class="line">Second saved State: State #3</span><br></pre></td></tr></table></figure></p>
-<p>参考：<a href="http://www.runoob.com/design-pattern/memento-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/memento-pattern.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-备忘录模式/" data-id="ckcw0o3890029igvil1la06g3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-工厂模式/" data-id="ckcxigkso002ehwvi9esizory" class="article-share-link">Share</a>
       
       
     </footer>
@@ -634,6 +624,10 @@
       <ul>
         
           <li>
+            <a href="/2020/07/21/GO：2-6-结构体/">GO：2.6 结构体及其方法</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/21/GO：2-5-使用函数的正确姿势/">GO：2.5 使用函数的正确姿势</a>
           </li>
         
@@ -647,10 +641,6 @@
         
           <li>
             <a href="/2020/07/17/GO：2-2-container包中的容器/">GO：2.2 container包中的容器</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/16/GO：2-1-数组和切片/">GO：2.1 数组和切片</a>
           </li>
         
       </ul>
