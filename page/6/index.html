@@ -91,7 +91,46 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/循环链表/" data-id="ckdnaapta001u94viegd6wgqd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/循环链表/" data-id="ckdppwovk001tmovii3l8zs8t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/快速排序/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.061Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/快速排序/">快速排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、快速排序"><a href="#1、快速排序" class="headerlink" title="1、快速排序"></a>1、快速排序</h3><p>快速排序的基本思想：通过一趟排序将待排记录分隔成独立的两部分，其中一部分记录的关键字均比另一部分的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序。</p>
+<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(nlogn)   最差情况：T(n) = O(n2)   平均情况：T(n) = O(nlogn)　</p>
+<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/quicksort.gif?raw=true" alt="Image text"></p>
+<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuickSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>&#125;;</span><br><span class="line">		quickSort(a,<span class="number">0</span>,a.length-<span class="number">1</span>);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> [] a,<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(left&gt;right) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> key=a[left];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> low=left;</span><br><span class="line">		<span class="keyword">int</span> high=right;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(low!=high) &#123;</span><br><span class="line">			<span class="comment">//从右往左找</span></span><br><span class="line">			<span class="keyword">while</span>(a[high]&gt;key &amp;&amp; low&lt;high) &#123;</span><br><span class="line">				high=high-<span class="number">1</span>;</span><br><span class="line">			&#125;	</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//从左往右找</span></span><br><span class="line">			<span class="keyword">while</span>(a[low]&lt;key &amp;&amp; low&lt;high) &#123;</span><br><span class="line">				low=low+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//如果low和high没有相遇，则交换</span></span><br><span class="line">			<span class="keyword">if</span>(low&lt;high) &#123;</span><br><span class="line">				<span class="keyword">int</span> temp=a[low];</span><br><span class="line">				a[low]=a[high];</span><br><span class="line">				a[high]=temp;</span><br><span class="line">			&#125;	</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//key值归位</span></span><br><span class="line">		a[left]=a[low];</span><br><span class="line">		a[low]=key;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//递归调用子数组</span></span><br><span class="line">		quickSort(a,left,low-<span class="number">1</span>);</span><br><span class="line">		quickSort(a,low+<span class="number">1</span>,right);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.println(a[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckdppwovl001vmovit9no1ydc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -131,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/归并排序/" data-id="ckdnaapt0001q94vigjfefysm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/归并排序/" data-id="ckdppwovj001rmoviax5savfc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/希尔排序/" data-id="ckdnaapt8001t94via973qsps" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/希尔排序/" data-id="ckdppwovi001qmoviobzu29ya" class="article-share-link">Share</a>
       
       
     </footer>
@@ -210,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/堆排序/" data-id="ckdnaapst001m94viy3ts4je4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/堆排序/" data-id="ckdppwovd001pmovicd3wdzd6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -249,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/双向循环链表/" data-id="ckdnaapsw001o94vijgoy5ap7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/双向循环链表/" data-id="ckdppwovb001mmovi2uizxcc2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/单链表/" data-id="ckdnaapsy001p94vi3uk4tseg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/单链表/" data-id="ckdppwovc001omovijzwm9ajd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -330,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/冒泡排序/" data-id="ckdnaapsp001k94vi4fhyz6c5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/冒泡排序/" data-id="ckdppwovc001nmovi1jqq8gd2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -368,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/二分查找/" data-id="ckdnaapsn001j94viqbsf71ru" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/二分查找/" data-id="ckdppwov8001hmovi6mw0oep5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -442,47 +481,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/SpringBoot/" data-id="ckdnaapqx000u94vi7vxmj1v9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SpringMVC" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/SpringMVC/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.952Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/SpringMVC/">SpringMVC</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、springMVC<br>spring结构：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springmvc1.png?raw=true" alt="Image text"></p>
-<p>SpringMVC是Spring的一个模块，是基于MVC的web框架<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springmvc2.png?raw=true" alt="Image text"><br>1）用户端向前端控制器（DispatcherServlet)发起request请求<br>2）前端控制器向处理器映射器（HandlerMapping）发出请求查找处理器（Handler）（可根据XML和注解进行查找）<br>3）处理器映射器返回一个执行链给前端控制器<br>4）前端控制器请求处理器适配器（HandlerAdapter）执行handler<br>5）处理器适配器执行handler处理器<br>6）handler处理器返回ModelAndView给处理器适配器（ModelAndView是springmvc框架的一个底层对象）<br>7）处理器适配器将ModelAndView返回给前端控制器<br>8）前端控制器请求视图解析器（ViewResolver）进行视图解析（根据逻辑视图名解析成真正的视图）<br>9）视图解析器将view返回给前端控制器<br>10）前端控制器请求视图（view）进行视图渲染（视图渲染将模型数据（在ModelAndView对象中）填充到request域）<br>11）前端控制器向用户响应结果</p>
-<p>重要组件：<br>1）前端控制器（DispatcherServlet)：接受请求，响应结果，相当于转发器,通过前端控制器来交互，减少其他组件之间的耦合度<br>2）处理器映射器（HandlerMapping）：根据请求的url查找handler<br>3）处理器适配器（HandlerAdapter）：按照特定的规则去执行handler<br>4）处理器（handler）<br>注意：编写handler时按照handlerAdapter的要求去做才能正确执行handler<br>5）视图解析器（ViewResolver）：根据逻辑视图名解析成真正的视图（view）<br>6）视图（View）：是一个接口，通过实现类来支持不同的view类型（jsp、pdf……)</p>
-<p>例子：</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/SpringMVC/" data-id="ckdnaapr0000v94vir95n822p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/SpringBoot/" data-id="ckdppwous000tmovic5wte0hv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -515,7 +514,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -526,6 +525,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/08/10/GO：2-8-关于指针的有限操作/">GO：2-8 关于指针的有限操作</a>
+          </li>
         
           <li>
             <a href="/2020/07/22/GO：2-7-接口类型的合理运用/">GO：2.7 接口类型的合理运用</a>
@@ -541,10 +544,6 @@
         
           <li>
             <a href="/2020/07/20/GO：2-4-通道channel/">GO：2.4 通道channel</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/20/GO：2-3-字典的操作和约束/">GO：2.3 字典的操作和约束</a>
           </li>
         
       </ul>
