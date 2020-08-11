@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>GO：2.7 接口类型的合理运用 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、正确使用接口的基础知识1、在 Go 语言的语境中，当我们在谈论“接口”的时候，一定指的是接口类型。因为接口类型与其他数据类型不同，它是没法被实例化的。 2、更具体地说，我们既不能通过调用new函数或make函数创建出一个接口类型的值，也无法用字面量来表示一个接口类型的值。 3、对于某一个接口类型来说，如果没有任何数据类型可以作为它的实现，那么该接口的值就不可能存在。 4、通过关键字type和i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GO：2.7 接口类型的合理运用">
+<meta property="og:url" content="http://yoursite.com/2020/07/22/GO：2-7-接口类型的合理运用/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、正确使用接口的基础知识1、在 Go 语言的语境中，当我们在谈论“接口”的时候，一定指的是接口类型。因为接口类型与其他数据类型不同，它是没法被实例化的。 2、更具体地说，我们既不能通过调用new函数或make函数创建出一个接口类型的值，也无法用字面量来表示一个接口类型的值。 3、对于某一个接口类型来说，如果没有任何数据类型可以作为它的实现，那么该接口的值就不可能存在。 4、通过关键字type和i">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-09T16:09:25.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GO：2.7 接口类型的合理运用">
+<meta name="twitter:description" content="1、正确使用接口的基础知识1、在 Go 语言的语境中，当我们在谈论“接口”的时候，一定指的是接口类型。因为接口类型与其他数据类型不同，它是没法被实例化的。 2、更具体地说，我们既不能通过调用new函数或make函数创建出一个接口类型的值，也无法用字面量来表示一个接口类型的值。 3、对于某一个接口类型来说，如果没有任何数据类型可以作为它的实现，那么该接口的值就不可能存在。 4、通过关键字type和i">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-GO：2-7-接口类型的合理运用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/22/GO：2-7-接口类型的合理运用/" class="article-date">
+  <time datetime="2020-07-22T15:19:18.000Z" itemprop="datePublished">2020-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GO：2.7 接口类型的合理运用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、正确使用接口的基础知识"><a href="#1、正确使用接口的基础知识" class="headerlink" title="1、正确使用接口的基础知识"></a>1、正确使用接口的基础知识</h3><p>1、在 Go 语言的语境中，当我们在谈论“接口”的时候，一定指的是接口类型。因为接口类型与其他数据类型不同，它是<strong>没法被实例化的</strong>。</p>
+<p>2、更具体地说，我们<strong>既不能通过调用new函数或make函数创建出一个接口类型的值，也无法用字面量来表示一个接口类型的值</strong>。</p>
+<p>3、对于某一个接口类型来说，如果没有任何数据类型可以作为它的实现，那么该接口的值就不可能存在。</p>
+<p>4、通过关键字type和interface，我们可以声明出接口类型</p>
+<p>5、接口类型的类型字面量与结构体类型的看起来有些相似，它们都用花括号包裹一些核心信息。只不过，结构体类型包裹的是它的字段声明，而<strong>接口类型包裹的是它的方法定义</strong>。</p>
+<p>6、注意：接口类型声明中的这些方法所代表的就是该接口的方法集合。一个接口的方法集合就是它的全部特征。</p>
+<p>7、对于任何数据类型，只要它的方法集合中完全包含了一个接口的全部特征（即全部的方法），那么它就一定是这个接口的实现类型。比如下面这样：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;<span class="comment">//声明了一个接口类型Pet</span></span><br><span class="line">  SetName(name <span class="keyword">string</span>)</span><br><span class="line">  Name() <span class="keyword">string</span></span><br><span class="line">  Category() <span class="keyword">string</span></span><br><span class="line">  <span class="comment">//包含了 3 个方法定义，方法名称分别为SetName、Name和Category，这 3 个方法共同组成了接口类型Pet的方法集合。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只要一个数据类型的方法集合中有这 3 个方法，那么它就一定是Pet接口的实现类型。这是一种<strong>无侵入式</strong>的接口实现方式。这种方式还有一个专有名词，叫“<strong>Duck typing</strong>”，中文常译作“<strong>鸭子类型</strong>”。</p>
+<h4 id="1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？"><a href="#1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？" class="headerlink" title="1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？"></a>1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？</h4><p>这有两个充分必要条件：<br>1、两个方法的签名需要完全一致<br>2、两个方法的名称要一模一样<br>例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	SetName(name <span class="keyword">string</span>)</span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span> <span class="comment">// 名字。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	dog.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 示例1。</span></span><br><span class="line">	dog := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	_, ok := <span class="keyword">interface</span>&#123;&#125;(dog).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Pet: %v\n"</span>, ok)<span class="comment">//false</span></span><br><span class="line">	</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(&amp;dog).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"*Dog implements interface Pet: %v\n"</span>, ok)<span class="comment">//true</span></span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例2。</span></span><br><span class="line">	<span class="keyword">var</span> pet Pet = &amp;dog</span><br><span class="line">	fmt.Printf(<span class="string">"This pet is a %s, the name is %q.\n"</span>,</span><br><span class="line">		pet.Category(), pet.Name())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Dog implements <span class="keyword">interface</span> Pet: <span class="literal">false</span></span><br><span class="line">*Dog implements <span class="keyword">interface</span> Pet: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">This pet is a dog, the name is <span class="string">"little pig"</span>.</span><br></pre></td></tr></table></figure></p>
+<p>1、声明的类型Dog附带了 3 个方法。其中有 2 个值方法，分别是Name和Category，另外还有一个指针方法SetName。</p>
+<p>这就意味着，Dog类型本身的方法集合中只包含了 2 个方法，也就是所有的值方法。而它的指针类型*Dog方法集合却包含了 3 个方法，</p>
+<p>也就是说，它拥有Dog类型附带的所有值方法和指针方法。又由于这 3 个方法恰恰分别是Pet接口中某个方法的实现，所以*Dog类型就成为了Pet接口的实现类型（Dog类型不是）。</p>
+<p>2、正因为如此，我可以声明并初始化一个Dog类型的变量dog，然后把它的指针值赋给类型为Pet的变量pet（var pet Pet = &amp;dog）。</p>
+<p>3、对于一个接口类型的变量来说，例如上面的变量pet，我们赋给它的值可以被叫做它的实际值（也称<strong>动态值</strong>），而该值的类型可以被叫做这个变量的实际类型（也称<strong>动态类型</strong>）。</p>
+<p>比如，我们把取址表达式&amp;dog的结果值赋给了变量pet，这时这个结果值就是变量pet的动态值，而此结果值的类型*Dog就是该变量的动态类型。</p>
+<p>4、<strong>动态类型</strong>这个叫法是相对于<strong>静态类型</strong>而言的。<strong>对于变量pet来讲，它的静态类型就是Pet，并且永远是Pet，但是它的动态类型却会随着我们赋给它的动态值而变化</strong>。</p>
+<p>比如，只有我把一个<em>Dog类型的值赋给变量pet之后，该变量的动态类型才会是</em>Dog。如果还有一个Pet接口的实现类型<em>Fish，并且我又把一个此类型的值赋给了pet，那么它的动态类型就会变为</em>Fish。</p>
+<p>还有，<strong>在我们给一个接口类型的变量赋予实际的值之前，它的动态类型是不存在的</strong>。</p>
+<h3 id="2、当我们为一个接口变量赋值时会发生什么？"><a href="#2、当我们为一个接口变量赋值时会发生什么？" class="headerlink" title="2、当我们为一个接口变量赋值时会发生什么？"></a>2、当我们为一个接口变量赋值时会发生什么？</h3><p>例子：把Pet接口的声明简化一下<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span> <span class="comment">// 名字。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	dog.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 示例1。</span></span><br><span class="line">	dog := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	<span class="keyword">var</span> pet Pet = dog</span><br><span class="line">	dog.SetName(<span class="string">"monster"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	fmt.Printf(<span class="string">"This pet is a %s, the name is %q.\n"</span>,</span><br><span class="line">		pet.Category(), pet.Name())</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例2。</span></span><br><span class="line">	dog1 := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The name of first dog is %q.\n"</span>, dog1.Name())</span><br><span class="line">	dog2 := dog1</span><br><span class="line">	fmt.Printf(<span class="string">"The name of second dog is %q.\n"</span>, dog2.Name())</span><br><span class="line">	dog1.name = <span class="string">"monster"</span></span><br><span class="line">	fmt.Printf(<span class="string">"The name of first dog is %q.\n"</span>, dog1.Name())</span><br><span class="line">	fmt.Printf(<span class="string">"The name of second dog is %q.\n"</span>, dog2.Name())</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例3。</span></span><br><span class="line">	dog = Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	pet = &amp;dog</span><br><span class="line">	dog.SetName(<span class="string">"monster"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	fmt.Printf(<span class="string">"This pet is a %s, the name is %q.\n"</span>,</span><br><span class="line">		pet.Category(), pet.Name())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">The dog<span class="string">'s name is "little pig".</span></span><br><span class="line"><span class="string">The dog'</span>s name is <span class="string">"monster"</span>.</span><br><span class="line">This pet is a dog, the name is <span class="string">"little pig"</span>.</span><br><span class="line"></span><br><span class="line">The name of first dog is <span class="string">"little pig"</span>.</span><br><span class="line">The name of second dog is <span class="string">"little pig"</span>.</span><br><span class="line">The name of first dog is <span class="string">"monster"</span>.</span><br><span class="line">The name of second dog is <span class="string">"little pig"</span>.</span><br><span class="line"></span><br><span class="line">The dog<span class="string">'s name is "little pig".</span></span><br><span class="line"><span class="string">The dog'</span>s name is <span class="string">"monster"</span>.</span><br><span class="line">This pet is a dog, the name is <span class="string">"monster"</span>.</span><br></pre></td></tr></table></figure></p>
+<p>从中去掉了Pet接口的那个名为SetName的方法（*Dog方法）。这样一来，Dog类型也就变成Pet接口的实现类型了</p>
+<p>2、从接口类型值的存储方式和结构说起。前面说过，<strong>接口类型本身是无法被值化的</strong>。在我们赋予它实际的值之前，它的值一定会是nil，这也是它的零值。</p>
+<p>反过来讲，一旦它被赋予了某个实现类型的值，它的值就不再是nil了。不过要注意，即使我们像前面那样把dog的值赋给了pet，pet的值与dog的值也是不同的。<strong>这不仅仅是副本与原值的那种不同</strong>。</p>
+<p>3、当我们给一个<strong>接口变量</strong>赋值的时候，该变量的<strong>动态类型会与它的动态值一起被存储在一个专用的数据结构中</strong>。</p>
+<p>严格来讲，这样一个变量的值其实是这个专用数据结构的一个实例，而不是我们赋给该变量的那个实际的值。所以我才说，pet的值与dog的值肯定是不同的，无论是从它们存储的内容，还是存储的结构上来看都是如此。不过，我们可以认为，这时pet的值中包含了dog值的副本。</p>
+<p>把这个专用的数据结构叫做<strong>iface</strong>吧，在 Go 语言的runtime包中它其实就叫这个名字。</p>
+<p>4、<strong>iface的实例会包含两个指针，一个是指向类型信息的指针，另一个是指向动态值的指针</strong>。这里的类型信息是由另一个专用数据结构的实例承载的，其中包含了动态值的类型，以及使它实现了接口的方法和调用它们的途径，等等。</p>
+<p>总之，接口变量被赋予动态值的时候，存储的是包含了这个动态值的副本的一个结构更加复杂的值。</p>
+<h3 id="3、接口变量的值在什么情况下才真正为nil？"><a href="#3、接口变量的值在什么情况下才真正为nil？" class="headerlink" title="3、接口变量的值在什么情况下才真正为nil？"></a>3、接口变量的值在什么情况下才真正为nil？</h3><p>例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"reflect"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span> <span class="comment">// 名字。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	dog.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 示例1。</span></span><br><span class="line">	<span class="keyword">var</span> dog1 *Dog</span><br><span class="line">	fmt.Println(<span class="string">"The first dog is nil."</span>)</span><br><span class="line">	dog2 := dog1</span><br><span class="line">	fmt.Println(<span class="string">"The second dog is nil."</span>)</span><br><span class="line">	<span class="keyword">var</span> pet Pet = dog2</span><br><span class="line">	<span class="keyword">if</span> pet == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is nil."</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is not nil."</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The type of pet is %T.\n"</span>, pet)</span><br><span class="line">	fmt.Printf(<span class="string">"The type of pet is %s.\n"</span>, reflect.TypeOf(pet).String())</span><br><span class="line">	fmt.Printf(<span class="string">"The type of second dog is %T.\n"</span>, dog2)</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例2。</span></span><br><span class="line">	wrap := <span class="function"><span class="keyword">func</span><span class="params">(dog *Dog)</span> <span class="title">Pet</span></span> &#123;</span><br><span class="line">		<span class="keyword">if</span> dog == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dog</span><br><span class="line">	&#125;</span><br><span class="line">	pet = wrap(dog2)</span><br><span class="line">	<span class="keyword">if</span> pet == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is nil."</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is not nil."</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">The first dog is <span class="literal">nil</span>.</span><br><span class="line">The second dog is <span class="literal">nil</span>.</span><br><span class="line">The pet is not <span class="literal">nil</span>.</span><br><span class="line">The <span class="keyword">type</span> of pet is *main.Dog.</span><br><span class="line">The <span class="keyword">type</span> of pet is *main.Dog.</span><br><span class="line">The <span class="keyword">type</span> of second dog is *main.Dog.</span><br><span class="line"></span><br><span class="line">The pet is <span class="literal">nil</span>.</span><br></pre></td></tr></table></figure></p>
+<p>在示例1中，当我把dog2赋给Pet类型的变量pet之后，变量pet的值会是什么？</p>
+<p>1、当我们把dog2的值赋给变量pet的时候，dog2的值会先被复制，不过由于在这里它的值是nil，所以就没必要复制了。<br>2、然后，Go 语言会用我上面提到的那个专用数据结构iface的实例包装这个dog2的值的副本，这里是nil。<br>3、虽然被包装的动态值是nil，但是pet的值却不会是nil，因为这个动态值只是pet值的一部分而已。<br>4、顺便说一句，这时的pet的动态类型就存在了，是*Dog。我们可以通过fmt.Printf函数和占位符%T来验证这一点，另外reflect包的TypeOf函数也可以起到类似的作用。<br>5、换个角度来看。我们把nil赋给了pet，但是pet的值却不是nil。</p>
+<p>这很奇怪对吗？其实不然。在 Go 语言中，我们把<strong>由字面量nil表示的值叫做无类型的nil</strong>。这是<strong>真正的nil</strong>，因为<strong>它的类型也是nil的</strong>。虽然dog2的值是真正的nil，但是当我们把这个变量赋给pet的时候，Go 语言会把它的类型和值放在一起考虑。</p>
+<p>也就是说，这时 Go 语言会识别出赋予pet的值是一个*Dog类型的nil。然后，Go 语言就会用一个iface的实例包装它，包装后的产物肯定就不是nil了。</p>
+<p>只要我们把一个<strong>有类型的nil</strong>赋给接口变量，那么这个变量的值就<strong>一定不会是那个真正的nil</strong>。因此，当我们使用判等符号==判断pet是否与字面量nil相等的时候，答案一定会是false。</p>
+<p>那么，怎样才能<strong>让一个接口变量的值真正为nil</strong>呢？<br>要么<strong>只声明它但不做初始化</strong>，要么<strong>直接把字面量nil赋给它</strong>。</p>
+<h3 id="4、怎样实现接口之间的组合？"><a href="#4、怎样实现接口之间的组合？" class="headerlink" title="4、怎样实现接口之间的组合？"></a>4、怎样实现接口之间的组合？</h3><p>接口类型间的嵌入也被称为<strong>接口的组合</strong>。我在前面讲过结构体类型的嵌入字段，这其实就是在说结构体类型间的嵌入。</p>
+<p>接口类型间的嵌入要更简单一些，因为它不会涉及方法间的“屏蔽”。<strong>只要组合的接口之间有同名的方法就会产生冲突</strong>，从而无法通过编译，即使同名方法的签名彼此不同也会是如此。因此，接口的组合根本不可能导致“屏蔽”现象的出现。</p>
+<p>与结构体类型间的嵌入很相似，我们只要把一个接口类型的名称直接写到另一个接口类型的成员列表中就可以了。比如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Animal <span class="keyword">interface</span> &#123;</span><br><span class="line">  ScientificName() <span class="keyword">string</span></span><br><span class="line">  Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">  Animal</span><br><span class="line">  Name() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接口类型Pet包含了两个成员，一个是代表了另一个接口类型的Animal，一个是方法Name的定义。它们都被包含在Pet的类型声明的花括号中，并且都各自独占一行。此时，Animal接口包含的所有方法也就成为了Pet接口的方法。</p>
+<p>Go 语言团队鼓励我们声明体量较小的接口，并建议我们通过这种接口间的组合来扩展程序、增加程序的灵活性。</p>
+<p>这是因为相比于包含很多方法的大接口而言，小接口可以更加专注地表达某一种能力或某一类特征，同时也更容易被组合在一起。</p>
+<p>Go 语言标准库代码包io中的ReadWriteCloser接口和ReadWriter接口就是这样的例子，它们都是由若干个小接口组合而成的。以io.ReadWriteCloser接口为例，它是由io.Reader、io.Writer和io.Closer这三个接口组成的。</p>
+<p>这三个接口都只包含了一个方法，是典型的小接口。它们中的每一个都只代表了一种能力，分别是读出、写入和关闭。我们编写这几个小接口的实现类型通常都会很容易。并且，一旦我们同时实现了它们，就等于实现了它们的组合接口io.ReadWriteCloser。</p>
+<p>即使我们只实现了io.Reader和io.Writer，那么也等同于实现了io.ReadWriter接口，因为后者就是前两个接口组成的。可以看到，这几个io包中的接口共同组成了一个接口矩阵。它们既相互关联又独立存在。</p>
+<p>一个能够体现接口组合优势的小例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Animal <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// ScientificName 用于获取动物的学名。</span></span><br><span class="line">	ScientificName() <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// Category 用于获取动物的基本分类。</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Named <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// Name 用于获取名字。</span></span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	Animal</span><br><span class="line">	Named</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PetTag <span class="keyword">struct</span> &#123;</span><br><span class="line">	name  <span class="keyword">string</span></span><br><span class="line">	owner <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pt PetTag)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> pt.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pt PetTag)</span> <span class="title">Owner</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> pt.owner</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	PetTag</span><br><span class="line">	scientificName <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">ScientificName</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.scientificName</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	petTag := PetTag&#123;name: <span class="string">"little pig"</span>&#125;</span><br><span class="line">	_, ok := <span class="keyword">interface</span>&#123;&#125;(petTag).(Named)</span><br><span class="line">	fmt.Printf(<span class="string">"PetTag implements interface Named: %v\n"</span>, ok)</span><br><span class="line">	dog := Dog&#123;</span><br><span class="line">		PetTag:         petTag,</span><br><span class="line">		scientificName: <span class="string">"Labrador Retriever"</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(dog).(Animal)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Animal: %v\n"</span>, ok)</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(dog).(Named)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Named: %v\n"</span>, ok)</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(dog).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Pet: %v\n"</span>, ok)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PetTag implements <span class="keyword">interface</span> Named: <span class="literal">true</span></span><br><span class="line">Dog implements <span class="keyword">interface</span> Animal: <span class="literal">true</span></span><br><span class="line">Dog implements <span class="keyword">interface</span> Named: <span class="literal">true</span></span><br><span class="line">Dog implements <span class="keyword">interface</span> Pet: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>总之，善用接口组合和小接口可以让你的程序框架更加稳定和灵活。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/22/GO：2-7-接口类型的合理运用/" data-id="ckdnaappf000894vi5m8apc33" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/07/21/GO：2-6-结构体/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">GO：2.6 结构体及其方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/22/GO：2-7-接口类型的合理运用/">GO：2.7 接口类型的合理运用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/GO：2-6-结构体/">GO：2.6 结构体及其方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/GO：2-5-使用函数的正确姿势/">GO：2.5 使用函数的正确姿势</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/20/GO：2-4-通道channel/">GO：2.4 通道channel</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/20/GO：2-3-字典的操作和约束/">GO：2.3 字典的操作和约束</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
