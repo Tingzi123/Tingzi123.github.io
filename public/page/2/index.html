@@ -62,6 +62,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-GO：1-2-命令源码文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/10/GO：1-2-命令源码文件/" class="article-date">
+  <time datetime="2020-07-10T11:25:13.000Z" itemprop="datePublished">2020-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/10/GO：1-2-命令源码文件/">GO：1.2 命令源码文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们已经知道，环境变量 GOPATH 指向的是一个或多个工作区，每个工作区中都会有以代码包为基本组织形式的源码文件。</p>
+<p>这里的源码文件又分为三种，即：<strong>命令源码文件、库源码文件和测试源码文件</strong>，它们都有着不同的用途和编写规则。<br><img src="/2020/07/10/GO：1-2-命令源码文件/command1.png" alt="command1.png"></p>
+<h3 id="1、命令源码文件的用途是什么，怎样编写它？"><a href="#1、命令源码文件的用途是什么，怎样编写它？" class="headerlink" title="1、命令源码文件的用途是什么，怎样编写它？"></a>1、命令源码文件的用途是什么，怎样编写它？</h3><p>1、命令源码文件是程序的运行入口，是每个可独立运行的程序必须拥有的。我们可以通过构建或安装，生成与其对应的可执行文件，后者一般会与该命令源码文件的直接父目录同名。</p>
+<p>2、如果一个源码文件声明属于main包，并且包含一个无参数声明且无结果声明的main函数，那么它就是命令源码文件。 就像下面这段代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  fmt.Println(<span class="string">"Hello, world!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果你把这段代码存成 demo1.go 文件，那么运行go run demo1.go命令后就会在屏幕（标准输出）中看到Hello, world!</p>
+<p>注：<br>1、当需要模块化编程时，我们往往会将代码拆分到多个文件，甚至拆分到不同的代码包中。但无论怎样，对于一个独立的程序来说，<strong>命令源码文件永远只会也只能有一个</strong>。如果有与命令源码文件同包的源码文件，那么它们也应该声明属于main包。</p>
+<p>2、通过构建或安装命令源码文件，<strong>生成的可执行文件就可以被视为“命令”</strong>，既然是命令，那么就应该具备接收参数的能力。</p>
+<h3 id="2、命令源码文件怎样接收参数"><a href="#2、命令源码文件怎样接收参数" class="headerlink" title="2、命令源码文件怎样接收参数"></a>2、命令源码文件怎样接收参数</h3><p>先看下面代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"flag"</span><span class="comment">//1步</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">  flag.StringVar(&amp;name, <span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>)<span class="comment">//2步</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1、函数flag.StringVar接受 4 个参数。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">2、第 1 个参数是用于存储该命令参数值的地址，具体到这里就是在前面声明的变量name的地址了，由表达式&amp;name表示。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">3、第 2 个参数是为了指定该命令参数的名称，这里是name。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">4、第 3 个参数是为了指定在未追加该命令参数时的默认值，这里是everyone。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">5、第 4 个函数参数，即是该命令参数的简短说明了，这在打印命令说明时会用到。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  flag.Parse()<span class="comment">//函数flag.Parse用于真正解析命令参数，并把它们的值赋给相应的变量。</span></span><br><span class="line">  <span class="comment">//3步</span></span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %s!\n"</span>, name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">对该函数的调用必须在所有命令参数存储载体的声明（这里是对变量name的声明）和设置（这里是在[2]处对flag.StringVar函数的调用）之后，并且在读取任何命令参数值之前进行。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">正因为如此，我们最好把flag.Parse()放在main函数的函数体的第一行。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>注：还有一个与flag.StringVar函数类似的函数，叫flag.String。这两个函数的区别是，后者会直接返回一个已经分配好的用于存储命令参数值的地址。如果使用它的话，我们就需要把“var name string”改为<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = flag.String(<span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、怎样在运行命令源码文件的时候传入参数，又怎样查看参数的使用说明"><a href="#3、怎样在运行命令源码文件的时候传入参数，又怎样查看参数的使用说明" class="headerlink" title="3、怎样在运行命令源码文件的时候传入参数，又怎样查看参数的使用说明"></a>3、怎样在运行命令源码文件的时候传入参数，又怎样查看参数的使用说明</h3><p>我们把上述代码存成名为 demo2.go 的文件，那么运行如下命令就可以为参数name传值：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> run demo2.<span class="keyword">go</span> -name=<span class="string">"Robert"</span></span><br></pre></td></tr></table></figure></p>
+<p>运行后，打印到标准输出（stdout）的内容会是：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, Robert!</span><br></pre></td></tr></table></figure></p>
+<p>另外，如果想查看该命令源码文件的参数说明，可以这样做：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">go</span> run demo2.<span class="keyword">go</span> --help</span><br></pre></td></tr></table></figure></p>
+<p>其中的$表示我们是在命令提示符后运行go run命令的。运行后输出的内容会类似：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Usage of /<span class="keyword">var</span>/folders/ts/<span class="number">7</span>lg_tl_x2gd_k1lm5g_48c7w0000gn/T/<span class="keyword">go</span>-build155438482/b001/exe/demo2:</span><br><span class="line"> -name <span class="keyword">string</span></span><br><span class="line">    The greeting object. (<span class="keyword">default</span> <span class="string">"everyone"</span>)</span><br><span class="line">exit status <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>以下是go run命令构建上述命令源码文件时临时生成的可执行文件的完整路径<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">var</span>/folders/ts/<span class="number">7</span>lg_tl_x2gd_k1lm5g_48c7w0000gn/T/<span class="keyword">go</span>-build155438482/b001/exe/demo2</span><br></pre></td></tr></table></figure></p>
+<p>如果我们先构建这个命令源码文件再运行生成的可执行文件，像这样：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">go</span> build demo2.<span class="keyword">go</span></span><br><span class="line">$ ./demo2 --help</span><br></pre></td></tr></table></figure></p>
+<p>那么输出就会是<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage of ./demo2:</span><br><span class="line"> -name <span class="keyword">string</span></span><br><span class="line">    The greeting object. (<span class="keyword">default</span> <span class="string">"everyone"</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、怎样自定义命令源码文件的参数使用说明"><a href="#4、怎样自定义命令源码文件的参数使用说明" class="headerlink" title="4、怎样自定义命令源码文件的参数使用说明"></a>4、怎样自定义命令源码文件的参数使用说明</h3><p>1、最简单的一种方式就是对变量flag.Usage重新赋值。</p>
+<p>flag.Usage的类型是func()，即一种无参数声明且无结果声明的函数类型。flag.Usage变量在声明时就已经被赋值了，所以我们才能够在运行命令go run demo2.go –help时看到正确的结果。注意，对flag.Usage的赋值必须在调用flag.Parse函数之前。现在，我们把 demo2.go 另存为 demo3.go，然后在main函数体的开始处加入如下代码。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"flag"</span><span class="comment">//1步</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">  flag.StringVar(&amp;name, <span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>)<span class="comment">//2步</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    flag.Usage = <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">     fmt.Fprintf(os.Stderr, <span class="string">"Usage of %s:\n"</span>, <span class="string">"question"</span>)</span><br><span class="line">     flag.PrintDefaults()</span><br><span class="line">    &#125;</span><br><span class="line">  flag.Parse()<span class="comment">//函数flag.Parse用于真正解析命令参数，并把它们的值赋给相应的变量。</span></span><br><span class="line">  <span class="comment">//3步</span></span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %s!\n"</span>, name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">go</span> run demo3.<span class="keyword">go</span> --help</span><br></pre></td></tr></table></figure></p>
+<p>后，就会看到<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Usage of question:</span><br><span class="line"> -name <span class="keyword">string</span></span><br><span class="line">    The greeting object. (<span class="keyword">default</span> <span class="string">"everyone"</span>)</span><br><span class="line">exit status <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>2、现在再深入一层，我们在调用flag包中的一些函数（比如StringVar、Parse等等）的时候，实际上是在调用flag.CommandLine变量的对应方法。</p>
+<p><strong>flag.CommandLine相当于默认情况下的命令参数容器</strong>。所以，通过对flag.CommandLine重新赋值，我们可以更深层次地定制当前命令源码文件的参数使用说明。</p>
+<p>现在我们把main函数体中的那条对flag.Usage变量的赋值语句注销掉，然后在init函数体的开始处添加如下代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"flag"</span><span class="comment">//1步</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">  flag.CommandLine = flag.NewFlagSet(<span class="string">""</span>, flag.ExitOnError)</span><br><span class="line">  flag.CommandLine.Usage = <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">  fmt.Fprintf(os.Stderr, <span class="string">"Usage of %s:\n"</span>, <span class="string">"question"</span>)</span><br><span class="line">  flag.PrintDefaults()</span><br><span class="line">&#125;</span><br><span class="line">  flag.StringVar(&amp;name, <span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>)<span class="comment">//2步</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  flag.Parse()<span class="comment">//函数flag.Parse用于真正解析命令参数，并把它们的值赋给相应的变量。</span></span><br><span class="line">  <span class="comment">//3步</span></span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %s!\n"</span>, name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再运行命令go run demo3.go –help后，其输出会与上一次的输出的一致。不过后面这种定制的方法更加灵活。比如，当我们把为flag.CommandLine赋值的那条语句改为<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag.CommandLine = flag.NewFlagSet(<span class="string">""</span>, flag.PanicOnError)</span><br></pre></td></tr></table></figure></p>
+<p>后，再运行go run demo3.go –help命令就会产生另一种输出效果。这是由于我们在这里传给flag.NewFlagSet函数的第二个参数值是flag.PanicOnError。</p>
+<ul>
+<li>1、flag.PanicOnError和flag.ExitOnError都是预定义在flag包中的常量。</li>
+<li>2、flag.ExitOnError的含义是，告诉命令参数容器，当命令后跟–help或者参数设置的不正确的时候，在打印命令参数使用说明后以状态码2结束当前程序。</li>
+<li>状态码2代表用户错误地使用了命令，而flag.PanicOnError与之的区别是在最后抛出“运行时恐慌（panic）”。</li>
+<li>上述两种情况都会在我们调用flag.Parse函数时被触发。</li>
+</ul>
+<p>3、下面再进一步，我们索性不用全局的flag.CommandLine变量，转而自己创建一个私有的命令参数容器。我们在函数外再添加一个变量声明：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cmdLine = flag.NewFlagSet(<span class="string">"question"</span>, flag.ExitOnError)</span><br></pre></td></tr></table></figure></p>
+<p>然后，我们把对flag.StringVar的调用替换为对cmdLine.StringVar调用，再把flag.Parse()替换为cmdLine.Parse(os.Args[1:])。</p>
+<p>其中的os.Args[1:]指的就是我们给定的那些命令参数。这样做就完全脱离了flag.CommandLine。</p>
+<p>这样做的好处依然是更灵活地定制命令参数容器。但更重要的是，你的定制完全不会影响到那个全局变量flag.CommandLine。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/10/GO：1-2-命令源码文件/" data-id="ckdppwotq0000movi5mrbf90r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-GO：工作区和GOPATH" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/10/GO：工作区和GOPATH/" class="article-date">
@@ -145,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/" data-id="ckdnaappo000b94viyz50klxb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/" data-id="ckdppwoub000amovi860o4idc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/02/hexo博客迁移/" data-id="ckdnaaprn001594vinj3bmpku" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/02/hexo博客迁移/" data-id="ckdppwov20019movibfpfz8u4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -261,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/15/测试驱动开发TDD/" data-id="ckdnaaptp002194viy6wd0vc7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/15/测试驱动开发TDD/" data-id="ckdppwovq0023movir0njh2fe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -459,7 +530,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-goroutine、channel、反射/" data-id="ckdnaapr7000x94vip6jqxuom" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-goroutine、channel、反射/" data-id="ckdppwouv000ymovi7t8lcetv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -539,7 +610,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-文件操作、json/" data-id="ckdnaapre001094vioidi2w6t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-文件操作、json/" data-id="ckdppwouw0010movi33tk3ddd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -716,7 +787,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-结构体、方法、工厂模式、OOP三大特性、类型断言、接口/" data-id="ckdnaaprh001294vialudbskx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-结构体、方法、工厂模式、OOP三大特性、类型断言、接口/" data-id="ckdppwov10018movi2c36t777" class="article-share-link">Share</a>
       
       
     </footer>
@@ -824,7 +895,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-错误处理机制、数组、切片、map/" data-id="ckdnaaprg001194vi11y5dwg8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-错误处理机制、数组、切片、map/" data-id="ckdppwoux0011movi9tevf9ak" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1010,7 +1081,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-函数/" data-id="ckdnaaprc000z94vicznzgqoh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-函数/" data-id="ckdppwouw000zmovinutwql1k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1121,50 +1192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-基本数据类型、运算符/" data-id="ckdnaapr9000y94viqbbrwtp4" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Merkle树" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/11/Merkle树/" class="article-date">
-  <time datetime="2020-06-11T03:22:09.000Z" itemprop="datePublished">2020-06-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/11/Merkle树/">Merkle树</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、在分布式系统、<strong>P2P应用</strong>中或者是<strong>区块链</strong>中，会经常使用一种数据结构<strong>Merkle tree（默克尔树）</strong>，这里我们将详细讨论一下这个常用数据结构。Merkle treeMerkle树看起来非常像二叉树，其叶子节点上的值通常为数据块的哈希值，而非叶子节点上的值，所以有时候Merkle tree也表示为<strong>Hash tree</strong>，如下图所示：<br><img src="/2020/06/11/Merkle树/merkle1.png" alt="merkle1"></p>
-<p>2、在构造Merkle树时，首先要对数据块计算哈希值，通常，选用SHA-256等哈希算法。但如果仅仅防止数据不是蓄意的损坏或篡改，可以改用一些安全性低但效率高的校验和算法，如CRC。</p>
-<p>3、然后将数据块计算的哈希值两两配对（如果是奇数个数，最后一个自己与自己配对），计算上一层哈希，再重复这个步骤，一直到计算出根哈希值。Merkle树大多用来进行完整性验证，比如分布式环境下，从多台主机获取数据，怎么验证获取的数据是否正确呢，只要验证Merkle树根哈希一致，即可。例如，下图中L3数据块发生错误（比如数据被修改了），错误会传导到计算hash(L3)，接着传导到计算hash(Hash1-0+Hash1-1)，最后传导到根哈希，导致根哈希的不一致，可以说，任何底层数据块的变化，最终都会传导到根哈希。另外如果根哈希不一致，也可以通过Merkle树快速定位到导致不一致的数据。</p>
-<p>4、Merkle树还可以用来对数据进行快速比对，快速定位到不一致的数据。比如分布式存储中，一份数据会有多个副本，并且分布在不同的机器上。为了保持数据一致性，需要进行副本同步，而首要的就是比对当前副本是否一致，如一致，则无需同步，如不一致，还需找出不一致的地方，然后进行同步。很明显，如果采用直接传输数据进行比对，非常低效，一般采用对数据进行哈希，传输哈希值进行对比的方法。为此，可以对每台机器需要比对的数据构造Merkle树，如果根哈希一致，则数据相同，如果根哈希不一致，则通过Merkle树快速检索到不一致的数据。下面举例说明快速检索的过程，如上图蓝色标注所示。假设两台机器中L3数据块不一致，我们对比根哈希，发现根哈希不一致，即，数据不一致，此时需要找出是那一块不一致，分别对比Hash0和Hash1，发现是Hash1不一致，接着向下发现是Hash1-0不一致，这样就定位到是L3数据块不一致。定位过程的算法复杂度为O(log(n))。</p>
-<p>还有一种数据结构，在一定程度上可以看做是Merkle树的子树，但又不完全一样，这个数据结构是Hash list（为了避免中文哈希列表与哈希表的误解，这里使用英文名称），我们下面看一下这个Hash list。<br>在点对点网络中数据传输的时候，为了提高效率往往会同时从多个机器下载数据的不同部分，即，不是从一台机器下载整个数据，而是将完整数据分成不同的部分，分别同时从不同的机器获取完整数据的不同组成部分。这样分块传输不但可以同时从多台机器下载数据，另一个好处是如果这一小块数据传输过程中损坏了，只要重新下载这一小数据块就可以了，不用重新下载整个数据。但这种分布式环境下，很多机器应该认为是不稳定或者不可信的，如何校验整个数据的完整性及每一小数据块的完整性呢？<br><img src="/2020/06/11/Merkle树/merkle2.png" alt="merkle2"></p>
-<p>5、为了校验每一个数据块，我们需要对每个数据块做哈希，形成一个哈希列表，这样进行下载前，我们先要获取一个哈希列表，下载后，我们就能够通过哈希列表，来验证每一个数据块。哪怎么保证这个哈希列表是正确的呢，或者说怎么校验完整数据呢？只要每一个数据块哈希是正确的，最终获取的完整数据就一定是正确的，所以，我们需要对哈希列表进行哈希得到根哈希，将此根哈希放到一个可信源中，在下载数据前，先从可信数据源哪里获取到数据的跟哈希，然后从任意机器获取哈希列表，再下载数据块。这样，数据完整性可以通过根哈希来保证。</p>
-<h5 id="Merkle-tree-对比-Hash-list"><a href="#Merkle-tree-对比-Hash-list" class="headerlink" title="Merkle tree 对比 Hash list"></a>Merkle tree 对比 Hash list</h5><p>两种数据结构都有验证数据完整性的功能，都可以通过根哈希保证整体数据完整性。所不同的是，在数据庞大，数据块非常多的情况下，当根哈希检测到数据不一致时，Merkle tree可以快速的定位到导致不一致的数据块，复杂度为O(log(n))，而Hash list只能遍历庞大的哈希列表定位到导致不一致的数据块，复杂度为O(n)，很显然，此时Merkle tree的效率要高很多。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/Merkle树/" data-id="ckdnaapq5000h94viyq50s6am" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-基本数据类型、运算符/" data-id="ckdppwouu000xmovixcgq3mtj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1197,7 +1225,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -1208,6 +1236,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/08/10/GO：2-8-关于指针的有限操作/">GO：2-8 关于指针的有限操作</a>
+          </li>
         
           <li>
             <a href="/2020/07/22/GO：2-7-接口类型的合理运用/">GO：2.7 接口类型的合理运用</a>
@@ -1223,10 +1255,6 @@
         
           <li>
             <a href="/2020/07/20/GO：2-4-通道channel/">GO：2.4 通道channel</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/20/GO：2-3-字典的操作和约束/">GO：2.3 字典的操作和约束</a>
           </li>
         
       </ul>
