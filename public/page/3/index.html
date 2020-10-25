@@ -62,6 +62,117 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-go-基本数据类型、运算符" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/11/go-基本数据类型、运算符/" class="article-date">
+  <time datetime="2020-06-11T07:12:36.000Z" itemprop="datePublished">2020-06-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/11/go-基本数据类型、运算符/">go:基本数据类型、运算符</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="go特点"><a href="#go特点" class="headerlink" title="go特点"></a>go特点</h4><p>1、go=c+python，既有静态语言程序运行的速度以及安全和性能，又能达到动态语言（如脚本语言）的开发维护的高效率。<br>2、go语言的一个文件必须要归属一个包，不能单独存在<br>3、垃圾回收机制、内存自动回收<br>4、天然并发（超级重要）</p>
+<ul>
+<li>从语言层面支持并发，实现简单</li>
+<li>goroutine：轻量级线程，可实现大并发处理，高效利用多核</li>
+<li>基于CPS并发模型（Communicating Sequential Processes）实现</li>
+</ul>
+<p>5、管道通信机制，形成go语言特有的管道channel。通过管道channel可以实现不同的goroute之间的通信</p>
+<p>6、函数返回多个值</p>
+<p>7、新的创新，如切片slice，延时执行defer等</p>
+<h4 id="go运行"><a href="#go运行" class="headerlink" title="go运行"></a>go运行</h4><p>如有一个hello.go文件，运行它的两种方法<br>1、<strong>go bulid</strong> hello.go先编译这个文件，生成hello.exe二进制可执行文件，再直接切到该目录下输入hello.exe命令即可运行。<br>2、<strong>go run</strong> hello.go，编译运行一起执行，直接输出结果</p>
+<p>区别：<br>1、先编译后再运行.exe文件，运行速度很快，go run命令需要编译+运行速度明显慢<br>2、编译后生成的.exe文件，可以放在没有go开发环境的机器上运行起来，因为hello.exe文件比hello.go文件大，因为编译后的.exe文件动态引入了运行所需要的很多库，所以可以跑起来，但go run命令不行，因为需要开发环境对.go文件进行编译。</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量的几种数据类型<br><img src="/2020/06/11/go-基本数据类型、运算符/var1.jpg" alt="var1"></p>
+<p>在GO中，数据类型都有一个默认值（零值），基本数据类型的零值如下</p>
+<ul>
+<li>整型：0</li>
+<li>浮点型：0</li>
+<li>字符串：“”空串</li>
+<li>bool类型：false</li>
+</ul>
+<p>格式化%v表示按照变量的值输出</p>
+<h4 id="1、整数类型"><a href="#1、整数类型" class="headerlink" title="1、整数类型"></a>1、整数类型</h4><p>1、int，uint表示的位数与系统有关，32位系统表示4个字节，64位表示8个字节</p>
+<p>2、rune，有符号，字节数等价int32，但表示一个Unicode码，用于处理带中文的字符串。</p>
+<p>3、byte，无符号，与uint8等价，用来存储单个字符。<br><img src="/2020/06/11/go-基本数据类型、运算符/var2.jpg" alt="var2"></p>
+<p>4、golang整型默认声明为int类型</p>
+<p>5、查看某个变量的占用字节大小和数据类型<br>fmt.Printf(“n的数据类型是 %T n占用的字节数是 %d”,n,unsafe.Sizeof(n))</p>
+<p>6、在保证程序的正确运行下，尽量使用占用空间小的数据类型，遵守保小不保大的原则，若不知道该变量之后表示的值的大小，可以稍微选用大的。</p>
+<h4 id="2、浮点类型"><a href="#2、浮点类型" class="headerlink" title="2、浮点类型"></a>2、浮点类型</h4><p>1、浮点类型有固定的范围和字段长度，不受具体操作系统的影响</p>
+<p>2、golang浮点类型默认声明为float64</p>
+<p>3、开发中，推荐使用float64，因为比float32更精确</p>
+<h4 id="3、字符类型"><a href="#3、字符类型" class="headerlink" title="3、字符类型"></a>3、字符类型</h4><p>1、Golang中没有专门的字符类型，存储单个字符（如ASCII码所表示的字符）使用byte来保存<br>注：</p>
+<ul>
+<li>直接输出byte变量的值时，实际上是输出了对应字符的ASCII码值，如要输出对应字符，用格式化%c输出</li>
+<li>输出int变量表示字符的UTF-8编码的码值时用格式化%d输出</li>
+</ul>
+<p>2、Go的<strong>字符串</strong>是由单个<strong>字节</strong>连接起来的，与传统字符串由<strong>字符</strong>连接不同。</p>
+<p>3、字符常量是用单引号‘’括起来的单个字符。例var c1 byte=’a’  var c2 int=’中’</p>
+<p>4、Go的字符使用UTF-8编码，英文字母一个字节表示，汉字三个字节表示</p>
+<p>5、Go中，字符的本质是一个整数，直接输出时是该字符对应的UTF-8编码的码值</p>
+<p>6、可以给某个变量赋值一个数字，按格式化输出时%c会输出该数字对应的Unicode字符</p>
+<p>7、字符类型可以进行运算，因为本质就是一个整数，都对应有Unicode码值</p>
+<h4 id="4、布尔类型"><a href="#4、布尔类型" class="headerlink" title="4、布尔类型"></a>4、布尔类型</h4><p>1、Go中bool类型<strong>只允许取值true和false</strong></p>
+<p>2、bool类型占1个字节</p>
+<h4 id="5、字符串类型"><a href="#5、字符串类型" class="headerlink" title="5、字符串类型"></a>5、字符串类型</h4><p>1、Go的<strong>字符串</strong>是由单个<strong>字节</strong>连接起来的，与传统字符串由<strong>字符</strong>连接不同。</p>
+<p>2、字符串一旦赋值，就不能修改了，即Go中字符串是不可变的</p>
+<p>3、字符串两种表示方式</p>
+<ul>
+<li>双引号“”，会识别转义字符</li>
+<li>反引号,以字符串的原生形式输出，包括换行和转义字符，可以防止攻击，输出源代码等效果。</li>
+</ul>
+<p>4、字符串连接使用“+”号，多行连接时需要把“+”号放在上一行末尾</p>
+<h4 id="6、基本数据类型转换"><a href="#6、基本数据类型转换" class="headerlink" title="6、基本数据类型转换"></a>6、基本数据类型转换</h4><p>1、Go与Java/C不同，Go在不同类型的变量之间赋值时需要显示转换，即不能自动转换</p>
+<p>2、数据转换时，被转换的是变量存储的数据（值），变量本身的数据类型不会改变<br>例：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i <span class="keyword">int32</span>=<span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> n <span class="keyword">int64</span>=<span class="keyword">int64</span>(i)</span><br><span class="line"></span><br><span class="line"><span class="comment">//i本身不会改变</span></span><br></pre></td></tr></table></figure></p>
+<p>3、高精度向低精度转换，低精度向高精度转换都可以，只是高精度向低精度转换时会溢出，和我们预想结果不一致，但编译器不会报错</p>
+<h4 id="6、基本数据类型和字符串类型相互转换"><a href="#6、基本数据类型和字符串类型相互转换" class="headerlink" title="6、基本数据类型和字符串类型相互转换"></a>6、基本数据类型和字符串类型相互转换</h4><h5 id="1）基本数据类型转string"><a href="#1）基本数据类型转string" class="headerlink" title="1）基本数据类型转string"></a>1）基本数据类型转string</h5><ol>
+<li>fmt.Sprintf(“%参数”，表达式）<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sprintf</span><span class="params">(format <span class="keyword">string</span>,a ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">string</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Sprintf根据format参数生成格式化字符串并返回</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>参数需要和表达式的数据类型相匹配</p>
+<p>2.使用strconv包的函数 </p>
+<h5 id="2）string转基本数据类型"><a href="#2）string转基本数据类型" class="headerlink" title="2）string转基本数据类型"></a>2）string转基本数据类型</h5><ol>
+<li>使用strconv包的函数 </li>
+</ol>
+<h5 id="3）注意事项"><a href="#3）注意事项" class="headerlink" title="3）注意事项"></a>3）注意事项</h5><p>1、string转基本数据类型时，要<strong>确保string类型能够转成有效的数据</strong>。比如可以把”123“转成一个整数，但不能把”hello“转成一个整数，如果这样做，go不会报错，而是直接转成默认值。</p>
+<h4 id="7、指针"><a href="#7、指针" class="headerlink" title="7、指针"></a>7、指针</h4><p>1、值类型包括：基本数据类型、数组和结构体struct</p>
+<p>2、引用类型包括：指针、切片slice、map、管道channel、interface</p>
+<p>3、值类型和引用类型<br><img src="/2020/06/11/go-基本数据类型、运算符/var3.jpg" alt="var3"></p>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><h4 id="1、算术运算符"><a href="#1、算术运算符" class="headerlink" title="1、算术运算符"></a>1、算术运算符</h4><p>1、Go中自增自减只能作为一个独立的语句使用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">b:=a++<span class="comment">//错误</span></span><br><span class="line">b:=a--<span class="comment">//错误</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c <span class="keyword">int</span> = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> d <span class="keyword">int</span></span><br><span class="line">d=c++<span class="comment">//错误，只能独立使用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i <span class="keyword">int</span> = <span class="number">10</span></span><br><span class="line"><span class="keyword">if</span> i++ &gt; <span class="number">10</span>&#123;<span class="comment">//错误，只能独立使用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> e <span class="keyword">int</span> = <span class="number">1</span></span><br><span class="line">e++</span><br><span class="line"><span class="keyword">var</span> f <span class="keyword">int</span> = e<span class="comment">//正确</span></span><br></pre></td></tr></table></figure></p>
+<p>2、Go的自增自减只有后加加a++和后减减a–，去除了很多容易混淆的写法</p>
+<h4 id="2、位运算符"><a href="#2、位运算符" class="headerlink" title="2、位运算符"></a>2、位运算符</h4><p>1、原码、反码、补码<br><img src="/2020/06/11/go-基本数据类型、运算符/op1.jpg" alt="op1"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">求<span class="number">-2</span>^<span class="number">2</span>=?</span><br><span class="line"></span><br><span class="line"><span class="number">-2</span> =&gt; 原码 <span class="number">1000</span> <span class="number">0010</span> =&gt; 反码（符号位不变，其他位取反） <span class="number">1111</span> <span class="number">1101</span> =&gt;补码（反码+<span class="number">1</span>） <span class="number">1111</span> <span class="number">1110</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span> =&gt;为正数，原码、反码、补码一样 =&gt;<span class="number">0000</span> <span class="number">0010</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//计算机运算都是用补码运算</span></span><br><span class="line"><span class="number">-2</span>^<span class="number">2</span>=<span class="number">1111</span> <span class="number">1110</span> ^ <span class="number">0000</span> <span class="number">0010</span> = <span class="number">1111</span> <span class="number">1100</span><span class="comment">//结果是补码，需转换为原码</span></span><br><span class="line"></span><br><span class="line">补码 <span class="number">1111</span> <span class="number">1100</span> =&gt;反码（补码<span class="number">-1</span>）<span class="number">1111</span> <span class="number">1011</span> =&gt;原码（符号位不变，其他位取反）<span class="number">1000</span> <span class="number">0100</span> =&gt; 十进制 <span class="number">-4</span></span><br><span class="line"></span><br><span class="line">则：<span class="number">-2</span>^<span class="number">2</span>=<span class="number">-4</span></span><br></pre></td></tr></table></figure>
+<p>2、Go中有两个移位运算符</p>
+<ul>
+<li>右移运算符&gt;&gt;：低位溢出，符号位不变，并用符号位补溢出的高位</li>
+<li>左移运算符&lt;&lt;：符号位不变，低位补0</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/11/go-基本数据类型、运算符/" data-id="ckedjocs60010lgvic373wcys" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Merkle树" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/11/Merkle树/" class="article-date">
@@ -95,7 +206,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/Merkle树/" data-id="ckdppwoum000mmovi4zs7zlah" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/Merkle树/" data-id="ckedjocrr000hlgvilgiu6wgw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -179,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/区块链小白书/" data-id="ckdppwovx002bmoviclq62eih" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/区块链小白书/" data-id="ckedjod1n001plgviwrb45sas" class="article-share-link">Share</a>
       
       
     </footer>
@@ -218,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/链队列/" data-id="ckdppwow6002nmoviaq58eql1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/链队列/" data-id="ckedjod23002klgviki8x7mjy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/链栈/" data-id="ckdppwow5002mmoviscuakb0e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/链栈/" data-id="ckedjod29002olgviw5lavn5v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -299,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/选择排序/" data-id="ckdppwow2002imoviprxt6ehs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/选择排序/" data-id="ckedjod24002mlgvi5luzqivc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -360,7 +471,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-适配器模式/" data-id="ckdppwow4002lmoviz7vdnllp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-适配器模式/" data-id="ckedjod24002nlgvikt619kmk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -418,7 +529,68 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-观察者模式/" data-id="ckdppwow4002kmovim04sdqi9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-观察者模式/" data-id="ckedjod22002jlgvi929lvic1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式-装饰器模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-装饰器模式/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.342Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-装饰器模式/">设计模式-装饰器模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><pre><code>装饰器模式（Decorator Pattern）
+允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。
+这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。
+</code></pre><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h3><p>动态地给一个对象添加一些额外的职责。就增加功能来说，装饰器模式相比生成子类更为灵活</p>
+<h3 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h3><p>一般的，我们为了扩展一个类经常使用继承方式实现，由于继承为类引入静态特征，并且随着扩展功能的增多，子类会很膨胀。</p>
+<h3 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h3><p>1、Component 类充当抽象角色，不应该具体实现。<br>2、修饰类引用和继承 Component 类，具体扩展类重写父类方法。</p>
+<h3 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h3><p> 1、孙悟空有 72 变，当他变成”庙宇”后，他的根本还是一只猴子，但是他又有了庙宇的功能<br> 2、不论一幅画有没有画框都可以挂在墙上，但是通常都是有画框的，并且实际上是画框被挂在墙上。在挂在墙上之前，画可以被蒙上玻璃，装到框子里；这时画、玻璃和画框形成了一个物体。</p>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。</p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>多层装饰比较复杂。</p>
+<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><p>1、扩展一个类的功能。<br>2、动态增加功能，动态撤销。</p>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>可代替继承。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>1）创建一个 Shape 接口</p>
+<p>2)创建实现了Shape 接口的实现类Rectangle和Circle。</p>
+<p>3）创建一个实现了 Shape 接口的抽象装饰类 ShapeDecorator，并把 Shape 对象作为它的实例变量。</p>
+<p>4）RedShapeDecorator 是实现了 ShapeDecorator 的实体类。</p>
+<p>5）DecoratorPatternDemo，演示类，使用 RedShapeDecorator 来装饰 Shape 对象。</p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/decorator.png?raw=true" alt="Image text"></p>
+<p>1、创建接口Shape<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建接口的实现类Rectangle和Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Rectangle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Circle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、创建实现了 Shape 接口的抽象装饰类ShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeDecorator</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> Shape decoratedShape;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ShapeDecorator</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.decoratedShape = decoratedShape;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">      decoratedShape.draw();</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、创建扩展了 ShapeDecorator 类的实体装饰类RedShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedShapeDecorator</span> <span class="keyword">extends</span> <span class="title">ShapeDecorator</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">RedShapeDecorator</span><span class="params">(Shape decoratedShape)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">super</span>(decoratedShape);     </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      decoratedShape.draw();         </span><br><span class="line">      setRedBorder(decoratedShape);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setRedBorder</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Border Color: Red"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5、在测试类DecoratorPatternDemo中使用 RedShapeDecorator 来装饰 Shape 对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecoratorPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      Shape circle = <span class="keyword">new</span> Circle();</span><br><span class="line"> </span><br><span class="line">      Shape redCircle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Circle());</span><br><span class="line"> </span><br><span class="line">      Shape redRectangle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Rectangle());</span><br><span class="line">      System.out.println(<span class="string">"Circle with normal border"</span>);</span><br><span class="line">      circle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nCircle of red border"</span>);</span><br><span class="line">      redCircle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nRectangle of red border"</span>);</span><br><span class="line">      redRectangle.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Circle with normal border</span><br><span class="line">Shape: Circle</span><br><span class="line"></span><br><span class="line">Circle of red border</span><br><span class="line">Shape: Circle</span><br><span class="line">Border Color: Red</span><br><span class="line"></span><br><span class="line">Rectangle of red border</span><br><span class="line">Shape: Rectangle</span><br><span class="line">Border Color: Red</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="https://www.zybuluo.com/mdeditor#1212370" target="_blank" rel="noopener">https://www.zybuluo.com/mdeditor#1212370</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-装饰器模式/" data-id="ckedjod22002ilgviozdqvae5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -480,121 +652,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-策略模式/" data-id="ckdppwow1002hmovim1oxqvob" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-设计模式-装饰器模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/设计模式-装饰器模式/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.342Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/设计模式-装饰器模式/">设计模式-装饰器模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><pre><code>装饰器模式（Decorator Pattern）
-允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。
-这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。
-</code></pre><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h3><p>动态地给一个对象添加一些额外的职责。就增加功能来说，装饰器模式相比生成子类更为灵活</p>
-<h3 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h3><p>一般的，我们为了扩展一个类经常使用继承方式实现，由于继承为类引入静态特征，并且随着扩展功能的增多，子类会很膨胀。</p>
-<h3 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h3><p>1、Component 类充当抽象角色，不应该具体实现。<br>2、修饰类引用和继承 Component 类，具体扩展类重写父类方法。</p>
-<h3 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h3><p> 1、孙悟空有 72 变，当他变成”庙宇”后，他的根本还是一只猴子，但是他又有了庙宇的功能<br> 2、不论一幅画有没有画框都可以挂在墙上，但是通常都是有画框的，并且实际上是画框被挂在墙上。在挂在墙上之前，画可以被蒙上玻璃，装到框子里；这时画、玻璃和画框形成了一个物体。</p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。</p>
-<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>多层装饰比较复杂。</p>
-<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><p>1、扩展一个类的功能。<br>2、动态增加功能，动态撤销。</p>
-<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>可代替继承。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>1）创建一个 Shape 接口</p>
-<p>2)创建实现了Shape 接口的实现类Rectangle和Circle。</p>
-<p>3）创建一个实现了 Shape 接口的抽象装饰类 ShapeDecorator，并把 Shape 对象作为它的实例变量。</p>
-<p>4）RedShapeDecorator 是实现了 ShapeDecorator 的实体类。</p>
-<p>5）DecoratorPatternDemo，演示类，使用 RedShapeDecorator 来装饰 Shape 对象。</p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/decorator.png?raw=true" alt="Image text"></p>
-<p>1、创建接口Shape<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、创建接口的实现类Rectangle和Circle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Rectangle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Shape: Circle"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、创建实现了 Shape 接口的抽象装饰类ShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeDecorator</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> Shape decoratedShape;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ShapeDecorator</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.decoratedShape = decoratedShape;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">      decoratedShape.draw();</span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>4、创建扩展了 ShapeDecorator 类的实体装饰类RedShapeDecorator。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedShapeDecorator</span> <span class="keyword">extends</span> <span class="title">ShapeDecorator</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">RedShapeDecorator</span><span class="params">(Shape decoratedShape)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">super</span>(decoratedShape);     </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      decoratedShape.draw();         </span><br><span class="line">      setRedBorder(decoratedShape);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setRedBorder</span><span class="params">(Shape decoratedShape)</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Border Color: Red"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>5、在测试类DecoratorPatternDemo中使用 RedShapeDecorator 来装饰 Shape 对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecoratorPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      Shape circle = <span class="keyword">new</span> Circle();</span><br><span class="line"> </span><br><span class="line">      Shape redCircle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Circle());</span><br><span class="line"> </span><br><span class="line">      Shape redRectangle = <span class="keyword">new</span> RedShapeDecorator(<span class="keyword">new</span> Rectangle());</span><br><span class="line">      System.out.println(<span class="string">"Circle with normal border"</span>);</span><br><span class="line">      circle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nCircle of red border"</span>);</span><br><span class="line">      redCircle.draw();</span><br><span class="line"> </span><br><span class="line">      System.out.println(<span class="string">"\nRectangle of red border"</span>);</span><br><span class="line">      redRectangle.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>6、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Circle with normal border</span><br><span class="line">Shape: Circle</span><br><span class="line"></span><br><span class="line">Circle of red border</span><br><span class="line">Shape: Circle</span><br><span class="line">Border Color: Red</span><br><span class="line"></span><br><span class="line">Rectangle of red border</span><br><span class="line">Shape: Rectangle</span><br><span class="line">Border Color: Red</span><br></pre></td></tr></table></figure></p>
-<p>参考：<a href="https://www.zybuluo.com/mdeditor#1212370" target="_blank" rel="noopener">https://www.zybuluo.com/mdeditor#1212370</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-装饰器模式/" data-id="ckdppwow3002jmovij1cjrzqz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-设计模式-模板模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/设计模式-模板模式/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.326Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/设计模式-模板模式/">设计模式-模板模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h2><p>   在模板模式（Template Pattern）中，一个抽象类公开定义了执行它的方法的方式/模板。它的子类可以按需要重写方法实现，但调用将以抽象类中定义的方式进行。这种类型的设计模式属于行为型模式。</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h3><p>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<h3 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h3><p>一些方法通用，却在每一个子类都重新写了这一方法。</p>
-<h3 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h3><p>在抽象类实现，其他步骤在子类实现。</p>
-<h3 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h3><p>1、在造房子的时候，地基、走线、水管都一样，只有在建筑的后期才有加壁橱加栅栏等差异。<br>2、spring 中对 Hibernate 的支持，将一些已经定好的方法封装起来，比如开启事务、获取 Session、关闭 Session 等，程序员不重复写那些已经规范好的代码，直接丢一个实体就可以保存。</p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p> 1、封装不变部分，扩展可变部分。<br> 2、提取公共代码，便于维护。<br> 3、行为由父类控制，子类实现。</p>
-<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>每一个不同的实现都需要一个子类来实现，导致类的个数增加，使得系统更加庞大。</p>
-<h3 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h3><p> 1、有多个子类共有的方法，且逻辑相同。<br> 2、重要的、复杂的方法，可以考虑作为模板方法。</p>
-<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>为防止恶意操作，一般模板方法都加上 final 关键词。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>1）创建一个定义操作的 Game 抽象类，其中，模板方法设置为 final，这样它就不会被重写。<br>2）Cricket 和 Football 是扩展了 Game 的实体类，它们重写了抽象类的方法。<br>3）TemplatePatternDemo，我们的演示类使用 Game 来演示模板模式的用法。</p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/template.png?raw=true" alt="Image text"></p>
-<p>1、创建一个抽象类Game，它的模板方法被设置为 final。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//模板</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//初始化游戏</span></span><br><span class="line">      initialize();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//开始游戏</span></span><br><span class="line">      startPlay();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//结束游戏</span></span><br><span class="line">      endPlay();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、创建扩展了Game类的实体类Cricket和 Football。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cricket</span> <span class="keyword">extends</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Cricket Game Finished!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Cricket Game Initialized! Start playing."</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Cricket Game Started. Enjoy the game!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Football</span> <span class="keyword">extends</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Football Game Finished!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Football Game Initialized! Start playing."</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Football Game Started. Enjoy the game!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、在测试类TemplatePatternDemo使用 Game 的模板方法 play() 来演示游戏的定义方式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TemplatePatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      Game game = <span class="keyword">new</span> Cricket();</span><br><span class="line">      game.play();</span><br><span class="line">      System.out.println();</span><br><span class="line">      game = <span class="keyword">new</span> Football();</span><br><span class="line">      game.play();      </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>4、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Cricket Game Initialized! Start playing.</span><br><span class="line">Cricket Game Started. Enjoy the game!</span><br><span class="line">Cricket Game Finished!</span><br><span class="line"></span><br><span class="line">Football Game Initialized! Start playing.</span><br><span class="line">Football Game Started. Enjoy the game!</span><br><span class="line">Football Game Finished!</span><br></pre></td></tr></table></figure></p>
-<p>参考：<a href="http://www.runoob.com/design-pattern/template-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/template-pattern.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-模板模式/" data-id="ckdppwovz002emovi2mcojc4g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-策略模式/" data-id="ckedjod23002llgvickhhxme4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -640,6 +698,10 @@
       <ul>
         
           <li>
+            <a href="/2020/08/12/GO：2-9-Go语句及其执行规则/">GO：2.9 Go语句及其执行规则</a>
+          </li>
+        
+          <li>
             <a href="/2020/08/10/GO：2-8-关于指针的有限操作/">GO：2-8 关于指针的有限操作</a>
           </li>
         
@@ -653,10 +715,6 @@
         
           <li>
             <a href="/2020/07/21/GO：2-5-使用函数的正确姿势/">GO：2.5 使用函数的正确姿势</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/20/GO：2-4-通道channel/">GO：2.4 通道channel</a>
           </li>
         
       </ul>

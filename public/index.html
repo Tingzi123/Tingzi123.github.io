@@ -62,6 +62,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-GO：2-9-Go语句及其执行规则" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/12/GO：2-9-Go语句及其执行规则/" class="article-date">
+  <time datetime="2020-08-12T01:35:23.000Z" itemprop="datePublished">2020-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/12/GO：2-9-Go语句及其执行规则/">GO：2.9 Go语句及其执行规则</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇文章中讨论的go语句，这也是 Go 语言的最大特色了。它足可以代表 Go 语言最重要的编程哲学和并发编程模式。</p>
+<p>重温一下下面这句话：</p>
+<hr>
+<p><em>Don’t communicate by sharing memory; share memory by communicating.</em></p>
+<p>从 Go 语言编程的角度解释，这句话的意思就是：<strong>不要通过共享数据来通讯，恰恰相反，要以通讯的方式共享数据。</strong></p>
+<hr>
+<p>我们已经知道，通道（也就是 channel）类型的值，可以被用来以通讯的方式共享数据。更具体地说，它一般被用来在不同的 goroutine 之间传递数据。那么 goroutine 到底代表着什么呢？</p>
+<p>简单来说，<strong>goroutine 代表着并发编程模型中的用户级线程</strong>。你可能已经知道，操作系统本身提供了进程和线程，这两种并发执行程序的工具。</p>
+<h3 id="1、进程与线程"><a href="#1、进程与线程" class="headerlink" title="1、进程与线程"></a>1、进程与线程</h3><p>1、<strong>进程</strong>，描述的就是<strong>程序的执行过程，是运行着的程序的代表</strong>。换句话说，<strong>一个进程其实就是某个程序运行时的一个产物</strong>。如果说静静地躺在那里的代码就是程序的话，那么<strong>奔跑着的、正在发挥着既有功能的代码</strong>就可以被称为进程。</p>
+<p>我们的电脑为什么可以同时运行那么多应用程序？我们的手机为什么可以有那么多 App 同时在后台刷新？这都是因为在它们的操作系统之上有多个代表着不同应用程序或 App 的进程在同时运行。</p>
+<p>2、再来说说线程。首先，<strong>线程</strong>总是<strong>在进程之内</strong>的，它可以<strong>被视为进程中运行着的控制流</strong>（或者说代码执行的流程）。</p>
+<p><strong>一个进程至少会包含一个线程</strong>。如果一个进程只包含了一个线程，那么它里面的所有代码都只会被串行地执行。<strong>每个进程的第一个线程都会随着该进程的启动而被创建</strong>，它们可以被称为其所属进程的<strong>主线程</strong>。</p>
+<p>相对应的，如果一个进程中包含了多个线程，那么其中的代码就可以被并发地执行。<strong>除了进程的第一个线程之外，其他的线程都是由进程中已存在的线程创建出来的</strong>。 </p>
+<p>也就是说，<strong>主线程之外的其他线程都只能由代码显式地创建和销毁</strong>。这需要我们在编写程序的时候进行手动控制，操作系统以及进程本身并不会帮我们下达这样的指令，它们只会忠实地执行我们的指令。</p>
+<p>不过，在 Go 程序当中，Go 语言的运行时（runtime）系统会帮助我们<strong>自动地创建和销毁系统级的线程</strong>。这里的系统级线程指的就是我们刚刚说过的操作系统提供的线程。</p>
+<p>而对应的<strong>用户级线程</strong>指的是架设在系统级线程之上的，由用户（或者说我们编写的程序）完全控制的代码执行流程。用户级线程的创建、销毁、调度、状态变更以及其中的代码和数据都完全需要我们的程序自己去实现和处理。</p>
+<p>这带来了很多优势，比如，因为它们的创建和销毁并不用通过操作系统去做，所以速度会很快，又比如，由于不用等着操作系统去调度它们的运行，所以往往会很容易控制并且可以很灵活。</p>
+<p>但是，劣势也是有的，最明显也最重要的一个劣势就是复杂。如果我们只使用了系统级线程，那么我们只要指明需要新线程执行的代码片段，并且下达创建或销毁线程的指令就好了，其他的一切具体实现都会由操作系统代劳。</p>
+<p>但是，如果使用用户级线程，我们就不得不既是指令下达者，又是指令执行者。我们必须全权负责与用户级线程有关的所有具体实现。</p>
+<p>操作系统不但不会帮忙，还会要求我们的具体实现必须与它正确地对接，否则用户级线程就无法被并发地，甚至正确地运行。毕竟我们编写的所有代码最终都需要通过操作系统才能在计算机上执行。这听起来就很麻烦，不是吗？</p>
+<p>不过别担心<strong>，Go 语言不但有着独特的并发编程模型，以及用户级线程 goroutine，还拥有强大的用于调度 goroutine、对接系统级线程的调度器。</strong></p>
+<p>这个调度器是 Go 语言运行时系统的重要组成部分，它主要负责统筹调配 Go 并发编程模型中的三个主要元素，即<strong>：G（goroutine 的缩写）、P（processor 的缩写）和 M（machine 的缩写）</strong>。</p>
+<p>其中的 <strong>M 指代的就是系统级线程</strong>。而 <strong>P 指的是一种可以承载若干个 G，且能够使这些 G 适时地与 M 进行对接，并得到真正运行的中介</strong>。</p>
+<p>从宏观上说，G 和 M 由于 P 的存在可以呈现出多对多的关系。当一个正在与某个 M 对接并运行着的 G，需要因某个事件（比如等待 I/O 或锁的解除）而暂停运行的时候，调度器总会及时地发现，并把这个 G 与那个 M 分离开，以释放计算资源供那些等待运行的 G 使用。</p>
+<p>而当一个 G 需要恢复运行的时候，调度器又会尽快地为它寻找空闲的计算资源（包括 M）并安排运行。另外，当 M 不够用时，调度器会帮我们向操作系统申请新的系统级线程，而当某个 M 已无用时，调度器又会负责把它及时地销毁掉。</p>
+<p>正因为调度器帮助我们做了很多事，所以我们的 Go 程序才总是能高效地利用操作系统和计算机资源。程序中的所有 goroutine 也都会被充分地调度，其中的代码也都会被并发地运行，即使这样的 goroutine 有数以十万计，也仍然可以如此。<br><img src="/2020/08/12/GO：2-9-Go语句及其执行规则/mpg1.png" alt="mpg1"></p>
+<p>关于 Go 语言内部的调度器和运行时系统的更多细节，我在这里就不再深入讲述了。你需要知道，Go 语言实现了一套非常完善的运行时系统，保证了我们的程序在高并发的情况下依旧能够稳定、高效地运行。</p>
+<p>下面，从编程实践的角度出发，以go语句的用法为主线，介绍go语句的执行规则、最佳实践和使用禁忌。</p>
+<h3 id="2、什么是主-goroutine，它与我们启用的其他-goroutine-有什么不同？"><a href="#2、什么是主-goroutine，它与我们启用的其他-goroutine-有什么不同？" class="headerlink" title="2、什么是主 goroutine，它与我们启用的其他 goroutine 有什么不同？"></a>2、什么是主 goroutine，它与我们启用的其他 goroutine 有什么不同？</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/12/GO：2-9-Go语句及其执行规则/" data-id="ckedjocro000elgviovniiu1d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-GO：2-8-关于指针的有限操作" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/10/GO：2-8-关于指针的有限操作/" class="article-date">
@@ -180,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/10/GO：2-8-关于指针的有限操作/" data-id="ckdppwoub000bmovittokm2vb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/10/GO：2-8-关于指针的有限操作/" data-id="ckedjocrl000algvindegwrf6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -265,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/22/GO：2-7-接口类型的合理运用/" data-id="ckdppwou90009movi5jm0yegy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/22/GO：2-7-接口类型的合理运用/" data-id="ckedjocri0007lgviccs81loc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -360,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/21/GO：2-6-结构体/" data-id="ckdppwou40004moviyaoxg6iq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/21/GO：2-6-结构体/" data-id="ckedjocrm000blgviuf50irwd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -449,7 +513,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/21/GO：2-5-使用函数的正确姿势/" data-id="ckdppwou30003movir2d6rwye" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/21/GO：2-5-使用函数的正确姿势/" data-id="ckedjocrj0008lgviaa9yrozp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -599,7 +663,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/20/GO：2-4-通道channel/" data-id="ckdppwou50005movir3xtwju9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/20/GO：2-4-通道channel/" data-id="ckedjocrh0006lgvip1v1zjuz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -693,7 +757,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/20/GO：2-3-字典的操作和约束/" data-id="ckdppwou70007movi2xrceoge" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/20/GO：2-3-字典的操作和约束/" data-id="ckedjocrf0005lgvilg8qsnbs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -782,7 +846,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/17/GO：2-2-container包中的容器/" data-id="ckdppwou60006movidxzcbeo1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/17/GO：2-2-container包中的容器/" data-id="ckedjocrd0003lgviorgwbidx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -861,7 +925,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/16/GO：2-1-数组和切片/" data-id="ckdppwou20002movior8c1cko" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/16/GO：2-1-数组和切片/" data-id="ckedjocqx0000lgviaonibka0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1043,91 +1107,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/13/GO：1-4-程序实体/" data-id="ckdppwou90008movi6u4y4wio" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-GO：1-3-库源码文件" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/12/GO：1-3-库源码文件/" class="article-date">
-  <time datetime="2020-07-12T08:01:56.000Z" itemprop="datePublished">2020-07-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/12/GO：1-3-库源码文件/">GO：1.3 库源码文件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、什么是库源码文件？"><a href="#1、什么是库源码文件？" class="headerlink" title="1、什么是库源码文件？"></a>1、什么是库源码文件？</h3><p>1、<strong>库源码文件是不能被直接运行的源码文件，它仅用于存放程序实体</strong>，这些程序实体可以被其他代码使用（只要遵从 Go 语言规范的话）。</p>
-<p>2、这里的“其他代码”可以与被使用的程序实体在同一个源码文件内，也可以在其他源码文件，甚至其他代码包中。</p>
-<p>3、程序实体是什么？<br>在 Go 语言中，<strong>程序实体是变量、常量、函数、结构体和接口的统称</strong>。</p>
-<ul>
-<li>我们总是会先声明（或者说定义）程序实体，然后再去使用。</li>
-<li>程序实体的名字被统称为标识符。标识符可以是任何 Unicode 编码可以表示的字母字符、数字以及下划线“_”，但是其首字母不能是数字。</li>
-<li>从规则上说，我们可以用中文作为变量的名字。但是不建议这样做。</li>
-</ul>
-<h3 id="2、怎样把命令源码文件中的代码拆分到其他库源码文件？"><a href="#2、怎样把命令源码文件中的代码拆分到其他库源码文件？" class="headerlink" title="2、怎样把命令源码文件中的代码拆分到其他库源码文件？"></a>2、怎样把命令源码文件中的代码拆分到其他库源码文件？</h3><p>如果在某个目录下有一个命令源码文件 demo4.go，如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"flag"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">  flag.StringVar(&amp;name, <span class="string">"name"</span>, <span class="string">"everyone"</span>, <span class="string">"The greeting object."</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  flag.Parse()</span><br><span class="line">  hello(name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>demo4.go 在调用了hello函数，函数hello被声明在了另外一个源码文件中，我把它命名为 demo4_lib.go，并且放在与 demo4.go 相同的目录main下（在同一个目录下的源码文件都需要被声明为属于同一个代码包。）。如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hello</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %s!\n"</span>, name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注：如果该目录下有一个命令源码文件，那么为了让同在一个目录下的文件都通过编译，其他源码文件应该也声明属于main包。</p>
-<p>现在运行它们，比如，我们可以在这些文件所在的目录下运行如下命令并得到相应的结果。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">go</span> run demo4.<span class="keyword">go</span> demo4_lib.<span class="keyword">go</span> </span><br><span class="line">Hello, everyone!</span><br></pre></td></tr></table></figure></p>
-<p>或者，像下面这样先构建当前的代码包再运行。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">go</span> build puzzlers/article3/q1</span><br><span class="line">$ ./q1            </span><br><span class="line">Hello, everyone!</span><br></pre></td></tr></table></figure></p>
-<p>1、在这里，我把 demo4.go 和 demo4_lib.go 都放在了一个相对路径为puzzlers/article3/q1的目录中。</p>
-<p>2、在默认情况下，相应的代码包的导入路径会与此一致。我们可以通过代码包的导入路径引用其中声明的程序实体。但是，这里的情况是不同的。</p>
-<p>3、注意，demo4.go 和 demo4_lib.go 都声明自己属于main包。我在前面讲 Go 语言源码的组织方式的时候提到过这种用法，即：源码文件声明的包名可以与其所在目录的名称不同，只要这些文件声明的包名一致就可以。</p>
-<p>4、代码包声明的基本规则：</p>
-<ul>
-<li>同目录下的源码文件的代码包声明语句要一致。也就是说，它们要同属于一个代码包。这对于所有源码文件都是适用的。如果目录中有命令源码文件，那么其他种类的源码文件也应该声明属于main包。这也是我们能够成功构建和运行它们的前提。</li>
-<li>源码文件声明的代码包的名称可以与其所在的目录的名称不同。在针对代码包进行构建时，生成的结果文件的主名称与其父目录的名称一致。对于命令源码文件而言，构建生成的可执行文件的主名称会与其父目录的名称相同</li>
-</ul>
-<p>###3、怎样把命令源码文件中的代码拆分到其他代码包？<br>1、把 demo4.go 另存为 demo5.go，并放到一个相对路径为puzzlers/article3/q2的目录中。</p>
-<p>2、然后再创建一个相对路径为puzzlers/article3/q2/lib的目录，再把 demo4_lib.go 复制一份并改名为 demo5_lib.go 放到该目录中。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> lib5</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">  fmt.Printf(<span class="string">"Hello, %s!\n"</span>, name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里修改了两个地方。</p>
-<ul>
-<li>第一个改动是，把代码包声明语句由package main改为了package lib5。注意，故意让声明的包名与其所在的目录的名称不同。</li>
-<li><p>第二个改动是，把全小写的函数名hello改为首字母大写的Hello。</p>
-<p>基于以上改动，我们再来看下面的几个问题。</p>
-</li>
-</ul>
-<h4 id="1、代码包的导入路径总会与其所在目录的相对路径一致吗？"><a href="#1、代码包的导入路径总会与其所在目录的相对路径一致吗？" class="headerlink" title="1、代码包的导入路径总会与其所在目录的相对路径一致吗？"></a>1、代码包的导入路径总会与其所在目录的相对路径一致吗？</h4><p>库源码文件 demo5_lib.go 所在目录的相对路径是puzzlers/article3/q2/lib，而它却声明自己属于lib5包。在这种情况下，该包的导入路径是puzzlers/article3/q2/lib，还是puzzlers/article3/q2/lib5？<br>1、首先，我们在构建或者安装这个代码包的时候，提供给go命令的路径应该是目录的相对路径，就像这样：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> install puzzlers/article3/q2/lib</span><br></pre></td></tr></table></figure></p>
-<p>该命令会成功完成。之后，当前工作区的 pkg 子目录下会产生相应的归档文件，具体的相对路径是:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg/darwin_amd64/puzzlers/article3/q2/lib.a</span><br></pre></td></tr></table></figure></p>
-<p>其中的darwin_amd64就是我在讲工作区时提到的平台相关目录。可以看到，这里与源码文件所在目录的相对路径是对应的。</p>
-<p>2、为了进一步说明问题，需要先对 demo5.go 做两个改动。</p>
-<ul>
-<li>第一个改动是，在以import为前导的代码包导入语句中加入puzzlers/article3/q2/lib，也就是试图导入这个代码包。</li>
-<li>第二个改动是，把对hello函数的调用改为对lib.Hello函数的调用。其中的lib.叫做限定符，旨在指明右边的程序实体所在的代码包。不过这里与代码包导入路径的完整写法不同，只包含了路径中的最后一级lib，这与代码包声明语句中的规则一致。</li>
-</ul>
-<p>现在，通过运行go run demo5.go命令试一试。错误提示会类似于下面这种。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./demo5.<span class="keyword">go</span>:<span class="number">5</span>:<span class="number">2</span>: imported and not used: <span class="string">"puzzlers/article3/q2/lib"</span> as lib5</span><br><span class="line">./demo5.<span class="keyword">go</span>:<span class="number">16</span>:<span class="number">2</span>: undefined: lib</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>第一个错误提示的意思是，我们导入了puzzlers/article3/q2/lib包，但没有实际使用其中的任何程序实体。这在 Go 语言中是不被允许的，在编译时就会导致失败。</li>
-<li>这里还有另外一个线索，那就是“as lib5”。这说明虽然导入了代码包puzzlers/article3/q2/lib，但是使用其中的程序实体的时候应该以lib5.为限定符。这也就是第二个错误提示的原因了。Go 命令找不到lib.这个限定符对应的代码包。</li>
-</ul>
-<p>3、为什么会是这样？<br>根本原因就是，我们在源码文件中声明所属的代码包与其所在目录的名称不同。请记住，源码文件所在的目录相对于 src 目录的相对路径就是它的代码包导入路径，而实际使用其程序实体时给定的限定符要与它声明所属的代码包名称对应。</p>
-<p>有两个方式可以使上述构建成功完成。我在这里选择把 demo5_lib.go 文件中的代码包声明语句改为package lib。理由是，为了不让该代码包的使用者产生困惑，我们总是应该让声明的包名与其父目录的名称一致。</p>
-<h4 id="2、什么样的程序实体才可以被当前包外的代码引用？"><a href="#2、什么样的程序实体才可以被当前包外的代码引用？" class="headerlink" title="2、什么样的程序实体才可以被当前包外的代码引用？"></a>2、什么样的程序实体才可以被当前包外的代码引用？</h4><p>1、为什么要把 demo5_lib.go 文件中的那个函数名称hello的首字母大写？<br>实际上这涉及了 Go 语言中对于程序实体访问权限的规则。超级简单，<strong>名称的首字母为大写的程序实体才可以被当前包外的代码引用</strong>，否则它就只能被当前包内的其他代码引用。通过名称，Go 语言自然地把程序实体的访问权限划分为了<strong>包级私有的和公开的</strong>。<strong>对于包级私有的程序实体，即使你导入了它所在的代码包也无法引用到它。</strong></p>
-<h4 id="3、对于程序实体，还有其他的访问权限规则吗？"><a href="#3、对于程序实体，还有其他的访问权限规则吗？" class="headerlink" title="3、对于程序实体，还有其他的访问权限规则吗？"></a>3、对于程序实体，还有其他的访问权限规则吗？</h4><p>1、答案是肯定的。在 Go 1.5 及后续版本中，我们可以通过创建internal代码包让一些程序实体仅仅能被当前模块中的其他代码引用。这被称为 Go 程序实体的第三种访问权限：<strong>模块级私有</strong>。</p>
-<p>2、具体规则是，<strong>internal代码包中声明的公开程序实体仅能被该代码包的直接父包及其子包中的代码引用</strong>。当然，引用前需要先导入这个internal包。<strong>对于其他代码包，导入该internal包都是非法的，无法通过编译</strong>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/12/GO：1-3-库源码文件/" data-id="ckdppwou00001movi98otctyp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/13/GO：1-4-程序实体/" data-id="ckedjocre0004lgvi92vzoe1y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1173,6 +1153,10 @@
       <ul>
         
           <li>
+            <a href="/2020/08/12/GO：2-9-Go语句及其执行规则/">GO：2.9 Go语句及其执行规则</a>
+          </li>
+        
+          <li>
             <a href="/2020/08/10/GO：2-8-关于指针的有限操作/">GO：2-8 关于指针的有限操作</a>
           </li>
         
@@ -1186,10 +1170,6 @@
         
           <li>
             <a href="/2020/07/21/GO：2-5-使用函数的正确姿势/">GO：2.5 使用函数的正确姿势</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/20/GO：2-4-通道channel/">GO：2.4 通道channel</a>
           </li>
         
       </ul>
