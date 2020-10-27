@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>微服务：2-1-1 服务注册与发现-Eureka | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、Eureka基础知识1、什么是服务治理  Spring Cloud 封装了Netflix公司开发的Eureka模块来实现服务治理。   在传统的RPC远程调用框架中，管理每个服务与服务之家依赖关系比较复杂，管理比较复杂，所以需要使用服务治理，管理服务与服务之间的依赖关系，可以实现服务调用、负载均衡、容错等，实现服务发现与注册。 2、什么是服务注册与发现 3、Eureka两组件 2、单机Eure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务：2-1-1 服务注册与发现-Eureka">
+<meta property="og:url" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、Eureka基础知识1、什么是服务治理  Spring Cloud 封装了Netflix公司开发的Eureka模块来实现服务治理。   在传统的RPC远程调用框架中，管理每个服务与服务之家依赖关系比较复杂，管理比较复杂，所以需要使用服务治理，管理服务与服务之间的依赖关系，可以实现服务调用、负载均衡、容错等，实现服务发现与注册。 2、什么是服务注册与发现 3、Eureka两组件 2、单机Eure">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka4.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka18.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka5_module.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka6_pom.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka7_yml.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka8_application.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka9_localhost.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka10_provider_pom.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka11_provider_yml.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka12_provider_application.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka13_provider_localhost.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka14_provider.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka15_consumer_yml.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka16_consumer_application.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka17_consumer_localhost.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka20_cluster_theory.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka19_cluster.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka21_server7002_module.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka22_server7002_pom.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka23_server7002_parent_pom.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka24_server7002_host.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka25_server7001&7002_pom.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka26_server7001&7002_application.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka27_server8001_yml.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka28_server80_yml.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka29_server7001.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka30_server7002.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka31_server80.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka32.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka39.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka33_server8002_module.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka34_server_controller.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka36_server80.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka37_server80_config.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka35_server70017002.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka38_80.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka40_discovery_controller.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka41_discovery_application.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka42_discovery_run.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka43_discovery_run2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka44.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka45.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka46.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka47.jpg">
+<meta property="og:updated_time" content="2020-10-26T08:51:21.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务：2-1-1 服务注册与发现-Eureka">
+<meta name="twitter:description" content="1、Eureka基础知识1、什么是服务治理  Spring Cloud 封装了Netflix公司开发的Eureka模块来实现服务治理。   在传统的RPC远程调用框架中，管理每个服务与服务之家依赖关系比较复杂，管理比较复杂，所以需要使用服务治理，管理服务与服务之间的依赖关系，可以实现服务调用、负载均衡、容错等，实现服务发现与注册。 2、什么是服务注册与发现 3、Eureka两组件 2、单机Eure">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-微服务：2-1-1-服务注册与发现-Eureka" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/" class="article-date">
+  <time datetime="2020-10-25T15:23:34.000Z" itemprop="datePublished">2020-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微服务：2-1-1 服务注册与发现-Eureka
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Eureka基础知识"><a href="#1、Eureka基础知识" class="headerlink" title="1、Eureka基础知识"></a>1、Eureka基础知识</h3><h4 id="1、什么是服务治理"><a href="#1、什么是服务治理" class="headerlink" title="1、什么是服务治理"></a>1、什么是服务治理</h4><p>  Spring Cloud 封装了Netflix公司开发的Eureka模块来实现服务治理。</p>
+<p>  在传统的RPC远程调用框架中，管理每个服务与服务之家依赖关系比较复杂，管理比较复杂，所以需要使用服务治理，管理服务与服务之间的依赖关系，可以实现服务调用、负载均衡、容错等，实现服务发现与注册。</p>
+<h4 id="2、什么是服务注册与发现"><a href="#2、什么是服务注册与发现" class="headerlink" title="2、什么是服务注册与发现"></a>2、什么是服务注册与发现</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka1.jpg" alt="eureka1"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka2.jpg" alt="eureka2"></p>
+<h4 id="3、Eureka两组件"><a href="#3、Eureka两组件" class="headerlink" title="3、Eureka两组件"></a>3、Eureka两组件</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka3.jpg" alt="eureka3"></p>
+<h3 id="2、单机Eureka构建步骤"><a href="#2、单机Eureka构建步骤" class="headerlink" title="2、单机Eureka构建步骤"></a>2、单机Eureka构建步骤</h3><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka4.jpg" alt="eureka4"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka18.jpg" alt="eureka18"></p>
+<h4 id="1、IDEA生成eurekaServer端服务注册中心（类似物业中心）"><a href="#1、IDEA生成eurekaServer端服务注册中心（类似物业中心）" class="headerlink" title="1、IDEA生成eurekaServer端服务注册中心（类似物业中心）"></a>1、IDEA生成eurekaServer端服务<strong>注册中心</strong>（类似物业中心）</h4><p>1、建Module<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka5_module.jpg" alt="eureka5_module"><br>2、改POM<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka6_pom.jpg" alt="eureka6_pom"><br>3、写YML<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka7_yml.jpg" alt="eureka7_yml"><br>4、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka8_application.jpg" alt="eureka8_application"><br>5、测试<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka9_localhost.jpg" alt="eureka9_localhost"></p>
+<h4 id="2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为服务提供者provider（类似于入驻该物业中心的奶茶店）"><a href="#2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为服务提供者provider（类似于入驻该物业中心的奶茶店）" class="headerlink" title="2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为服务提供者provider（类似于入驻该物业中心的奶茶店）"></a>2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为<strong>服务提供者</strong>provider（类似于入驻该物业中心的奶茶店）</h4><p>1、建Module</p>
+<p>2、改POM<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka10_provider_pom.jpg" alt="eureka10_provider_pom"><br>3、写YML<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka11_provider_yml.jpg" alt="eureka11_provider_yml"><br>4、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka12_provider_application.jpg" alt="eureka12_provider_application"><br>5、测试<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka13_provider_localhost.jpg" alt="eureka13_provider_localhost"></p>
+<p>6、yml配置文件中，spring的application的name就是Eureka启动后的application的name<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka14_provider.jpg" alt="eureka14_provider"></p>
+<h4 id="3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为服务消费者consumer（类似于奶茶店消费者）"><a href="#3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为服务消费者consumer（类似于奶茶店消费者）" class="headerlink" title="3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为服务消费者consumer（类似于奶茶店消费者）"></a>3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为<strong>服务消费者</strong>consumer（类似于奶茶店消费者）</h4><p>1、建Module</p>
+<p>2、改POM<br>与上面一致</p>
+<p>3、写YML<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka15_consumer_yml.jpg" alt="eureka15_consumer_yml"><br>4、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka16_consumer_application.jpg" alt="eureka16_consumer_application"><br>5、测试<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka17_consumer_localhost.jpg" alt="eureka17_consumer_localhost"></p>
+<h3 id="3、集群Eureka构建步骤"><a href="#3、集群Eureka构建步骤" class="headerlink" title="3、集群Eureka构建步骤"></a>3、集群Eureka构建步骤</h3><h4 id="1、Eureka集群原理说明"><a href="#1、Eureka集群原理说明" class="headerlink" title="1、Eureka集群原理说明"></a>1、Eureka集群原理说明</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka20_cluster_theory.jpg" alt="eureka20_cluster_theory"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka19_cluster.jpg" alt="eureka19_cluster"></p>
+<h4 id="2、EurekaServer集群环境构建步骤"><a href="#2、EurekaServer集群环境构建步骤" class="headerlink" title="2、EurekaServer集群环境构建步骤"></a>2、EurekaServer集群环境构建步骤</h4><p>1、参考cloud-eureka-server7001，新建cloud-eureka-server7002<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka21_server7002_module.jpg" alt="eureka21_server7002_module"></p>
+<p>2、改POM<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka22_server7002_pom.jpg" alt="eureka22_server7002_pom"></p>
+<p>总工程的pom文件<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka23_server7002_parent_pom.jpg" alt="eureka23_server7002_parent_pom"></p>
+<p>3、修改映射配置<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka24_server7002_host.jpg" alt="eureka24_server7002_host"></p>
+<p>4、写YML（之前是单机，现在改成集群）<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka25_server7001&amp;7002_pom.jpg" alt="eureka25_server7001&amp;7002_pom"></p>
+<p>5、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka26_server7001&amp;7002_application.jpg" alt="eureka26_server7001&amp;7002_application"></p>
+<h4 id="3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中"><a href="#3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中" class="headerlink" title="3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中"></a>3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中</h4><p>1、8001配置7001和7002两台Eureka集群<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka27_server8001_yml.jpg" alt="eureka27_server8001_yml"></p>
+<h4 id="4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中"><a href="#4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中" class="headerlink" title="4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中"></a>4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中</h4><p>1、80配置7001和7002两台Eureka集群<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka28_server80_yml.jpg" alt="eureka28_server80_yml"></p>
+<h4 id="5、测试"><a href="#5、测试" class="headerlink" title="5、测试"></a>5、测试</h4><p>1、先启动EurekaServer，7001和7002服务<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka29_server7001.jpg" alt="eureka29_server7001"></p>
+<p>2、再启动服务提供者provider，8001<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka30_server7002.jpg" alt="eureka30_server7002"><br>3、再启动服务消费者，80</p>
+<p>4、访问<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka31_server80.jpg" alt="eureka31_server80"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka32.jpg" alt="eureka32"></p>
+<h4 id="6、支付服务提供者集群环境构建"><a href="#6、支付服务提供者集群环境构建" class="headerlink" title="6、支付服务提供者集群环境构建"></a>6、支付服务提供者<strong>集群环境</strong>构建</h4><p>服务提供者是一个集群：<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka39.jpg" alt="eureka39"></p>
+<p>1、参考cloud-provider-payment8001，新建cloud-provider-payment8002<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka33_server8002_module.jpg" alt="eureka33_server8002_module"></p>
+<p>2、改POM<br>复制8001的pom</p>
+<p>3、写yml<br>复制8001的yml，将端口改成8002即可</p>
+<p>5、主启动<br>复制8001</p>
+<p>5、业务类<br>复制8001</p>
+<p>5、修改8001和8002的Controller<br>简单标注该provider的端口号<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka34_server_controller.jpg" alt="eureka34_server_controller"></p>
+<p>6、在80消费者controller中，修改访问服务提供者的路径，把写死的路径改成消费提供者<strong>集群</strong>对外暴露的名称：CLOUDER-PATMENT-SERVER<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka36_server80.jpg" alt="eureka36_server80"></p>
+<p>7、<strong>负载均衡</strong><br>在80消费者controller中，修改访问服务提供者的路径，把写死的路径改成消费提供者<strong>集群</strong>对外暴露的名称：CLOUDER-PATMENT-SERVER之后，当访问<a href="https://CLOUDER-PATMENT-SERVER路径时，服务器不知道你到底要访问CLOUDER-PATMENT-SERVER下的哪一台机器，所以要使用**@LoadBalance**注解赋予RestTemplate负载均衡的能力" target="_blank" rel="noopener">https://CLOUDER-PATMENT-SERVER路径时，服务器不知道你到底要访问CLOUDER-PATMENT-SERVER下的哪一台机器，所以要使用**@LoadBalance**注解赋予RestTemplate负载均衡的能力</a></p>
+<p>修改ApplicationContextConfig<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka37_server80_config.jpg" alt="eureka37_server80_config"></p>
+<p>8、启动7001和7002<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka35_server70017002.jpg" alt="eureka35_server70017002"></p>
+<p>9、启动8001和8002</p>
+<p>10、启动80<br>启动80端口的消费者，消费者访问服务提供者8001和8002时，服务提供者集群采用<strong>轮询机制</strong>给消费者提供服务。<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka38_80.jpg" alt="eureka38_80"></p>
+<h3 id="4、服务发现discovery"><a href="#4、服务发现discovery" class="headerlink" title="4、服务发现discovery"></a>4、服务发现discovery</h3><p>1、对于注册进eureka里面的微服务，可以通过服务发现来获得该服务信息</p>
+<p>以8001为例：<br>2、修改cloud-provider-payment8001的controller<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka40_discovery_controller.jpg" alt="eureka40_discovery_controller"></p>
+<p>3、8001主启动类<br>添加注解<strong>@EnableDisCoveryClient</strong><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka41_discovery_application.jpg" alt="eureka41_discovery_application"></p>
+<p>4、自测<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka42_discovery_run.jpg" alt="eureka42_discovery_run"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka43_discovery_run2.jpg" alt="eureka43_discovery_run2"></p>
+<h3 id="5、Eureka自我保护"><a href="#5、Eureka自我保护" class="headerlink" title="5、Eureka自我保护"></a>5、Eureka自我保护</h3><h4 id="1、故障现象"><a href="#1、故障现象" class="headerlink" title="1、故障现象"></a>1、故障现象</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka44.jpg" alt="eureka44"></p>
+<h4 id="2、导致原因"><a href="#2、导致原因" class="headerlink" title="2、导致原因"></a>2、导致原因</h4><p>1、某时刻，某一个微服务不可用了，Eureka不会立刻清理，依旧会对该服务的信息进行保存</p>
+<p>2、属于CAP中的AP分支</p>
+<p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka45.jpg" alt="eureka45"></p>
+<h4 id="3、怎么禁止自我保护"><a href="#3、怎么禁止自我保护" class="headerlink" title="3、怎么禁止自我保护"></a>3、怎么禁止自我保护</h4><p>某时刻，某一个微服务不可用了，Eureka立刻清理不保存该服务的信息</p>
+<p>以7001和8001为例<br>1、修改7001yml<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka46.jpg" alt="eureka46"></p>
+<p>2、修改8001yml<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka47.jpg" alt="eureka47"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/" data-id="ckgqazm1u000tzsvi8mbbq6l0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/25/微服务：1、入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">微服务：1、入门</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：1、入门/">微服务：1、入门</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/12/GO：2-9-Go语句及其执行规则/">GO：2.9 Go语句及其执行规则</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/10/GO：2-8-关于指针的有限操作/">GO：2-8 关于指针的有限操作</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/22/GO：2-7-接口类型的合理运用/">GO：2.7 接口类型的合理运用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
