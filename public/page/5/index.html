@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-设计模式-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-单例模式/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.264Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-单例模式/">设计模式-单例模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>这种模式涉及到一个单一的类，该类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象。</p>
+<blockquote>
+<p>注意：<br>1、单例类只能有一个实例。<br>2、单例类必须自己创建自己的唯一实例。<br>3、单例类必须给所有其他对象提供这一实例。</p>
+</blockquote>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<h4 id="主要解决："><a href="#主要解决：" class="headerlink" title="主要解决："></a>主要解决：</h4><p>一个全局使用的类频繁地创建与销毁。</p>
+<h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>构造函数是私有的。</p>
+<h4 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h4><p>1、一个班级只有一个班主任。<br>2、Windows 是多进程多线程的，在操作一个文件的时候，就不可避免地出现多个进程或线程同时操作一个文件的现象，所以所有文件的处理必须通过唯一的实例来进行。<br>3、一些设备管理器常常设计为单例模式，比如一个电脑有两台打印机，在输出的时候就要处理不能两台打印机打印同一个文件。</p>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>1、在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。<br>2、避免对资源的多重占用（比如写文件操作）。</p>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p>没有接口，不能继承，与单一职责原则冲突，一个类应该只关心内部逻辑，而不关心外面怎么样来实例化。</p>
+<h4 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h4><p>1、要求生产唯一序列号。<br>2、WEB 中的计数器，不用每次刷新都在数据库里加一次，用单例先缓存起来。<br>3、创建的一个对象需要消耗的资源过多，比如 I/O 与数据库的连接等。</p>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><p>getInstance() 方法中需要使用同步锁 synchronized (Singleton.class) 防止多线程同时进入造成 instance 被多次实例化。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建一个 SingleObject 类。SingleObject 类有它的私有构造函数和本身的一个静态实例。<br>SingleObject 类提供了一个静态方法，供外界获取它的静态实例。<br>SingletonPatternDemo，演示类使用 SingleObject 类来获取 SingleObject 对象。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/singleton.png?raw=true" alt="Image text"></p>
+<p>1、创建一个 Singleton 类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//创建 SingleObject 的一个对象</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//让构造函数为 private，这样该类就不会被实例化</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//获取唯一可用的对象</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Hello World!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、从 singleton 类获取唯一的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//不合法的构造函数</span></span><br><span class="line">      <span class="comment">//编译时错误：构造函数 SingleObject() 是不可见的</span></span><br><span class="line">      <span class="comment">//SingleObject object = new SingleObject();</span></span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取唯一可用的对象</span></span><br><span class="line">      SingleObject object = SingleObject.getInstance();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//显示消息</span></span><br><span class="line">      object.showMessage();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World!</span><br></pre></td></tr></table></figure></p>
+<h2 id="单例模式的几种实现方式"><a href="#单例模式的几种实现方式" class="headerlink" title="单例模式的几种实现方式"></a>单例模式的几种实现方式</h2><p>1、懒汉式，线程不安全<br>是否 Lazy 初始化：是<br>是否多线程安全：否<br>实现难度：易<br>描述：这种方式是最基本的实现方式，这种实现最大的问题就是不支持多线程。因为没有加锁 synchronized，所以严格意义上它并不算单例模式。<br>这种方式 lazy loading 很明显，不要求线程安全，在多线程不能正常工作。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、懒汉式，线程安全<br>是否 Lazy 初始化：是<br>是否多线程安全：是<br>实现难度：易<br>描述：这种方式具备很好的 lazy loading，能够在多线程中很好的工作，但是，效率很低，99% 情况下不需要同步。<br>优点：第一次调用才初始化，避免内存浪费。<br>缺点：必须加锁 synchronized 才能保证单例，但加锁会影响效率。<br>getInstance() 的性能对应用程序不是很关键（该方法使用不太频繁）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、饿汉式<br>是否 Lazy 初始化：否<br>是否多线程安全：是<br>实现难度：易<br>描述：这种方式比较常用，但容易产生垃圾对象。<br>优点：没有加锁，执行效率会提高。<br>缺点：类加载时就初始化，浪费内存。<br>它基于 classloader 机制避免了多线程的同步问题，不过，instance 在类装载时就实例化，虽然导致类装载的原因有很多种，在单例模式中大多数都是调用 getInstance 方法， 但是也不能确定有其他的方式（或者其他的静态方法）导致类装载，这时候初始化 instance 显然没有达到 lazy loading 的效果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、双检锁/双重校验锁（DCL，即 double-checked locking）<br>JDK 版本：JDK1.5 起<br>是否 Lazy 初始化：是<br>是否多线程安全：是<br>实现难度：较复杂<br>描述：这种方式采用双锁机制，安全且在多线程情况下能保持高性能。<br>getInstance() 的性能对应用程序很关键。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton<span class="class">.<span class="keyword">class</span>) </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();  </span><br><span class="line">        &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> singleton;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5、登记式/静态内部类<br>是否 Lazy 初始化：是<br>是否多线程安全：是<br>实现难度：一般<br>描述：这种方式能达到双检锁方式一样的功效，但实现更简单。对静态域使用延迟初始化，应使用这种方式而不是双检锁方式。这种方式只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。<br>这种方式同样利用了 classloader 机制来保证初始化 instance 时只有一个线程，它跟第 3 种方式不同的是：第 3 种方式只要 Singleton 类被装载了，那么 instance 就会被实例化（没有达到 lazy loading 效果），而这种方式是 Singleton 类被装载了，instance 不一定被初始化。因为 SingletonHolder 类没有被主动使用，只有通过显式调用 getInstance 方法时，才会显式装载 SingletonHolder 类，从而实例化 instance。想象一下，如果实例化 instance 很消耗资源，所以想让它延迟加载，另外一方面，又不希望在 Singleton 类加载时就实例化，因为不能确保 Singleton 类还可能在其他的地方被主动使用从而被加载，那么这个时候实例化 instance 显然是不合适的。这个时候，这种方式相比第 3 种方式就显得很合理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> SingletonHolder.INSTANCE;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6、枚举<br>JDK 版本：JDK1.5 起<br>是否 Lazy 初始化：否<br>是否多线程安全：是<br>实现难度：易<br>描述：这种实现方式还没有被广泛采用，但这是实现单例模式的最佳方法。它更简洁，自动支持序列化机制，绝对防止多次实例化。<br>这种方式是 Effective Java 作者 Josh Bloch 提倡的方式，它不仅能避免多线程同步问题，而且还自动支持序列化机制，防止反序列化重新创建新的对象，绝对防止多次实例化。不过，由于 JDK1.5 之后才加入 enum 特性，用这种方式写不免让人感觉生疏，在实际工作中，也很少用。<br>不能通过 reflection attack 来调用私有构造方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Singleton &#123;  </span><br><span class="line">    INSTANCE;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whateverMethod</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一般情况下，不建议使用第 1 种和第 2 种懒汉方式，建议使用第 3 种饿汉方式。只有在要明确实现 lazy loading 效果时，才会使用第 5 种登记方式。如果涉及到反序列化创建对象时，可以尝试使用第 6 种枚举方式。如果有其他特殊的需求，可以考虑使用第 4 种双检锁方式。</p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/singleton-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/singleton-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-单例模式/" data-id="ckgt14q7d002jv8vimzv6ighr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式-代理模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-代理模式/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.248Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-代理模式/">设计模式-代理模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="几种代理模式"><a href="#几种代理模式" class="headerlink" title="几种代理模式"></a>几种代理模式</h2><h4 id="1、虚拟代理"><a href="#1、虚拟代理" class="headerlink" title="1、虚拟代理"></a>1、虚拟代理</h4><p>虚拟代理为创建开销大的对象提供代理服务，真正的对象在创建前和创建中时，由虚拟代理来扮演替身。<br>如：Android的在线图片加载类</p>
+<h4 id="2、动态代理"><a href="#2、动态代理" class="headerlink" title="2、动态代理"></a>2、动态代理</h4><p>运行时动态的创建代理类对象，并将方法调用转发到指定类（方法的调用也是动态的）。</p>
+<h4 id="3、保护代理："><a href="#3、保护代理：" class="headerlink" title="3、保护代理："></a>3、保护代理：</h4><p>与动态代理搭配使用</p>
+<h4 id="防火墙代理"><a href="#防火墙代理" class="headerlink" title="防火墙代理"></a>防火墙代理</h4><p>  这种防火墙通过一种代理（Proxy）技术参与到一个TCP连接的全过程。从内部发出的数据包经过这样的防火墙处理后，就好像是源于防火墙外部网卡一样，从而可以达到隐藏内部网结构的作用。这种类型的防火墙被网络安全专家和媒体公认为是最安全的防火墙。</p>
+<h4 id="缓存代理"><a href="#缓存代理" class="headerlink" title="缓存代理"></a>缓存代理</h4><p>  由一个代理服务器下载的页面存储。一个代理服务器为多个用户提供一条通道。缓冲的代理允许一个代理服务器减少对同一个网站的同样页面的请求次数。一旦代理服务器的一个用户请求了某页，代理服务器就保存该页以服务于它的其他用户的同样请求。</p>
+<h4 id="智能引用代理"><a href="#智能引用代理" class="headerlink" title="智能引用代理"></a>智能引用代理</h4><p>   智能代理（intelligentagent）是定期地收集信息或执行服务的程序，它不需要人工干预，具有高度智能性和自主学习性，可以根据用户定义的准则，主动地通过智能化代理服务器为用户搜集最感兴趣的信息，然后利用代理通信协议把加工过的信息按时推送给用户,并能推测出用户的意图，自主制订、调整和执行工作计划。</p>
+<h4 id="同步代理"><a href="#同步代理" class="headerlink" title="同步代理"></a>同步代理</h4><p>   用于多线程之间同步访问对象</p>
+<h4 id="写入时复制代理"><a href="#写入时复制代理" class="headerlink" title="写入时复制代理"></a>写入时复制代理</h4><p>  用于保留某些数据的原始副本的一种技术。在写入操作修改数据时，会复制数据的原始副本到其他位置。<br>  写入时复制(Copy-on-write)是一个被使用在程序设计领域的最佳化策略。其基础的观念是，如果有多个呼叫者(callers)同时要求相同资源，他们会共同取得相同的指标指向相同的资源，直到某个呼叫者(caller)尝试修改资源时，系统才会真正复制一个副本(private copy)给该呼叫者，以避免被修改的资源被直接察觉到，这过程对其他的呼叫只都是通透的(transparently)。此作法主要的优点是如果呼叫者并没有修改该资源，就不会有副本(private copy)被建立。</p>
+<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>在代理模式（Proxy Pattern）中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。<br>在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h4 id="意图："><a href="#意图：" class="headerlink" title="意图："></a>意图：</h4><p>为其他对象提供一种代理以控制对这个对象的访问。</p>
+<h4 id="关键代码："><a href="#关键代码：" class="headerlink" title="关键代码："></a>关键代码：</h4><p>实现与被代理类组合。</p>
+<h4 id="应用实例："><a href="#应用实例：" class="headerlink" title="应用实例："></a>应用实例：</h4><p> 1、Windows 里面的快捷方式。<br> 2、买火车票不一定在火车站买，也可以去代售点。    3、一张支票或银行存单是账户中资金的代理。支票在市场交易中用来代替现金，并提供对签发人账号上资金的控制。<br> 4、spring aop。</p>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p> 1、职责清晰。<br> 2、高扩展性。<br> 3、智能化。</p>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><p> 1、由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。<br> 2、实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</p>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><p>1、和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。<br>2、和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>创建一个 Image 接口和实现了 Image 接口的实体类。<br>ProxyImage 是一个代理类，减少 RealImage 对象加载的内存占用。<br>ProxyPatternDemo，演示类使用 ProxyImage 来获取要加载的 Image对象，并按照需求进行显示。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/proxy.png?raw=true" alt="Image text"></p>
+<p>1、创建一个接口Image。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Image</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、创建实现接口的实体类RealImage以及实现接口的代理类ProxyImage。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealImage</span> <span class="keyword">implements</span> <span class="title">Image</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">private</span> String fileName;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">RealImage</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">      loadFromDisk(fileName);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Displaying "</span> + fileName);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadFromDisk</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Loading "</span> + fileName);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyImage</span> <span class="keyword">implements</span> <span class="title">Image</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">private</span> RealImage realImage;</span><br><span class="line">   <span class="keyword">private</span> String fileName;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ProxyImage</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(realImage == <span class="keyword">null</span>)&#123;</span><br><span class="line">         realImage = <span class="keyword">new</span> RealImage(fileName);</span><br><span class="line">      &#125;</span><br><span class="line">      realImage.display();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、当被请求时，使用 ProxyImage 来获取 RealImage 类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyPatternDemo</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Image image = <span class="keyword">new</span> ProxyImage(<span class="string">"test_10mb.jpg"</span>);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 图像将从磁盘加载</span></span><br><span class="line">      image.display(); </span><br><span class="line">      System.out.println(<span class="string">""</span>);</span><br><span class="line">      <span class="comment">// 图像不需要从磁盘加载</span></span><br><span class="line">      image.display();  </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Loading test_10mb.jpg</span><br><span class="line">Displaying test_10mb.jpg</span><br><span class="line"></span><br><span class="line">Displaying test_10mb.jpg</span><br></pre></td></tr></table></figure></p>
+<h2 id="JDK-自带的动态代理，针对有接口情况"><a href="#JDK-自带的动态代理，针对有接口情况" class="headerlink" title="JDK 自带的动态代理，针对有接口情况"></a>JDK 自带的动态代理，针对有接口情况</h2><blockquote>
+<p>java.lang.reflect.Proxy:生成动态代理类和对象；<br>  java.lang.reflect.InvocationHandler（处理器接口）：可以通过invoke方法实现对真实角色的代理访问。<br>每次通过 Proxy 生成的代理类对象都要指定对应的处理器对象。</p>
+</blockquote>
+<hr>
+<p>1、接口：Subject.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sellBooks</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">speak</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、真实对象：RealSubject.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealSubject</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sellBooks</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"卖书"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">speak</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"说话"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"张三"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、处理器对象：MyInvocationHandler.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义一个处理器</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gnehcgnaw</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/11/5 19:26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 因为需要处理真实角色，所以要把真实角色传进来</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Subject realSubject ;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyInvocationHandler</span><span class="params">(Subject realSubject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.realSubject = realSubject;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> proxy    代理类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method    正在调用的方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args      方法的参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"调用代理类"</span>);</span><br><span class="line">        <span class="keyword">if</span>(method.getName().equals(<span class="string">"sellBooks"</span>))&#123;</span><br><span class="line">            <span class="keyword">int</span> invoke = (<span class="keyword">int</span>)method.invoke(realSubject, args);</span><br><span class="line">            System.out.println(<span class="string">"调用的是卖书的方法"</span>);</span><br><span class="line">            <span class="keyword">return</span> invoke ;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            String string = (String) method.invoke(realSubject,args) ;</span><br><span class="line">            System.out.println(<span class="string">"调用的是说话的方法"</span>);</span><br><span class="line">            <span class="keyword">return</span>  string ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、调用端：Main.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 调用类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> gnehcgnaw</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/11/7 20:26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//真实对象</span></span><br><span class="line">        Subject realSubject =  <span class="keyword">new</span> RealSubject();</span><br><span class="line"></span><br><span class="line">        MyInvocationHandler myInvocationHandler = <span class="keyword">new</span> MyInvocationHandler(realSubject);</span><br><span class="line">        <span class="comment">//代理对象</span></span><br><span class="line">        Subject proxyClass = (Subject) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), <span class="keyword">new</span> Class[]&#123;Subject<span class="class">.<span class="keyword">class</span>&#125;, <span class="title">myInvocationHandler</span>)</span>;</span><br><span class="line"></span><br><span class="line">        proxyClass.sellBooks();</span><br><span class="line"></span><br><span class="line">        proxyClass.speak();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>动态代理是针对代理的类, 动态生成一个子类, 然后子类覆盖代理类中的方法, 如果是private或是final类修饰的方法,则不会被重写。</p>
+<h2 id="Cglib动态代理，针对没有接口的情况"><a href="#Cglib动态代理，针对没有接口的情况" class="headerlink" title="Cglib动态代理，针对没有接口的情况"></a>Cglib动态代理，针对没有接口的情况</h2><p>Cglib动态代理动态代理是针对代理的类, 动态生成一个子类, 然后子类覆盖代理类中的方法, 如果是private或是final类修饰的方法,则不会被重写。<br>CGLIB是一个功能强大，高性能的代码生成包。它为没有实现接口的类提供代理，为JDK的动态代理提供了很好的补充。</p>
+<p>1、需要代理的类Engineer<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Engineer</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 可以被代理</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"工程师正在吃饭"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// final 方法不会被生成的字类覆盖</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"工程师正在工作"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// private 方法不会被生成的字类覆盖</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"this engineer is playing game"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、CGLIB 代理类:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxy</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CglibProxy</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"###   before invocation"</span>);</span><br><span class="line">        Object result = method.invoke(target, objects);</span><br><span class="line">        System.out.println(<span class="string">"###   end invocation"</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getProxy</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        <span class="comment">// 设置需要代理的对象</span></span><br><span class="line">        enhancer.setSuperclass(target.getClass());</span><br><span class="line">        <span class="comment">// 设置代理人</span></span><br><span class="line">        enhancer.setCallback(<span class="keyword">new</span> CglibProxy(target));</span><br><span class="line">        <span class="keyword">return</span> enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、测试类:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibMainTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 生成 Cglib 代理类</span></span><br><span class="line">        Engineer engineerProxy = (Engineer) CglibProxy.getProxy(<span class="keyword">new</span> Engineer());</span><br><span class="line">        <span class="comment">// 调用相关方法</span></span><br><span class="line">        engineerProxy.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4、输出<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">###   before invocation</span><br><span class="line">工程师正在吃饭</span><br><span class="line">###   end invocation</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.runoob.com/design-pattern/proxy-pattern.html" target="_blank" rel="noopener">http://www.runoob.com/design-pattern/proxy-pattern.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-代理模式/" data-id="ckgt14q7b002hv8viefj2iidx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式-RMI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/设计模式-RMI/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.248Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/设计模式-RMI/">设计模式总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、RMI远程方法调用是计算机之间通过网络实现对象调用的一种通讯机制</p>
+<p>2、设计模式的三个分类：<br>1）创建型模式：对象实例化的模式，该模式解耦了对象的实例化过程<br>简单工厂：一个工厂类根据传入的参量决定创建出哪种产品类的实例<br>工厂方法:定义一个创捷对象的接口，让子类决定实例化哪个类<br>抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类<br>单例模式：某个类只能有一个实例，提供一个全局访问点<br>生成器模式：封装一个复杂对象的构建过程，并可以按步骤构造<br>原型模式：通过复制现有的实例来创建新的实例（克隆）</p>
+<p>2）结构型模式：把类和对象结合在一起形成更大的结构<br>适配器模式：把一个类的方法接口转换成客户希望的另一个接口<br>组合模式：将对象组合成树形结构以表示“部分-整体”的层次结构<br>装饰模式：动态的给对象添加新的功能<br>代理模式：为其他对象提供一个代理以控制对这个对象的访问<br>蝇量模式:通过共享技术有效地支持大量细粒度的对象<br>外观模式：提供统一的方法来访问子系统的一群接口<br>桥接模式：将抽象部分与它的实现部分分离，使他们都可以独立地变化</p>
+<p>3）行为型模式：类和对象如何交互，划分责任和算法<br>模板模式：定义一个算法结构，而将一些步骤延迟到子类中实现<br>解释器模式：给定一个语言，定义它的文法的一种表示，并定义一个解释器<br>策略模式：定义一系列的算法，把它们封装起来，并且使他们可相互替换<br>状态模式：允许一个对象在其内部状态改变时改变它的行为<br>观察者模式：对象之间的一对多的依赖关系<br>备忘录模式：在不破坏封装性的前提下，保存对象的内部状态<br>中介者模式：用一个中介对象来封装一系列的对象交互<br>命令模式：将命令请求封装为一个对象，使得可用不同的请求来进行参数化<br>访问者模式：在不改变数据结构的前提下，增加作用于一组对象元素新的功能</p>
+<p>责任链：请求发送者和接收者之间解耦，使得多个对象都有机会处理这个请求<br>迭代器：一种遍历访问聚合对象中各个元素的方法，不暴露该对象的内部结构</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-RMI/" data-id="ckgt14q73002ev8vi3etff17d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计网-链路层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/计网-链路层/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.233Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/计网-链路层/">计网-数据链路层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、链路 (link) 是一条无源的点到点的物理线路段，中间没有任何其他的交换结点。<br>2、数据链路 (data link) 除了物理线路外，还必须有通信协议来控制这些数据的传输。若把实现这些协议的硬件和软件加到链路上，就构成了数据链路。</p>
+<p>3、数据链路层的三个基本问题：<br>封装成帧<br>透明传输<br>差错控制</p>
+<p>4、封装成帧 (framing) ：就是在一段数据的前后分别添加首部和尾部，然后就构成了一个帧。确定帧的界限。<br>首部和尾部的一个重要作用就是进行帧定界。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netlink1.png?raw=true" alt="Image text"><br>用控制字符进行帧定界：控制字符 SOH (Start Of Header) 放在一帧的最前面，表示帧的首部开始。另一个控制字符 EOT (End Of Transmission) 表示帧的结束。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netlink2.png?raw=true" alt="Image text"></p>
+<p>5、透明传输：如果数据中的某个字节的二进制代码恰好和 SOH 或 EOT 一样，数据链路层就会错误地“找到帧的边界”<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netlink3.png?raw=true" alt="Image text"><br>解决方法：字节填充 (byte stuffing) 或字符填充 (character stuffing)。<br>发送端的数据链路层在数据中出现控制字符“SOH”或“EOT”的前面插入一个转义字符“ESC” (其十六进制编码是 1B)。<br>接收端的数据链路层在将数据送往网络层之前删除插入的转义字符。<br>如果转义字符也出现在数据当中，那么应在转义字符前面插入一个转义字符 ESC。当接收端收到连续的两个转义字符时，就删除其中前面的一个。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netlink4.png?raw=true" alt="Image text"></p>
+<p>6、差错检测：在传输过程中可能会产生比特差错：1 可能会变成 0 而 0 也可能变成 1。<br>在数据链路层传送的帧中，广泛使用了循环冗余检验 CRC 的检错技术。<br>仅用循环冗余检验 CRC 差错检测技术只能做到无差错接受 (accept)。<br>“无差错接受”是指：“凡是接受的帧（即不包括丢弃的帧），我们都能以非常接近于 1 的概率认为这些帧在传输过程中没有产生差错”。<br>也就是说：“凡是接收端数据链路层接受的帧都没有传输差错”（有差错的帧就丢弃而不接受）</p>
+<p>7、计算机通过适配器和局域网进行通信：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netlink5.png?raw=true" alt="Image text"></p>
+<p>8、CSMA/CD协议 ：<br>CSMA/CD 含义：载波监听多点接入 / 碰撞检测  (Carrier Sense Multiple Access with Collision Detection) 。<br>“多点接入”表示许多计算机以多点接入的方式连接在一根总线上。<br>“载波监听”是指每一个站在发送数据之前先要检测一下总线上是否有其他计算机在发送数据，如果有，则暂时不要发送数据，以免发生碰撞。<br>“碰撞检测”就是计算机边发送数据边检测信道上的信号电压大小。</p>
+<p>使用 CSMA/CD 协议的以太网不能进行全双工通信而只能进行双向交替通信（半双工通信）。</p>
+<p>8、以太网的 MAC 层<br>MAC 层的硬件地址：在局域网中，硬件地址又称为物理地址，或 MAC 地址。<br>MAC 帧的格式 ：<img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netlink6.png?raw=true" alt="Image text"></p>
+<p>9、</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/计网-链路层/" data-id="ckgt14q7a002gv8vi0zk4djqs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计网-网络层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/计网-网络层/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.217Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/计网-网络层/">计网-网络层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、网际协议 IP 是 TCP/IP 体系中两个最主要的协议之一。<br>与 IP 协议配套使用的还有三个协议：<br>地址解析协议 ARP<br>    (Address Resolution Protocol)<br>网际控制报文协议 ICMP<br>   (Internet Control Message Protocol)<br>网际组管理协议 IGMP<br>   (Internet Group Management Protocol)</p>
+<p>网际层的 IP 协议及配套协议:<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet1.png?raw=true" alt="Image text"></p>
+<p>2、IP 地址就是给每个连接在互联网上的主机（或路由器）分配一个在全世界范围是唯一的 32 位的标识符。</p>
+<p>3、<br>IP地址结构:<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet2.png?raw=true" alt="Image text"></p>
+<p>几类IP地址：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet3.png?raw=true" alt="Image text"></p>
+<p>点分十进制表示：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet4.png?raw=true" alt="Image text"></p>
+<p>常用的三种类别的 IP 地址<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet5.png?raw=true" alt="Image text"></p>
+<p>一般不使用的特殊的 IP 地址<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet6.png?raw=true" alt="Image text"></p>
+<p>(1) IP 地址是一种分等级的地址结构。<br>(2) 实际上 IP 地址是标志一个主机（或路由器）和一条链路的接口<br>(3) 用转发器或网桥连接起来的若干个局域网仍为一个网络，因此这些局域网都具有同样的网络号 net-id。<br>(4) 所有分配到网络号 net-id 的网络，无论是范围很小的局域网，还是可能覆盖很大地理范围的广域网，都是平等的。<br>（5）路由器总是具有两个或两个以上的 IP 地址。路由器的每一个接口都有一个不同网络号的 IP 地址。</p>
+<p>4、IP 地址与硬件地址<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet7.png?raw=true" alt="Image text"></p>
+<p>5、地址解析协议 ARP<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet8.png?raw=true" alt="Image text"><br>ARP 作用：<br>从网络层使用的 IP 地址，解析出在数据链路层使用的硬件地址。</p>
+<p>不管网络层使用的是什么协议，在实际网络的链路上传送数据帧时，最终还是必须使用硬件地址。</p>
+<p>每一个主机都设有一个 ARP 高速缓存 (ARP cache)，里面有所在的局域网上的各主机和路由器的 IP 地址到硬件地址的映射表。</p>
+<p>ARP工作过程：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet9.png?raw=true" alt="Image text"></p>
+<p>ARP 是解决同一个局域网上的主机或路由器的 IP 地址和硬件地址的映射问题。</p>
+<p>5、IP数据报格式：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet10.png?raw=true" alt="Image text"><br>（1）版本——占 4 位，指 IP 协议的版本。目前的 IP 协议版本号为 4 (即 IPv4)。<br>（2）首部长度——占 4 位，可表示的最大数值是 15 个单位(一个单位为 4 字节)，因此 IP 的首部长度的最大值是 60 字节。<br>（3）总长度——占 16 位，指首部和数据之和的长度，单位为字节，因此数据报的最大长度为 65535 字节。总长度必须不超过最大传送单元 MTU。<br>（4）标识(identification) ——占 16 位，它是一个计数器，用来产生 IP 数据报的标识。<br>（5）标志(flag) ——占 3 位，目前只有前两位有意义。标志字段的最低位是 MF (More Fragment)。MF = 1 表示后面“还有分片”。MF = 0 表示最后一个分片。标志字段中间的一位是 DF (Don’t Fragment) 。只有当 DF = 0 时才允许分片。<br>（6）片偏移——占13 位，指出：较长的分组在分片后某片在原分组中的相对位置。片偏移以 8 个字节为偏移单位。<br>（7）生存时间——占8 位，记为 TTL (Time To Live)，指示数据报在网络中可通过的路由器数的最大值。<br>（8）协议——占8 位，指出此数据报携带的数据使用何种协议，以便目的主机的 IP 层将数据部分上交给那个处理过程<br>（9）首部检验和——占16 位，只检验数据报的首部，不检验数据部分。这里不采用 CRC 检验码而采用简单的计算方法。</p>
+<p>6、划分子网<br>划分子网纯属一个单位内部的事情。单位对外仍然表现为没有划分子网的网络。从主机号借用若干个位作为子网号 subnet-id，而主机号 host-id 也就相应减少了若干个位。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet11.png?raw=true" alt="Image text"></p>
+<p>7、子网掩码<br>使用子网掩码 (subnet mask) 可以找出 IP 地址中的子网部分。<br>IP 地址的各字段和子网掩码<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet12.png?raw=true" alt="Image text"></p>
+<p>(IP 地址) AND (子网掩码) =网络地址</p>
+<p>8、无分类编址 CIDR<br>CIDR使用各种长度的“网络前缀”(network-prefix)来代替分类地址中的网络号和子网号。<br>IP 地址从三级编址（使用子网掩码）又回到了两级编址。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet13.png?raw=true" alt="Image text"><br>CIDR 使用“斜线记法”(slash notation)，它又称为 CIDR 记法，即在 IP 地址面加上一个斜线“/”，然后写上网络前缀所占的位数，128.14.32.0/20 表示的地址块共有 212 个地址（因为斜线后面的 20 是网络前缀的位数，所以这个地址的主机号是 12 位）。</p>
+<p>9、一个 CIDR 地址块可以表示很多地址，这种地址的聚合常称为路由聚合，路由聚合也称为构成超网 (supernetting)。</p>
+<p>10、 网际控制报文协议 ICMP<br>ICMP报文格式：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet14.png?raw=true" alt="Image text"><br>ICMP 报文的种类有两种，即 ICMP 差错报告报文和 ICMP 询问报文。<br>ICMP 差错报告报文共有 4 种<br>终点不可达<br>时间超过<br>参数问题<br>改变路由（重定向）(Redirect)  </p>
+<p>ICMP 询问报文有两种<br>回送请求和回答报文<br>时间戳请求和回答报文</p>
+<p>PING 用来测试两个主机之间的连通性。使用了 ICMP 回送请求与回送回答报文。是应用层直接使用网络层 ICMP 的例子，它没有通过运输层的 TCP 或UDP。</p>
+<p>11、互联网的路由选择协议<br>（1）内部网关协议 IGP (Interior Gateway Protocol)<br>在一个自治系统内部使用的路由选择协议。目前这类路由选择协议使用得最多，如 RIP 和 OSPF 协议。<br>（1.1）RIP 是一种分布式的、基于距离向量的路由选择协议。能使用的最大距离为 15（16 表示不可达）。</p>
+<p>RIP协议更新路由器条件：<br>01 加入新网络<br>02 相邻路由器的路由改变了<br>03 有更短的最短路径</p>
+<p>已知路由器 R6 有表 4-9(a) 所示的路由表。现在收到相邻路由器 R4 发来的路由更新信息，如表 4-9(b) 所示。试更新路由器 R6 的路由表。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet15.png?raw=true" alt="Image text"></p>
+<p>（2）外部网关协议 EGP (External Gateway Protocol)<br>若源站和目的站处在不同的自治系统中，当数据报传到一个自治系统的边界时，就需要使用一种协议将路由选择信息传递到另一个自治系统中。这样的协议就是外部网关协议 EGP。在外部网关协议中目前使用最多的是 BGP-4。</p>
+<p>12、路由器的构成<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet16.png?raw=true" alt="Image text"></p>
+<p>13、虚拟专用网 VPN和网络地址转换 NAT<br>（1）虚拟专用网 VPN：利用公用的互联网作为本机构各专用网之间的通信载体，这样的专用网又称为虚拟专用网VPN (Virtual Private Network)。</p>
+<p>（2）网络地址转换 NAT<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netnet17.png?raw=true" alt="Image text"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/计网-网络层/" data-id="ckgt14q70002bv8vis008b1a3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计网-应用层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/计网-应用层/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.201Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/计网-应用层/">计网-应用层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、 域名系统 DNS (Domain Name System)<br>互联网采用了层次树状结构的命名方法。<br>任何一个连接在互联网上的主机或路由器，都有一个唯一的层次结构的名字，即域名。<br>域名的结构由标号序列组成，各标号之间用点隔开： … . 三级域名 . 二级域名 . 顶级域名</p>
+<p>(1) 国家顶级域名 nTLD<br>    .cn 表示中国，<br>    .us 表示美国，<br>    .uk 表示英国，等等。</p>
+<p>(2) 通用顶级域名 gTLD<br>    最早的顶级域名是：<br>    .com    （公司和企业）<br>    .net    （网络服务机构<br>    .org    （非赢利性组织）<br>    .edu    （美国专用的教育机构）<br>    .gov    （美国专用的政府部门）<br>    .mil    （美国专用的军事部门）<br>    .int    （国际组织）</p>
+<p>(3) 基础结构域名 (infrastructure domain)<br>    这种顶级域名只有一个，即 arpa，<br>    用于反向域名解析，因此又称为反向域名。</p>
+<p>互联网的域名空间 ：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp1.png?raw=true" alt="Image text"></p>
+<p>DNS 服务器的管辖范围不是以“域”为单位，而是以“区”为单位。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp2.png?raw=true" alt="Image text"></p>
+<p>域名服务器有以下四种类型<br>根域名服务器 :在互联网上共有 13 个不同 IP 地址的根域名服务器，它们的名字是用一个英文字母命名，从 a  一直到 m（前 13 个字母）。<br>根域名服务器共有 13 套装置，不是 13 个机器。到2016年2月，全世界已经在 588 个地点安装了根域名服务器，使世界上大部分 DNS 域名服务器都能就近找到一个根域名服务器。 </p>
+<p>顶级域名服务器 :级域名服务器（即 TLD 服务器）负责管理在该顶级域名服务器注册的所有二级域名。<br>权限域名服务器 :负责一个区的域名服务器。</p>
+<p>本地域名服务器 :本地域名服务器对域名系统非常重要。<br>当一个主机发出 DNS 查询请求时，这个查询请求报文就发送给本地域名服务器。每一个互联网服务提供者 ISP，或一个大学，甚至一个大学里的系，都可以拥有一个本地域名服务器，<br>这种域名服务器有时也称为默认域名服务器。 </p>
+<p>2、文件传送协议<br>文件传送协议 FTP (File Transfer Protocol) 是互联网上使用得最广泛的文件传送协议。<br>文件传送协议 FTP 只提供文件传送的一些基本的服务，它使用 TCP 可靠的运输服务。</p>
+<p>FTP 使用的两个 TCP 连接<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp3.png?raw=true" alt="Image text"></p>
+<p>3、远程终端协议 TELNET<br>TELNET 是一个简单的远程终端协议，也是互联网的正式标准。<br>TELNET 能将用户的击键传到远地主机，同时也能将远地主机的输出通过 TCP 连接返回到用户屏幕。这种服务是透明的，因为用户感觉到好像键盘和显示器是直接连在远地主机上。 </p>
+<p>4、万维网 WWW<br>万维网 WWW (World Wide Web)是一个大规模的、联机式的信息储藏所。<br>万维网用链接的方法能非常方便地从互联网上的一个站点访问另一个站点，从而主动地按需获取丰富的信息。<br>这种访问方式称为“链接”。<br>使用统一资源定位符 URL (Uniform Resource Locator) 来标志万维网上的各种文档。<br>使每一个文档在整个互联网的范围内具有唯一的标识符 URL。<br>在万维网客户程序与万维网服务器程序之间进行交互所使用的协议，是超文本传送协议 HTTP (HyperText Transfer Protocol)。<br>HTTP 是一个应用层协议，它使用 TCP 连接进行可靠的传送。 </p>
+<p>5、超文本传送协议 HTTP<br>从层次的角度看，HTTP 是面向事务的(transaction-oriented)应用层协议，它是万维网上能够可靠地交换文件（包括文本、声音、图像等各种多媒体文件）的重要基础。<br>HTTP 是面向事务的客户服务器协议。<br>HTTP 1.0 协议是无状态的 (stateless)。<br>HTTP 协议本身也是无连接的，虽然它使用了面向连接的 TCP 向上提供的服务。HTTP/1.1 协议使用持续连接 (persistent connection)。<br>万维网服务器在发送响应后仍然在一段时间内保持这条连接，使同一个客户（浏览器）和该服务器可以继续在这条连接上传送后续的 HTTP 请求报文和响应报文。<br>这并不局限于传送同一个页面上链接的文档，而是只要这些文档都在同一个服务器上就行。</p>
+<p>代理服务器 (proxy server) 又称为万维网高速缓存 (Web cache)，它代表浏览器发出 HTTP 请求。</p>
+<p>HTTP 的报文结构 HTTP 有两类报文：<br>请求报文——从客户向服务器发送请求报文。<br>响应报文——从服务器到客户的回答。<br>由于 HTTP 是面向正文的 (text-oriented)，因此在报文中的每一个字段都是一些 ASCII 码串，因而每个字段的长度都是不确定的。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/netapp4.png?raw=true" alt="Image text"></p>
+<p>状态码都是三位数字<br>1xx 表示通知信息的，如请求收到了或正在进行处理。<br>2xx 表示成功，如接受或知道了。<br>3xx 表示重定向，表示要完成请求还必须采取进一步的行动。<br>4xx 表示客户的差错，如请求中有错误的语法或不能完成。<br>5xx 表示服务器的差错，如服务器失效无法完成请求。</p>
+<p>6、电子邮件<br>发送邮件的协议：SMTP<br>读取邮件的协议：POP3 和 IMAP<br>MIME 在其邮件首部中说明了邮件的数据类型(如文本、声音、图像、视像等)，使用 MIME 可在邮件中同时传送多种类型的数据。 </p>
+<p>7、动态主机配置协议 DHCP<br>为了将软件协议做成通用的和便于移植，协议软件的编写者把协议软件参数化。这就使得在很多台计算机上使用同一个经过编译的二进制代码成为可能。<br>需要配置的项目<br>    (1) IP 地址<br>    (2) 子网掩码<br>    (3) 默认路由器的 IP 地址<br>    (4) 域名服务器的 IP 地址<br>这些信息通常存储在一个配置文件中，计算机在引导过程中可以对这个文件进行存取。<br>互联网广泛使用的动态主机配置协议 DHCP (Dynamic Host Configuration Protocol) 提供了即插即用连网 (plug-and-play networking) 的机制。<br>这种机制允许一台计算机加入新的网络和获取IP 地址而不用手工参与。<br>DHCP 服务器分配给 DHCP 客户的 IP 地址的临时的，因此 DHCP 客户只能在一段有限的时间内使用这个分配到的 IP 地址。DHCP 协议称这段时间为租用期。<br>租用期的数值应由 DHCP 服务器自己决定</p>
+<p>8、简单网络管理协议 SNMP<br>网络管理包括对硬件、软件和人力的使用、综合与协调，以便对网络资源进行监视、测试、配置、分析、评价和控制，这样就能以合理的价格满足网络的一些需求，如实时运行性能，服务质量等。网络管理常简称为网管。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckgt14q7c002iv8vit1xmurnq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计网-传输层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/计网-传输层/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.186Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/计网-传输层/">计网-传输层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、传输层与网络层的主要区别<br>网络层是为主机之间提供逻辑通信，<br>而运输层为应用进程之间提供端到端的逻辑通信。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra1.png?raw=true" alt="Image text"></p>
+<p>2、 运输层的两个主要协议<br>(1) 用户数据报协议 UDP (User Datagram Protocol)<br> UDP 传送的数据单位协议是 UDP 报文或用户数据报。<br>UDP：一种无连接协议<br>提供无连接服务。<br>在传送数据之前不需要先建立连接。<br>传送的数据单位协议是 UDP 报文或用户数据报。<br>对方的运输层在收到 UDP 报文后，不需要给出任何确认。<br>虽然 UDP 不提供可靠交付，但在某些情况下 UDP 是一种最有效的工作方式。</p>
+<p>UDP 的主要特点：<br>(1) UDP 是无连接的，发送数据之前不需要建立连接，，因此减少了开销和发送数据之前的时延。<br>(2) UDP 使用尽最大努力交付，即不保证可靠交付，因此主机不需要维持复杂的连接状态表。<br>(3) UDP 是面向报文的。UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界。UDP 一次交付一个完整的报文。<br>(4) UDP 没有拥塞控制，因此网络出现的拥塞不会使源主机的发送速率降低。这对某些实时应用是很重要的。很适合多媒体通信的要求。<br>(5) UDP 支持一对一、一对多、多对一和多对多的交互通信。<br>(6) UDP 的首部开销小，只有 8 个字节，比 TCP 的 20 个字节的首部要短。</p>
+<p>UDP 的首部格式<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra3.png?raw=true" alt="Image text"><br>伪首部仅仅是为了计算检验和<br>请注意，虽然在 UDP 之间的通信要用到其端口号，但由于 UDP 的通信是无连接的，因此不需要使用套接字。</p>
+<p>(2) 传输控制协议 TCP (Transmission Control Protocol)<br>TCP 传送的数据单位协议是 TCP 报文段(segment)。<br>TCP：一种面向连接的协议<br>提供面向连接的服务。<br>传送的数据单位协议是 TCP 报文段 (segment)。<br>TCP 不提供广播或多播服务。<br>由于 TCP 要提供可靠的、面向连接的运输服务，因此不可避免地增加了许多的开销。这不仅使协议数据单元的首部增大很多，还要占用许多的处理机资源。</p>
+<p>TCP 最主要的特点<br>TCP 是面向连接的运输层协议。<br>每一条 TCP 连接只能有两个端点 (endpoint)，每一条 TCP 连接只能是点对点的（一对一）。<br>TCP 提供可靠交付的服务。<br>TCP 提供全双工通信。<br>面向字节流<br>TCP 中的“流”(stream)指的是流入或流出进程的字节序列。<br>“面向字节流”的含义是：虽然应用程序和 TCP 的交互是一次一个数据块，但 TCP 把应用程序交下来的数据看成仅仅是一连串无结构的字节流。</p>
+<p>TCP 面向流的概念<br>TCP 不保证接收方应用程序所收到的数据块和发送方应用程序所发出的数据块具有对应大小的关系。<br>但接收方应用程序收到的字节流必须和发送方应用程序发出的字节流完全一样。<br> <img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra4.png?raw=true" alt="Image text"><br>注 意<br>TCP 连接是一条虚连接而不是一条真正的物理连接。<br>TCP 对应用进程一次把多长的报文发送到TCP 的缓存中是不关心的。<br>TCP 根据对方给出的窗口值和当前网络拥塞的程度来决定一个报文段应包含多少个字节（UDP 发送的报文长度是应用进程给出的）。<br>TCP 可把太长的数据块划分短一些再传送。<br>TCP 也可等待积累有足够多的字节后再构成报文段发送出去。<br>TCP 连接的端点不是主机，不是主机的IP 地址，不是应用进程，也不是运输层的协议端口。TCP 连接的端点叫做套接字 (socket) 或插口。<br>端口号拼接到 (contatenated with) IP 地址即构成了套接字。 </p>
+<ul>
+<li>socket = (IP地址 : 端口号)</li>
+</ul>
+<p>每一条 TCP 连接唯一地被通信两端的两个端点（即两个套接字）所确定。即：</p>
+<p>TCP 连接 ::= {socket1, socket2} = {(IP1: port1)，(IP2: port2)}</p>
+<p>3、两大类端口<br>(1) 服务器端使用的端口号<br>熟知端口，数值一般为 0~1023。<br>登记端口号，数值为 1024~49151，为没有熟知端口号的应用程序使用的。使用这个范围的端口号必须在 IANA 登记，以防止重复。<br>(2) 客户端使用的端口号<br>又称为短暂端口号，数值为 49152~65535，留给客户进程选择暂时使用。<br>当服务器进程收到客户进程的报文时，就知道了客户进程所使用的动态端口号。通信结束后，这个端口号可供其他客户进程以后使用。<br>常用端口号：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra2.png?raw=true" alt="Image text"></p>
+<p>4、可靠传输的工作原理<br>停止等待协议<br>“停止等待”就是每发送完一个分组就停止发送，等待对方的确认。在收到确认后再发送下一个分组。<br>全双工通信的双方既是发送方也是接收方。</p>
+<p>（1）无差错情况<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra5.png?raw=true" alt="Image text"><br>（2）出现差错<br>在接收方 B 会出现两种情况：<br>B 接收 M1 时检测出了差错，就丢弃 M1，其他什么也不做（不通知 A 收到有差错的分组）。<br>M1 在传输过程中丢失了，这时 B 当然什么都不知道，也什么都不做。<br>在这两种情况下，B 都不会发送任何信息。</p>
+<p>解决方法：<br>超时重传<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra6.png?raw=true" alt="Image text"></p>
+<p>确认丢失和确认迟到<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra7.png?raw=true" alt="Image text"><br>在发送完一个分组后，必须暂时保留已发送的分组的副本，以备重发。<br>分组和确认分组都必须进行编号。<br>超时计时器的重传时间应当比数据在分组传输的平均往返时间更长一些。 </p>
+<p>自动重传请求 ARQ协议<br>通常 A 最终总是可以收到对所有发出的分组的确认。如果 A 不断重传分组但总是收不到确认，就说明通信线路太差，不能进行通信。<br>使用上述的确认和重传机制，我们就可以在不可靠的传输网络上实现可靠的通信。<br>像上述的这种可靠传输协议常称为自动重传请求 ARQ  (Automatic Repeat reQuest)。意思是重传的请求是自动进行的，接收方不需要请求发送方重传某个出错的分组。</p>
+<p>连续 ARQ 协议（滑动窗口协议）<br>是 TCP 协议的精髓所在。<br>发送方维持的发送窗口，它的意义是：位于发送窗口内的分组都可连续发送出去，而不需要等待对方的确认。这样，信道利用率就提高了。<br>连续 ARQ 协议规定，发送方每收到一个确认，就把发送窗口向前滑动一个分组的位置。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra8.png?raw=true" alt="Image text"></p>
+<p>累积确认<br>接收方一般采用累积确认的方式。即不必对收到的分组逐个发送确认，而是对按序到达的最后一个分组发送确认，这样就表示：到这个分组为止的所有分组都已正确收到了。<br>优点：容易实现，即使确认丢失也不必重传。<br>缺点：不能向发送方反映出接收方已经正确收到的所有分组的信息。</p>
+<p>Go-back-N（回退 N）<br>如果发送方发送了前 5 个分组，而中间的第 3 个分组丢失了。这时接收方只能对前两个分组发出确认。发送方无法知道后面三个分组的下落，而只好把后面的三个分组都再重传一次。<br>这就叫做 Go-back-N（回退 N），表示需要再退回来重传已发送过的 N 个分组。<br>可见当通信线路质量不好时，连续 ARQ 协议会带来负面的影响。 </p>
+<p>TCP 可靠通信的具体实现<br>TCP 连接的每一端都必须设有两个窗口——一个发送窗口和一个接收窗口。<br>TCP 的可靠传输机制用字节的序号进行控制。TCP 所有的确认都是基于序号而不是基于报文段。<br>TCP 两端的四个窗口经常处于动态变化之中。<br>TCP连接的往返时间 RTT 也不是固定不变的。需要使用特定的算法估算较为合理的重传时间。  </p>
+<p>TCP 报文段的首部格式<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra9.png?raw=true" alt="Image text"><br>01 源端口和目的端口字段——各占 2 字节。端口是运输层与应用层的服务接口。运输层的复用和分用功能都要通过端口才能实现。<br>02 序号字段——占 4 字节。TCP 连接中传送的数据流中的每一个字节都编上一个序号。序号字段的值则指的是本报文段所发送的数据的第一个字节的序号。<br>03 确认号字段——占 4 字节，是期望收到对方的下一个报文段的数据的第一个字节的序号。<br>数据偏移（即首部长度）——占 4 位，它指出 TCP 报文段的数据起始处距离 TCP 报文段的起始处有多远。“数据偏移”的单位是 32 位字（以 4 字节为计算单位）。<br>04 紧急 URG —— 当 URG  1 时，表明紧急指针字段有效。它告诉系统此报文段中有紧急数据，应尽快传送(相当于高优先级的数据)。<br>05 确认 ACK —— 只有当 ACK  1 时确认号字段才有效。当 ACK  0 时，确认号无效。<br>06 推送 PSH (PuSH) —— 接收 TCP 收到 PSH = 1 的报文段，就尽快地交付接收应用进程，而不再等到整个缓存都填满了后再向上交付。<br>07 复位 RST (ReSeT) —— 当 RST  1 时，表明 TCP 连接中出现严重差错（如由于主机崩溃或其他原因），必须释放连接，然后再重新建立运输连接。<br>08 同步 SYN —— 同步 SYN = 1 表示这是一个连接请求或连接接受报文。<br>09 终止 FIN (FINish) —— 用来释放一个连接。FIN  1 表明此报文段的发送端的数据已发送完毕，并要求释放运输连接。<br>10 窗口字段 —— 占 2 字节，用来让对方设置发送窗口的依据，单位为字节。<br>检验和 —— 占 2 字节。检验和字段检验的范围包括首部和数据这两部分。在计算检验和时，要在 TCP 报文段的前面加上 12 字节的伪首部。<br>11 填充字段 —— 这是为了使整个首部长度是 4 字节的整数倍。</p>
+<p>5、TCP 可靠传输的实现<br>滑动窗口：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra10.png?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra11.png?raw=true" alt="Image text"></p>
+<p>发送缓存用来暂时存放：<br>发送应用程序传送给发送方 TCP 准备发送的数据；<br>TCP 已发送出但尚未收到确认的数据。<br>接收缓存用来暂时存放：<br>按序到达的、但尚未被接收应用程序读取的数据；<br>不按序到达的数据。 </p>
+<p>超时重传时间的选择<br>TCP 采用了一种自适应算法，它记录一个报文段发出的时间，以及收到相应的确认的时间。这两个时间之差就是报文段的往返时间 RTT。<br>超时重传时间 RTO<br>RTO (Retransmission Time-Out) 应略大于上面得出的加权平均往返时间 RTTS。<br>RFC 2988 建议使用下式计算 RTO：<br>RTO = RTTS + 4 * RTTD<br>RTTD 是 RTT 的偏差的加权平均值。</p>
+<p>修正的 Karn 算法<br>报文段每重传一次，就把 RTO 增大一些：<br>新的 RTO = a * (旧的 RTO) </p>
+<p>系数a的典型值是 2 。<br>当不再发生报文段的重传时，才根据报文段的往返时延更新平均往返时延 RTT 和超时重传时间 RTO 的数值。</p>
+<p>6、TCP 的流量控制<br>利用可变窗口进行流量控制<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra12.png?raw=true" alt="Image text"><br>TCP 为每一个连接设有一个持续计时器  (persistence timer) 。<br>只要 TCP 连接的一方收到对方的零窗口通知，就启动该持续计时器。<br>若持续计时器设置的时间到期，就发送一个零窗口探测报文段（仅携带 1 字节的数据），而对方就在确认这个探测报文段时给出了现在的窗口值。<br>若窗口仍然是零，则收到这个报文段的一方就重新设置持续计时器。</p>
+<p>7、TCP 的拥塞控制<br>拥塞：在某段时间，若对网络中某资源的需求超过了该资源所能提供的可用部分，网络的性能就要变坏。</p>
+<p>拥塞控制与流量控制的区别<br>拥塞控制就是防止过多的数据注入到网络中，使网络中的路由器或链路不致过载。<br>拥塞控制所要做的都有一个前提，就是网络能够承受现有的网络负荷。<br>拥塞控制是一个全局性的过程，涉及到所有的主机、所有的路由器，以及与降低网络传输性能有关的所有因素。</p>
+<p>流量控制往往指点对点通信量的控制，是个端到端的问题（接收端控制发送端）。<br>流量控制所要做的就是抑制发送端发送数据的速率，以便使接收端来得及接收。 </p>
+<p>TCP 的拥塞控制方法<br>TCP 采用基于窗口的方法进行拥塞控制。该方法属于闭环控制方法。<br>TCP发送方维持一个拥塞窗口 CWND (Congestion Window)<br>拥塞窗口的大小取决于网络的拥塞程度，并且动态地在变化。<br>发送端利用拥塞窗口根据网络的拥塞情况调整发送的数据量。<br>所以，发送窗口大小不仅取决于接收方公告的接收窗口，还取决于网络的拥塞状况，所以真正的发送窗口值为：<br>真正的发送窗口值 = Min(公告窗口值，拥塞窗口值)</p>
+<p>TCP拥塞控制算法<br>(1)慢开始 (Slow start)<br>用来确定网络的负载能力。<br>算法的思路：由小到大逐渐增大拥塞窗口数值。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra13.png?raw=true" alt="Image text"><br>慢开始门限 ssthresh（状态变量）：防止拥塞窗口cwnd 增长过大引起网络拥塞。<br>拥塞窗口 cwnd  控制方法：在每收到一个对新的报文段的确认后，可以把拥塞窗口增加最多一个 最大报文段 SMSS (Sender Maximum Segment Size) 的数值。<br>拥塞窗口cwnd每次的增加量 = min (N, SMSS)</p>
+<p>慢开始门限 ssthresh 的用法如下：<br>当 cwnd &lt; ssthresh 时，使用慢开始算法。<br>当 cwnd &gt; ssthresh 时，停止使用慢开始算法而改用拥塞避免算法。</p>
+<p>(2)拥塞避免算法<br>让拥塞窗口 cwnd 缓慢地增大，即每经过一个往返时间 RTT 就把发送方的拥塞窗口 cwnd 加 1，而不是加倍，使拥塞窗口 cwnd 按线性规律缓慢增长。<br>无论在慢开始阶段还是在拥塞避免阶段，只要发送方判断网络出现拥塞（重传定时器超时）：<br>ssthresh = max(cwnd/2，2)<br>cwnd = 1<br>执行慢开始算法<br>这样做的目的就是要迅速减少主机发送到网络中的分组数，使得发生拥塞的路由器有足够时间把队列中积压的分组处理完毕。 </p>
+<p>慢开始和拥塞避免算法的实现举例<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra14.png?raw=true" alt="Image text"></p>
+<p>(3)快重传算法<br>采用快重传FR (Fast Retransmission) 算法可以让发送方尽早知道发生了个别报文段的丢失。发送方只要一连收到三个重复确认，就知道接收方确实没有收到报文段，因而应当立即进行重传（即“快重传”），这样就不会出现超时，发送方也不就会误认为出现了网络拥塞。<br>快重传并非取消重传计时器，而是在某些情况下可更早地重传丢失的报文段。<br>快重传举例<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra15.png?raw=true" alt="Image text"></p>
+<p>（4）快恢复算法<br>当发送端收到连续三个重复的确认时，由于发送方现在认为网络很可能没有发生拥塞，因此现在不执行慢开始算法，而是执行快恢复算法 FR (Fast Recovery) 算法：<br>01 慢开始门限 ssthresh = 当前拥塞窗口 cwnd / 2 ；<br>02 新拥塞窗口 cwnd = 慢开始门限 ssthresh ；<br>03 开始执行拥塞避免算法，使拥塞窗口缓慢地线性增大。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra16.png?raw=true" alt="Image text"></p>
+<p>TCP拥塞控制流程图<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra17.png?raw=true" alt="Image text"></p>
+<p>发送窗口的上限值<br>发送方的发送窗口的上限值应当取为接收方窗口 rwnd 和拥塞窗口 cwnd 这两个变量中较小的一个，即应按以下公式确定：<br>发送窗口的上限值  Min [rwnd, cwnd]</p>
+<p>8、 TCP 的运输连接管理<br>TCP 是面向连接的协议。<br>运输连接有三个阶段：<br>连接建立<br>数据传送<br>连接释放<br>运输连接的管理就是使运输连接的建立和释放都能正常地进行。</p>
+<p>（1）TCP 的连接建立：采用三次（三报文）握手<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra18.png?raw=true" alt="Image text"></p>
+<p>（2）TCP 的连接释放：四次（四报文）握手。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/nettra19.png?raw=true" alt="Image text"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckgt14q79002fv8vinhkkyeno" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-算法-递归" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/算法-递归/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.170Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/算法-递归/">算法-递归</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>递归重点：<br><em><br>    1、寻找相似性（可能需要主动构造）<br>    2、参数设置（参数分配不相同，否则死循环）<br>    3、出口设置<br>    （每次调用的层次不同，注意返回的次序）
+</em></p>
+<p>例子：取球问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> recursion;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetBall</span> </span>&#123;</span><br><span class="line"><span class="comment">//在n个球中，任意取m个（不放回），求有多少种取法</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> k=getBall(<span class="number">10</span>,<span class="number">3</span>);</span><br><span class="line">		System.out.println(k);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getBall</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//假设有一个球被标记，则规模变成</span></span><br><span class="line">		<span class="comment">//1、被标记的球已取到，则还剩n-1,还需取 m-1,即f(n-1,m-1) </span></span><br><span class="line">		<span class="comment">//2、被标记球一定不取，则需从剩下的 n-1 中取 m,即f(n-1,m)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(n&lt;m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(n==m) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> getBall(n-<span class="number">1</span>,m-<span class="number">1</span>)+getBall(n-<span class="number">1</span>,m);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckgt14q71002cv8vivaexgtjo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计算机网络" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/计算机网络/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.170Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/计算机网络/">计算机网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、计算机网络：计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的（例如，传送数据或视频信号）。这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
+<p>2、网络分类：<br>广域网 WAN (Wide Area Network)：作用范围通常为几十到几千公里。<br>城域网 MAN (Metropolitan Area Network)：作用距离约为  5 ~ 50 公里。<br>局域网 LAN (Local Area Network) ：局限在较小的范围（如 1 公里左右）。<br>个人区域网 PAN (Personal Area Network) ：范围很小，大约在 10 米左右。</p>
+<p>注意：若中央处理机之间的距离非常近（如仅1米的数量级甚至更小些），则一般就称之为多处理机系统，而不称它为计算机网络。 </p>
+<p>3、接入网：<br>接入网 AN (Access Network)，它又称为本地接入网或居民接入网。<br>接入网是一类比较特殊的计算机网络，用于将用户接入互联网。<br>接入网本身既不属于互联网的核心部分，也不属于互联网的边缘部分。<br>接入网是从某个用户端系统到互联网中的第一个路由器（也称为边缘路由器）之间的一种网络。</p>
+<p>4、计算机网络体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0txjg.png?raw=true" alt="Image text"></p>
+<p>5、各层工作过程<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0xyfw.png?raw=true" alt="Image text"><br>1)OSI 参考模型把对等层次之间传送的数据单位称为该层的协议数据单元 PDU (Protocol Data Unit)。<br>2)协议是“水平的”，即协议是控制对等实体之间通信的规则。<br>3）服务是“垂直的”，即服务是由下层向上层通过层间接口提供的。</p>
+<p>6、TCP/IP体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0tcpip.png?raw=true" alt="Image text"></p>
+<p>物理层中继系统：转发器 (repeater)。<br>数据链路层中继系统：网桥 或 桥接器 (bridge)。<br>网络层中继系统：路由器 (router)。<br>网桥和路由器的混合物：桥路器 (brouter)。<br>网络层以上的中继系统：网关 (gateway)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckgt14q72002dv8vilcb204jo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-用栈实现进制转换" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/用栈实现进制转换/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.155Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/用栈实现进制转换/">用栈实现十进制转换为X进制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4645247.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4645247.html</a></p>
+<p>1、链栈的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node base;</span><br><span class="line">	Node top;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		base=<span class="keyword">new</span> Node();</span><br><span class="line">		top=<span class="keyword">new</span> Node();</span><br><span class="line">		</span><br><span class="line">		base.data=<span class="keyword">null</span>;</span><br><span class="line">		base.next=<span class="keyword">null</span>;</span><br><span class="line">		</span><br><span class="line">		top.data=<span class="keyword">null</span>;</span><br><span class="line">		top.next=base;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//入栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//第一次入栈</span></span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			node.next=base;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			node.next=top.next;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//出栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">"栈中没有元素！"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(top.next.data);</span><br><span class="line">            top.next=top.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node temp=top;</span><br><span class="line">		<span class="keyword">while</span>(temp.next!=base) &#123;</span><br><span class="line">			temp=temp.next;</span><br><span class="line">			System.out.println(temp.data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		Object data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、进制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DToX</span> </span>&#123;</span><br><span class="line"><span class="comment">//十进制转X进制</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		LinkStack stack=<span class="keyword">new</span> LinkStack();</span><br><span class="line">		stack.init();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> d=<span class="number">16</span>;<span class="comment">//十进制数100</span></span><br><span class="line">		<span class="keyword">int</span> x=<span class="number">2</span>;<span class="comment">//转为二进制</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(d!=<span class="number">0</span>) &#123;</span><br><span class="line">			stack.push(d%x);</span><br><span class="line">			d=d/x;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(!stack.isEmpty())</span><br><span class="line">	        &#123;</span><br><span class="line">	            stack.pop();</span><br><span class="line">	        &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckgt14q6x0028v8vib2nkhtvc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
