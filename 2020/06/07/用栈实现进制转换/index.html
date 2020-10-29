@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>用栈实现十进制转换为X进制 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="参考：https://www.cnblogs.com/lixiaolun/p/4645247.html 1、链栈的实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566package linkStack;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用栈实现十进制转换为X进制">
+<meta property="og:url" content="http://yoursite.com/2020/06/07/用栈实现进制转换/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="参考：https://www.cnblogs.com/lixiaolun/p/4645247.html 1、链栈的实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566package linkStack;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-13T05:20:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用栈实现十进制转换为X进制">
+<meta name="twitter:description" content="参考：https://www.cnblogs.com/lixiaolun/p/4645247.html 1、链栈的实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566package linkStack;">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-用栈实现进制转换" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/用栈实现进制转换/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.155Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用栈实现十进制转换为X进制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4645247.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4645247.html</a></p>
+<p>1、链栈的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node base;</span><br><span class="line">	Node top;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		base=<span class="keyword">new</span> Node();</span><br><span class="line">		top=<span class="keyword">new</span> Node();</span><br><span class="line">		</span><br><span class="line">		base.data=<span class="keyword">null</span>;</span><br><span class="line">		base.next=<span class="keyword">null</span>;</span><br><span class="line">		</span><br><span class="line">		top.data=<span class="keyword">null</span>;</span><br><span class="line">		top.next=base;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//入栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//第一次入栈</span></span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			node.next=base;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			node.next=top.next;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//出栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">"栈中没有元素！"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(top.next.data);</span><br><span class="line">            top.next=top.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node temp=top;</span><br><span class="line">		<span class="keyword">while</span>(temp.next!=base) &#123;</span><br><span class="line">			temp=temp.next;</span><br><span class="line">			System.out.println(temp.data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		Object data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、进制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DToX</span> </span>&#123;</span><br><span class="line"><span class="comment">//十进制转X进制</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		LinkStack stack=<span class="keyword">new</span> LinkStack();</span><br><span class="line">		stack.init();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> d=<span class="number">16</span>;<span class="comment">//十进制数100</span></span><br><span class="line">		<span class="keyword">int</span> x=<span class="number">2</span>;<span class="comment">//转为二进制</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(d!=<span class="number">0</span>) &#123;</span><br><span class="line">			stack.push(d%x);</span><br><span class="line">			d=d/x;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(!stack.isEmpty())</span><br><span class="line">	        &#123;</span><br><span class="line">	            stack.pop();</span><br><span class="line">	        &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckgulruij0017xgvimkf12qbx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/07/算法-递归/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          算法-递归
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/07/查找/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">查找</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

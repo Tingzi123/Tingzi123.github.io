@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>微服务：4-1-1 服务降级-Hystrix | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、Hystrix概述1、分布式面临的问题？  2、Hystrix是什么？ Hystrix可用在消费端和服务端，一般用在消费端 3、Hystrix能干什么？1、服务降级 2、服务熔断 3、接近实时的监控 4、限流、隔离等等 2、Hystrix重要概念1、服务降级fallback1、服务提供方发生故障时，向调用方返回一个符合预期的、可处理的备选响应，而不是长时间的等待或抛出调用方无法处理的异常。 比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务：4-1-1 服务降级-Hystrix">
+<meta property="og:url" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、Hystrix概述1、分布式面临的问题？  2、Hystrix是什么？ Hystrix可用在消费端和服务端，一般用在消费端 3、Hystrix能干什么？1、服务降级 2、服务熔断 3、接近实时的监控 4、限流、隔离等等 2、Hystrix重要概念1、服务降级fallback1、服务提供方发生故障时，向调用方返回一个符合预期的、可处理的备选响应，而不是长时间的等待或抛出调用方无法处理的异常。 比">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix4.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix5.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix6.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix7.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix8.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix9.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix10.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix11.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix12.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix13.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix14.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix15.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix16.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix17.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix18.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix19.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix20.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix21.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix22.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix23.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix24.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix25.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix26.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix27.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix28.jpg">
+<meta property="og:updated_time" content="2020-10-28T10:53:13.895Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务：4-1-1 服务降级-Hystrix">
+<meta name="twitter:description" content="1、Hystrix概述1、分布式面临的问题？  2、Hystrix是什么？ Hystrix可用在消费端和服务端，一般用在消费端 3、Hystrix能干什么？1、服务降级 2、服务熔断 3、接近实时的监控 4、限流、隔离等等 2、Hystrix重要概念1、服务降级fallback1、服务提供方发生故障时，向调用方返回一个符合预期的、可处理的备选响应，而不是长时间的等待或抛出调用方无法处理的异常。 比">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-微服务：4-1-1-服务降级-Hystrix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/" class="article-date">
+  <time datetime="2020-10-28T06:37:57.000Z" itemprop="datePublished">2020-10-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微服务：4-1-1 服务降级-Hystrix
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Hystrix概述"><a href="#1、Hystrix概述" class="headerlink" title="1、Hystrix概述"></a>1、Hystrix概述</h3><h4 id="1、分布式面临的问题？"><a href="#1、分布式面临的问题？" class="headerlink" title="1、分布式面临的问题？"></a>1、分布式面临的问题？</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix1.jpg" alt="hystrix1"></p>
+<p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix2.jpg" alt="hystrix2"></p>
+<h4 id="2、Hystrix是什么？"><a href="#2、Hystrix是什么？" class="headerlink" title="2、Hystrix是什么？"></a>2、Hystrix是什么？</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix3.jpg" alt="hystrix3"></p>
+<p>Hystrix可用在消费端和服务端，一般用在消费端</p>
+<h4 id="3、Hystrix能干什么？"><a href="#3、Hystrix能干什么？" class="headerlink" title="3、Hystrix能干什么？"></a>3、Hystrix能干什么？</h4><p>1、服务降级</p>
+<p>2、服务熔断</p>
+<p>3、接近实时的监控</p>
+<p>4、限流、隔离等等</p>
+<h3 id="2、Hystrix重要概念"><a href="#2、Hystrix重要概念" class="headerlink" title="2、Hystrix重要概念"></a>2、Hystrix重要概念</h3><h4 id="1、服务降级fallback"><a href="#1、服务降级fallback" class="headerlink" title="1、服务降级fallback"></a>1、服务降级fallback</h4><p>1、服务提供方发生故障时，向调用方返回一个符合预期的、可处理的备选响应，而不是长时间的等待或抛出调用方无法处理的异常。</p>
+<p>比如：服务器忙，请稍后再试，不让客户端等待并立刻返回一个友好提示</p>
+<p>2、触发服务降级的情况<br>（1）程序运行异常<br>（2）超时<br>（3）服务熔断触发服务降级<br>（4）线程池/信号量打满</p>
+<h4 id="2、服务熔断break"><a href="#2、服务熔断break" class="headerlink" title="2、服务熔断break"></a>2、服务熔断break</h4><p>类比保险丝，达到最大服务访问后，直接拒绝访问，断闸限电，然后调用服务降级的方法并返回友好提示</p>
+<p>保险丝：服务降级-》进而熔断-》恢复调用链路</p>
+<h4 id="2、服务限流flowlimit"><a href="#2、服务限流flowlimit" class="headerlink" title="2、服务限流flowlimit"></a>2、服务限流flowlimit</h4><p>秒杀高并发等操作，严禁一窝蜂的过来拥挤，大家排队，1秒钟N个，有序进行</p>
+<h3 id="3、Hystrix案例"><a href="#3、Hystrix案例" class="headerlink" title="3、Hystrix案例"></a>3、Hystrix案例</h3><h4 id="1、构建"><a href="#1、构建" class="headerlink" title="1、构建"></a>1、构建</h4><p>1、新建带有Hystrix8001项目</p>
+<p>2、改POM<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix4.jpg" alt="hystrix4"></p>
+<p>3、写yml<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix5.jpg" alt="hystrix5"></p>
+<p>4、主启动<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix6.jpg" alt="hystrix6"></p>
+<p>5、业务类<br>（1）service<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix7.jpg" alt="hystrix7"></p>
+<p>（2）controller<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix8.jpg" alt="hystrix8"></p>
+<p>6、测试<br>接口1立马返回<br>接口2延迟3秒返回</p>
+<h4 id="2、高并发测试"><a href="#2、高并发测试" class="headerlink" title="2、高并发测试"></a>2、高并发测试</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix9.jpg" alt="hystrix9"></p>
+<h4 id="3、新建带有Feign和Hystrix的客户端80"><a href="#3、新建带有Feign和Hystrix的客户端80" class="headerlink" title="3、新建带有Feign和Hystrix的客户端80"></a>3、新建带有Feign和Hystrix的客户端80</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix10.jpg" alt="hystrix10"></p>
+<h3 id="4、服务降级"><a href="#4、服务降级" class="headerlink" title="4、服务降级"></a>4、服务降级</h3><h4 id="1、降级配置-HystrixCommand"><a href="#1、降级配置-HystrixCommand" class="headerlink" title="1、降级配置 @HystrixCommand"></a>1、降级配置 @HystrixCommand</h4><p>1、8001fallback<br>先8001自身找问题<br>设置自身调用超时时间的峰值，峰值内可以正常运行，超过了峰值需要有兜底的方法处理，做服务降级fallback</p>
+<p>（1）业务类启用<br>@HystrixCommand报异常后如何处理<br>一旦服务方法被调用失败并抛出了错误信息后，会自动启用@HystrixCommand标注的fallbackMethod指定的方法来处理异常（超时或其他异常都可以处理）<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix11.jpg" alt="hystrix11"></p>
+<p>（2）主启动类激活<br>添加新注解@EnableCircuitBreaker<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix12.jpg" alt="hystrix12"></p>
+<p>2、80fallback<br>80客户端订单微服务，也可以采用服务降级保护自身</p>
+<p>尽管设置了热部署时，修改了@HystrixCommand内属性还是建议重启微服务。</p>
+<p>（1）yml开启hystrix<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix13.jpg" alt="hystrix13"></p>
+<p>（2）主启动，@EnableHystrix<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix14.jpg" alt="hystrix14"></p>
+<p>（3）业务类<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix15.jpg" alt="hystrix15"></p>
+<h4 id="2、问题"><a href="#2、问题" class="headerlink" title="2、问题"></a>2、问题</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix16.jpg" alt="hystrix16"></p>
+<p>指定统一处理服务降级的实现类<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix17.jpg" alt="hystrix17"></p>
+<p>当客户端也配置服务降级后，当服务端宕机时，客户端会进行相应服务降级处理，不会挂起耗死服务器</p>
+<h3 id="5、服务熔断"><a href="#5、服务熔断" class="headerlink" title="5、服务熔断"></a>5、服务熔断</h3><h4 id="1、断路器"><a href="#1、断路器" class="headerlink" title="1、断路器"></a>1、断路器</h4><p>可以看做家里的保险丝</p>
+<h4 id="2、熔断是什么"><a href="#2、熔断是什么" class="headerlink" title="2、熔断是什么"></a>2、熔断是什么</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix18.jpg" alt="hystrix18"><br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix19.jpg" alt="hystrix19"></p>
+<h4 id="3、案例"><a href="#3、案例" class="headerlink" title="3、案例"></a>3、案例</h4><p>1、修改8001的PaymentService<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix20.jpg" alt="hystrix20"><br>配置中意思是10秒钟内10次请求有6次以上（60%）失败即触发熔断，断路器打开，</p>
+<p>这时就算后面是正常正确的请求到达，也得不到正常的返回；</p>
+<p>过一段时间后，失败率降低，慢慢恢复链路，断路器关闭，可以正常处理请求</p>
+<p>2、修改8001的PaymentController<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix21.jpg" alt="hystrix21"></p>
+<p>3、总结<br>（1）熔断类型<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix22.jpg" alt="hystrix22"></p>
+<p>（2）断路器在什么情况下起作用<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix23.jpg" alt="hystrix23"></p>
+<p>（3）断路器开启或关闭的条件<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix24.jpg" alt="hystrix24"></p>
+<p>（3）断路器打开之后<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix25.jpg" alt="hystrix25"></p>
+<p>官网断路器流程图<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix26.jpg" alt="hystrix26"></p>
+<h3 id="6、Hystrix-DashBoard"><a href="#6、Hystrix-DashBoard" class="headerlink" title="6、Hystrix DashBoard"></a>6、Hystrix DashBoard</h3><p>1、概述<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix27.jpg" alt="hystrix27"></p>
+<p>2、开启<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix28.jpg" alt="hystrix28"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/" data-id="ckgulruic000zxgviyfkbika3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">微服务：3-1-2 服务调用-OpenFeign</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

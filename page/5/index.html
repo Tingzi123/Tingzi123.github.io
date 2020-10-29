@@ -112,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-单例模式/" data-id="ckgt14q7d002jv8vimzv6ighr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-单例模式/" data-id="ckgulrut8002dxgvigz5nugw6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -184,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-代理模式/" data-id="ckgt14q7b002hv8viefj2iidx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-代理模式/" data-id="ckgulrut9002exgvix57jmrp8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -225,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/设计模式-RMI/" data-id="ckgt14q73002ev8vi3etff17d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/设计模式-RMI/" data-id="ckgulruip001exgvi3bmnjdls" class="article-share-link">Share</a>
       
       
     </footer>
@@ -271,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-链路层/" data-id="ckgt14q7a002gv8vi0zk4djqs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-链路层/" data-id="ckgulruio001dxgvirj1ytpwg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -338,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-网络层/" data-id="ckgt14q70002bv8vis008b1a3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-网络层/" data-id="ckgulruin001cxgvisg6qiszi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -394,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckgt14q7c002iv8vit1xmurnq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-应用层/" data-id="ckgulruim001bxgvi0pqzf29x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -474,46 +474,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckgt14q79002fv8vinhkkyeno" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-算法-递归" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/算法-递归/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.170Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/算法-递归/">算法-递归</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>递归重点：<br><em><br>    1、寻找相似性（可能需要主动构造）<br>    2、参数设置（参数分配不相同，否则死循环）<br>    3、出口设置<br>    （每次调用的层次不同，注意返回的次序）
-</em></p>
-<p>例子：取球问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> recursion;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetBall</span> </span>&#123;</span><br><span class="line"><span class="comment">//在n个球中，任意取m个（不放回），求有多少种取法</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> k=getBall(<span class="number">10</span>,<span class="number">3</span>);</span><br><span class="line">		System.out.println(k);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getBall</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//假设有一个球被标记，则规模变成</span></span><br><span class="line">		<span class="comment">//1、被标记的球已取到，则还剩n-1,还需取 m-1,即f(n-1,m-1) </span></span><br><span class="line">		<span class="comment">//2、被标记球一定不取，则需从剩下的 n-1 中取 m,即f(n-1,m)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(n&lt;m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(n==m) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> getBall(n-<span class="number">1</span>,m-<span class="number">1</span>)+getBall(n-<span class="number">1</span>,m);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckgt14q71002cv8vivaexgtjo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计网-传输层/" data-id="ckgulruy0002qxgvi6gunr6vt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -557,7 +518,46 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckgt14q72002dv8vilcb204jo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckgulruil0019xgvi7wch9adi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-算法-递归" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/算法-递归/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.170Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/算法-递归/">算法-递归</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>递归重点：<br><em><br>    1、寻找相似性（可能需要主动构造）<br>    2、参数设置（参数分配不相同，否则死循环）<br>    3、出口设置<br>    （每次调用的层次不同，注意返回的次序）
+</em></p>
+<p>例子：取球问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> recursion;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetBall</span> </span>&#123;</span><br><span class="line"><span class="comment">//在n个球中，任意取m个（不放回），求有多少种取法</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> k=getBall(<span class="number">10</span>,<span class="number">3</span>);</span><br><span class="line">		System.out.println(k);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getBall</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//假设有一个球被标记，则规模变成</span></span><br><span class="line">		<span class="comment">//1、被标记的球已取到，则还剩n-1,还需取 m-1,即f(n-1,m-1) </span></span><br><span class="line">		<span class="comment">//2、被标记球一定不取，则需从剩下的 n-1 中取 m,即f(n-1,m)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(n&lt;m) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(n==m) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> getBall(n-<span class="number">1</span>,m-<span class="number">1</span>)+getBall(n-<span class="number">1</span>,m);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/算法-递归/" data-id="ckgulruik0018xgvievpth3fj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -596,7 +596,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckgt14q6x0028v8vib2nkhtvc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckgulruij0017xgvimkf12qbx" class="article-share-link">Share</a>
       
       
     </footer>

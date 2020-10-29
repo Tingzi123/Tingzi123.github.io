@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>查找 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a;i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="查找">
+<meta property="og:url" content="http://yoursite.com/2020/06/07/查找/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a;i">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-10T07:15:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="查找">
+<meta name="twitter:description" content="一、线性表的查找1、顺序查找 O(n)[^code]123456int[] a;int Search(int key)&amp;#123;	a[0]=key;//设置岗哨	for(int i=a.length;a[i]!=key;i--)&amp;#123;	return i;&amp;#125; 2、折半查找 O(log2(N))(下标从1开始)123456789101112131415161718int[] a;i">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-查找" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/查找/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.139Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      查找
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一、线性表的查找"><a href="#一、线性表的查找" class="headerlink" title="一、线性表的查找"></a>一、线性表的查找</h2><h3 id="1、顺序查找-O-n-code"><a href="#1、顺序查找-O-n-code" class="headerlink" title="1、顺序查找 O(n)[^code]"></a>1、顺序查找 O(n)[^code]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	a[<span class="number">0</span>]=key;<span class="comment">//设置岗哨</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=a.length;a[i]!=key;i--)&#123;</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、折半查找-O-log2-N-下标从1开始"><a href="#2、折半查找-O-log2-N-下标从1开始" class="headerlink" title="2、折半查找 O(log2(N))(下标从1开始)"></a>2、折半查找 O(log2(N))(下标从1开始)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> high=a.length</span><br><span class="line">	<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(low&lt;=high)&#123;<span class="comment">//loe&lt;=high</span></span><br><span class="line">		<span class="keyword">if</span>(key==mid)</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(key&lt;mid)&#123;</span><br><span class="line">			high=mid-<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			low=mid+<span class="number">1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、分块查找"><a href="#3、分块查找" class="headerlink" title="3、分块查找"></a>3、分块查找</h3><p>  分块查找是折半查找和顺序查找的一种改进方法，分块查找由于只要求索引表是有序的，<br>对块内节点没有排序要求，因此特别适合于节点动态变化的情况。</p>
+<h2 id="二、树表的查找"><a href="#二、树表的查找" class="headerlink" title="二、树表的查找"></a>二、树表的查找</h2><h3 id="1、二叉排序树"><a href="#1、二叉排序树" class="headerlink" title="1、二叉排序树"></a>1、二叉排序树</h3><h4 id="1）二叉排序树的查找-O-log2-N"><a href="#1）二叉排序树的查找-O-log2-N" class="headerlink" title="1）二叉排序树的查找 O(log2(N))"></a>1）二叉排序树的查找 O(log2(N))</h4><p>递归实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(Tree T,<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span> || root.data==key)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(key&lt;root.data)&#123;</span><br><span class="line">		Search(T.lchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Search(T.rchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2）二叉排序树的插入-O-log2-N"><a href="#2）二叉排序树的插入-O-log2-N" class="headerlink" title="2）二叉排序树的插入 O(log2(N))"></a>2）二叉排序树的插入 O(log2(N))</h4><p>二叉排序树的插入 以查找为基础：查找失败则插入，查找成功则返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Insert</span><span class="params">(Tree T,<span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">		root=<span class="keyword">new</span> Node();</span><br><span class="line">		root.data=e;</span><br><span class="line">		root.lchild=root.rchild=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(e&lt;root.data)&#123;</span><br><span class="line">		Insert(T.lchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Insert(T.rchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-二叉排序树的创建-O-nlog2-N"><a href="#3-二叉排序树的创建-O-nlog2-N" class="headerlink" title="3)二叉排序树的创建 O(nlog2(N))"></a>3)二叉排序树的创建 O(nlog2(N))</h4><p>从空树开始，新建一个结点，查找后，再插入到合适位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Tree T;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBST</span><span class="params">()</span></span>&#123;</span><br><span class="line">	T=<span class="keyword">null</span>;</span><br><span class="line">	cin&gt;&gt;e;</span><br><span class="line">	<span class="keyword">while</span>(e!=<span class="string">"*"</span>)<span class="comment">//"*"结束符</span></span><br><span class="line">	&#123;</span><br><span class="line">		Insert(T,e);</span><br><span class="line">		cin&gt;e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-二叉排序树的删除-O-nlog2-N"><a href="#4-二叉排序树的删除-O-nlog2-N" class="headerlink" title="4)二叉排序树的删除 O(nlog2(N))"></a>4)二叉排序树的删除 O(nlog2(N))</h4><p>删除的过程也是查找的过程</p>
+<h3 id="2、平衡二叉树"><a href="#2、平衡二叉树" class="headerlink" title="2、平衡二叉树"></a>2、平衡二叉树</h3><h2 id="三、哈希表的查找"><a href="#三、哈希表的查找" class="headerlink" title="三、哈希表的查找"></a>三、哈希表的查找</h2><p>时间复杂度为直接计算</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/查找/" data-id="ckgulruig0014xgvi3gfbhkaq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/07/用栈实现进制转换/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          用栈实现十进制转换为X进制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/07/树的相关知识点/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">树的相关知识点</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>微服务：3-1-2 服务调用-OpenFeign | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、OpenFeign概述1、OpenFeign是什么？1、OpenFeign是什么？ OpenFeign整合了Ribbon 2、OpenFeign能干什么？ 3、Feign和OpenFeign的区别 2、OpenFeign使用步骤注册中心、服务提供者、消费者三者交互图： 1、接口+注解微服务调用接口+@FeignClientfeign在消费端使用 2、使用步骤1、建module新建cloud-c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务：3-1-2 服务调用-OpenFeign">
+<meta property="og:url" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、OpenFeign概述1、OpenFeign是什么？1、OpenFeign是什么？ OpenFeign整合了Ribbon 2、OpenFeign能干什么？ 3、Feign和OpenFeign的区别 2、OpenFeign使用步骤注册中心、服务提供者、消费者三者交互图： 1、接口+注解微服务调用接口+@FeignClientfeign在消费端使用 2、使用步骤1、建module新建cloud-c">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign4.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign5.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign6.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign7.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign8.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign9.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign10.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign11.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign12.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign13.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign14.jpg">
+<meta property="og:updated_time" content="2020-10-28T06:35:48.574Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务：3-1-2 服务调用-OpenFeign">
+<meta name="twitter:description" content="1、OpenFeign概述1、OpenFeign是什么？1、OpenFeign是什么？ OpenFeign整合了Ribbon 2、OpenFeign能干什么？ 3、Feign和OpenFeign的区别 2、OpenFeign使用步骤注册中心、服务提供者、消费者三者交互图： 1、接口+注解微服务调用接口+@FeignClientfeign在消费端使用 2、使用步骤1、建module新建cloud-c">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-微服务：3-1-2-服务调用-OpenFeign" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/" class="article-date">
+  <time datetime="2020-10-27T07:54:41.000Z" itemprop="datePublished">2020-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微服务：3-1-2 服务调用-OpenFeign
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、OpenFeign概述"><a href="#1、OpenFeign概述" class="headerlink" title="1、OpenFeign概述"></a>1、OpenFeign概述</h3><h4 id="1、OpenFeign是什么？"><a href="#1、OpenFeign是什么？" class="headerlink" title="1、OpenFeign是什么？"></a>1、OpenFeign是什么？</h4><p>1、OpenFeign是什么？<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign1.jpg" alt="openfeign1"></p>
+<p>OpenFeign整合了Ribbon</p>
+<p>2、OpenFeign能干什么？<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign2.jpg" alt="openfeign2"></p>
+<p>3、Feign和OpenFeign的区别<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign3.jpg" alt="openfeign3"></p>
+<h3 id="2、OpenFeign使用步骤"><a href="#2、OpenFeign使用步骤" class="headerlink" title="2、OpenFeign使用步骤"></a>2、OpenFeign使用步骤</h3><p>注册中心、服务提供者、消费者三者交互图：<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign4.jpg" alt="openfeign4"></p>
+<h4 id="1、接口-注解"><a href="#1、接口-注解" class="headerlink" title="1、接口+注解"></a>1、接口+注解</h4><p><strong>微服务调用接口+@FeignClient</strong><br><strong>feign在消费端使用</strong></p>
+<h4 id="2、使用步骤"><a href="#2、使用步骤" class="headerlink" title="2、使用步骤"></a>2、使用步骤</h4><p>1、建module<br>新建cloud-consumer-feign-order80</p>
+<p>2、改POM<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign5.jpg" alt="openfeign5"></p>
+<p>3、写YML<br>openfeign是一个客户端，不用整合进微服务，不用在yml中配置<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign6.jpg" alt="openfeign6"></p>
+<p>4、主启动<br>在主启动类使用注解@EnableFeignClients激活并开启Feign<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign7.jpg" alt="openfeign7"></p>
+<p>5、业务类<br>（1）业务逻辑接口+@FeignClient配置调用provider的服务<br>主启动类使用注解<strong>@EnableFeignClients</strong>激活开启Feign功能，<br><strong>@FeignClient</strong>标注接口使用Feign功能</p>
+<p>（2）新建PaymentFeignService接口，并新增注解@FeignClient，并指定微服务<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign8.jpg" alt="openfeign8"></p>
+<p>（3）控制层Controller<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign9.jpg" alt="openfeign9"></p>
+<p>6、测试<br>（1）启动2个Eureka集群7001和7002</p>
+<p>（2）启动2个微服务提供者8001和8002</p>
+<p>（3）启动OpenFeign80</p>
+<p>（4）测试接口<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign10.jpg" alt="openfeign10"><br>微服务提供者8001和8002轮询方式提供服务</p>
+<p><strong>Feign自带负载均衡配置项</strong>，因为集合了Ribbon</p>
+<p>7、小总结<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign11.jpg" alt="openfeign11"></p>
+<h3 id="3、OpenFeign超时控制"><a href="#3、OpenFeign超时控制" class="headerlink" title="3、OpenFeign超时控制"></a>3、OpenFeign超时控制</h3><p><strong>Feign客户端请求时默认等待1秒钟，但是服务端响应处理超过1秒钟的话，Feign客户端就会超时报错。</strong></p>
+<p>为了避免这种情况，我们可以设置Feign客户端的超时控制</p>
+<p>OpenFeign集成了Ribbon，由配置Ribbon来实现<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign12.jpg" alt="openfeign12"></p>
+<h3 id="4、OpenFeign日志打印功能"><a href="#4、OpenFeign日志打印功能" class="headerlink" title="4、OpenFeign日志打印功能"></a>4、OpenFeign日志打印功能</h3><p>Feign提供了日志打印功能，我们可以通过配置来调整日志级别，从而了解Feign中HTTP请求的细节，即对Feign接口的调用用情况进行监控和输出。</p>
+<h4 id="1、日志级别"><a href="#1、日志级别" class="headerlink" title="1、日志级别"></a>1、日志级别</h4><p>1、None：默认的，不显示任何日志</p>
+<p>2、Basic：仅记录请求方法、URL、响应状态码及执行时间</p>
+<p>3、Headers：除了Basic中定义的信息外，还有请求还有响应头信息</p>
+<p>4、Full：除了Headers中定义的信息外，还有请求和响应的正文及元数据</p>
+<h4 id="2、配置日志Bean"><a href="#2、配置日志Bean" class="headerlink" title="2、配置日志Bean"></a>2、配置日志Bean</h4><p>新建package，写一个配置类，设置日志级别为FULL<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign13.jpg" alt="openfeign13"></p>
+<h4 id="3、yml文件开启日志的Feign客户端"><a href="#3、yml文件开启日志的Feign客户端" class="headerlink" title="3、yml文件开启日志的Feign客户端"></a>3、yml文件开启日志的Feign客户端</h4><p><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign14.jpg" alt="openfeign14"></p>
+<p>调用接口后，可在控制台看到详细日志</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/" data-id="ckgulruil001axgvih759u2o3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          微服务：4-1-1 服务降级-Hystrix
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">微服务：3-1-1 服务调用-Ribbon</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-微服务：4-1-1-服务降级-Hystrix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/" class="article-date">
+  <time datetime="2020-10-28T06:37:57.000Z" itemprop="datePublished">2020-10-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Hystrix概述"><a href="#1、Hystrix概述" class="headerlink" title="1、Hystrix概述"></a>1、Hystrix概述</h3><h4 id="1、分布式面临的问题？"><a href="#1、分布式面临的问题？" class="headerlink" title="1、分布式面临的问题？"></a>1、分布式面临的问题？</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix1.jpg" alt="hystrix1"></p>
+<p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix2.jpg" alt="hystrix2"></p>
+<h4 id="2、Hystrix是什么？"><a href="#2、Hystrix是什么？" class="headerlink" title="2、Hystrix是什么？"></a>2、Hystrix是什么？</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix3.jpg" alt="hystrix3"></p>
+<p>Hystrix可用在消费端和服务端，一般用在消费端</p>
+<h4 id="3、Hystrix能干什么？"><a href="#3、Hystrix能干什么？" class="headerlink" title="3、Hystrix能干什么？"></a>3、Hystrix能干什么？</h4><p>1、服务降级</p>
+<p>2、服务熔断</p>
+<p>3、接近实时的监控</p>
+<p>4、限流、隔离等等</p>
+<h3 id="2、Hystrix重要概念"><a href="#2、Hystrix重要概念" class="headerlink" title="2、Hystrix重要概念"></a>2、Hystrix重要概念</h3><h4 id="1、服务降级fallback"><a href="#1、服务降级fallback" class="headerlink" title="1、服务降级fallback"></a>1、服务降级fallback</h4><p>1、服务提供方发生故障时，向调用方返回一个符合预期的、可处理的备选响应，而不是长时间的等待或抛出调用方无法处理的异常。</p>
+<p>比如：服务器忙，请稍后再试，不让客户端等待并立刻返回一个友好提示</p>
+<p>2、触发服务降级的情况<br>（1）程序运行异常<br>（2）超时<br>（3）服务熔断触发服务降级<br>（4）线程池/信号量打满</p>
+<h4 id="2、服务熔断break"><a href="#2、服务熔断break" class="headerlink" title="2、服务熔断break"></a>2、服务熔断break</h4><p>类比保险丝，达到最大服务访问后，直接拒绝访问，断闸限电，然后调用服务降级的方法并返回友好提示</p>
+<p>保险丝：服务降级-》进而熔断-》恢复调用链路</p>
+<h4 id="2、服务限流flowlimit"><a href="#2、服务限流flowlimit" class="headerlink" title="2、服务限流flowlimit"></a>2、服务限流flowlimit</h4><p>秒杀高并发等操作，严禁一窝蜂的过来拥挤，大家排队，1秒钟N个，有序进行</p>
+<h3 id="3、Hystrix案例"><a href="#3、Hystrix案例" class="headerlink" title="3、Hystrix案例"></a>3、Hystrix案例</h3><h4 id="1、构建"><a href="#1、构建" class="headerlink" title="1、构建"></a>1、构建</h4><p>1、新建带有Hystrix8001项目</p>
+<p>2、改POM<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix4.jpg" alt="hystrix4"></p>
+<p>3、写yml<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix5.jpg" alt="hystrix5"></p>
+<p>4、主启动<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix6.jpg" alt="hystrix6"></p>
+<p>5、业务类<br>（1）service<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix7.jpg" alt="hystrix7"></p>
+<p>（2）controller<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix8.jpg" alt="hystrix8"></p>
+<p>6、测试<br>接口1立马返回<br>接口2延迟3秒返回</p>
+<h4 id="2、高并发测试"><a href="#2、高并发测试" class="headerlink" title="2、高并发测试"></a>2、高并发测试</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix9.jpg" alt="hystrix9"></p>
+<h4 id="3、新建带有Feign和Hystrix的客户端80"><a href="#3、新建带有Feign和Hystrix的客户端80" class="headerlink" title="3、新建带有Feign和Hystrix的客户端80"></a>3、新建带有Feign和Hystrix的客户端80</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix10.jpg" alt="hystrix10"></p>
+<h3 id="4、服务降级"><a href="#4、服务降级" class="headerlink" title="4、服务降级"></a>4、服务降级</h3><h4 id="1、降级配置-HystrixCommand"><a href="#1、降级配置-HystrixCommand" class="headerlink" title="1、降级配置 @HystrixCommand"></a>1、降级配置 @HystrixCommand</h4><p>1、8001fallback<br>先8001自身找问题<br>设置自身调用超时时间的峰值，峰值内可以正常运行，超过了峰值需要有兜底的方法处理，做服务降级fallback</p>
+<p>（1）业务类启用<br>@HystrixCommand报异常后如何处理<br>一旦服务方法被调用失败并抛出了错误信息后，会自动启用@HystrixCommand标注的fallbackMethod指定的方法来处理异常（超时或其他异常都可以处理）<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix11.jpg" alt="hystrix11"></p>
+<p>（2）主启动类激活<br>添加新注解@EnableCircuitBreaker<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix12.jpg" alt="hystrix12"></p>
+<p>2、80fallback<br>80客户端订单微服务，也可以采用服务降级保护自身</p>
+<p>尽管设置了热部署时，修改了@HystrixCommand内属性还是建议重启微服务。</p>
+<p>（1）yml开启hystrix<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix13.jpg" alt="hystrix13"></p>
+<p>（2）主启动，@EnableHystrix<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix14.jpg" alt="hystrix14"></p>
+<p>（3）业务类<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix15.jpg" alt="hystrix15"></p>
+<h4 id="2、问题"><a href="#2、问题" class="headerlink" title="2、问题"></a>2、问题</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix16.jpg" alt="hystrix16"></p>
+<p>指定统一处理服务降级的实现类<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix17.jpg" alt="hystrix17"></p>
+<p>当客户端也配置服务降级后，当服务端宕机时，客户端会进行相应服务降级处理，不会挂起耗死服务器</p>
+<h3 id="5、服务熔断"><a href="#5、服务熔断" class="headerlink" title="5、服务熔断"></a>5、服务熔断</h3><h4 id="1、断路器"><a href="#1、断路器" class="headerlink" title="1、断路器"></a>1、断路器</h4><p>可以看做家里的保险丝</p>
+<h4 id="2、熔断是什么"><a href="#2、熔断是什么" class="headerlink" title="2、熔断是什么"></a>2、熔断是什么</h4><p><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix18.jpg" alt="hystrix18"><br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix19.jpg" alt="hystrix19"></p>
+<h4 id="3、案例"><a href="#3、案例" class="headerlink" title="3、案例"></a>3、案例</h4><p>1、修改8001的PaymentService<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix20.jpg" alt="hystrix20"><br>配置中意思是10秒钟内10次请求有6次以上（60%）失败即触发熔断，断路器打开，</p>
+<p>这时就算后面是正常正确的请求到达，也得不到正常的返回；</p>
+<p>过一段时间后，失败率降低，慢慢恢复链路，断路器关闭，可以正常处理请求</p>
+<p>2、修改8001的PaymentController<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix21.jpg" alt="hystrix21"></p>
+<p>3、总结<br>（1）熔断类型<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix22.jpg" alt="hystrix22"></p>
+<p>（2）断路器在什么情况下起作用<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix23.jpg" alt="hystrix23"></p>
+<p>（3）断路器开启或关闭的条件<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix24.jpg" alt="hystrix24"></p>
+<p>（3）断路器打开之后<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix25.jpg" alt="hystrix25"></p>
+<p>官网断路器流程图<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix26.jpg" alt="hystrix26"></p>
+<h3 id="6、Hystrix-DashBoard"><a href="#6、Hystrix-DashBoard" class="headerlink" title="6、Hystrix DashBoard"></a>6、Hystrix DashBoard</h3><p>1、概述<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix27.jpg" alt="hystrix27"></p>
+<p>2、开启<br><img src="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/hystrix28.jpg" alt="hystrix28"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/28/微服务：4-1-1-服务降级-Hystrix/" data-id="ckgulruic000zxgviyfkbika3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-微服务：3-1-2-服务调用-OpenFeign" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/" class="article-date">
+  <time datetime="2020-10-27T07:54:41.000Z" itemprop="datePublished">2020-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、OpenFeign概述"><a href="#1、OpenFeign概述" class="headerlink" title="1、OpenFeign概述"></a>1、OpenFeign概述</h3><h4 id="1、OpenFeign是什么？"><a href="#1、OpenFeign是什么？" class="headerlink" title="1、OpenFeign是什么？"></a>1、OpenFeign是什么？</h4><p>1、OpenFeign是什么？<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign1.jpg" alt="openfeign1"></p>
+<p>OpenFeign整合了Ribbon</p>
+<p>2、OpenFeign能干什么？<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign2.jpg" alt="openfeign2"></p>
+<p>3、Feign和OpenFeign的区别<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign3.jpg" alt="openfeign3"></p>
+<h3 id="2、OpenFeign使用步骤"><a href="#2、OpenFeign使用步骤" class="headerlink" title="2、OpenFeign使用步骤"></a>2、OpenFeign使用步骤</h3><p>注册中心、服务提供者、消费者三者交互图：<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign4.jpg" alt="openfeign4"></p>
+<h4 id="1、接口-注解"><a href="#1、接口-注解" class="headerlink" title="1、接口+注解"></a>1、接口+注解</h4><p><strong>微服务调用接口+@FeignClient</strong><br><strong>feign在消费端使用</strong></p>
+<h4 id="2、使用步骤"><a href="#2、使用步骤" class="headerlink" title="2、使用步骤"></a>2、使用步骤</h4><p>1、建module<br>新建cloud-consumer-feign-order80</p>
+<p>2、改POM<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign5.jpg" alt="openfeign5"></p>
+<p>3、写YML<br>openfeign是一个客户端，不用整合进微服务，不用在yml中配置<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign6.jpg" alt="openfeign6"></p>
+<p>4、主启动<br>在主启动类使用注解@EnableFeignClients激活并开启Feign<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign7.jpg" alt="openfeign7"></p>
+<p>5、业务类<br>（1）业务逻辑接口+@FeignClient配置调用provider的服务<br>主启动类使用注解<strong>@EnableFeignClients</strong>激活开启Feign功能，<br><strong>@FeignClient</strong>标注接口使用Feign功能</p>
+<p>（2）新建PaymentFeignService接口，并新增注解@FeignClient，并指定微服务<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign8.jpg" alt="openfeign8"></p>
+<p>（3）控制层Controller<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign9.jpg" alt="openfeign9"></p>
+<p>6、测试<br>（1）启动2个Eureka集群7001和7002</p>
+<p>（2）启动2个微服务提供者8001和8002</p>
+<p>（3）启动OpenFeign80</p>
+<p>（4）测试接口<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign10.jpg" alt="openfeign10"><br>微服务提供者8001和8002轮询方式提供服务</p>
+<p><strong>Feign自带负载均衡配置项</strong>，因为集合了Ribbon</p>
+<p>7、小总结<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign11.jpg" alt="openfeign11"></p>
+<h3 id="3、OpenFeign超时控制"><a href="#3、OpenFeign超时控制" class="headerlink" title="3、OpenFeign超时控制"></a>3、OpenFeign超时控制</h3><p><strong>Feign客户端请求时默认等待1秒钟，但是服务端响应处理超过1秒钟的话，Feign客户端就会超时报错。</strong></p>
+<p>为了避免这种情况，我们可以设置Feign客户端的超时控制</p>
+<p>OpenFeign集成了Ribbon，由配置Ribbon来实现<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign12.jpg" alt="openfeign12"></p>
+<h3 id="4、OpenFeign日志打印功能"><a href="#4、OpenFeign日志打印功能" class="headerlink" title="4、OpenFeign日志打印功能"></a>4、OpenFeign日志打印功能</h3><p>Feign提供了日志打印功能，我们可以通过配置来调整日志级别，从而了解Feign中HTTP请求的细节，即对Feign接口的调用用情况进行监控和输出。</p>
+<h4 id="1、日志级别"><a href="#1、日志级别" class="headerlink" title="1、日志级别"></a>1、日志级别</h4><p>1、None：默认的，不显示任何日志</p>
+<p>2、Basic：仅记录请求方法、URL、响应状态码及执行时间</p>
+<p>3、Headers：除了Basic中定义的信息外，还有请求还有响应头信息</p>
+<p>4、Full：除了Headers中定义的信息外，还有请求和响应的正文及元数据</p>
+<h4 id="2、配置日志Bean"><a href="#2、配置日志Bean" class="headerlink" title="2、配置日志Bean"></a>2、配置日志Bean</h4><p>新建package，写一个配置类，设置日志级别为FULL<br><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign13.jpg" alt="openfeign13"></p>
+<h4 id="3、yml文件开启日志的Feign客户端"><a href="#3、yml文件开启日志的Feign客户端" class="headerlink" title="3、yml文件开启日志的Feign客户端"></a>3、yml文件开启日志的Feign客户端</h4><p><img src="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/openfeign14.jpg" alt="openfeign14"></p>
+<p>调用接口后，可在控制台看到详细日志</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/" data-id="ckgulruil001axgvih759u2o3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-微服务：3-1-1-服务调用-Ribbon" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/" class="article-date">
+  <time datetime="2020-10-27T05:49:13.000Z" itemprop="datePublished">2020-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Ribbon概述"><a href="#1、Ribbon概述" class="headerlink" title="1、Ribbon概述"></a>1、Ribbon概述</h3><h4 id="1、Ribbon是什么？"><a href="#1、Ribbon是什么？" class="headerlink" title="1、Ribbon是什么？"></a>1、Ribbon是什么？</h4><p><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon1.jpg" alt="ribbon1"></p>
+<p>总结：Ribbon其实就是一个软负载均衡的客户端组件</p>
+<h4 id="2、负载均衡"><a href="#2、负载均衡" class="headerlink" title="2、负载均衡"></a>2、负载均衡</h4><p>1、负载均衡是什么？<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon2.jpg" alt="ribbon2"></p>
+<p>2、两种负载均衡：集中式LB和进程内LB<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon3.jpg" alt="ribbon3"></p>
+<h3 id="2、负载均衡演示"><a href="#2、负载均衡演示" class="headerlink" title="2、负载均衡演示"></a>2、负载均衡演示</h3><h4 id="1、架构说明"><a href="#1、架构说明" class="headerlink" title="1、架构说明"></a>1、架构说明</h4><p>Ribbon其实就是一个软负载均衡的客户端组件，可以和其他所需请求的客户端结合使用，比如和Eureka结合<br>（最新的Eureka依赖中，已经整合了Ribbon，不用额外引入Ribbon依赖，所以在Eureka篇没有显示引入Ribbon也可以实现负载均衡）</p>
+<p><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon4.jpg" alt="ribbon4"></p>
+<p>Ribbon在工作时分成两步：<br>第一步 先选择EurekaServer，它优先选择同一个区域内负载较少的server<br>第二步 根据用户指定的策略，在server中取到的服务注册列表中选择一个地址</p>
+<p>其中Ribbon提供了多种策略：如轮询、随机和根据响应时间加权</p>
+<h3 id="3、Ribbon核心组件IRule"><a href="#3、Ribbon核心组件IRule" class="headerlink" title="3、Ribbon核心组件IRule"></a>3、Ribbon核心组件IRule</h3><h4 id="1、IRule接口"><a href="#1、IRule接口" class="headerlink" title="1、IRule接口"></a>1、IRule接口</h4><p>IRule：根据特定算法从服务列表中选取一个要访问的服务<br>Ribbon自带的7中负载均衡方法：<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon5.jpg" alt="ribbon5"><br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon6.jpg" alt="ribbon6"></p>
+<h4 id="2、替换负载均衡算法"><a href="#2、替换负载均衡算法" class="headerlink" title="2、替换负载均衡算法"></a>2、替换负载均衡算法</h4><p>比如，当前项目的负载均衡算法是默认的轮询，想要换成随机，该如何操作？<br>1、修改cloud-consumer-order80</p>
+<p>2、注意配置细节<br>将负载均衡算配置成随机的配置类，不能放在注解@ComponentScan所扫描的当前包以及子包下，<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon7.jpg" alt="ribbon7"></p>
+<p>但是当前项目的入口主启动类，由注解@SpringBootApplication标注，@SpringBootApplication中包含注解@ComponentScan，所以当前整个项目都属@ComponentScan的扫描范围，<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon8.jpg" alt="ribbon8"></p>
+<p>则我们需要新建一个配置包和@SpringBootApplication所在主启动类处于同级位置</p>
+<p>3、新建package：com.atguigu.myrule<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon9.jpg" alt="ribbon9"></p>
+<p>4、com.atguigu.myrule包下新建MySelfRule规则类，将负载均衡算法换成随机<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon10.jpg" alt="ribbon10"></p>
+<p>5、主启动类添加RibbonClient<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon11.jpg" alt="ribbon11"><br>configuration指向我们自定义的配置类MySelfRule</p>
+<p>6、测试<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon12.jpg" alt="ribbon12"><br>测试后发现消费者端随机访问服务提供端8001和8002</p>
+<h3 id="4、负载均衡算法"><a href="#4、负载均衡算法" class="headerlink" title="4、负载均衡算法"></a>4、负载均衡算法</h3><h4 id="1、原理"><a href="#1、原理" class="headerlink" title="1、原理"></a>1、原理</h4><p>负载均衡轮询原理：<br><img src="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/ribbon13.jpg" alt="ribbon13"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/27/微服务：3-1-1-服务调用-Ribbon/" data-id="ckgulruia000xxgvibws3ugr6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-微服务：2-1-2-服务注册与发现三个组件对比" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/" class="article-date">
+  <time datetime="2020-10-27T05:24:17.000Z" itemprop="datePublished">2020-10-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Eureka、Zookeeper和Consul对比"><a href="#1、Eureka、Zookeeper和Consul对比" class="headerlink" title="1、Eureka、Zookeeper和Consul对比"></a>1、Eureka、Zookeeper和Consul对比</h3><p><img src="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/cap1.jpg" alt="cap1"></p>
+<h3 id="2、CAP理论"><a href="#2、CAP理论" class="headerlink" title="2、CAP理论"></a>2、CAP理论</h3><p><img src="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/cap2.jpg" alt="cap2"></p>
+<p>CAP经典图：<br><img src="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/cap3.jpg" alt="cap3"></p>
+<p>1、AP(Eureka):<br><img src="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/cap4.jpg" alt="cap4"></p>
+<p>2、CP(Zookeeper/Consul):<br><img src="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/cap5.jpg" alt="cap5"><br>网络分区出现后，为了保证一致性，就必须拒绝客户端请求，否则无法保证一致性</p>
+<p>结论：违背了A（可用性）的要求，只满足一致性和分区容错性，即CP。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/" data-id="ckgulrui9000wxgvi1kz2xavr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-微服务：2-1-1-服务注册与发现-Eureka" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/" class="article-date">
+  <time datetime="2020-10-25T15:23:34.000Z" itemprop="datePublished">2020-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Eureka基础知识"><a href="#1、Eureka基础知识" class="headerlink" title="1、Eureka基础知识"></a>1、Eureka基础知识</h3><h4 id="1、什么是服务治理"><a href="#1、什么是服务治理" class="headerlink" title="1、什么是服务治理"></a>1、什么是服务治理</h4><p>  Spring Cloud 封装了Netflix公司开发的Eureka模块来实现服务治理。</p>
+<p>  在传统的RPC远程调用框架中，管理每个服务与服务之家依赖关系比较复杂，管理比较复杂，所以需要使用服务治理，管理服务与服务之间的依赖关系，可以实现服务调用、负载均衡、容错等，实现服务发现与注册。</p>
+<h4 id="2、什么是服务注册与发现"><a href="#2、什么是服务注册与发现" class="headerlink" title="2、什么是服务注册与发现"></a>2、什么是服务注册与发现</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka1.jpg" alt="eureka1"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka2.jpg" alt="eureka2"></p>
+<h4 id="3、Eureka两组件"><a href="#3、Eureka两组件" class="headerlink" title="3、Eureka两组件"></a>3、Eureka两组件</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka3.jpg" alt="eureka3"></p>
+<h3 id="2、单机Eureka构建步骤"><a href="#2、单机Eureka构建步骤" class="headerlink" title="2、单机Eureka构建步骤"></a>2、单机Eureka构建步骤</h3><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka4.jpg" alt="eureka4"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka18.jpg" alt="eureka18"></p>
+<h4 id="1、IDEA生成eurekaServer端服务注册中心（类似物业中心）"><a href="#1、IDEA生成eurekaServer端服务注册中心（类似物业中心）" class="headerlink" title="1、IDEA生成eurekaServer端服务注册中心（类似物业中心）"></a>1、IDEA生成eurekaServer端服务<strong>注册中心</strong>（类似物业中心）</h4><p>1、建Module<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka5_module.jpg" alt="eureka5_module"><br>2、改POM<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka6_pom.jpg" alt="eureka6_pom"><br>3、写YML<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka7_yml.jpg" alt="eureka7_yml"><br>4、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka8_application.jpg" alt="eureka8_application"><br>5、测试<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka9_localhost.jpg" alt="eureka9_localhost"></p>
+<h4 id="2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为服务提供者provider（类似于入驻该物业中心的奶茶店）"><a href="#2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为服务提供者provider（类似于入驻该物业中心的奶茶店）" class="headerlink" title="2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为服务提供者provider（类似于入驻该物业中心的奶茶店）"></a>2、EurekaClient端cloud-provider-payment8001注册进EurekaServer成为<strong>服务提供者</strong>provider（类似于入驻该物业中心的奶茶店）</h4><p>1、建Module</p>
+<p>2、改POM<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka10_provider_pom.jpg" alt="eureka10_provider_pom"><br>3、写YML<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka11_provider_yml.jpg" alt="eureka11_provider_yml"><br>4、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka12_provider_application.jpg" alt="eureka12_provider_application"><br>5、测试<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka13_provider_localhost.jpg" alt="eureka13_provider_localhost"></p>
+<p>6、yml配置文件中，spring的application的name就是Eureka启动后的application的name<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka14_provider.jpg" alt="eureka14_provider"></p>
+<h4 id="3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为服务消费者consumer（类似于奶茶店消费者）"><a href="#3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为服务消费者consumer（类似于奶茶店消费者）" class="headerlink" title="3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为服务消费者consumer（类似于奶茶店消费者）"></a>3、EurekaClient端cloud-consumer-order80注册进EurekaServer成为<strong>服务消费者</strong>consumer（类似于奶茶店消费者）</h4><p>1、建Module</p>
+<p>2、改POM<br>与上面一致</p>
+<p>3、写YML<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka15_consumer_yml.jpg" alt="eureka15_consumer_yml"><br>4、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka16_consumer_application.jpg" alt="eureka16_consumer_application"><br>5、测试<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka17_consumer_localhost.jpg" alt="eureka17_consumer_localhost"></p>
+<h3 id="3、集群Eureka构建步骤"><a href="#3、集群Eureka构建步骤" class="headerlink" title="3、集群Eureka构建步骤"></a>3、集群Eureka构建步骤</h3><h4 id="1、Eureka集群原理说明"><a href="#1、Eureka集群原理说明" class="headerlink" title="1、Eureka集群原理说明"></a>1、Eureka集群原理说明</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka20_cluster_theory.jpg" alt="eureka20_cluster_theory"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka19_cluster.jpg" alt="eureka19_cluster"></p>
+<h4 id="2、EurekaServer集群环境构建步骤"><a href="#2、EurekaServer集群环境构建步骤" class="headerlink" title="2、EurekaServer集群环境构建步骤"></a>2、EurekaServer集群环境构建步骤</h4><p>1、参考cloud-eureka-server7001，新建cloud-eureka-server7002<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka21_server7002_module.jpg" alt="eureka21_server7002_module"></p>
+<p>2、改POM<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka22_server7002_pom.jpg" alt="eureka22_server7002_pom"></p>
+<p>总工程的pom文件<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka23_server7002_parent_pom.jpg" alt="eureka23_server7002_parent_pom"></p>
+<p>3、修改映射配置<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka24_server7002_host.jpg" alt="eureka24_server7002_host"></p>
+<p>4、写YML（之前是单机，现在改成集群）<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka25_server7001&amp;7002_pom.jpg" alt="eureka25_server7001&amp;7002_pom"></p>
+<p>5、主启动<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka26_server7001&amp;7002_application.jpg" alt="eureka26_server7001&amp;7002_application"></p>
+<h4 id="3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中"><a href="#3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中" class="headerlink" title="3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中"></a>3、将支付服务8001微服务发布到7001和7002两台Eureka集群配置中</h4><p>1、8001配置7001和7002两台Eureka集群<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka27_server8001_yml.jpg" alt="eureka27_server8001_yml"></p>
+<h4 id="4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中"><a href="#4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中" class="headerlink" title="4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中"></a>4、将订单服务服务800微服务发布到7001和7002两台Eureka集群配置中</h4><p>1、80配置7001和7002两台Eureka集群<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka28_server80_yml.jpg" alt="eureka28_server80_yml"></p>
+<h4 id="5、测试"><a href="#5、测试" class="headerlink" title="5、测试"></a>5、测试</h4><p>1、先启动EurekaServer，7001和7002服务<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka29_server7001.jpg" alt="eureka29_server7001"></p>
+<p>2、再启动服务提供者provider，8001<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka30_server7002.jpg" alt="eureka30_server7002"><br>3、再启动服务消费者，80</p>
+<p>4、访问<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka31_server80.jpg" alt="eureka31_server80"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka32.jpg" alt="eureka32"></p>
+<h4 id="6、支付服务提供者集群环境构建"><a href="#6、支付服务提供者集群环境构建" class="headerlink" title="6、支付服务提供者集群环境构建"></a>6、支付服务提供者<strong>集群环境</strong>构建</h4><p>服务提供者是一个集群：<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka39.jpg" alt="eureka39"></p>
+<p>1、参考cloud-provider-payment8001，新建cloud-provider-payment8002<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka33_server8002_module.jpg" alt="eureka33_server8002_module"></p>
+<p>2、改POM<br>复制8001的pom</p>
+<p>3、写yml<br>复制8001的yml，将端口改成8002即可</p>
+<p>5、主启动<br>复制8001</p>
+<p>5、业务类<br>复制8001</p>
+<p>5、修改8001和8002的Controller<br>简单标注该provider的端口号<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka34_server_controller.jpg" alt="eureka34_server_controller"></p>
+<p>6、在80消费者controller中，修改访问服务提供者的路径，把写死的路径改成消费提供者<strong>集群</strong>对外暴露的名称：CLOUDER-PATMENT-SERVER<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka36_server80.jpg" alt="eureka36_server80"></p>
+<p>7、<strong>负载均衡</strong><br>在80消费者controller中，修改访问服务提供者的路径，把写死的路径改成消费提供者<strong>集群</strong>对外暴露的名称：CLOUDER-PATMENT-SERVER之后，当访问<a href="https://CLOUDER-PATMENT-SERVER路径时，服务器不知道你到底要访问CLOUDER-PATMENT-SERVER下的哪一台机器，所以要使用**@LoadBalance**注解赋予RestTemplate负载均衡的能力" target="_blank" rel="noopener">https://CLOUDER-PATMENT-SERVER路径时，服务器不知道你到底要访问CLOUDER-PATMENT-SERVER下的哪一台机器，所以要使用**@LoadBalance**注解赋予RestTemplate负载均衡的能力</a></p>
+<p>修改ApplicationContextConfig<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka37_server80_config.jpg" alt="eureka37_server80_config"></p>
+<p>8、启动7001和7002<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka35_server70017002.jpg" alt="eureka35_server70017002"></p>
+<p>9、启动8001和8002</p>
+<p>10、启动80<br>启动80端口的消费者，消费者访问服务提供者8001和8002时，服务提供者集群采用<strong>轮询机制</strong>给消费者提供服务。<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka38_80.jpg" alt="eureka38_80"></p>
+<h3 id="4、服务发现discovery"><a href="#4、服务发现discovery" class="headerlink" title="4、服务发现discovery"></a>4、服务发现discovery</h3><p>1、对于注册进eureka里面的微服务，可以通过服务发现来获得该服务信息</p>
+<p>以8001为例：<br>2、修改cloud-provider-payment8001的controller<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka40_discovery_controller.jpg" alt="eureka40_discovery_controller"></p>
+<p>3、8001主启动类<br>添加注解<strong>@EnableDisCoveryClient</strong><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka41_discovery_application.jpg" alt="eureka41_discovery_application"></p>
+<p>4、自测<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka42_discovery_run.jpg" alt="eureka42_discovery_run"><br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka43_discovery_run2.jpg" alt="eureka43_discovery_run2"></p>
+<h3 id="5、Eureka自我保护"><a href="#5、Eureka自我保护" class="headerlink" title="5、Eureka自我保护"></a>5、Eureka自我保护</h3><h4 id="1、故障现象"><a href="#1、故障现象" class="headerlink" title="1、故障现象"></a>1、故障现象</h4><p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka44.jpg" alt="eureka44"></p>
+<h4 id="2、导致原因"><a href="#2、导致原因" class="headerlink" title="2、导致原因"></a>2、导致原因</h4><p>1、某时刻，某一个微服务不可用了，Eureka不会立刻清理，依旧会对该服务的信息进行保存</p>
+<p>2、属于CAP中的AP分支</p>
+<p><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka45.jpg" alt="eureka45"></p>
+<h4 id="3、怎么禁止自我保护"><a href="#3、怎么禁止自我保护" class="headerlink" title="3、怎么禁止自我保护"></a>3、怎么禁止自我保护</h4><p>某时刻，某一个微服务不可用了，Eureka立刻清理不保存该服务的信息</p>
+<p>以7001和8001为例<br>1、修改7001yml<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka46.jpg" alt="eureka46"></p>
+<p>2、修改8001yml<br><img src="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/eureka47.jpg" alt="eureka47"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/" data-id="ckgulrui8000vxgvif2jpayaw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-微服务：1、入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/25/微服务：1、入门/" class="article-date">
+  <time datetime="2020-10-25T12:51:34.000Z" itemprop="datePublished">2020-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/25/微服务：1、入门/">微服务：1、入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/2020/10/25/微服务：1、入门/springcloud1.jpg" alt="springcloud1"><br><img src="/2020/10/25/微服务：1、入门/springcloud2.jpg" alt="springcloud2"><br><img src="/2020/10/25/微服务：1、入门/springcloud3.jpg" alt="springcloud3"><br><img src="/2020/10/25/微服务：1、入门/springcloud4.jpg" alt="springcloud4"><br><img src="/2020/10/25/微服务：1、入门/springcloud5.jpg" alt="springcloud5"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/25/微服务：1、入门/" data-id="ckgulrui6000txgvi9e7mngtr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GO：2-9-Go语句及其执行规则" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/12/GO：2-9-Go语句及其执行规则/" class="article-date">
+  <time datetime="2020-08-12T01:35:23.000Z" itemprop="datePublished">2020-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/12/GO：2-9-Go语句及其执行规则/">GO：2.9 Go语句及其执行规则</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇文章中讨论的go语句，这也是 Go 语言的最大特色了。它足可以代表 Go 语言最重要的编程哲学和并发编程模式。</p>
+<p>重温一下下面这句话：</p>
+<hr>
+<p><em>Don’t communicate by sharing memory; share memory by communicating.</em></p>
+<p>从 Go 语言编程的角度解释，这句话的意思就是：<strong>不要通过共享数据来通讯，恰恰相反，要以通讯的方式共享数据。</strong></p>
+<hr>
+<p>我们已经知道，通道（也就是 channel）类型的值，可以被用来以通讯的方式共享数据。更具体地说，它一般被用来在不同的 goroutine 之间传递数据。那么 goroutine 到底代表着什么呢？</p>
+<p>简单来说，<strong>goroutine 代表着并发编程模型中的用户级线程</strong>。你可能已经知道，操作系统本身提供了进程和线程，这两种并发执行程序的工具。</p>
+<h3 id="1、进程与线程"><a href="#1、进程与线程" class="headerlink" title="1、进程与线程"></a>1、进程与线程</h3><p>1、<strong>进程</strong>，描述的就是<strong>程序的执行过程，是运行着的程序的代表</strong>。换句话说，<strong>一个进程其实就是某个程序运行时的一个产物</strong>。如果说静静地躺在那里的代码就是程序的话，那么<strong>奔跑着的、正在发挥着既有功能的代码</strong>就可以被称为进程。</p>
+<p>我们的电脑为什么可以同时运行那么多应用程序？我们的手机为什么可以有那么多 App 同时在后台刷新？这都是因为在它们的操作系统之上有多个代表着不同应用程序或 App 的进程在同时运行。</p>
+<p>2、再来说说线程。首先，<strong>线程</strong>总是<strong>在进程之内</strong>的，它可以<strong>被视为进程中运行着的控制流</strong>（或者说代码执行的流程）。</p>
+<p><strong>一个进程至少会包含一个线程</strong>。如果一个进程只包含了一个线程，那么它里面的所有代码都只会被串行地执行。<strong>每个进程的第一个线程都会随着该进程的启动而被创建</strong>，它们可以被称为其所属进程的<strong>主线程</strong>。</p>
+<p>相对应的，如果一个进程中包含了多个线程，那么其中的代码就可以被并发地执行。<strong>除了进程的第一个线程之外，其他的线程都是由进程中已存在的线程创建出来的</strong>。 </p>
+<p>也就是说，<strong>主线程之外的其他线程都只能由代码显式地创建和销毁</strong>。这需要我们在编写程序的时候进行手动控制，操作系统以及进程本身并不会帮我们下达这样的指令，它们只会忠实地执行我们的指令。</p>
+<p>不过，在 Go 程序当中，Go 语言的运行时（runtime）系统会帮助我们<strong>自动地创建和销毁系统级的线程</strong>。这里的系统级线程指的就是我们刚刚说过的操作系统提供的线程。</p>
+<p>而对应的<strong>用户级线程</strong>指的是架设在系统级线程之上的，由用户（或者说我们编写的程序）完全控制的代码执行流程。用户级线程的创建、销毁、调度、状态变更以及其中的代码和数据都完全需要我们的程序自己去实现和处理。</p>
+<p>这带来了很多优势，比如，因为它们的创建和销毁并不用通过操作系统去做，所以速度会很快，又比如，由于不用等着操作系统去调度它们的运行，所以往往会很容易控制并且可以很灵活。</p>
+<p>但是，劣势也是有的，最明显也最重要的一个劣势就是复杂。如果我们只使用了系统级线程，那么我们只要指明需要新线程执行的代码片段，并且下达创建或销毁线程的指令就好了，其他的一切具体实现都会由操作系统代劳。</p>
+<p>但是，如果使用用户级线程，我们就不得不既是指令下达者，又是指令执行者。我们必须全权负责与用户级线程有关的所有具体实现。</p>
+<p>操作系统不但不会帮忙，还会要求我们的具体实现必须与它正确地对接，否则用户级线程就无法被并发地，甚至正确地运行。毕竟我们编写的所有代码最终都需要通过操作系统才能在计算机上执行。这听起来就很麻烦，不是吗？</p>
+<p>不过别担心<strong>，Go 语言不但有着独特的并发编程模型，以及用户级线程 goroutine，还拥有强大的用于调度 goroutine、对接系统级线程的调度器。</strong></p>
+<p>这个调度器是 Go 语言运行时系统的重要组成部分，它主要负责统筹调配 Go 并发编程模型中的三个主要元素，即<strong>：G（goroutine 的缩写）、P（processor 的缩写）和 M（machine 的缩写）</strong>。</p>
+<p>其中的 <strong>M 指代的就是系统级线程</strong>。而 <strong>P 指的是一种可以承载若干个 G，且能够使这些 G 适时地与 M 进行对接，并得到真正运行的中介</strong>。</p>
+<p>从宏观上说，G 和 M 由于 P 的存在可以呈现出多对多的关系。当一个正在与某个 M 对接并运行着的 G，需要因某个事件（比如等待 I/O 或锁的解除）而暂停运行的时候，调度器总会及时地发现，并把这个 G 与那个 M 分离开，以释放计算资源供那些等待运行的 G 使用。</p>
+<p>而当一个 G 需要恢复运行的时候，调度器又会尽快地为它寻找空闲的计算资源（包括 M）并安排运行。另外，当 M 不够用时，调度器会帮我们向操作系统申请新的系统级线程，而当某个 M 已无用时，调度器又会负责把它及时地销毁掉。</p>
+<p>正因为调度器帮助我们做了很多事，所以我们的 Go 程序才总是能高效地利用操作系统和计算机资源。程序中的所有 goroutine 也都会被充分地调度，其中的代码也都会被并发地运行，即使这样的 goroutine 有数以十万计，也仍然可以如此。<br><img src="/2020/08/12/GO：2-9-Go语句及其执行规则/mpg1.png" alt="mpg1"></p>
+<p>关于 Go 语言内部的调度器和运行时系统的更多细节，我在这里就不再深入讲述了。你需要知道，Go 语言实现了一套非常完善的运行时系统，保证了我们的程序在高并发的情况下依旧能够稳定、高效地运行。</p>
+<p>下面，从编程实践的角度出发，以go语句的用法为主线，介绍go语句的执行规则、最佳实践和使用禁忌。</p>
+<h3 id="2、什么是主-goroutine，它与我们启用的其他-goroutine-有什么不同？"><a href="#2、什么是主-goroutine，它与我们启用的其他-goroutine-有什么不同？" class="headerlink" title="2、什么是主 goroutine，它与我们启用的其他 goroutine 有什么不同？"></a>2、什么是主 goroutine，它与我们启用的其他 goroutine 有什么不同？</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/12/GO：2-9-Go语句及其执行规则/" data-id="ckgulruhc0002xgvig0bdnmbf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GO：2-8-关于指针的有限操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/10/GO：2-8-关于指针的有限操作/" class="article-date">
+  <time datetime="2020-08-09T16:14:13.000Z" itemprop="datePublished">2020-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/10/GO：2-8-关于指针的有限操作/">GO：2-8 关于指针的有限操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们那时大多指的是指针类型及其对应的指针值，今天我们讲的则是更为深入的内容。<br>复习一下。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">  name <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">  dog.name = name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于基本类型Dog来说，*Dog就是它的指针类型。而对于一个Dog类型，值不为nil的变量dog，取址表达式&amp;dog的结果就是该变量的值（也就是基本值）的指针值。</p>
+<p>在这种情况下，这个方法的接收者，实际上就是当前的基本值的指针值。</p>
+<p>我们可以通过指针值无缝地访问到基本值包含的任何字段，以及调用与之关联的任何方法。这应该就是我们在编写 Go 程序的过程中，用得最频繁的“指针”了。</p>
+<p>从传统意义上说，指针是一个指向某个确切的内存地址的值。这个内存地址可以是任何数据或代码的起始地址，比如，某个变量、某个字段或某个函数。</p>
+<p>我们刚刚只提到了其中的一种情况，在 Go 语言中还有其他几样东西可以代表“指针”。其中最贴近传统意义的当属<strong>uintptr</strong>类型了。该类型实际上是一个数值类型，也是 Go 语言内建的数据类型之一。</p>
+<p>根据当前计算机的计算架构的不同，它可以存储 32 位或 64 位的无符号整数，可以代表任何指针的位（bit）模式，也就是原始的内存地址。</p>
+<p>再来看 Go 语言标准库中的<strong>unsafe</strong>包。unsafe包中有一个类型叫做<strong>Pointer</strong>，也代表了“指针”。</p>
+<p>unsafe.Pointer可以表示任何指向<strong>可寻址的</strong>值的指针，同时它也是前面提到的指针值和uintptr值之间的桥梁。也就是说，通过它，我们可以在这两种值之上进行双向的转换。这里有一个很关键的词——可寻址的（addressable）。在我们继续说unsafe.Pointer之前，需要先要搞清楚这个词的确切含义。</p>
+<h4 id="1、列举出-Go-语言中不可寻址的值"><a href="#1、列举出-Go-语言中不可寻址的值" class="headerlink" title="1、列举出 Go 语言中不可寻址的值"></a>1、列举出 Go 语言中不可寻址的值</h4><p>以下列表中的值都是不可寻址的。</p>
+<ul>
+<li>常量的值。</li>
+<li>基本类型值的字面量。</li>
+<li>算术操作的结果值。</li>
+<li>对各种字面量的索引表达式和切片表达式的结果值。不过有一个例外，对切片字面量的索引结果值却是可寻址的。</li>
+<li>对字符串变量的索引表达式和切片表达式的结果值。</li>
+<li>对字典变量的索引表达式的结果值。</li>
+<li>函数字面量和方法字面量，以及对它们的调用表达式的结果值。</li>
+<li>结构体字面量的字段值，也就是对结构体字面量的选择表达式的结果值。</li>
+<li>类型转换表达式的结果值。</li>
+<li>类型断言表达式的结果值。</li>
+<li><p>接收表达式的结果值。</p>
+<p>初看答案中的这些不可寻址的值好像并没有什么规律。不过别急，我们一起来梳理一下。你可以对照着 以下例子中的代码来看，这样应该会让你理解起来更容易一些。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Named <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// Name 用于获取名字。</span></span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	dog.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 示例1。</span></span><br><span class="line">	<span class="keyword">const</span> num = <span class="number">123</span></span><br><span class="line">	<span class="comment">//_ = &amp;num // 常量不可寻址。</span></span><br><span class="line">	<span class="comment">//_ = &amp;(123) // 基本类型值的字面量不可寻址。</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> str = <span class="string">"abc"</span></span><br><span class="line">	_ = str</span><br><span class="line">	<span class="comment">//_ = &amp;(str[0]) // 对字符串变量的索引结果值不可寻址。</span></span><br><span class="line">	<span class="comment">//_ = &amp;(str[0:2]) // 对字符串变量的切片结果值不可寻址。</span></span><br><span class="line">	str2 := str[<span class="number">0</span>]</span><br><span class="line">	_ = &amp;str2 <span class="comment">// 但这样的寻址就是合法的。</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//_ = &amp;(123 + 456) // 算术操作的结果值不可寻址。</span></span><br><span class="line">	num2 := <span class="number">456</span></span><br><span class="line">	_ = num2</span><br><span class="line">	<span class="comment">//_ = &amp;(num + num2) // 算术操作的结果值不可寻址。</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//_ = &amp;([3]int&#123;1, 2, 3&#125;[0]) // 对数组字面量的索引结果值不可寻址。</span></span><br><span class="line">	<span class="comment">//_ = &amp;([3]int&#123;1, 2, 3&#125;[0:2]) // 对数组字面量的切片结果值不可寻址。</span></span><br><span class="line">	_ = &amp;([]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;[<span class="number">0</span>]) <span class="comment">// 对切片字面量的索引结果值却是可寻址的。</span></span><br><span class="line">	<span class="comment">//_ = &amp;([]int&#123;1, 2, 3&#125;[0:2]) // 对切片字面量的切片结果值不可寻址。</span></span><br><span class="line">	<span class="comment">//_ = &amp;(map[int]string&#123;1: "a"&#125;[0]) // 对字典字面量的索引结果值不可寻址。</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> map1 = <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;<span class="number">1</span>: <span class="string">"a"</span>, <span class="number">2</span>: <span class="string">"b"</span>, <span class="number">3</span>: <span class="string">"c"</span>&#125;</span><br><span class="line">	_ = map1</span><br><span class="line">	<span class="comment">//_ = &amp;(map1[2]) // 对字典变量的索引结果值不可寻址。</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//_ = &amp;(func(x, y int) int &#123;</span></span><br><span class="line">	<span class="comment">//	return x + y</span></span><br><span class="line">	<span class="comment">//&#125;) // 字面量代表的函数不可寻址。</span></span><br><span class="line">	<span class="comment">//_ = &amp;(fmt.Sprintf) // 标识符代表的函数不可寻址。</span></span><br><span class="line">	<span class="comment">//_ = &amp;(fmt.Sprintln("abc")) // 对函数的调用结果值不可寻址。</span></span><br><span class="line"></span><br><span class="line">	dog := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	_ = dog</span><br><span class="line">	<span class="comment">//_ = &amp;(dog.Name) // 标识符代表的函数不可寻址。</span></span><br><span class="line">	<span class="comment">//_ = &amp;(dog.Name()) // 对方法的调用结果值不可寻址。</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//_ = &amp;(Dog&#123;"little pig"&#125;.name) // 结构体字面量的字段不可寻址。</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//_ = &amp;(interface&#123;&#125;(dog)) // 类型转换表达式的结果值不可寻址。</span></span><br><span class="line">	dogI := <span class="keyword">interface</span>&#123;&#125;(dog)</span><br><span class="line">	_ = dogI</span><br><span class="line">	<span class="comment">//_ = &amp;(dogI.(Named)) // 类型断言表达式的结果值不可寻址。</span></span><br><span class="line">	named := dogI.(Named)</span><br><span class="line">	_ = named</span><br><span class="line">	<span class="comment">//_ = &amp;(named.(Dog)) // 类型断言表达式的结果值不可寻址。</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> chan1 = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)</span><br><span class="line">	chan1 &lt;- <span class="number">1</span></span><br><span class="line">	<span class="comment">//_ = &amp;(&lt;-chan1) // 接收表达式的结果值不可寻址。</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>1、常量的值总是会被存储到一个确切的内存区域中，并且这种值肯定是不可变的。基本类型值的字面量也是一样，其实它们本就可以被视为常量，只不过没有任何标识符可以代表它们罢了。</p>
+<ul>
+<li>第一个关键词：<strong>不可变的</strong><br>由于 Go 语言中的<strong>字符串值也是不可变的</strong>，所以对于一个字符串类型的变量来说，<strong>基于它的索引或切片的结果值也都是不可寻址的</strong>，因为即使拿到了这种值的内存地址也改变不了什么。</li>
+</ul>
+<p>2、算术操作的结果值属于一种<strong>临时结果</strong>。在我们把这种结果值赋给任何变量或常量之前，即使能拿到它的内存地址也是没有任何意义的。</p>
+<ul>
+<li>第二个关键词：<strong>临时结果</strong>。<br>这个关键词能被用来解释很多现象。我们可以把各种对<strong>值字面量</strong>施加的<strong>表达式</strong>的求值结果都看做是临时结果。</li>
+</ul>
+<p>我们都知道，Go 语言中的表达式有很多种，其中常用的包括以下几种。</p>
+<ul>
+<li>用于获得某个元素的索引表达式。</li>
+<li>用于获得某个切片（片段）的切片表达式。</li>
+<li>用于访问某个字段的选择表达式。</li>
+<li>用于调用某个函数或方法的调用表达式。</li>
+<li>用于转换值的类型的类型转换表达式。</li>
+<li>用于判断值的类型的类型断言表达式。</li>
+<li>向通道发送元素值或从通道那里接收元素值的接收表达式。</li>
+</ul>
+<p>我们把以上这些表达式施加在某个值字面量上一般都会得到一个临时结果。比如，对数组字面量和字典字面量的索引结果值，又比如，对数组字面量和切片字面量的<strong>切片结果值</strong>。它们都属于临时结果，都是不可寻址的。</p>
+<p>一个需要特别注意的例外是，对<strong>切片字面量的索引结果值是可寻址的</strong>。因为不论怎样，<strong>每个切片值都会持有一个底层数组，而这个底层数组中的每个元素值都是有一个确切的内存地址的</strong>。</p>
+<p>你可能会问，那么对切片字面量的切片结果值为什么却是不可寻址的？这是因为<strong>切片表达式总会返回一个新的切片值</strong>，而这个新的切片值在被赋给变量之前属于临时结果。</p>
+<p>针对数组值、切片值或字典值的<strong>字面量</strong>的<strong>表达式</strong>会产生临时结果。如果针对的是数组类型或切片类型的<strong>变量</strong>，那么索引或切片的结果值就都不属于临时结果了，是可寻址的。</p>
+<p>这主要因为<strong>变量的值本身就不是“临时的”</strong>。对比而言，<strong>值字面量在还没有与任何变量（或者说任何标识符）绑定之前是没有落脚点的</strong>，<strong>我们无法以任何方式引用到它们。这样的值就是“临时的”</strong>。</p>
+<p>再说一个例外。我们通过对<strong>字典类型的变量施加索引表达式，得到的结果值不属于临时结果</strong>，可是，这样的值却是<strong>不可寻址的</strong>。原因是，<strong>字典中的每个键 - 元素对的存储位置都可能会变化，而且这种变化外界是无法感知的。</strong></p>
+<p>我们都知道，字典中总会有若干个哈希桶用于均匀地储存键 - 元素对。当满足一定条件时，字典可能会改变哈希桶的数量，并适时地把其中的键 - 元素对搬运到对应的新的哈希桶中。</p>
+<p>在这种情况下，获取字典中任何元素值的指针都是无意义的，也是不安全的。我们不知道<strong>什么时候那个元素值会被搬运到何处</strong>，也不知道<strong>原先的那个内存地址上还会被存放什么别的东西</strong>。所以，这样的值就应该是不可寻址的。</p>
+<ul>
+<li>第三个关键词：<strong>不安全的</strong>。<br>“不安全的”操作很可能会破坏程序的一致性，引发不可预知的错误，从而严重影响程序的功能和稳定性。</li>
+</ul>
+<p>3、再来看函数。函数在 Go 语言中是一等公民，所以我们可以把代表函数或方法的字面量或标识符赋给某个变量、传给某个函数或者从某个函数传出。但是，这样的<strong>函数和方法都是不可寻址的</strong>。一个原因是<strong>函数就是代码，是不可变的</strong>。</p>
+<p>另一个原因是，拿到<strong>指向一段代码的指针是不安全的</strong>。此外，<strong>对函数或方法的调用结果值也是不可寻址的</strong>，这是因为它们都属于<strong>临时结果</strong>。</p>
+<p>4、至于典型回答中最后列出的那几种值，由于都是针对值字面量的某种表达式的结果值，所以都属于临时结果，都不可寻址。</p>
+<p>总结一下：</p>
+<ul>
+<li>1、<strong>不可变的值不可寻址</strong>。常量、基本类型的值字面量、字符串变量的值、函数以及方法的字面量都是如此。其实这样规定也有安全性方面的考虑。</li>
+<li>2、绝大多数被视为<strong>临时结果</strong>的值都是不可寻址的。算术操作的结果值属于临时结果，针对值字面量的表达式结果值也属于临时结果。但有一个例外，对切片字面量的索引结果值虽然也属于临时结果，但却是可寻址的。</li>
+<li>3、若拿到某值的指针可能会破坏程序的一致性，那么就是<strong>不安全的</strong>，该值就不可寻址。由于字典的内部机制，对字典的索引结果值的取址操作都是不安全的。另外，获取由字面量或标识符代表的函数或方法的地址显然也是不安全的。</li>
+</ul>
+<p>最后说一句，如果我们<strong>把临时结果赋给一个变量</strong>，那么它就是<strong>可寻址的</strong>了。如此一来，取得的指针指向的就是这个变量持有的那个值了。</p>
+<h3 id="2、不可寻址的值在使用上有哪些限制？"><a href="#2、不可寻址的值在使用上有哪些限制？" class="headerlink" title="2、不可寻址的值在使用上有哪些限制？"></a>2、不可寻址的值在使用上有哪些限制？</h3><p>首当其冲的当然是无法使用取址操作符&amp;获取它们的指针了。不过，对不可寻址的值施加取址操作都会使编译器报错，所以倒是不用太担心，你只要记住我在前面讲述的那几条规律，并在编码的时候提前注意一下就好了。</p>
+<p>我们来看下面这个小问题。我们依然以那个结构体类型Dog为例。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="title">Dog</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> Dog&#123;name&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再为它编写一个函数New。这个函数会接受一个名为name的string类型的参数，并会用这个参数初始化一个Dog类型的值，最后返回该值。我现在要问的是：如果我调用该函数，并直接以链式的手法调用其结果值的指针方法SetName，那么可以达到预期的效果吗？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">New(<span class="string">"little pig"</span>).SetName(<span class="string">"monster"</span>)</span><br></pre></td></tr></table></figure></p>
+<p> 调用New函数所得到的结果值属于临时结果，是不可寻址的。</p>
+<p> 可是，那又怎样呢？别忘了，我在讲结构体类型及其方法的时候还说过，我们可以在一个基本类型的值上调用它的指针方法，这是因为 Go 语言会自动地帮我们转译。</p>
+<p> 更具体地说，对于一个Dog类型的变量dog来说，调用表达式dog.SetName(“monster”)会被自动地转译为(&amp;dog).SetName(“monster”)，即：先取dog的指针值，再在该指针值上调用SetName方法。</p>
+<p> 发现问题了吗？由于New函数的调用结果值是不可寻址的，所以无法对它进行取址操作。因此，上边这行链式调用会让编译器报告两个错误，一个是果，即：不能在New(“little pig”)的结果值上调用指针方法。一个是因，即：不能取得New(“little pig”)的地址。</p>
+<p> 除此之外，我们都知道，Go 语言中的++和–并不属于操作符，而分别是自增语句和自减语句的重要组成部分。</p>
+<p> 虽然 Go 语言规范中的语法定义是，只要在++或–的左边添加一个表达式，就可以组成一个自增语句或自减语句，但是，它还明确了一个很重要的限制，那就是这个表达式的结果值必须是可寻址的。这就使得针对值字面量的表达式几乎都无法被用在这里。</p>
+<p> 不过这有一个例外，虽然对字典字面量和字典变量索引表达式的结果值都是不可寻址的，但是这样的表达式却可以被用在自增语句和自减语句中。</p>
+<p> 与之类似的规则还有两个。一个是，在赋值语句中，赋值操作符左边的表达式的结果值必须可寻址的，但是对字典的索引结果值也是可以的。</p>
+<p> 另一个是，在带有range子句的for语句中，在range关键字左边的表达式的结果值也都必须是可寻址的，不过对字典的索引结果值同样可以被用在这里。以上这三条规则我们合并起来记忆就可以了。</p>
+<h3 id="3、怎样通过unsafe-Pointer操纵可寻址的值？"><a href="#3、怎样通过unsafe-Pointer操纵可寻址的值？" class="headerlink" title="3、怎样通过unsafe.Pointer操纵可寻址的值？"></a>3、怎样通过unsafe.Pointer操纵可寻址的值？</h3><p>unsafe.Pointer是像*Dog类型的值这样的指针值和uintptr值之间的桥梁，那么我们怎样利用unsafe.Pointer的中转和uintptr的底层操作来操纵像dog这样的值呢？</p>
+<p>首先说明，这是一项黑科技。它可以绕过 Go 语言的编译器和其他工具的重重检查，并达到潜入内存修改数据的目的。这并不是一种正常的编程手段，使用它会很危险，很有可能造成安全隐患。</p>
+<p>我们总是应该优先使用常规代码包中提供的 API 去编写程序，当然也可以把像reflect以及go/ast这样的代码包作为备选项。作为上层应用的开发者，请谨慎地使用unsafe包中的任何程序实体。</p>
+<p>不过既然说到这里了，我们还是要来一探究竟的。请看下面的代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dog := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">dogP := &amp;dog</span><br><span class="line">dogPtr := <span class="keyword">uintptr</span>(unsafe.Pointer(dogP))</span><br></pre></td></tr></table></figure></p>
+<p>我先声明了一个Dog类型的变量dog，然后用取址操作符&amp;，取出了它的指针值，并把它赋给了变量dogP。</p>
+<p>最后，我使用了两个类型转换，先把dogP转换成了一个unsafe.Pointer类型的值，然后紧接着又把后者转换成了一个uintptr的值，并把它赋给了变量dogPtr。这背后隐藏着一些转换规则，如下：<br>1、一个指针值（比如*Dog类型的值）可以被转换为一个unsafe.Pointer类型的值，反之亦然。<br>2、一个uintptr类型的值也可以被转换为一个unsafe.Pointer类型的值，反之亦然。<br>3、一个指针值无法被直接转换成一个uintptr类型的值，反过来也是如此。</p>
+<p>所以，对于指针值和uintptr类型值之间的转换，必须使用unsafe.Pointer类型的值作为中转。那么，我们把指针值转换成uintptr类型的值有什么意义吗？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">namePtr := dogPtr + unsafe.Offsetof(dogP.name)</span><br><span class="line">nameP := (*<span class="keyword">string</span>)(unsafe.Pointer(namePtr))</span><br></pre></td></tr></table></figure></p>
+<p>这里需要与unsafe.Offsetof函数搭配使用才能看出端倪。unsafe.Offsetof函数用于获取两个值在内存中的起始存储地址之间的偏移量，以字节为单位。 </p>
+<p>这两个值一个是某个字段的值，另一个是该字段值所属的那个结构体值。我们在调用这个函数的时候，需要把针对字段的选择表达式传给它，比如dogP.name。</p>
+<p>有了这个偏移量，又有了结构体值在内存中的起始存储地址（这里由dogPtr变量代表），把它们相加我们就可以得到dogP的name字段值的起始存储地址了。这个地址由变量namePtr代表。</p>
+<p>此后，我们可以再通过两次类型转换把namePtr的值转换成一个*string类型的值，这样就得到了指向dogP的name字段值的指针值。</p>
+<p>你可能会问，我直接用取址表达式&amp;(dogP.name)不就能拿到这个指针值了吗？干嘛绕这么大一圈呢？你可以想象一下，如果我们根本就不知道这个结构体类型是什么，也拿不到dogP这个变量，那么还能去访问它的name字段吗？</p>
+<p>答案是，只要有namePtr就可以。它就是一个无符号整数，但同时也是一个指向了程序内部数据的内存地址。它可能会给我们带来一些好处，比如可以直接修改埋藏得很深的内部数据。</p>
+<p>但是，一旦我们有意或无意地把这个内存地址泄露出去，那么其他人就能够肆意地改动dogP.name的值，以及周围的内存地址上存储的任何数据了。</p>
+<p>即使他们不知道这些数据的结构也无所谓啊，改不好还改不坏吗？不正确地改动一定会给程序带来不可预知的问题，甚至造成程序崩溃。这可能还是最好的灾难性后果；所以我才说，使用这种非正常的编程手段会很危险。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/10/GO：2-8-关于指针的有限操作/" data-id="ckgulruxw002hxgvi6qj8tpt5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GO：2-7-接口类型的合理运用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/22/GO：2-7-接口类型的合理运用/" class="article-date">
+  <time datetime="2020-07-22T15:19:18.000Z" itemprop="datePublished">2020-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/22/GO：2-7-接口类型的合理运用/">GO：2.7 接口类型的合理运用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、正确使用接口的基础知识"><a href="#1、正确使用接口的基础知识" class="headerlink" title="1、正确使用接口的基础知识"></a>1、正确使用接口的基础知识</h3><p>1、在 Go 语言的语境中，当我们在谈论“接口”的时候，一定指的是接口类型。因为接口类型与其他数据类型不同，它是<strong>没法被实例化的</strong>。</p>
+<p>2、更具体地说，我们<strong>既不能通过调用new函数或make函数创建出一个接口类型的值，也无法用字面量来表示一个接口类型的值</strong>。</p>
+<p>3、对于某一个接口类型来说，如果没有任何数据类型可以作为它的实现，那么该接口的值就不可能存在。</p>
+<p>4、通过关键字type和interface，我们可以声明出接口类型</p>
+<p>5、接口类型的类型字面量与结构体类型的看起来有些相似，它们都用花括号包裹一些核心信息。只不过，结构体类型包裹的是它的字段声明，而<strong>接口类型包裹的是它的方法定义</strong>。</p>
+<p>6、注意：接口类型声明中的这些方法所代表的就是该接口的方法集合。一个接口的方法集合就是它的全部特征。</p>
+<p>7、对于任何数据类型，只要它的方法集合中完全包含了一个接口的全部特征（即全部的方法），那么它就一定是这个接口的实现类型。比如下面这样：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;<span class="comment">//声明了一个接口类型Pet</span></span><br><span class="line">  SetName(name <span class="keyword">string</span>)</span><br><span class="line">  Name() <span class="keyword">string</span></span><br><span class="line">  Category() <span class="keyword">string</span></span><br><span class="line">  <span class="comment">//包含了 3 个方法定义，方法名称分别为SetName、Name和Category，这 3 个方法共同组成了接口类型Pet的方法集合。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只要一个数据类型的方法集合中有这 3 个方法，那么它就一定是Pet接口的实现类型。这是一种<strong>无侵入式</strong>的接口实现方式。这种方式还有一个专有名词，叫“<strong>Duck typing</strong>”，中文常译作“<strong>鸭子类型</strong>”。</p>
+<h4 id="1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？"><a href="#1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？" class="headerlink" title="1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？"></a>1、怎样判定一个数据类型的某一个方法实现的就是某个接口类型中的某个方法呢？</h4><p>这有两个充分必要条件：<br>1、两个方法的签名需要完全一致<br>2、两个方法的名称要一模一样<br>例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	SetName(name <span class="keyword">string</span>)</span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span> <span class="comment">// 名字。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	dog.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 示例1。</span></span><br><span class="line">	dog := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	_, ok := <span class="keyword">interface</span>&#123;&#125;(dog).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Pet: %v\n"</span>, ok)<span class="comment">//false</span></span><br><span class="line">	</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(&amp;dog).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"*Dog implements interface Pet: %v\n"</span>, ok)<span class="comment">//true</span></span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例2。</span></span><br><span class="line">	<span class="keyword">var</span> pet Pet = &amp;dog</span><br><span class="line">	fmt.Printf(<span class="string">"This pet is a %s, the name is %q.\n"</span>,</span><br><span class="line">		pet.Category(), pet.Name())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Dog implements <span class="keyword">interface</span> Pet: <span class="literal">false</span></span><br><span class="line">*Dog implements <span class="keyword">interface</span> Pet: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">This pet is a dog, the name is <span class="string">"little pig"</span>.</span><br></pre></td></tr></table></figure></p>
+<p>1、声明的类型Dog附带了 3 个方法。其中有 2 个值方法，分别是Name和Category，另外还有一个指针方法SetName。</p>
+<p>这就意味着，Dog类型本身的方法集合中只包含了 2 个方法，也就是所有的值方法。而它的指针类型*Dog方法集合却包含了 3 个方法，</p>
+<p>也就是说，它拥有Dog类型附带的所有值方法和指针方法。又由于这 3 个方法恰恰分别是Pet接口中某个方法的实现，所以*Dog类型就成为了Pet接口的实现类型（Dog类型不是）。</p>
+<p>2、正因为如此，我可以声明并初始化一个Dog类型的变量dog，然后把它的指针值赋给类型为Pet的变量pet（var pet Pet = &amp;dog）。</p>
+<p>3、对于一个接口类型的变量来说，例如上面的变量pet，我们赋给它的值可以被叫做它的实际值（也称<strong>动态值</strong>），而该值的类型可以被叫做这个变量的实际类型（也称<strong>动态类型</strong>）。</p>
+<p>比如，我们把取址表达式&amp;dog的结果值赋给了变量pet，这时这个结果值就是变量pet的动态值，而此结果值的类型*Dog就是该变量的动态类型。</p>
+<p>4、<strong>动态类型</strong>这个叫法是相对于<strong>静态类型</strong>而言的。<strong>对于变量pet来讲，它的静态类型就是Pet，并且永远是Pet，但是它的动态类型却会随着我们赋给它的动态值而变化</strong>。</p>
+<p>比如，只有我把一个<em>Dog类型的值赋给变量pet之后，该变量的动态类型才会是</em>Dog。如果还有一个Pet接口的实现类型<em>Fish，并且我又把一个此类型的值赋给了pet，那么它的动态类型就会变为</em>Fish。</p>
+<p>还有，<strong>在我们给一个接口类型的变量赋予实际的值之前，它的动态类型是不存在的</strong>。</p>
+<h3 id="2、当我们为一个接口变量赋值时会发生什么？"><a href="#2、当我们为一个接口变量赋值时会发生什么？" class="headerlink" title="2、当我们为一个接口变量赋值时会发生什么？"></a>2、当我们为一个接口变量赋值时会发生什么？</h3><p>例子：把Pet接口的声明简化一下<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span> <span class="comment">// 名字。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	dog.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 示例1。</span></span><br><span class="line">	dog := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	<span class="keyword">var</span> pet Pet = dog</span><br><span class="line">	dog.SetName(<span class="string">"monster"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	fmt.Printf(<span class="string">"This pet is a %s, the name is %q.\n"</span>,</span><br><span class="line">		pet.Category(), pet.Name())</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例2。</span></span><br><span class="line">	dog1 := Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The name of first dog is %q.\n"</span>, dog1.Name())</span><br><span class="line">	dog2 := dog1</span><br><span class="line">	fmt.Printf(<span class="string">"The name of second dog is %q.\n"</span>, dog2.Name())</span><br><span class="line">	dog1.name = <span class="string">"monster"</span></span><br><span class="line">	fmt.Printf(<span class="string">"The name of first dog is %q.\n"</span>, dog1.Name())</span><br><span class="line">	fmt.Printf(<span class="string">"The name of second dog is %q.\n"</span>, dog2.Name())</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例3。</span></span><br><span class="line">	dog = Dog&#123;<span class="string">"little pig"</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	pet = &amp;dog</span><br><span class="line">	dog.SetName(<span class="string">"monster"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"The dog's name is %q.\n"</span>, dog.Name())</span><br><span class="line">	fmt.Printf(<span class="string">"This pet is a %s, the name is %q.\n"</span>,</span><br><span class="line">		pet.Category(), pet.Name())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">The dog<span class="string">'s name is "little pig".</span></span><br><span class="line"><span class="string">The dog'</span>s name is <span class="string">"monster"</span>.</span><br><span class="line">This pet is a dog, the name is <span class="string">"little pig"</span>.</span><br><span class="line"></span><br><span class="line">The name of first dog is <span class="string">"little pig"</span>.</span><br><span class="line">The name of second dog is <span class="string">"little pig"</span>.</span><br><span class="line">The name of first dog is <span class="string">"monster"</span>.</span><br><span class="line">The name of second dog is <span class="string">"little pig"</span>.</span><br><span class="line"></span><br><span class="line">The dog<span class="string">'s name is "little pig".</span></span><br><span class="line"><span class="string">The dog'</span>s name is <span class="string">"monster"</span>.</span><br><span class="line">This pet is a dog, the name is <span class="string">"monster"</span>.</span><br></pre></td></tr></table></figure></p>
+<p>从中去掉了Pet接口的那个名为SetName的方法（*Dog方法）。这样一来，Dog类型也就变成Pet接口的实现类型了</p>
+<p>2、从接口类型值的存储方式和结构说起。前面说过，<strong>接口类型本身是无法被值化的</strong>。在我们赋予它实际的值之前，它的值一定会是nil，这也是它的零值。</p>
+<p>反过来讲，一旦它被赋予了某个实现类型的值，它的值就不再是nil了。不过要注意，即使我们像前面那样把dog的值赋给了pet，pet的值与dog的值也是不同的。<strong>这不仅仅是副本与原值的那种不同</strong>。</p>
+<p>3、当我们给一个<strong>接口变量</strong>赋值的时候，该变量的<strong>动态类型会与它的动态值一起被存储在一个专用的数据结构中</strong>。</p>
+<p>严格来讲，这样一个变量的值其实是这个专用数据结构的一个实例，而不是我们赋给该变量的那个实际的值。所以我才说，pet的值与dog的值肯定是不同的，无论是从它们存储的内容，还是存储的结构上来看都是如此。不过，我们可以认为，这时pet的值中包含了dog值的副本。</p>
+<p>把这个专用的数据结构叫做<strong>iface</strong>吧，在 Go 语言的runtime包中它其实就叫这个名字。</p>
+<p>4、<strong>iface的实例会包含两个指针，一个是指向类型信息的指针，另一个是指向动态值的指针</strong>。这里的类型信息是由另一个专用数据结构的实例承载的，其中包含了动态值的类型，以及使它实现了接口的方法和调用它们的途径，等等。</p>
+<p>总之，接口变量被赋予动态值的时候，存储的是包含了这个动态值的副本的一个结构更加复杂的值。</p>
+<h3 id="3、接口变量的值在什么情况下才真正为nil？"><a href="#3、接口变量的值在什么情况下才真正为nil？" class="headerlink" title="3、接口变量的值在什么情况下才真正为nil？"></a>3、接口变量的值在什么情况下才真正为nil？</h3><p>例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"reflect"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span> <span class="comment">// 名字。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog *Dog)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	dog.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 示例1。</span></span><br><span class="line">	<span class="keyword">var</span> dog1 *Dog</span><br><span class="line">	fmt.Println(<span class="string">"The first dog is nil."</span>)</span><br><span class="line">	dog2 := dog1</span><br><span class="line">	fmt.Println(<span class="string">"The second dog is nil."</span>)</span><br><span class="line">	<span class="keyword">var</span> pet Pet = dog2</span><br><span class="line">	<span class="keyword">if</span> pet == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is nil."</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is not nil."</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"The type of pet is %T.\n"</span>, pet)</span><br><span class="line">	fmt.Printf(<span class="string">"The type of pet is %s.\n"</span>, reflect.TypeOf(pet).String())</span><br><span class="line">	fmt.Printf(<span class="string">"The type of second dog is %T.\n"</span>, dog2)</span><br><span class="line">	fmt.Println()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 示例2。</span></span><br><span class="line">	wrap := <span class="function"><span class="keyword">func</span><span class="params">(dog *Dog)</span> <span class="title">Pet</span></span> &#123;</span><br><span class="line">		<span class="keyword">if</span> dog == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> dog</span><br><span class="line">	&#125;</span><br><span class="line">	pet = wrap(dog2)</span><br><span class="line">	<span class="keyword">if</span> pet == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is nil."</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"The pet is not nil."</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">The first dog is <span class="literal">nil</span>.</span><br><span class="line">The second dog is <span class="literal">nil</span>.</span><br><span class="line">The pet is not <span class="literal">nil</span>.</span><br><span class="line">The <span class="keyword">type</span> of pet is *main.Dog.</span><br><span class="line">The <span class="keyword">type</span> of pet is *main.Dog.</span><br><span class="line">The <span class="keyword">type</span> of second dog is *main.Dog.</span><br><span class="line"></span><br><span class="line">The pet is <span class="literal">nil</span>.</span><br></pre></td></tr></table></figure></p>
+<p>在示例1中，当我把dog2赋给Pet类型的变量pet之后，变量pet的值会是什么？</p>
+<p>1、当我们把dog2的值赋给变量pet的时候，dog2的值会先被复制，不过由于在这里它的值是nil，所以就没必要复制了。<br>2、然后，Go 语言会用我上面提到的那个专用数据结构iface的实例包装这个dog2的值的副本，这里是nil。<br>3、虽然被包装的动态值是nil，但是pet的值却不会是nil，因为这个动态值只是pet值的一部分而已。<br>4、顺便说一句，这时的pet的动态类型就存在了，是*Dog。我们可以通过fmt.Printf函数和占位符%T来验证这一点，另外reflect包的TypeOf函数也可以起到类似的作用。<br>5、换个角度来看。我们把nil赋给了pet，但是pet的值却不是nil。</p>
+<p>这很奇怪对吗？其实不然。在 Go 语言中，我们把<strong>由字面量nil表示的值叫做无类型的nil</strong>。这是<strong>真正的nil</strong>，因为<strong>它的类型也是nil的</strong>。虽然dog2的值是真正的nil，但是当我们把这个变量赋给pet的时候，Go 语言会把它的类型和值放在一起考虑。</p>
+<p>也就是说，这时 Go 语言会识别出赋予pet的值是一个*Dog类型的nil。然后，Go 语言就会用一个iface的实例包装它，包装后的产物肯定就不是nil了。</p>
+<p>只要我们把一个<strong>有类型的nil</strong>赋给接口变量，那么这个变量的值就<strong>一定不会是那个真正的nil</strong>。因此，当我们使用判等符号==判断pet是否与字面量nil相等的时候，答案一定会是false。</p>
+<p>那么，怎样才能<strong>让一个接口变量的值真正为nil</strong>呢？<br>要么<strong>只声明它但不做初始化</strong>，要么<strong>直接把字面量nil赋给它</strong>。</p>
+<h3 id="4、怎样实现接口之间的组合？"><a href="#4、怎样实现接口之间的组合？" class="headerlink" title="4、怎样实现接口之间的组合？"></a>4、怎样实现接口之间的组合？</h3><p>接口类型间的嵌入也被称为<strong>接口的组合</strong>。我在前面讲过结构体类型的嵌入字段，这其实就是在说结构体类型间的嵌入。</p>
+<p>接口类型间的嵌入要更简单一些，因为它不会涉及方法间的“屏蔽”。<strong>只要组合的接口之间有同名的方法就会产生冲突</strong>，从而无法通过编译，即使同名方法的签名彼此不同也会是如此。因此，接口的组合根本不可能导致“屏蔽”现象的出现。</p>
+<p>与结构体类型间的嵌入很相似，我们只要把一个接口类型的名称直接写到另一个接口类型的成员列表中就可以了。比如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Animal <span class="keyword">interface</span> &#123;</span><br><span class="line">  ScientificName() <span class="keyword">string</span></span><br><span class="line">  Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">  Animal</span><br><span class="line">  Name() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接口类型Pet包含了两个成员，一个是代表了另一个接口类型的Animal，一个是方法Name的定义。它们都被包含在Pet的类型声明的花括号中，并且都各自独占一行。此时，Animal接口包含的所有方法也就成为了Pet接口的方法。</p>
+<p>Go 语言团队鼓励我们声明体量较小的接口，并建议我们通过这种接口间的组合来扩展程序、增加程序的灵活性。</p>
+<p>这是因为相比于包含很多方法的大接口而言，小接口可以更加专注地表达某一种能力或某一类特征，同时也更容易被组合在一起。</p>
+<p>Go 语言标准库代码包io中的ReadWriteCloser接口和ReadWriter接口就是这样的例子，它们都是由若干个小接口组合而成的。以io.ReadWriteCloser接口为例，它是由io.Reader、io.Writer和io.Closer这三个接口组成的。</p>
+<p>这三个接口都只包含了一个方法，是典型的小接口。它们中的每一个都只代表了一种能力，分别是读出、写入和关闭。我们编写这几个小接口的实现类型通常都会很容易。并且，一旦我们同时实现了它们，就等于实现了它们的组合接口io.ReadWriteCloser。</p>
+<p>即使我们只实现了io.Reader和io.Writer，那么也等同于实现了io.ReadWriter接口，因为后者就是前两个接口组成的。可以看到，这几个io包中的接口共同组成了一个接口矩阵。它们既相互关联又独立存在。</p>
+<p>一个能够体现接口组合优势的小例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Animal <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// ScientificName 用于获取动物的学名。</span></span><br><span class="line">	ScientificName() <span class="keyword">string</span></span><br><span class="line">	<span class="comment">// Category 用于获取动物的基本分类。</span></span><br><span class="line">	Category() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Named <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// Name 用于获取名字。</span></span><br><span class="line">	Name() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">	Animal</span><br><span class="line">	Named</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PetTag <span class="keyword">struct</span> &#123;</span><br><span class="line">	name  <span class="keyword">string</span></span><br><span class="line">	owner <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pt PetTag)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> pt.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pt PetTag)</span> <span class="title">Owner</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> pt.owner</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Dog <span class="keyword">struct</span> &#123;</span><br><span class="line">	PetTag</span><br><span class="line">	scientificName <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">ScientificName</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> dog.scientificName</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(dog Dog)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"dog"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	petTag := PetTag&#123;name: <span class="string">"little pig"</span>&#125;</span><br><span class="line">	_, ok := <span class="keyword">interface</span>&#123;&#125;(petTag).(Named)</span><br><span class="line">	fmt.Printf(<span class="string">"PetTag implements interface Named: %v\n"</span>, ok)</span><br><span class="line">	dog := Dog&#123;</span><br><span class="line">		PetTag:         petTag,</span><br><span class="line">		scientificName: <span class="string">"Labrador Retriever"</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(dog).(Animal)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Animal: %v\n"</span>, ok)</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(dog).(Named)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Named: %v\n"</span>, ok)</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(dog).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"Dog implements interface Pet: %v\n"</span>, ok)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PetTag implements <span class="keyword">interface</span> Named: <span class="literal">true</span></span><br><span class="line">Dog implements <span class="keyword">interface</span> Animal: <span class="literal">true</span></span><br><span class="line">Dog implements <span class="keyword">interface</span> Named: <span class="literal">true</span></span><br><span class="line">Dog implements <span class="keyword">interface</span> Pet: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>总之，善用接口组合和小接口可以让你的程序框架更加稳定和灵活。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/22/GO：2-7-接口类型的合理运用/" data-id="ckgulrusy001vxgvijr25fpj0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GO：2-6-结构体" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/21/GO：2-6-结构体/" class="article-date">
+  <time datetime="2020-07-21T14:14:44.000Z" itemprop="datePublished">2020-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/21/GO：2-6-结构体/">GO：2.6 结构体及其方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>结构体类型表示的是实实在在的数据结构。一个结构体类型可以包含若干个字段，每个字段通常都需要有确切的名字和类型。</p>
+<h3 id="1、结构体类型基础知识"><a href="#1、结构体类型基础知识" class="headerlink" title="1、结构体类型基础知识"></a>1、结构体类型基础知识</h3><p>结构体类型也可以不包含任何字段，这样并不是没有意义的，因为我们还可以为类型关联上一些方法，这里你可以把方法看做是函数的特殊版本。</p>
+<p><strong>函数是独立的程序实体</strong>。我们可以声明有名字的函数，也可以声明没名字的函数，还可以把它们当做普通的值传来传去。我们能把具有相同签名的函数抽象成独立的函数类型，以作为一组输入、输出（或者说一类逻辑组件）的代表。</p>
+<p><strong>方法却不同，它需要有名字，不能被当作值来看待，最重要的是，它必须隶属于某一个类型</strong>。方法所属的类型会通过其声明中的接收者（receiver）声明体现出来。</p>
+<p>接收者声明就是在关键字func和方法名称之间的圆括号包裹起来的内容，其中必须包含确切的名称和类型字面量。</p>
+<p><strong>接收者的类型其实就是当前方法所属的类型，而接收者的名称，则用于在当前方法中引用它所属的类型的当前值。</strong></p>
+<p>例：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AnimalCategory 代表动物分类学中的基本分类法。</span></span><br><span class="line"><span class="keyword">type</span> AnimalCategory <span class="keyword">struct</span> &#123;</span><br><span class="line">  kingdom <span class="keyword">string</span> <span class="comment">// 界。</span></span><br><span class="line">  phylum <span class="keyword">string</span> <span class="comment">// 门。</span></span><br><span class="line">  class  <span class="keyword">string</span> <span class="comment">// 纲。</span></span><br><span class="line">  order  <span class="keyword">string</span> <span class="comment">// 目。</span></span><br><span class="line">  family <span class="keyword">string</span> <span class="comment">// 科。</span></span><br><span class="line">  genus  <span class="keyword">string</span> <span class="comment">// 属。</span></span><br><span class="line">  species <span class="keyword">string</span> <span class="comment">// 种。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ac AnimalCategory)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%s%s%s%s%s%s%s"</span>,</span><br><span class="line">    ac.kingdom, ac.phylum, ac.class, ac.order,</span><br><span class="line">    ac.family, ac.genus, ac.species)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结构体类型AnimalCategory代表了动物的基本分类法，其中有 7 个string类型的字段，分别表示各个等级的分类。</p>
+<p>下边有个名叫String的方法，从它的接收者声明可以看出它隶属于AnimalCategory类型。</p>
+<p>通过该方法的接收者名称ac，我们可以在其中引用到当前值的任何一个字段，或者调用到当前值的任何一个方法（也包括String方法自己）。</p>
+<p>这个String方法的功能是提供当前值的字符串表示形式，其中的各个等级分类会按照从大到小的顺序排列。使用时，我们可以这样表示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">category := AnimalCategory&#123;species: <span class="string">"cat"</span>&#125;</span><br><span class="line">fmt.Printf(<span class="string">"The animal category: %s\n"</span>, category)</span><br></pre></td></tr></table></figure></p>
+<p>里，我用字面量初始化了一个AnimalCategory类型的值，并把它赋给了变量category。为了不喧宾夺主，我只为其中的species字段指定了字符串值”cat”，该字段代表最末级分类“种”。</p>
+<p>在 Go 语言中，我们可以通过为一个类型编写名为String的方法，来自定义该类型的字符串表示形式。这个String方法不需要任何参数声明，但需要有一个string类型的结果声明。</p>
+<p>正因为如此，我在调用fmt.Printf函数时，使用占位符%s和category值本身就可以打印出后者的字符串表示形式，而无需显式地调用它的String方法。</p>
+<p>mt.Printf函数会自己去寻找它。此时的打印内容会是The animal category: cat。显而易见，category的String方法成功地引用了当前值的所有字段。</p>
+<hr>
+<p><strong>*1、方法隶属的类型其实并不局限于结构体类型，但必须是某个自定义的数据类型，并且不能是任何接口类型</strong>。<br>2、一个数据类型关联的所有方法，共同组成了该类型的方法集合。<strong>同一个方法集合中的方法不能出现重名</strong>。<br>3、并且，<strong>如果它们所属的是一个结构体类型，那么它们的名称与该类型中任何字段的名称也不能重复</strong>。<br>4、我们可以把结构体类型中的一个字段看作是它的一个属性或者一项数据，再把隶属于它的一个方法看作是附加在其中数据之上的一个能力或者一项操作。<br>5、将属性及其能力（或者说数据及其操作）封装在一起，是面向对象编程（object-oriented programming）的一个主要原则。<br>6、Go 语言摄取了面向对象编程中的很多优秀特性，同时也推荐这种封装的做法。从这方面看，Go 语言其实是支持面向对象编程的，但它选择摒弃了一些在实际运用过程中容易引起程序开发者困惑的特性和规则。*</p>
+<hr>
+<p>现在，让我们再把目光放到结构体类型的字段声明上。我们来看下面的代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Animal <span class="keyword">struct</span> &#123;</span><br><span class="line"><span class="comment">//声明结构体类型Animal</span></span><br><span class="line">  scientificName <span class="keyword">string</span> <span class="comment">// 学名。</span></span><br><span class="line">  AnimalCategory    <span class="comment">// 动物基本分类。</span></span><br><span class="line">  <span class="comment">//字段AnimalCategory只声明了一个类型名，代表了Animal类型的一个嵌入字段，也称为匿名字段</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>字段声明AnimalCategory代表了Animal类型的一个嵌入字段。Go 语言规范规定，如果一个字段的声明中只有字段的类型名而没有字段的名称，那么它就是一个嵌入字段，也可以被称为<strong>匿名字段</strong>。我们可以通过此类型变量的名称后跟“.”，再后跟嵌入字段类型的方式引用到该字段。也就是说，<strong>嵌入字段的类型既是类型也是名称</strong>。</p>
+<p>说到引用结构体的嵌入字段，Animal类型有个方法叫Category，它是这么写的：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Animal)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a.AnimalCategory.String()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Category方法的接收者类型是Animal，接收者名称是a。通过表达式a.AnimalCategory选择到了a的这个嵌入字段，调用了String方法。</p>
+<p>在某个代表变量的标识符的右边加“.”，再加上字段名或方法名的表达式被称为选择表达式，它用来表示选择了该变量的某个字段或者方法。</p>
+<p>实际上，把一个结构体类型嵌入到另一个结构体类型中的意义不止如此。嵌入字段的方法集合会被无条件地合并进被嵌入类型的方法集合中。例如下面这种：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">animal := Animal&#123;</span><br><span class="line">  scientificName: <span class="string">"American Shorthair"</span>,</span><br><span class="line">  AnimalCategory: category,</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"The animal: %s\n"</span>, animal)</span><br></pre></td></tr></table></figure></p>
+<p>声明了一个Animal类型的变量animal并对它进行初始化。我把字符串值”American Shorthair”赋给它的字段scientificName，并把前面声明过的变量category赋给它的嵌入字段AnimalCategory。</p>
+<p>我在后面使用fmt.Printf函数和%s占位符试图打印animal的字符串表示形式，相当于调用animal的String方法。虽然我们还没有为Animal类型编写String方法，但这样做是没问题的。因为在这里，<strong>嵌入字段AnimalCategory的String方法会被当做animal的方法调用</strong>。</p>
+<h4 id="1、如果也为Animal类型编写一个String方法呢？这里会调用哪一个呢？"><a href="#1、如果也为Animal类型编写一个String方法呢？这里会调用哪一个呢？" class="headerlink" title="1、如果也为Animal类型编写一个String方法呢？这里会调用哪一个呢？"></a>1、如果也为Animal类型编写一个String方法呢？这里会调用哪一个呢？</h4><p>animal的String方法会被调用</p>
+<p>这时，我们说，<strong>嵌入字段AnimalCategory的String方法被“屏蔽”了</strong>。注意，<strong>只要名称相同，无论这两个方法的签名是否一致，被嵌入类型的方法都会“屏蔽”掉嵌入字段的同名方法</strong>。</p>
+<p>类似的，由于我们同样可以像访问被嵌入类型的字段那样，直接访问嵌入字段的字段，所以如果这两个结构体类型里存在同名的字段，那么嵌入字段中的那个字段一定会被“屏蔽”。这与我们在前面讲过的，可重名变量之间可能存在的“屏蔽”现象很相似。</p>
+<p>正因为嵌入字段的字段和方法都可以“嫁接”到被嵌入类型上，所以即使在两个同名的成员一个是字段，另一个是方法的情况下，这种“屏蔽”现象依然会存在。</p>
+<p>不过，即使被屏蔽了，我们仍然可以通过链式的选择表达式，选择到嵌入字段的字段或方法，就像我在Category方法中所做的那样。这种“屏蔽”其实还带来了一些好处。我们看看下面这个Animal类型的String方法的实现：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Animal)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%s (category: %s)"</span>,</span><br><span class="line">    a.scientificName, a.AnimalCategory)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里，我们把对嵌入字段的String方法的调用结果融入到了Animal类型的同名方法的结果中。这种将同名方法的结果逐层“包装”的手法是很常见和有用的，也算是一种惯用法了。<br><img src="/2020/07/21/GO：2-6-结构体/struct1.png" alt="struct1"></p>
+<h4 id="2、多层嵌入"><a href="#2、多层嵌入" class="headerlink" title="2、多层嵌入"></a>2、多层嵌入</h4><p>也就是说，嵌入字段本身也有嵌入字段的情况。请看我声明的Cat类型：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Cat <span class="keyword">struct</span> &#123;</span><br><span class="line">  name <span class="keyword">string</span></span><br><span class="line">  Animal</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat Cat)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%s (category: %s, name: %q)"</span>,</span><br><span class="line">    cat.scientificName, cat.Animal.AnimalCategory, cat.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结构体类型Cat中有一个嵌入字段Animal，而Animal类型还有一个嵌入字段AnimalCategory。</p>
+<p>在这种情况下，“屏蔽”现象会以嵌入的层级为依据，嵌入层级越深的字段或方法越可能被“屏蔽”。</p>
+<p>例如，当我们调用Cat类型值的String方法时，如果该类型确有String方法，那么嵌入字段Animal和AnimalCategory的String方法都会被“屏蔽”。</p>
+<p>如果该类型没有String方法，那么嵌入字段Animal的String方法会被调用，而它的嵌入字段AnimalCategory的String方法仍然会被屏蔽。</p>
+<p>最后的最后，如果处于同一个层级的多个嵌入字段拥有同名的字段或方法，那么从被嵌入类型的值那里，选择此名称的时候就会引发一个编译错误，因为编译器无法确定被选择的成员到底是哪一个。</p>
+<h3 id="2、Go-语言是用嵌入字段实现了继承吗？"><a href="#2、Go-语言是用嵌入字段实现了继承吗？" class="headerlink" title="2、Go 语言是用嵌入字段实现了继承吗？"></a>2、Go 语言是用嵌入字段实现了继承吗？</h3><p>这里强调一下，Go 语言中根本没有<strong>继承</strong>的概念，它所做的是通过嵌入字段的方式实现了类型之间的<strong>组合</strong>。</p>
+<p>简单来说，面向对象编程中的继承，其实是通过牺牲一定的代码简洁性来换取可扩展性，而且这种可扩展性是通过侵入的方式来实现的。</p>
+<p>类型之间的组合采用的是非声明的方式，我们不需要显式地声明某个类型实现了某个接口，或者一个类型继承了另一个类型。</p>
+<p>同时，类型组合也是非侵入式的，它不会破坏类型的封装或加重类型之间的耦合。</p>
+<p>我们要做的只是把类型当做字段嵌入进来，然后坐享其成地使用嵌入字段所拥有的一切。如果嵌入字段有哪里不合心意，我们还可以用<strong>“包装”或“屏蔽”的方式去调整和优化</strong>。</p>
+<p>另外，类型间的<strong>组合也是灵活的</strong>，我们总是可以通过嵌入字段的方式把一个类型的属性和能力“嫁接”给另一个类型。</p>
+<p>这时候，被嵌入类型也就自然而然地实现了嵌入字段所实现的接口。再者，组合要比继承更加简洁和清晰，Go 语言可以轻而易举地通过嵌入多个字段来实现功能强大的类型，却不会有多重继承那样复杂的层次结构和可观的管理成本。</p>
+<p>接口类型之间也可以组合。在 Go 语言中，接口类型之间的组合甚至更加常见，我们常常以此来扩展接口定义的行为或者标记接口的特征。</p>
+<h3 id="3、值方法和指针方法都是什么意思，有什么区别？"><a href="#3、值方法和指针方法都是什么意思，有什么区别？" class="headerlink" title="3、值方法和指针方法都是什么意思，有什么区别？"></a>3、值方法和指针方法都是什么意思，有什么区别？</h3><p>方法的接收者类型必须是某个自定义的数据类型，而且<strong>不能是接口类型或接口的指针类型</strong>。</p>
+<p>1、所谓的值方法，就是<strong>接收者类型是非指针的自定义数据类型</strong>的方法。</p>
+<p>比如，我们在前面为AnimalCategory、Animal以及Cat类型声明的那些方法都是值方法。就拿Cat来说，它的String方法的接收者类型就是Cat，一个非指针类型。</p>
+<p>2、指针方法，就是接收者类型是指针类型的方法<br>请看这个方法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat *Cat)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">  cat.name = name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方法SetName的接收者类型是<em>Cat。指这时，Cat可以被叫做</em>Cat的基本类型，针类型的值表示的是指向某个基本类型值的指针。</p>
+<p>3、值方法和指针方法之间有什么不同点呢？<br>它们的不同如下所示：</p>
+<ul>
+<li>1、值方法的接收者是该方法所属的那个类型值的一个副本。我们在该方法内对该副本的修改一般都不会体现在原值上，除非这个类型本身是某个引用类型（比如切片或字典）的别名类型。而指针方法的接收者，是该方法所属的那个基本类型值的指针值的一个副本。我们在这样的方法内对该副本指向的值进行修改，却一定会体现在原值上。</li>
+<li>2、一个自定义数据类型的方法集合中仅会包含它的所有值方法，而该类型的指针类型的方法集合却囊括了前者的所有方法，包括所有值方法和所有指针方法。严格来讲，我们在这样<strong>的基本类型的值上只能调用到它的值方法</strong>。但是，<strong>Go 语言会适时地为我们进行自动地转译，使得我们在这样的值上也能调用到它的指针方法</strong>。比如，在Cat类型的变量cat之上，之所以我们可以通过cat.SetName(“monster”)修改猫的名字，是因为 Go 语言把它自动转译为了(&amp;cat).SetName(“monster”)，即：先取cat的指针值，然后在该指针值上调用SetName方法。</li>
+<li>3、在后边你会了解到，一个类型的方法集合中有哪些方法与它能实现哪些接口类型是息息相关的。如果一个基本类型和它的指针类型的方法集合是不同的，那么它们具体实现的接口类型的数量就也会有差异，除非这两个数量都是零。比如，<strong>一个指针类型实现了某某接口类型，但它的基本类型却不一定能够作为该接口的实现类型</strong>。<br>例：<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Cat <span class="keyword">struct</span> &#123;</span><br><span class="line">	name           <span class="keyword">string</span> <span class="comment">// 名字。</span></span><br><span class="line">	scientificName <span class="keyword">string</span> <span class="comment">// 学名。</span></span><br><span class="line">	category       <span class="keyword">string</span> <span class="comment">// 动物学基本分类。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(name, scientificName, category <span class="keyword">string</span>)</span> <span class="title">Cat</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> Cat&#123;</span><br><span class="line">		name:           name,</span><br><span class="line">		scientificName: scientificName,</span><br><span class="line">		category:       category,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat *Cat)</span> <span class="title">SetName</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	cat.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat Cat)</span> <span class="title">SetNameOfCopy</span><span class="params">(name <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	cat.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat Cat)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> cat.name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat Cat)</span> <span class="title">ScientificName</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> cat.scientificName</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat Cat)</span> <span class="title">Category</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> cat.category</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cat Cat)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> fmt.Sprintf(<span class="string">"%s (category: %s, name: %q)"</span>,</span><br><span class="line">		cat.scientificName, cat.category, cat.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	cat := New(<span class="string">"little pig"</span>, <span class="string">"American Shorthair"</span>, <span class="string">"cat"</span>)</span><br><span class="line">	cat.SetName(<span class="string">"monster"</span>) <span class="comment">// (&amp;cat).SetName("monster")</span></span><br><span class="line">	fmt.Printf(<span class="string">"The cat: %s\n"</span>, cat)</span><br><span class="line"></span><br><span class="line">	cat.SetNameOfCopy(<span class="string">"little pig"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"The cat: %s\n"</span>, cat)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">type</span> Pet <span class="keyword">interface</span> &#123;</span><br><span class="line">		SetName(name <span class="keyword">string</span>)</span><br><span class="line">		Name() <span class="keyword">string</span></span><br><span class="line">		Category() <span class="keyword">string</span></span><br><span class="line">		ScientificName() <span class="keyword">string</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	_, ok := <span class="keyword">interface</span>&#123;&#125;(cat).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"Cat implements interface Pet: %v\n"</span>, ok)</span><br><span class="line">	_, ok = <span class="keyword">interface</span>&#123;&#125;(&amp;cat).(Pet)</span><br><span class="line">	fmt.Printf(<span class="string">"*Cat implements interface Pet: %v\n"</span>, ok)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>运行结果：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The cat: American Shorthair (category: cat, name: <span class="string">"monster"</span>)</span><br><span class="line">The cat: American Shorthair (category: cat, name: <span class="string">"monster"</span>)</span><br><span class="line">Cat implements <span class="keyword">interface</span> Pet: <span class="literal">false</span></span><br><span class="line">*Cat implements <span class="keyword">interface</span> Pet: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/21/GO：2-6-结构体/" data-id="ckgulrusx001txgvif0b3ik8w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
