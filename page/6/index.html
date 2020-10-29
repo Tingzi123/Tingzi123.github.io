@@ -62,6 +62,204 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-查找" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/查找/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.139Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/查找/">查找</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一、线性表的查找"><a href="#一、线性表的查找" class="headerlink" title="一、线性表的查找"></a>一、线性表的查找</h2><h3 id="1、顺序查找-O-n-code"><a href="#1、顺序查找-O-n-code" class="headerlink" title="1、顺序查找 O(n)[^code]"></a>1、顺序查找 O(n)[^code]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	a[<span class="number">0</span>]=key;<span class="comment">//设置岗哨</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=a.length;a[i]!=key;i--)&#123;</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、折半查找-O-log2-N-下标从1开始"><a href="#2、折半查找-O-log2-N-下标从1开始" class="headerlink" title="2、折半查找 O(log2(N))(下标从1开始)"></a>2、折半查找 O(log2(N))(下标从1开始)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> high=a.length</span><br><span class="line">	<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(low&lt;=high)&#123;<span class="comment">//loe&lt;=high</span></span><br><span class="line">		<span class="keyword">if</span>(key==mid)</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(key&lt;mid)&#123;</span><br><span class="line">			high=mid-<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			low=mid+<span class="number">1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、分块查找"><a href="#3、分块查找" class="headerlink" title="3、分块查找"></a>3、分块查找</h3><p>  分块查找是折半查找和顺序查找的一种改进方法，分块查找由于只要求索引表是有序的，<br>对块内节点没有排序要求，因此特别适合于节点动态变化的情况。</p>
+<h2 id="二、树表的查找"><a href="#二、树表的查找" class="headerlink" title="二、树表的查找"></a>二、树表的查找</h2><h3 id="1、二叉排序树"><a href="#1、二叉排序树" class="headerlink" title="1、二叉排序树"></a>1、二叉排序树</h3><h4 id="1）二叉排序树的查找-O-log2-N"><a href="#1）二叉排序树的查找-O-log2-N" class="headerlink" title="1）二叉排序树的查找 O(log2(N))"></a>1）二叉排序树的查找 O(log2(N))</h4><p>递归实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(Tree T,<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span> || root.data==key)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(key&lt;root.data)&#123;</span><br><span class="line">		Search(T.lchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Search(T.rchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2）二叉排序树的插入-O-log2-N"><a href="#2）二叉排序树的插入-O-log2-N" class="headerlink" title="2）二叉排序树的插入 O(log2(N))"></a>2）二叉排序树的插入 O(log2(N))</h4><p>二叉排序树的插入 以查找为基础：查找失败则插入，查找成功则返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Insert</span><span class="params">(Tree T,<span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">		root=<span class="keyword">new</span> Node();</span><br><span class="line">		root.data=e;</span><br><span class="line">		root.lchild=root.rchild=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(e&lt;root.data)&#123;</span><br><span class="line">		Insert(T.lchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Insert(T.rchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-二叉排序树的创建-O-nlog2-N"><a href="#3-二叉排序树的创建-O-nlog2-N" class="headerlink" title="3)二叉排序树的创建 O(nlog2(N))"></a>3)二叉排序树的创建 O(nlog2(N))</h4><p>从空树开始，新建一个结点，查找后，再插入到合适位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Tree T;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBST</span><span class="params">()</span></span>&#123;</span><br><span class="line">	T=<span class="keyword">null</span>;</span><br><span class="line">	cin&gt;&gt;e;</span><br><span class="line">	<span class="keyword">while</span>(e!=<span class="string">"*"</span>)<span class="comment">//"*"结束符</span></span><br><span class="line">	&#123;</span><br><span class="line">		Insert(T,e);</span><br><span class="line">		cin&gt;e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-二叉排序树的删除-O-nlog2-N"><a href="#4-二叉排序树的删除-O-nlog2-N" class="headerlink" title="4)二叉排序树的删除 O(nlog2(N))"></a>4)二叉排序树的删除 O(nlog2(N))</h4><p>删除的过程也是查找的过程</p>
+<h3 id="2、平衡二叉树"><a href="#2、平衡二叉树" class="headerlink" title="2、平衡二叉树"></a>2、平衡二叉树</h3><h2 id="三、哈希表的查找"><a href="#三、哈希表的查找" class="headerlink" title="三、哈希表的查找"></a>三、哈希表的查找</h2><p>时间复杂度为直接计算</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/查找/" data-id="ckgt14q6w0027v8viij7272u7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-树的相关知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/树的相关知识点/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.139Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/树的相关知识点/">树的相关知识点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一"><a href="#一" class="headerlink" title="一."></a>一.</h2><h3 id="1-结点n-0，称为空树"><a href="#1-结点n-0，称为空树" class="headerlink" title="1.结点n=0，称为空树"></a>1.结点n=0，称为空树</h3><h2 id="二-二叉树的性质（树的深度从1开始计数）"><a href="#二-二叉树的性质（树的深度从1开始计数）" class="headerlink" title="二. 二叉树的性质（树的深度从1开始计数）"></a>二. 二叉树的性质（树的深度从1开始计数）</h2><h4 id="1、-第i层至多有2-（i-1）个结点"><a href="#1、-第i层至多有2-（i-1）个结点" class="headerlink" title="1、 第i层至多有2^（i-1）个结点"></a>1、 第i层至多有2^（i-1）个结点</h4><h4 id="2、-深度为k的二叉树至多有（2-k）-1个结点"><a href="#2、-深度为k的二叉树至多有（2-k）-1个结点" class="headerlink" title="2、 深度为k的二叉树至多有（2^k）-1个结点"></a>2、 深度为k的二叉树至多有（2^k）-1个结点</h4><h4 id="3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B"><a href="#3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B" class="headerlink" title="3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B"></a>3、对任意二叉树的n个结点：叶子结点n0，度为1的结点n1，度为2的结点n2，分支总数B</h4><pre><code>* n=n0+n1+n2
+  n=B+1
+  B=n1+2n2
+* n=n1+2n2+1
+</code></pre><ul>
+<li>综合上式有：n0=n2+1</li>
+</ul>
+<h4 id="4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树"><a href="#4、满二叉树：深度为k且含有结点数为（2-k）-1的二叉树" class="headerlink" title="4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树"></a>4、满二叉树：深度为k且含有结点数为（2^k）-1的二叉树</h4><h4 id="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树"><a href="#5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中-编号从1至n一一对应时，称为完全二叉树" class="headerlink" title="5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树"></a>5、完全二叉树：深度为k，有n个结点的二叉树，当且仅当其每一个结点都与深度为k的满二叉树中            编号从1至n一一对应时，称为完全二叉树</h4><pre><code>特点：
+    1）叶子结点只可能在层次最大的两层出现
+    2）对任一结点，若其右分支下的子孙最大层次为l，则其左分支下的子孙的最大层次必为l或l+1
+</code></pre><p>####6、具有n个结点的完全二叉树的深度为log2（N）+1，log2（N）取下界</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/树的相关知识点/" data-id="ckgt14q6y0029v8vioypjvglg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-数据库总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/数据库总结/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.123Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/数据库总结/">数据库总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、 where、having之间的区别和用法<br>聚合函数是比较where、having 的关键。 </p>
+<p>where、聚合函数、having 在from后面的执行顺序：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">where&gt;聚合函数(sum,min,max,avg,count)&gt;having</span><br></pre></td></tr></table></figure></p>
+<p>注意事项 ：<br>1、where 后不能跟聚合函数，因为where执行顺序大于聚合函数。<br>2、where 子句的作用是在对查询结果进行分组前，将不符合where条件的行去掉，即在分组之前过滤数据，条件中不能包含聚组函数，<br>使用where条件显示特定的行。</p>
+<p>3、having 子句的作用是筛选满足条件的组，即在分组之后过滤数据，条件中经常包含聚组函数，使用having 条件显示特定的组，也可以使用多个分组标准进行分组。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/数据库总结/" data-id="ckgt14q6w0026v8vijpht2tpm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-操作系统概述" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/操作系统概述/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.108Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/操作系统概述/">操作系统概述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、计算机系统的组成<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op1.png?raw=true" alt="Image text"></p>
+<p>操作系统的地位：<br>紧贴系统硬件之上，所有其他软件之下<br>（是其他软件的共同环境）<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op2.png?raw=true" alt="Image text"></p>
+<p>2、操作系统的作用:<br>(1)OS是计算机硬件、软件资源的管理者<br>管理的对象：CPU、存储器、外部设备、信息（数<br>据和软件）；<br>– 管理的内容：<br>1、资源的当前状态（数量和使用情况）<br>2、资源的分配、回收和访问操作<br>3、相应管理策略（包括用户权限）</p>
+<p>(2)OS是用户使用系统硬件、软件的接口。<br>系统命令（命令行、菜单式、命令脚本式）；<br>– 系统调用（形式上类似于过程调用，在应用编程<br>中使用API）；<br>– 图形用户接口GUI</p>
+<p>（3）OS是扩展机(extended machine)/虚拟机(virtual machine)。<br>在裸机上添加：设备管理、文件管理、存储管理（包括内存和外存）、处理机管理（针对CPU）；<br>– 另外，为合理组织工作流程：作业管理、进程管理</p>
+<p>– 通道：用于控制I/O设备与内存间的数据传输。启动后可<br>独立于CPU运行，实现CPU与I/O的并行。<br>• 通道有专用的I/O处理器，可与CPU并行工作<br>• 可实现 I/O联机处理<br>– 中断是指CPU在收到外部中断信号后，停止原来工作，转<br>去处理该中断事件，完毕后回到原来断点继续工作。<br>• 中断处理过程：中断请求，中断响应，中断点（暂停当前任务并<br>保存现场），中断处理例程，中断返回（恢复中断点的现场并继续原<br>有任务</p>
+<p>3、通道和中断技术<br>通道：用于控制I/O设备与内存间的数据传输。启动后可<br>独立于CPU运行，实现CPU与I/O的并行。 </p>
+<p>中断是指CPU在收到外部中断信号后，停止原来工作，转<br>去处理该中断事件，完毕后回到原来断点继续工作。<br>• 中断处理过程：中断请求，中断响应，中断点（暂停当前任务并<br>保存现场），中断处理例程，中断返回（恢复中断点的现场并继续原<br>有任务</p>
+<p>3.1、手工操作<br>计算机的工作特点<br>• 用户独占全机：不出现资源被其他用户占用，资源利<br>用率低；<br>• CPU等待用户：计算前，手工装入纸带或卡片；计算完<br>成后，手工卸取纸带或卡片；CPU利用率低；</p>
+<p>3.2、单道批处理系统<br>联机批处理：输入输出设备和主机直接相连，串行工作<br>脱机批处理：利用卫星机完成输入输出功能。主机与卫星机可<br>并行工作。<br>– 卫星机：完成面向用户的输入输出（纸带或卡<br>片），中间结果暂存在磁带或磁盘上。<br>– 优点：同一批内各作业的自动依次更替，改善了<br>主机CPU和I/O设备的使用效率，提高了吞吐量。<br>– 缺点：磁带或磁盘需要人工装卸，作业需要人工<br>分类，监督程序易遭到用户程序的破坏（由人工干预<br>才可恢复）</p>
+<p>3.3 多道批处理系统<br>多道批处理的运行特征<br>• 多道：内存中同时存放几个作业；<br>• 宏观上并行运行：都处于运行状态，但都未运行完；<br>• 微观上串行运行：各作业交替使用CPU；<br>在当前运行的作业需作I/O处理时，CPU转而执行<br>另一个作业。<br>优点：<br>• 资源利用率高：CPU和内存利用率较高；<br>• 作业吞吐量大：单位时间内完成的工作总量大；<br>– 缺点：<br>• 用户交互性差：整个作业完成后或中间出错时，<br>才与用户交互，不利于调试和修改；<br>• 作业平均周转时间长：短作业的周转时间显著<br>增长；</p>
+<p>3.4 分 时 系 统<br>许多个联机用户同时使用一台计算机系统进行计算的操作<br>系统称分时操作系统<br>系统把中央处理器的时间划分成时间片 ，按时间片轮流<br>把处理机分配给联机作业<br>– “分时”的含义分时是指多个用户分享使用同一台计算机。<br>多个程序分时共享硬件和软件资源<br>– 人机交互性好：在调试和运行程序时由用户自己<br>操作。<br>– 共享主机：多个用户同时使用。<br>– 用户独立性：对每个用户而言好象独占主机</p>
+<p>3.5 实 时 系 统<br>– 要求：响应时间短，在规定的时间之内（s, ms,<br>us）；系统可靠性高</p>
+<p>3.6 通用操作系统<br>目前的操作系统，通常具有分时、实时和批处理<br>功能，又称作通用操作系统。</p>
+<p>4、操作系统的分类<br>4.1 批处理操作系统<br>批处理系统中作业处理及状态：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op3.png?raw=true" alt="Image text"></p>
+<p>单道和多道批处理的比较<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/op4.png?raw=true" alt="Image text"></p>
+<p>– 多道程序系统和多重处理系统(multi-processing<br>system)的区别：<br>• 前者指多个程序同时在内存中交替运行<br>• 后者指多个处理器</p>
+<p>多道批处理系统上的技术<br>– 作业调度：作业的现场保存和恢复－－上下文切换<br>– 资源共享：资源的竞争和同步－－互斥(exclusion)<br>和同步(synchronization)机制<br>– 内存使用：提高内存使用效率（为当前由CPU执行<br>的程序提供足够的内存）－－覆盖(overlay)，交换<br>(swap)和虚拟存储(virtual memory)<br>– 内存保护：系统存储区和各应用程序存储区不可冲<br>突－－存储保护</p>
+<p>4.2 分时操作系统<br>– 多路性：多个用户同时工作。<br>– 独立性：各用户独立操作，互不干扰。<br>– 交互性：系统能及时对用户的操作进行响应，显<br>著提高调试和修改程序的效率：缩短了周转时间。<br>（对批处理的改进）</p>
+<p>4.3 实时操作系统<br>– 实时操作系统主要用于过程控制、事务处理等有<br>实时要求的领域，其主要特征是实时性和可靠性</p>
+<p>5、 操作系统的特征<br>5.1 并 发 ( c o n c u r r e n c y )<br>– 多个事件在同一时间段内发生。操作系统是一个并<br>发系统，各进程间的并发，系统与应用间的并发。操作<br>系统要完成这些并发过程的管理。并行(parallel)是指<br>在同一时刻发生。<br>– 在多道程序处理时，宏观上并发，微观上交替执行<br>（在单处理器情况下）。<br>– 程序的静态实体是可执行文件，而动态实体是进程<br>（或称作任务），并发指的是进程。</p>
+<p> 5.2 共 享 (sharing)<br> 多个进程共享有限的计算机系统资源。操作系统要<br>对系统资源进行合理分配和使用。资源在一个时间段内<br>交替被多个进程所用。<br>– 互斥共享（如视频设备）：资源分配后到释放前，<br>不能被其他进程所用</p>
+<p>5.3 虚 拟 (virtual)<br>– 一个物理实体映射为若干个对应的逻辑实体－－分<br>时或分空间。虚拟是操作系统管理系统资源的重要手段，<br>可提高资源利用率</p>
+<p>5.4 异步性 ( asynchronism )<br>– 也称不确定性，指进程的执行顺序和执行时间的不<br>确定性；<br>– 进程的运行速度不可预知：分时系统中，多个进程<br>并发执行，程序是以走走停停的方式运行的。系统中的<br>每个程序何时执行，执行顺序，完成时间都是不确定的。</p>
+<p>6、操作系统的功能<br>6.1 处 理 机 管 理<br>– 完成处理机资源的分配调度等功能。处理机调度的<br>单位可为进程或线程。<br>– 进程控制：创建、撤销、状态转换<br>– 进程同步：对并发执行的进程进行协调<br>– 进程通信：负责完成进程间的信息交换<br>– 进程调度：按一定算法进行处理机分配</p>
+<p>6.2 存 储 管 理<br>– 内存分配：按一定的策略分配内存并负责回收<br>– 内存保护：保证进程间互不干扰、相互保密<br>– 地址变换：进程逻辑地址到内存物理地址的映射；<br>– 内存扩充：为允许大型作业或多个作业运行，借助<br>虚拟技术获得更大逻辑内存的效果；</p>
+<p>6.3 设备管理<br>– 设备分配：为了使设备与主机并行工作，一定的分<br>配原则对设备进行分配，常采用缓冲技术和虚拟技术<br>– 设备传输控制：实现物理的输入/输出操作<br>– 设备独立性：用户向系统申请的设备和实际操作的<br>设备无关</p>
+<p>6.4 文 件 管 理<br>– 文件存储空间管理：存储空间的分配和回收。<br>– 目录管理：解决信息检索问题。<br>– 文件操作管理：实现文件的操作，负责完成数据的<br>读写<br>– 文件保护：提供文件保护功能，防止文件遭到破坏</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/操作系统概述/" data-id="ckgt14q6u0024v8viq8hoyo4v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-插入排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/插入排序/" class="article-date">
@@ -91,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/插入排序/" data-id="ckgqazm26000yzsvi0ulu3c1n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/插入排序/" data-id="ckgt14q6v0025v8vifm3dxw3j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -141,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/排序算法总结/" data-id="ckgqazm280010zsvidx6gmu8h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/排序算法总结/" data-id="ckgt14q6s0022v8virg6ug1os" class="article-share-link">Share</a>
       
       
     </footer>
@@ -178,46 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/排序/" data-id="ckgqazm26000xzsviqw5se8ca" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-循环链表" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/循环链表/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.061Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/循环链表/">循环链表的插入删除</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643911.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643911.html</a></p>
-<p>1、循环链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircularLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=head)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCircularList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		CircularLinkList list=<span class="keyword">new</span> CircularLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/循环链表/" data-id="ckgqazm24000vzsvihrs6zf09" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/排序/" data-id="ckgt14q6t0023v8viawkwes9j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -256,7 +415,46 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckgqazm1z000uzsvi9czg4r2y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckgt14q6r0021v8vi170orzax" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-循环链表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/循环链表/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.061Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/循环链表/">循环链表的插入删除</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643911.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643911.html</a></p>
+<p>1、循环链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircularLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=head)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCircularList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		CircularLinkList list=<span class="keyword">new</span> CircularLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/循环链表/" data-id="ckgt14q6g001rv8viy8igl4b7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -296,165 +494,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/归并排序/" data-id="ckgqazm25000wzsviq4tjec7s" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-希尔排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/希尔排序/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.030Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/希尔排序/">希尔排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、希尔排序"><a href="#1、希尔排序" class="headerlink" title="1、希尔排序"></a>1、希尔排序</h3><p>1、希尔排序是希尔（Donald Shell）于1959年提出的一种排序算法。希尔排序也是一种插入排序，它是简单插入排序经过改进之后的一个更高效的版本，也称为缩小增量排序，<br>同时该算法是冲破O(n^2)的第一批算法之一。它与插入排序的不同之处在于，它会优先比较距离较远的元素。希尔排序又叫缩小增量排序。</p>
-<p>2、希尔排序是把记录按下表的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</p>
-<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(nlog2 n)  最坏情况：T(n) = O(nlog2 n)  平均情况：T(n) =O(nlog2n)　</p>
-<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/shellsort.jpg?raw=true" alt="Image text"></p>
-<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShellSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		shellSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> cur;<span class="comment">//记录即将插入的当前值</span></span><br><span class="line">		<span class="keyword">int</span> dk=a.length/<span class="number">2</span>;<span class="comment">//增量</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(dk&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=dk;i&lt;a.length;i++) &#123;<span class="comment">//比较a.length-1趟</span></span><br><span class="line">				<span class="keyword">int</span> index=i-dk;<span class="comment">//记录有序数组的最后一位坐标</span></span><br><span class="line">				cur=a[i];</span><br><span class="line">			</span><br><span class="line">				<span class="keyword">while</span>(index&gt;=<span class="number">0</span> &amp;&amp; cur&lt;a[index]) &#123;<span class="comment">//当前值小于有序数组中的值时</span></span><br><span class="line">					a[index+dk]=a[index];<span class="comment">//记录后移</span></span><br><span class="line">					index=index-dk;</span><br><span class="line">				&#125;</span><br><span class="line">			</span><br><span class="line">				<span class="comment">//当前值不小于前一个值时，把当前值赋给index+dk</span></span><br><span class="line">				a[index+dk]=cur;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			dk=dk/<span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/希尔排序/" data-id="ckgqazm1m000szsvienbx8gvi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-堆排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/堆排序/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.014Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/堆排序/">堆排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、堆排序"><a href="#1、堆排序" class="headerlink" title="1、堆排序"></a>1、堆排序</h3><p>1堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
-<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(nlogn) 最差情况：T(n) = O(nlogn) 平均情况：T(n) = O(nlogn)</p>
-<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/heapsort1.gif?raw=true" alt="Image text"><br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/heapsort2.gif?raw=true" alt="Image text"></p>
-<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		heapSort(a);</span><br><span class="line">		printArr(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//堆排序</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapSort</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> len=a.length;</span><br><span class="line">		<span class="keyword">if</span>(len&lt;<span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//构造一个最大堆</span></span><br><span class="line">		bulidMaxHeap(a);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//循环将最大值与最末位交换，再调整成最大堆</span></span><br><span class="line">		<span class="keyword">while</span>(len&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			swap(a,<span class="number">0</span>,len-<span class="number">1</span>);</span><br><span class="line">			len--;</span><br><span class="line">			adjustHeap(a,<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//建立初始大顶堆</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bulidMaxHeap</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//从最后一个非叶子节点开始</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=(a.length-<span class="number">1</span>)/<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">			adjustHeap(a,i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//调整堆</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">adjustHeap</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> max=i;<span class="comment">//记录最大值的下标</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//如果有左孩子，比较是否大于左孩子</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="number">2</span>*i&lt;a.length &amp;&amp; a[<span class="number">2</span>*i]&gt;a[max]) &#123;</span><br><span class="line">			max=<span class="number">2</span>*i;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//如果有右孩子，比较大小</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="number">2</span>*i+<span class="number">1</span>&lt;a.length &amp;&amp; a[<span class="number">2</span>*i+<span class="number">1</span>]&gt;a[max]) &#123;</span><br><span class="line">			max=<span class="number">2</span>*i+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//如果父节点不是最大值，则与最大值交换，并递归调整被交换的最大值的位置</span></span><br><span class="line">		<span class="keyword">if</span>(max!=i) &#123;</span><br><span class="line">			swap(a,max,i);</span><br><span class="line">			adjustHeap(a,max);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] a,<span class="keyword">int</span> m,<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> temp=a[m];</span><br><span class="line">		a[m]=a[n];</span><br><span class="line">		a[n]=temp;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/堆排序/" data-id="ckgqazm1a000ozsvi9xi98z5i" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-双向循环链表" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/双向循环链表/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.998Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/双向循环链表/">双向循环链表的插入删除</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643931.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643931.html</a></p>
-<p>1、实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> doubleList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.prev=head;</span><br><span class="line">		head.next=head;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		<span class="comment">//第一次插入</span></span><br><span class="line">		<span class="keyword">if</span>(head.prev==head) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			head.prev=node;</span><br><span class="line">			node.prev=head;</span><br><span class="line">			node.next=head;</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//末尾插入</span></span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.prev=temp;</span><br><span class="line">			node.next=head;</span><br><span class="line">			head.prev=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">			<span class="keyword">if</span>(temp.next.data.equals(e)) &#123;</span><br><span class="line">				temp.next=temp.next.next;</span><br><span class="line">				temp.next.prev=temp;</span><br><span class="line">			&#125;</span><br><span class="line">			temp=temp.next;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node prev;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> doubleList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDoubleList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		DoubleLinkList list=<span class="keyword">new</span> DoubleLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line"></span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/双向循环链表/" data-id="ckgqazm1g000qzsvi9do1fmi0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-单链表" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/单链表/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.998Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/单链表/">单链表的插入删除</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、单链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> danlianbiao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Linklist</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=<span class="keyword">null</span>)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">			System.out.println(node.next.data);</span><br><span class="line">			node=node.next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> danlianbiao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLink</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Linklist link=<span class="keyword">new</span> Linklist();</span><br><span class="line">		link.init();</span><br><span class="line">		link.insert(<span class="string">"ct"</span>);</span><br><span class="line">		link.insert(<span class="string">"ad"</span>);</span><br><span class="line">		link.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//link.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		link.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、参考链接：<a href="https://www.cnblogs.com/lixiaolun/p/4643886.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643886.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/单链表/" data-id="ckgqazm17000nzsvitkun7a42" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/归并排序/" data-id="ckgt14q6n001xv8vitwgoinhb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -468,7 +508,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -500,23 +540,23 @@
       <ul>
         
           <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/25/微服务：1、入门/">微服务：1、入门</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/12/GO：2-9-Go语句及其执行规则/">GO：2.9 Go语句及其执行规则</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/10/GO：2-8-关于指针的有限操作/">GO：2-8 关于指针的有限操作</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/22/GO：2-7-接口类型的合理运用/">GO：2.7 接口类型的合理运用</a>
           </li>
         
       </ul>
