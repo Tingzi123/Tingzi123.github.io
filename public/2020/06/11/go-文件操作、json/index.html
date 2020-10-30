@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>go:文件操作、json | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、文件操作1、基本认识1、文件在程序中是以 流 的形式来操作的  流：数据在数据源（文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）之间的路径 输出流：数据从程序（内存）到数据源（文件）之间的路径   2、GO中，os.File封装所有文件相关操作（方法），File是一个结构体 3、文件是引用类型 2、文件操作1、打开文件1func Open(path string">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go:文件操作、json">
+<meta property="og:url" content="http://yoursite.com/2020/06/11/go-文件操作、json/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、文件操作1、基本认识1、文件在程序中是以 流 的形式来操作的  流：数据在数据源（文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）之间的路径 输出流：数据从程序（内存）到数据源（文件）之间的路径   2、GO中，os.File封装所有文件相关操作（方法），File是一个结构体 3、文件是引用类型 2、文件操作1、打开文件1func Open(path string">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/06/11/go-文件操作、json/file1.png">
+<meta property="og:updated_time" content="2020-06-11T07:56:22.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go:文件操作、json">
+<meta name="twitter:description" content="1、文件操作1、基本认识1、文件在程序中是以 流 的形式来操作的  流：数据在数据源（文件）和程序（内存）之间经历的路径 输入流：数据从数据源（文件）到程序（内存）之间的路径 输出流：数据从程序（内存）到数据源（文件）之间的路径   2、GO中，os.File封装所有文件相关操作（方法），File是一个结构体 3、文件是引用类型 2、文件操作1、打开文件1func Open(path string">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/11/go-文件操作、json/file1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-go-文件操作、json" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/11/go-文件操作、json/" class="article-date">
+  <time datetime="2020-06-11T07:54:54.000Z" itemprop="datePublished">2020-06-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go:文件操作、json
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、文件操作"><a href="#1、文件操作" class="headerlink" title="1、文件操作"></a>1、文件操作</h3><h4 id="1、基本认识"><a href="#1、基本认识" class="headerlink" title="1、基本认识"></a>1、基本认识</h4><p>1、文件在程序中是以 <strong>流</strong> 的形式来操作的</p>
+<ul>
+<li>流：数据在数据源（文件）和程序（内存）之间经历的路径</li>
+<li>输入流：数据从数据源（文件）到程序（内存）之间的路径</li>
+<li>输出流：数据从程序（内存）到数据源（文件）之间的路径</li>
+</ul>
+<p><img src="/2020/06/11/go-文件操作、json/file1.png" alt="file1"></p>
+<p>2、GO中，os.File封装所有文件相关操作（方法），File是一个结构体</p>
+<p>3、<strong>文件是引用类型</strong></p>
+<h4 id="2、文件操作"><a href="#2、文件操作" class="headerlink" title="2、文件操作"></a>2、文件操作</h4><h5 id="1、打开文件"><a href="#1、打开文件" class="headerlink" title="1、打开文件"></a>1、打开文件</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Open</span><span class="params">(path <span class="keyword">string</span>)</span> <span class="params">(file *File,err error)</span></span></span><br></pre></td></tr></table></figure>
+<p>Open打开一个文件用于读取，如果操作成功，返回一个文件对象（结构体指针或者文件句柄）可用于读取数据；如果出错，错误底层类型是PathError</p>
+<h5 id="2、关闭文件"><a href="#2、关闭文件" class="headerlink" title="2、关闭文件"></a>2、关闭文件</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *File )</span> <span class="title">Close</span> <span class="params">(error)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
+<p>Close关闭文件f，用于读取，使文件不能用于读写。返回可能出现的错误</p>
+<p>案例：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    file , err := os.Open(<span class="string">"d:/test.txt"</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"open file err="</span>,err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//输出文件</span></span><br><span class="line">    fmt.Printf(<span class="string">"file=%v"</span>,file)<span class="comment">//输出 file=&amp;&lt;0xcXXXXXXXX&gt;，</span></span><br><span class="line">    <span class="comment">//看出文件是一个地址（指针）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//关闭文件</span></span><br><span class="line">    err = file.Close()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"close file err="</span>,err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="3、读文件操作应用实例"><a href="#3、读文件操作应用实例" class="headerlink" title="3、读文件操作应用实例"></a>3、读文件操作应用实例</h5><p>1、读取文件的内容并显示在终端（<strong>带缓冲区</strong>的方式）<br>os.Open()、 file.Close()、bufio.NewReader()<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    file , err := os.Open(<span class="string">"d:/test.txt"</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"open file err="</span>,err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当函数退出时，要及时关闭文件</span></span><br><span class="line">    <span class="keyword">defer</span>  file.Close() <span class="comment">//及时关闭file句柄，防止内存泄漏</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建一个 *Reader，是带缓冲的</span></span><br><span class="line">    <span class="comment">//默认缓冲4096个字节</span></span><br><span class="line">    reader := bufio.NewReader(file)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//循环读取文件的内容</span></span><br><span class="line">    <span class="keyword">for</span>&#123;</span><br><span class="line">        str ,err :=  reader.ReadString(<span class="string">"\n"</span>)<span class="comment">//读到一个换行就结束一次</span></span><br><span class="line">        <span class="keyword">if</span> err == io.EOF &#123;<span class="comment">//io.EOF表示文件的末尾</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         <span class="comment">//输出内容</span></span><br><span class="line">         fmt.Print(str)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//文件读取结束</span></span><br><span class="line">     fmt.Println(<span class="string">"文件读取结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、读取文件的内容并显示在终端（使用ioutil一次性将整个文件读入到内存中），这种方式适合文件不大的情况 。</p>
+<ul>
+<li>这种方式不用显示的Open和Close文件，因为文件的Open和Close被封装到ReadFile函数内部</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    file = <span class="string">"d:/test.txt"</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//使用ioutil.ReadFile一次性将文件读取完</span></span><br><span class="line">    content,err := ioutil.ReadFile(file)<span class="comment">//返回一个[]byte（byt切片）</span></span><br><span class="line">     <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"read file err="</span>,err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//把读取的文件内容显示到终端</span></span><br><span class="line">    fmt.Printf(<span class="string">"content=%v"</span>,content)<span class="comment">//这是一个[]byte</span></span><br><span class="line">    </span><br><span class="line">    fmt.Printf(<span class="string">"content=%v"</span>,<span class="keyword">string</span>(content))<span class="comment">//[]byte转成string输出</span></span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4、写文件操作应用实例"><a href="#4、写文件操作应用实例" class="headerlink" title="4、写文件操作应用实例"></a>4、写文件操作应用实例</h5><p>1、基本介绍<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">OpenFile</span><span class="params">(path <span class="keyword">string</span>,flag <span class="keyword">int</span>,perm FileMode)</span> <span class="params">(file *File,err error)</span></span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>path：要打开文件的路径</li>
+<li>flag：打开文件的方式</li>
+<li>perm：文件权限，Windows系统下无效，Unix和Linux下有效</li>
+</ul>
+<h6 id="1、实例一"><a href="#1、实例一" class="headerlink" title="1、实例一"></a>1、实例一</h6><p> 带缓冲bufio.NewWriter</p>
+<p>1）创建一个<strong>新文件</strong>，<strong>写入</strong>内容<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    filePath := <span class="string">"d:\abc.test"</span></span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    file , err := os.OpenFile(filePath,os,O_WRONLY | os.O_CREATE,<span class="number">0666</span>)</span><br><span class="line">    <span class="comment">//以只写方式打开，如果没有文件就创建一个，如果有就继续往下</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"open file err="</span>,err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当main函数退出之前，要及时关闭文件</span></span><br><span class="line">    <span class="keyword">defer</span>  file.Close() <span class="comment">//及时关闭file句柄，防止内存泄漏</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入内容</span></span><br><span class="line">    str := <span class="string">"要写入的内容\r\n"</span></span><br><span class="line">    <span class="comment">//有的编辑器\n会换行</span></span><br><span class="line">    <span class="comment">//有的编辑器\r才会换行（如记事本）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入时，使用带缓冲的*Writer</span></span><br><span class="line">    writer := bufio.NewWriter(file)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//循环写入内容</span></span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;<span class="comment">//写5次</span></span><br><span class="line">        writer.writerString(<span class="string">"str"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//因为Writer是带缓存的，</span></span><br><span class="line">    <span class="comment">//因此在调用writerString方法时，内容是先写入缓存的，</span></span><br><span class="line">    <span class="comment">//所以需要调用Flush方法，将缓冲的数据真正写入到文件中，</span></span><br><span class="line">    <span class="comment">//否则文件中会没有数据</span></span><br><span class="line">    writer.Flush()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2）打开一个<strong>已经存在</strong>的文件，将原来的内容<strong>覆盖</strong>成新的内容<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    filePath := <span class="string">"d:\abc.test"</span></span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    file , err := os.OpenFile(filePath,os,O_WRONLY | os.O_TRUNC,<span class="number">0666</span>)</span><br><span class="line">    <span class="comment">//以只写方式打开，如果文件已经有内容就清空</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"open file err="</span>,err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当main函数退出之前，要及时关闭文件</span></span><br><span class="line">    <span class="keyword">defer</span>  file.Close() <span class="comment">//及时关闭file句柄，防止内存泄漏</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入要覆盖的新内容</span></span><br><span class="line">    str := <span class="string">"写入要覆盖的新内容\r\n"</span></span><br><span class="line">    <span class="comment">//有的编辑器\n会换行</span></span><br><span class="line">    <span class="comment">//有的编辑器\r才会换行（如记事本）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入时，使用带缓冲的*Writer</span></span><br><span class="line">    writer := bufio.NewWriter(file)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//循环写入内容</span></span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++&#123;<span class="comment">//写5次</span></span><br><span class="line">        writer.writerString(<span class="string">"str"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//因为Writer是带缓存的，</span></span><br><span class="line">    <span class="comment">//因此在调用writerString方法时，内容是先写入缓存的，</span></span><br><span class="line">    <span class="comment">//所以需要调用Flush方法，将缓冲的数据真正写入到文件中，</span></span><br><span class="line">    <span class="comment">//否则文件中会没有数据</span></span><br><span class="line">    writer.Flush()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3）打开一个<strong>已经存在</strong>的文件，在原来的内容<strong>追加</strong>新的内容<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    filePath := <span class="string">"d:\abc.test"</span></span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    file , err := os.OpenFile(filePath,os,O_WRONLY | os.O_APPEND,<span class="number">0666</span>)</span><br><span class="line">    <span class="comment">//以只写方式打开，在文件末尾以追加的形式写入内容</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"open file err="</span>,err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当main函数退出之前，要及时关闭文件</span></span><br><span class="line">    <span class="keyword">defer</span>  file.Close() <span class="comment">//及时关闭file句柄，防止内存泄漏</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入要追加写入的新内容</span></span><br><span class="line">    str := <span class="string">"追加写入的新内容\r\n"</span></span><br><span class="line">    <span class="comment">//有的编辑器\n会换行</span></span><br><span class="line">    <span class="comment">//有的编辑器\r才会换行（如记事本）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入时，使用带缓冲的*Writer</span></span><br><span class="line">    writer := bufio.NewWriter(file)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//循环写入内容</span></span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++&#123;<span class="comment">//写5次</span></span><br><span class="line">        writer.writerString(<span class="string">"str"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//因为Writer是带缓存的，</span></span><br><span class="line">    <span class="comment">//因此在调用writerString方法时，内容是先写入缓存的，</span></span><br><span class="line">    <span class="comment">//所以需要调用Flush方法，将缓冲的数据真正写入到文件中，</span></span><br><span class="line">    <span class="comment">//否则文件中会没有数据</span></span><br><span class="line">    writer.Flush()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4）打开一个已经存在的文件，将原来的内容<strong>读出</strong>显示在终端，并<strong>追加</strong>新的内容<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    filePath := <span class="string">"d:\abc.test"</span></span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    file , err := os.OpenFile(filePath,os,O_RDWR | os.O_APPEND,<span class="number">0666</span>)</span><br><span class="line">    <span class="comment">//以读写方式打开，在文件末尾以追加的形式写入内容</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"open file err="</span>,err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当main函数退出之前，要及时关闭文件</span></span><br><span class="line">    <span class="keyword">defer</span>  file.Close() <span class="comment">//及时关闭file句柄，防止内存泄漏</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//先读取文件原来的内容，并显示在终端</span></span><br><span class="line">     <span class="comment">//创建一个 *Reader，是带缓冲的</span></span><br><span class="line">    <span class="comment">//默认缓冲4096个字节</span></span><br><span class="line">    reader := bufio.NewReader(file)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//循环读取文件的内容</span></span><br><span class="line">    <span class="keyword">for</span>&#123;</span><br><span class="line">        str ,err :=  reader.ReadString(<span class="string">"\n"</span>)<span class="comment">//读到一个换行就结束一次</span></span><br><span class="line">        <span class="keyword">if</span> err == io.EOF &#123;<span class="comment">//io.EOF表示文件的末尾</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         <span class="comment">//输出内容，显示在终端</span></span><br><span class="line">         fmt.Print(str)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入要追加写入的新内容</span></span><br><span class="line">    str := <span class="string">"第二次追加写入的新内容\r\n"</span></span><br><span class="line">    <span class="comment">//有的编辑器\n会换行</span></span><br><span class="line">    <span class="comment">//有的编辑器\r才会换行（如记事本）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//写入时，使用带缓冲的*Writer</span></span><br><span class="line">    writer := bufio.NewWriter(file)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//循环写入内容</span></span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;<span class="comment">//写5次</span></span><br><span class="line">        writer.writerString(<span class="string">"str"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//因为Writer是带缓存的，</span></span><br><span class="line">    <span class="comment">//因此在调用writerString方法时，内容是先写入缓存的，</span></span><br><span class="line">    <span class="comment">//所以需要调用Flush方法，将缓冲的数据真正写入到文件中，</span></span><br><span class="line">    <span class="comment">//否则文件中会没有数据</span></span><br><span class="line">    writer.Flush()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="2、实例二"><a href="#2、实例二" class="headerlink" title="2、实例二"></a>2、实例二</h6><p>将一个文件的内容，写入到另外一个文件。（两个文件已经存在）<br>ioutil.ReadFile/ioutil.WriteFile<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//将”d:/test.txt“文件内容导入到”e:/kkk.txt“</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//1、将”d:/test.txt“文件内容读取到内存</span></span><br><span class="line">    <span class="comment">//2、将读取到的内容写入”e:/kkk.txt“</span></span><br><span class="line">    </span><br><span class="line">      file1Path = <span class="string">"d:/test.txt"</span></span><br><span class="line">      file2Path = <span class="string">"e:/kkk.txt"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用ioutil.ReadFile一次性将文件读取完</span></span><br><span class="line">    data,err := ioutil.ReadFile(file1Path)<span class="comment">//返回一个[]byte（byt切片）</span></span><br><span class="line">     <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"read file err="</span>,err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//把读取的文件内容显写入e:/kkk.txt文件</span></span><br><span class="line">    err = ioutil.WriteFile(file2Path,data,<span class="number">0666</span>)<span class="comment">//data接收一个[]byte</span></span><br><span class="line">     <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"write file err="</span>,err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="5、判断文件或文件夹是否存在"><a href="#5、判断文件或文件夹是否存在" class="headerlink" title="5、判断文件或文件夹是否存在"></a>5、判断文件或文件夹是否存在</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Stat</span><span class="params">(filePath <span class="keyword">string</span>)</span> <span class="params">(fi FileInfo,err error)</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果返回的error为nil，说明文件或文件夹存在</li>
+<li>如果返回的error使用为os.IsNotExist判断为true，说明文件或文件夹不存在</li>
+<li>如果返回的error为其他类型，则不确定是否存在</li>
+</ul>
+<h3 id="2、json"><a href="#2、json" class="headerlink" title="2、json"></a>2、json</h3><p>1、JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。易于人阅读和编写，也易于机器解析和生成，并有效提升网络效率。</p>
+<p>2、json序列化（如struct、map、slice序列化成json字符串）<br>json.Marshal()序列化后是一个[]byte，要转string<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Monster <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Age <span class="keyword">int</span>    </span><br><span class="line">    Birthday  <span class="keyword">string</span>    </span><br><span class="line">    Sal <span class="keyword">float64</span>    </span><br><span class="line">    Skill <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testStruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        monster := Monster&#123;</span><br><span class="line">        Name:<span class="string">"牛魔王"</span>,            </span><br><span class="line">        Age:<span class="number">500</span>,            </span><br><span class="line">        Birthday:<span class="string">"2011-11-11"</span>,           </span><br><span class="line">        Sal:<span class="number">8000.0</span>,            </span><br><span class="line">        Skill:<span class="string">"牛魔拳"</span>,      </span><br><span class="line">    &#125;      </span><br><span class="line"></span><br><span class="line"><span class="comment">//将monster序列化     </span></span><br><span class="line">data,err:=json.Marshal(&amp;monster)      </span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;            </span><br><span class="line">    fmt.Printf(<span class="string">"序列化失败 err=%v\n"</span>,err)     </span><br><span class="line">&#125;     </span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出序列化后的结果     </span></span><br><span class="line">    <span class="comment">//json.Marshal(&amp;monster)序列化后是一个[]byte，要转string      </span></span><br><span class="line">    fmt.Printf(<span class="string">"序列化后的结果monster=%v"</span>,<span class="keyword">string</span>(data))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    testStruct()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">序列化后的结果monster=&#123;<span class="string">"Name"</span>:<span class="string">"牛魔王"</span>,<span class="string">"Age"</span>:<span class="number">500</span>,<span class="string">"Birthday"</span>:<span class="string">"2011-11-11"</span>,<span class="string">"Sal"</span>:<span class="number">8000</span>,<span class="string">"Skill"</span>:<span class="string">"牛魔拳"</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：也可以对基本数据类型进行序列化，序列化结果直接将基本数据类型转成string，但是对基本数据类型进行序列化一般没有意义。</p>
+<p>3、json反序列化（如将json反序列化成struct、map、slice）<br>json.Unmarshal([]byte(str),&amp;monster)第一个参数要传一个[]byte<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"encoding/json"</span> </span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">//反序列化</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Monster <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span>    </span><br><span class="line">    Age <span class="keyword">int</span>    </span><br><span class="line">    Birthday  <span class="keyword">string</span>     </span><br><span class="line">    Sal <span class="keyword">float64</span>    </span><br><span class="line">    Skill <span class="keyword">string</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">unSerialStruct</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    str:=<span class="string">"&#123;\"Name\":\"牛魔王\",\"Age\":500,\"Birthday\":\"2011-11-11\","</span> +            <span class="string">"\"Sal\":8000,\"Skill\":\"牛魔拳\"&#125;"</span>     </span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义一个Monster实例      </span></span><br><span class="line">    <span class="keyword">var</span> monster Monster      </span><br><span class="line"></span><br><span class="line">    <span class="comment">//json.Unmarshal([]byte(str),&amp;monster)第一个参数要传一个[]byte     </span></span><br><span class="line">    err := json.Unmarshal([]<span class="keyword">byte</span>(str),&amp;monster)</span><br><span class="line">    <span class="comment">//传地址才能改变var monster的值</span></span><br><span class="line">      <span class="keyword">if</span> err!=<span class="literal">nil</span>&#123; </span><br><span class="line">         fmt.Printf(<span class="string">"反序列化失败 err=%v\n"</span>,err)    </span><br><span class="line">      &#125;      </span><br><span class="line">      </span><br><span class="line">      fmt.Printf(<span class="string">"反序列化后的结果monster=%v"</span>,monster)</span><br><span class="line"> &#125;</span><br><span class="line">      </span><br><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;   </span><br><span class="line">        unSerialStruct()  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">反序列化后的结果monster=&#123;牛魔王 <span class="number">500</span> <span class="number">2011</span><span class="number">-11</span><span class="number">-11</span> <span class="number">8000</span> 牛魔拳&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/11/go-文件操作、json/" data-id="ckgulrut30025xgvitemijamc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/11/go-goroutine、channel、反射/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          go:goroutine、channel、反射
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/11/go-结构体、方法、工厂模式、OOP三大特性、类型断言、接口/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">go:结构体、方法、工厂模式、OOP三大特性、类型断言、接口</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
