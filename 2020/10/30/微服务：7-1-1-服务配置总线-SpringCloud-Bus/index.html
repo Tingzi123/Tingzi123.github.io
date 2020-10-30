@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>微服务：7-1-1 服务总线-SpringCloud Bus | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、SpringCloud Bus概述SpringCloud Bus是对SpringCloud Config的加深和扩充，实现分布式自动刷新配置功能，SpringCloud Bus配合SpringCloud config使用可以实现配置的动态刷新。 1、SpringCloud Bus是什么？Bus支持两种消息代理：RabbitMQ和Kafka 2、SpringCloud Bus能干什么？ 2、Sp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务：7-1-1 服务总线-SpringCloud Bus">
+<meta property="og:url" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、SpringCloud Bus概述SpringCloud Bus是对SpringCloud Config的加深和扩充，实现分布式自动刷新配置功能，SpringCloud Bus配合SpringCloud config使用可以实现配置的动态刷新。 1、SpringCloud Bus是什么？Bus支持两种消息代理：RabbitMQ和Kafka 2、SpringCloud Bus能干什么？ 2、Sp">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus4.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus5.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus6.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus7.jpg">
+<meta property="og:updated_time" content="2020-10-30T10:42:14.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务：7-1-1 服务总线-SpringCloud Bus">
+<meta name="twitter:description" content="1、SpringCloud Bus概述SpringCloud Bus是对SpringCloud Config的加深和扩充，实现分布式自动刷新配置功能，SpringCloud Bus配合SpringCloud config使用可以实现配置的动态刷新。 1、SpringCloud Bus是什么？Bus支持两种消息代理：RabbitMQ和Kafka 2、SpringCloud Bus能干什么？ 2、Sp">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus3.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-微服务：7-1-1-服务配置总线-SpringCloud-Bus" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/" class="article-date">
+  <time datetime="2020-10-30T08:34:35.000Z" itemprop="datePublished">2020-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微服务：7-1-1 服务总线-SpringCloud Bus
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、SpringCloud-Bus概述"><a href="#1、SpringCloud-Bus概述" class="headerlink" title="1、SpringCloud Bus概述"></a>1、SpringCloud Bus概述</h3><p>SpringCloud Bus是对SpringCloud Config的加深和扩充，实现分布式自动刷新配置功能，SpringCloud Bus配合SpringCloud config使用可以实现配置的动态刷新。</p>
+<h4 id="1、SpringCloud-Bus是什么？"><a href="#1、SpringCloud-Bus是什么？" class="headerlink" title="1、SpringCloud Bus是什么？"></a>1、SpringCloud Bus是什么？</h4><p><img src="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus3.jpg" alt="bus3"><br>Bus支持两种消息代理：RabbitMQ和Kafka</p>
+<h4 id="2、SpringCloud-Bus能干什么？"><a href="#2、SpringCloud-Bus能干什么？" class="headerlink" title="2、SpringCloud Bus能干什么？"></a>2、SpringCloud Bus能干什么？</h4><p><img src="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus1.jpg" alt="bus1"><br><img src="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus2.jpg" alt="bus2"></p>
+<h3 id="2、SpringCloud-Bus动态刷新全局广播"><a href="#2、SpringCloud-Bus动态刷新全局广播" class="headerlink" title="2、SpringCloud Bus动态刷新全局广播"></a>2、SpringCloud Bus动态刷新全局广播</h3><p>这里需要先安装RabbitMQ<br><img src="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus4.jpg" alt="bus4"></p>
+<p>测试<br><img src="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus5.jpg" alt="bus5"></p>
+<h3 id="3、SpringCloud-Bus动态刷新定点通知"><a href="#3、SpringCloud-Bus动态刷新定点通知" class="headerlink" title="3、SpringCloud Bus动态刷新定点通知"></a>3、SpringCloud Bus动态刷新定点通知</h3><p><img src="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus6.jpg" alt="bus6"></p>
+<p>总结：<br><img src="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/bus7.jpg" alt="bus7"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/" data-id="ckgw4pb1q001lrwvitvv2cjih" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">微服务：6-1-1 服务配置-SpringCloud Config</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/">微服务：7-1-1 服务总线-SpringCloud Bus</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/">微服务：6-1-1 服务配置-SpringCloud Config</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/29/微服务：5-1-1-服务网关-Gateway/">微服务：5-1-1 服务网关-Gateway</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

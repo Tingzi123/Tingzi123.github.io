@@ -7,14 +7,30 @@
   
   <title>微服务：6-1-1 服务配置-SpringCloud Config | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="1、SpringCloud Config概述分布式系统面临的配置问题 1、SpringCloud Config是什么？ 2、SpringCloud Config能干什么？ 3、SpringCloud Config与GitHub整合配置SpringCloud Config默认使用Git来存储配置文件（也有其他方法，如支持SVN和本地文件），也最推荐Git，而且使用http/https访问的形式 2、">
+<meta property="og:type" content="article">
 <meta property="og:title" content="微服务：6-1-1 服务配置-SpringCloud Config">
 <meta property="og:url" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、SpringCloud Config概述分布式系统面临的配置问题 1、SpringCloud Config是什么？ 2、SpringCloud Config能干什么？ 3、SpringCloud Config与GitHub整合配置SpringCloud Config默认使用Git来存储配置文件（也有其他方法，如支持SVN和本地文件），也最推荐Git，而且使用http/https访问的形式 2、">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-10-30T03:15:38.467Z">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config4.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config5.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config6.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config7.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config8.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config9.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config10.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config11.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config12.jpg">
+<meta property="og:updated_time" content="2020-10-30T08:31:25.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微服务：6-1-1 服务配置-SpringCloud Config">
+<meta name="twitter:description" content="1、SpringCloud Config概述分布式系统面临的配置问题 1、SpringCloud Config是什么？ 2、SpringCloud Config能干什么？ 3、SpringCloud Config与GitHub整合配置SpringCloud Config默认使用Git来存储配置文件（也有其他方法，如支持SVN和本地文件），也最推荐Git，而且使用http/https访问的形式 2、">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config1.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -83,11 +99,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="1、SpringCloud-Config概述"><a href="#1、SpringCloud-Config概述" class="headerlink" title="1、SpringCloud Config概述"></a>1、SpringCloud Config概述</h3><p>分布式系统面临的配置问题<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config1.jpg" alt="config1"></p>
+<h4 id="1、SpringCloud-Config是什么？"><a href="#1、SpringCloud-Config是什么？" class="headerlink" title="1、SpringCloud Config是什么？"></a>1、SpringCloud Config是什么？</h4><p><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config2.jpg" alt="config2"></p>
+<h4 id="2、SpringCloud-Config能干什么？"><a href="#2、SpringCloud-Config能干什么？" class="headerlink" title="2、SpringCloud Config能干什么？"></a>2、SpringCloud Config能干什么？</h4><p><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config3.jpg" alt="config3"></p>
+<h4 id="3、SpringCloud-Config与GitHub整合配置"><a href="#3、SpringCloud-Config与GitHub整合配置" class="headerlink" title="3、SpringCloud Config与GitHub整合配置"></a>3、SpringCloud Config与GitHub整合配置</h4><p>SpringCloud Config默认使用Git来存储配置文件（也有其他方法，如支持SVN和本地文件），也最推荐Git，而且使用http/https访问的形式</p>
+<h3 id="2、SpringCloud-Config服务端配置与测试"><a href="#2、SpringCloud-Config服务端配置与测试" class="headerlink" title="2、SpringCloud Config服务端配置与测试"></a>2、SpringCloud Config服务端配置与测试</h3><p>SpringCloud Config也是一个微服务<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config4.jpg" alt="config4"></p>
+<p>配置文件的几种格式：<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config5.jpg" alt="config5"></p>
+<p>成功读取到github上的中心外部配置文件<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config6.jpg" alt="config6"></p>
+<h3 id="3、SpringCloud-Config客户端配置与测试"><a href="#3、SpringCloud-Config客户端配置与测试" class="headerlink" title="3、SpringCloud Config客户端配置与测试"></a>3、SpringCloud Config客户端配置与测试</h3><p>1、SpringCloud Config客户端与服务端交互图<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config7.jpg" alt="config7"></p>
+<p>2、bootstrap.yml配置文件说明<br>（1）是什么<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config8.jpg" alt="config8"></p>
+<p>（2）内容<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config9.jpg" alt="config9"></p>
+<p>3、搭建SpringCloud Config客户端3355<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config10.jpg" alt="config10"></p>
+<h3 id="4、SpringCloud-Config客户端之动态刷新"><a href="#4、SpringCloud-Config客户端之动态刷新" class="headerlink" title="4、SpringCloud Config客户端之动态刷新"></a>4、SpringCloud Config客户端之动态刷新</h3><p>为了避免每次更新配置都要重启客户端微服务3355，我们可以给其配置动态刷新</p>
+<h4 id="1、动态刷新步骤"><a href="#1、动态刷新步骤" class="headerlink" title="1、动态刷新步骤"></a>1、动态刷新步骤</h4><p><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config11.jpg" alt="config11"></p>
+<h4 id="2、问题"><a href="#2、问题" class="headerlink" title="2、问题"></a>2、问题</h4><p>上面的实现，每次在github上修改配置后，需要运维人员手动发送post请求更新客户端配置，这样存在问题<br><img src="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/config12.jpg" alt="config12"></p>
+<p>由于该动太刷新满足不了需求，引入下一章消息总线Spring Cloud Bus。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/" data-id="ckgvovlrl00100ovix9bg42s3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/" data-id="ckgw4pb1y0022rwvijkl12n36" class="article-share-link">Share</a>
       
       
     </footer>
@@ -95,6 +126,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          微服务：7-1-1 服务总线-SpringCloud Bus
+        
+      </div>
+    </a>
   
   
     <a href="/2020/10/29/微服务：5-1-1-服务网关-Gateway/" id="article-nav-older" class="article-nav-link-wrap">
@@ -136,6 +176,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/">微服务：7-1-1 服务总线-SpringCloud Bus</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/">微服务：6-1-1 服务配置-SpringCloud Config</a>
           </li>
         
@@ -149,10 +193,6 @@
         
           <li>
             <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
           </li>
         
       </ul>

@@ -62,6 +62,79 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-springboot-docker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/springboot-docker/" class="article-date">
+  <time datetime="2020-06-07T07:38:06.780Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/springboot-docker/">SpringBoot与Docker</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>Docker是一个开源的应用容器引擎；是一个轻量级容器技术；</p>
+<p>Docker支持将软件编译成一个镜像；然后在镜像中各种软件做好配置，将镜像发布出去，其他使用者可以直接使用这个镜像；</p>
+<p>运行中的这个镜像称为容器，容器启动是非常快速的。<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootdoc1.png?raw=true" alt="Image text"></p>
+<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootdoc2.png?raw=true" alt="Image text"></p>
+<p>2、核心概念</p>
+<p>docker主机(Host)：安装了Docker程序的机器（Docker直接安装在操作系统之上）；</p>
+<p>docker客户端(Client)：连接docker主机进行操作；</p>
+<p>docker仓库(Registry)：用来保存各种打包好的软件镜像；</p>
+<p>docker镜像(Images)：软件打包好的镜像；放在docker仓库中；</p>
+<p>docker容器(Container)：镜像启动后的实例称为一个容器；容器是独立运行的一个或一组应用<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootdoc3.png?raw=true" alt="Image text"><br>使用Docker的步骤：</p>
+<p>1）、安装Docker</p>
+<p>2）、去Docker仓库找到这个软件对应的镜像；</p>
+<p>3）、使用Docker运行这个镜像，这个镜像就会生成一个Docker容器；</p>
+<p>4）、对容器的启动停止就是对软件的启动停止；</p>
+<p>3、安装Docker</p>
+<p>1）、安装linux虚拟机</p>
+<p>​    1）、VMWare、VirtualBox（安装）；</p>
+<p>​    2）、导入虚拟机文件centos7-atguigu.ova；</p>
+<p>​    3）、双击启动linux虚拟机;使用 root/ 123456登陆</p>
+<p>​    4）、使用客户端连接linux服务器进行命令操作；</p>
+<p>​    5）、设置虚拟机网络；</p>
+<p>​    桥接网络===选好网卡====接入网线；</p>
+<p>​    6）、设置好网络以后使用命令重启虚拟机的网络<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure></p>
+<p>7）、查看linux的ip地址<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure></p>
+<p>8）、使用客户端连接linux；</p>
+<h3 id="2）、在linux虚拟机上安装docker"><a href="#2）、在linux虚拟机上安装docker" class="headerlink" title="2）、在linux虚拟机上安装docker"></a>2）、在linux虚拟机上安装docker</h3><p>步骤：</p>
+<p>1、检查内核版本，必须是3.10及以上<br>uname -r<br>2、安装docker<br>yum install docker<br>3、输入y确认安装<br>4、启动docker<br>[root@localhost ~]# systemctl start docker<br>[root@localhost ~]# docker -v<br>Docker version 1.12.6, build 3e8e77d/1.12.6<br>5、开机启动docker<br>[root@localhost ~]# systemctl enable docker<br>Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.<br>6、停止docker<br>systemctl stop docker</p>
+<p>4、Docker常用命令&amp;操作</p>
+<p>1）、镜像操作<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/springbootdoc5.png?raw=true" alt="Image text"><br>docker仓库：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+<p>2）、容器操作</p>
+<p>软件镜像（QQ安装程序）—-运行镜像—-产生一个容器（正在运行的软件，运行的QQ）；</p>
+<p>步骤：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、搜索镜像</span><br><span class="line">[root@localhost ~]# docker search tomcat</span><br><span class="line"><span class="number">2</span>、拉取镜像</span><br><span class="line">[root@localhost ~]# docker pull tomcat</span><br><span class="line"><span class="number">3</span>、根据镜像启动容器</span><br><span class="line">docker run --name mytomcat -d tomcat:latest</span><br><span class="line"><span class="number">4</span>、docker ps  </span><br><span class="line">查看运行中的容器</span><br><span class="line"><span class="number">5</span>、 停止运行中的容器</span><br><span class="line">docker stop  容器的id</span><br><span class="line"><span class="number">6</span>、查看所有的容器</span><br><span class="line">docker ps -a</span><br><span class="line"><span class="number">7</span>、启动容器</span><br><span class="line">docker start 容器id</span><br><span class="line"><span class="number">8</span>、删除一个容器</span><br><span class="line"> docker rm 容器id</span><br><span class="line"><span class="number">9</span>、启动一个做了端口映射的tomcat</span><br><span class="line">[root@localhost ~]# docker run -d -p 8888:8080 tomcat</span><br><span class="line">-d：后台运行</span><br><span class="line">-p: 将主机的端口映射到容器的一个端口    主机端口:容器内部的端口</span><br><span class="line"></span><br><span class="line"><span class="number">10</span>、为了演示简单关闭了linux的防火墙</span><br><span class="line">service firewalld status ；查看防火墙状态</span><br><span class="line">service firewalld stop：关闭防火墙</span><br><span class="line"><span class="number">11</span>、查看容器的日志</span><br><span class="line">docker logs container-name/container-id</span><br><span class="line"></span><br><span class="line">更多命令参看</span><br><span class="line">https:<span class="comment">//docs.docker.com/engine/reference/commandline/docker/</span></span><br><span class="line">可以参考每一个镜像的文档</span><br></pre></td></tr></table></figure></p>
+<p>3）、安装MySQL示例<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql</span><br></pre></td></tr></table></figure></p>
+<p>错误的启动<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker run --name mysql01 -d mysql</span><br><span class="line"><span class="number">42f</span>09819908bb72dd99ae19e792e0a5d03c48638421fa64cce5f8ba0f40f5846</span><br><span class="line"></span><br><span class="line">mysql退出了</span><br><span class="line">[root@localhost ~]# docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                           PORTS               NAMES</span><br><span class="line"><span class="number">42f</span>09819908b        mysql               <span class="string">"docker-entrypoint.sh"</span>   <span class="number">34</span> <span class="function">seconds ago      <span class="title">Exited</span> <span class="params">(<span class="number">1</span>)</span> 33 seconds ago                            mysql01</span></span><br><span class="line"><span class="function">538bde63e500        tomcat              "catalina.sh run"        About an hour ago   <span class="title">Exited</span> <span class="params">(<span class="number">143</span>)</span> About an hour ago                       compassionate_</span></span><br><span class="line"><span class="function">goldstine</span></span><br><span class="line"><span class="function">c4f1ac60b3fc        tomcat              "catalina.sh run"        About an hour ago   <span class="title">Exited</span> <span class="params">(<span class="number">143</span>)</span> About an hour ago                       lonely_fermi</span></span><br><span class="line"><span class="function">81ec743a5271        tomcat              "catalina.sh run"        About an hour ago   <span class="title">Exited</span> <span class="params">(<span class="number">143</span>)</span> About an hour ago                       sick_ramanujan</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//错误日志</span></span></span><br><span class="line"><span class="function">[root@localhost ~]# docker logs 42f09819908b</span></span><br><span class="line"><span class="function">error: database is uninitialized and password option is not specified </span></span><br><span class="line"><span class="function">  You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD；这三个参数必须指定一个</span></span><br></pre></td></tr></table></figure></p>
+<p>正确的启动<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker run --name mysql01 -e MYSQL_ROOT_PASSWORD=123456 -d mysql</span><br><span class="line">b874c56bec49fb43024b3805ab51e9097da779f2f572c22c695305dedd684c5f</span><br><span class="line">[root@localhost ~]# docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</span><br><span class="line">b874c56bec49        mysql               <span class="string">"docker-entrypoint.sh"</span>   <span class="number">4</span> seconds ago       Up <span class="number">3</span> seconds        <span class="number">3306</span>/tcp            mysql01</span><br></pre></td></tr></table></figure></p>
+<p>做了端口映射<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker run -p 3306:3306 --name mysql02 -e MYSQL_ROOT_PASSWORD=123456 -d mysql</span><br><span class="line">ad10e4bc5c6a0f61cbad43898de71d366117d120e39db651844c0e73863b9434</span><br><span class="line">[root@localhost ~]# docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES</span><br><span class="line">ad10e4bc5c6a        mysql               <span class="string">"docker-entrypoint.sh"</span>   <span class="number">4</span> seconds ago       Up <span class="number">2</span> seconds        <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">3306</span>-&gt;<span class="number">3306</span>/tcp   mysql02</span><br></pre></td></tr></table></figure></p>
+<p>几个其他的高级操作<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql03 -v /conf/mysql:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag</span><br><span class="line">把主机的/conf/mysql文件夹挂载到 mysqldocker容器的/etc/mysql/conf.d文件夹里面</span><br><span class="line">改mysql的配置文件就只需要把mysql配置文件放在自定义的文件夹下（/conf/mysql）</span><br><span class="line"></span><br><span class="line">docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci</span><br><span class="line">指定mysql的一些配置参数</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/springboot-docker/" data-id="ckgw4pas5000krwvi6c0la3qw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Spring-注解方式实现bean管理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/07/Spring-注解方式实现bean管理/" class="article-date">
@@ -106,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/Spring-注解方式实现bean管理/" data-id="ckgvovlr0000b0ovixk3wgwfi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/Spring-注解方式实现bean管理/" data-id="ckgw4parx000arwvi7djx9wkx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -145,7 +218,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/Spring-jdbcTemplate/" data-id="ckgvovlqy00090oviyt5pett2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/Spring-jdbcTemplate/" data-id="ckgw4pary000brwvi79stmz7j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -247,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/Spring-IOC/" data-id="ckgvovm0500230ovifh11d67o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/Spring-IOC/" data-id="ckgw4pb1k001arwvielc71m4r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/Spring-AOP/" data-id="ckgvovm0200200ovijih5ldl5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/Spring-AOP/" data-id="ckgw4pb1i0017rwvi3i177w90" class="article-share-link">Share</a>
       
       
     </footer>
@@ -370,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/shell运算符/" data-id="ckgvovm0d002b0ovirgbyz8hl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/shell运算符/" data-id="ckgw4pb1n001grwvioc3wi1i6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -462,7 +535,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/Shell编程/" data-id="ckgvovm0400220ovitqiutobj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/Shell编程/" data-id="ckgw4pb1j0018rwvi7nrijbdq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -557,7 +630,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/OS进程管理/" data-id="ckgvovm4s002m0oviv883mw5q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/OS进程管理/" data-id="ckgw4pb8c002krwviwnn6e5mt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -640,7 +713,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/OS设备管理/" data-id="ckgvovm4s002l0ovithbpdvlr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/OS设备管理/" data-id="ckgw4pb8b002jrwvinlp2gvl0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -698,75 +771,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/os的硬件环境/" data-id="ckgvovlrb000j0ovivkw3c9hg" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-OS用户接口与作业调度" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/OS用户接口与作业调度/" class="article-date">
-  <time datetime="2020-06-07T07:38:06.608Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/OS用户接口与作业调度/">操作系统-用户接口与作业调度</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、程 序 的 启 动 和 结 束<br>1.1．程序的启动<br>– 程序开始执行时必须满足两个前提条件：<br>• 程序已装入内存<br>• 程序计数器PC中已置入该程序在内存的入口地址 </p>
-<p>1.2 五种启动程序执行的方式<br>1）命令方式<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi1.png?raw=true" alt="Image text"></p>
-<p>2）批处理方式<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi2.png?raw=true" alt="Image text"></p>
-<p>3）EXEC方式<br>– 在一个程序中运行另一个程序<br>– 返回原来的程序<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi3.png?raw=true" alt="Image text"></p>
-<p>4）由硬件装入程序和启动程序执行</p>
-<p>5）自启程序<br>• 自己装入自己，并启动自己开始执行的程序<br>• 自启程序由两部分组成：引导程序和程序主体<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi4.png?raw=true" alt="Image text"></p>
-<p>2、程序的结束<br>正常结束：程序按自身的逻辑有效地完成预定功能<br>后结束<br>（a）返回父程序并回送结果信息。<br>（b）释放所用资源（空间、设备），记录使用情<br>况，记帐等<br>– 异常结束：发生了某些错误而导致程序在没有完成<br>预定功能时提前结束 </p>
-<p>3、用户与操作系统的接口<br>为用户提供两种接口：<br>（1）命令接口<br>用户通过这些命令来组织和控制作业的执行。<br>（2）程序接口<br>编程人员使用他们来请求操作系统服务。</p>
-<p>作业控制的主要方式：<br>（1）联机命令接口<br>又称交互式命令接口，由一组键盘操作命令组<br>成。用户通过控制台或者终端键入操作命令，完<br>成对作业的控制。<br>（2）脱机命令接口<br>又称批处理命令接口，由一组作业控制语言组<br>成，由系统负责解释执行。（涉及到作业的相关<br>概念） </p>
-<p>3、作 业 的 基 本 概 念<br>（1）作业<br>用户在一次计算过程中，或者一次事务处理过程中，<br>要求计算机系统所做工作的总称<br>（2）作业步<br> 一个作业可划分成若干部分，称为一个作业步<br>（3）典型的作业控制过程：<br> “编译”、“连接装配”、“运行” </p>
-<p> 作业组织：<br> 作业由三部分组成，即程序、数据、作业说明书。</p>
-<p> 作 业 控 制 块（JCB：Job Control Block）<br>– 作业控制块是作业存在的标志<br>– 保存现有系统对于作业进行管理所需要的全部信息<br>– 位于磁盘区域中 </p>
-<p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi5.png?raw=true" alt="Image text"></p>
-<p>作 业 的 状 态 及 转 换：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi6.png?raw=true" alt="Image text"></p>
-<p>4、作 业 调 度<br>调度的实质<br>• 资源的分配<br>– 调度算法定义<br>• 根据系统的资源分配策略所规定的资源分配算法</p>
-<p>调 度 算 法 的 性 能 准 则：<br>– （平均）周转时间：作业从提交到完成的时间（用户角度）<br>周转时间：Ti=Tc-Ts<br>Tc作业完成时刻；<br>Ts作业进入系统时刻</p>
-<p>平均周转时间：（T1+T2+…+Tn)/n</p>
-<p>– （平均）带权周转时间：周转时间 / CPU运行时间（用户角度）<br>带权周转时间:<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi7.png?raw=true" alt="Image text"></p>
-<p>平均带权周转时间：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi8.png?raw=true" alt="Image text"></p>
-<p>– 响应时间：用户输入一个请求（如击键）到系统给出首次响应（如屏幕<br>显示）的时间（处理机的角度）<br>– 公平性：不因作业或进程本身的特性而使上述指标过分恶化（算法本身的角度）<br>– 优先级：可以使关键任务达到更好的指标（算法本身的角度）</p>
-<p>5、先来先服务算法FCFS （First Come First Served）<br>– 按作业的先后顺序进行调度<br>– 处理过程<br>1）按照作业提交先后次序，分配CPU执行；<br>2）当前作业占用CPU，直到执行完或阻塞（如申请I/O）让出CPU；<br>3）作业被唤醒后（如I/O完成），不立即恢复执行，等待当前作业<br> 让出CPU后才可以恢复执行。<br>– 最简单的调度算法<br>– 对短作业不利（平均周转时间延长）</p>
-<p>举例：假设在单道批处理环境下有四个作业，已知它们进入系统的时间、估计运行时间 ，求：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi9.png?raw=true" alt="Image text"></p>
-<p>6、短 作 业 优 先 算 法 SJF （Shortest Job First ）<br>按作业的长短顺序进行调度，短作业优先<br>• 对预计执行时间短的作业优先分配CPU<br>• 通常后来的短作业不抢占正在执行的作业<br>– 对FCFS算法的改进，目标是减少平均周转时间</p>
-<p>– 优点：<br>• 相比于FCFS改善平均周转时间和平均带权周转时间；<br>• 缩短作业的等待时间；<br>• 提高系统的吞吐量；<br>– 缺点：<br>• 对长作业非常不利，可能长时间得不到执行；<br>• 难以准确估计作业（进程）的执行时间，从而影响调度性能。<br>• 未能依据作业的紧迫程度来划分执行的优先级；</p>
-<p>举例：<br>假设在单道批处理环境下有四个作业，已知它们进入系统的时间、估计运行时间 ，求：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi10.png?raw=true" alt="Image text"></p>
-<p>7、最 短 剩 余 时 间 优 先 算 法 SRT （Shortest Remaining Time）<br>– 短作业优先算法的变型，也称作抢占式的短作业优先算法<br>– 允许比当前进程剩余时间更短的进程来抢占<br>– 抢占时机：新作业加入队列时 </p>
-<p>8、最 高 响 应 比 优 先 算 法HRRN （Highest Response Ratio Next）<br>– 从就绪队列中选出响应比最高的作业投入执行<br>– 响应比R = (等待时间W +要求执行时间T) / 要求执行时间T<br>– FCFS和SJF的折衷</p>
-<p>– 优点：既照顾了短作业，也考虑到先后顺序<br>– 缺点：每次调度时要调用响应比计算，增加了系统开销 </p>
-<p>举例：假设在单道批处理环境下有四个作业，已知它们进入系统的时间、估计运行时间 ，求：<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi11.png?raw=true" alt="Image text"></p>
-<p>9、基 于 优 先 数 调 度 算 法 HPF （ Highest Priority First ）<br>（a）由用户规定优先数（外部优先数）<br> 用户提交作业时，根据急迫程度规定适当的优先数<br> 作业调度程序根据JCB优先数决定进入内存的次序<br>（b）由系统计算优先数（内部优先数） </p>
-<p>举例：<br>在两道环境下有四个作业，已知它们进入系统的时间、估计运行时间； 作业调度采用短作业优先调度算法（作业被调度<br>运行后直到结束前不再退出内存）； 进程调度采用最短剩余时间优先调度算法（当新作业投入运行后，可按照作业剩余运行时间长短调整次<br>序，可抢占CPU）； 请给出这四个作业的执行时间序列，并计算出平均周转时间及平均带权周转时间；<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/osapi12.png?raw=true" alt="Image text"></p>
-<p>10、系 统 调 用<br>系统调用，是用户在程序中调用操作系统所提供的一些子功能（程序接口）。<br>这个指令还将系统转入管态<br>系统调用是操作系统提供给编程人员的唯一接口 </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/OS用户接口与作业调度/" data-id="ckgvovlr0000a0oviyh89x0qk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/os的硬件环境/" data-id="ckgw4pas4000jrwvilnr5bv9u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -812,6 +817,10 @@
       <ul>
         
           <li>
+            <a href="/2020/10/30/微服务：7-1-1-服务配置总线-SpringCloud-Bus/">微服务：7-1-1 服务总线-SpringCloud Bus</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/">微服务：6-1-1 服务配置-SpringCloud Config</a>
           </li>
         
@@ -825,10 +834,6 @@
         
           <li>
             <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
           </li>
         
       </ul>
