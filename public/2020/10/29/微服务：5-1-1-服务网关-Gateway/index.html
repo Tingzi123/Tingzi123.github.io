@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>微服务：5-1-1 服务网关-Gateway | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、Gateway概述1、Gateway是什么？SpringCloud Gateway使用的Webflux中的reactor-netty响应式变编程组件，底层使用了Netty组件 2、Gateway能干什么？1、反向代理 2、鉴权 3、流量控制 4、熔断 5、日志监控等等 企业一般架构： 3、选择Gateway的原因？1、 2、SpringCloud Gateway具有如下特性 3、SpringC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务：5-1-1 服务网关-Gateway">
+<meta property="og:url" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、Gateway概述1、Gateway是什么？SpringCloud Gateway使用的Webflux中的reactor-netty响应式变编程组件，底层使用了Netty组件 2、Gateway能干什么？1、反向代理 2、鉴权 3、流量控制 4、熔断 5、日志监控等等 企业一般架构： 3、选择Gateway的原因？1、 2、SpringCloud Gateway具有如下特性 3、SpringC">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway4.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway5.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway6.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway7.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway8.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway9.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway10.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway11.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway12.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway13.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway14.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway15.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway16.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway17.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway18.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway19.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway20.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway21.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway22.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway23.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway24.jpg">
+<meta property="og:updated_time" content="2020-10-30T03:13:02.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务：5-1-1 服务网关-Gateway">
+<meta name="twitter:description" content="1、Gateway概述1、Gateway是什么？SpringCloud Gateway使用的Webflux中的reactor-netty响应式变编程组件，底层使用了Netty组件 2、Gateway能干什么？1、反向代理 2、鉴权 3、流量控制 4、熔断 5、日志监控等等 企业一般架构： 3、选择Gateway的原因？1、 2、SpringCloud Gateway具有如下特性 3、SpringC">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-微服务：5-1-1-服务网关-Gateway" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/29/微服务：5-1-1-服务网关-Gateway/" class="article-date">
+  <time datetime="2020-10-29T09:14:40.000Z" itemprop="datePublished">2020-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微服务：5-1-1 服务网关-Gateway
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Gateway概述"><a href="#1、Gateway概述" class="headerlink" title="1、Gateway概述"></a>1、Gateway概述</h3><h4 id="1、Gateway是什么？"><a href="#1、Gateway是什么？" class="headerlink" title="1、Gateway是什么？"></a>1、Gateway是什么？</h4><p>SpringCloud Gateway使用的Webflux中的reactor-netty响应式变编程组件，底层使用了Netty组件<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway1.jpg" alt="gateway1"></p>
+<h4 id="2、Gateway能干什么？"><a href="#2、Gateway能干什么？" class="headerlink" title="2、Gateway能干什么？"></a>2、Gateway能干什么？</h4><p>1、反向代理</p>
+<p>2、鉴权</p>
+<p>3、流量控制</p>
+<p>4、熔断</p>
+<p>5、日志监控等等</p>
+<p>企业一般架构：<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway2.jpg" alt="gateway2"></p>
+<h4 id="3、选择Gateway的原因？"><a href="#3、选择Gateway的原因？" class="headerlink" title="3、选择Gateway的原因？"></a>3、选择Gateway的原因？</h4><p>1、<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway3.jpg" alt="gateway3"></p>
+<p>2、SpringCloud Gateway具有如下特性<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway4.jpg" alt="gateway4"></p>
+<p>3、SpringCloud Gateway与Zuul的区别<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway5.jpg" alt="gateway5"></p>
+<p>4、Zuul模型<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway6.jpg" alt="gateway6"></p>
+<p>5、Gateway模型<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway7.jpg" alt="gateway7"></p>
+<h3 id="2、Gateway三大核心概念"><a href="#2、Gateway三大核心概念" class="headerlink" title="2、Gateway三大核心概念"></a>2、Gateway三大核心概念</h3><h4 id="1、Route（路由）"><a href="#1、Route（路由）" class="headerlink" title="1、Route（路由）"></a>1、Route（路由）</h4><p>路由是构建网关的基本模块，它由ID，目标URI，一系列的断言和过滤器组成，如果断言为true则匹配该路由</p>
+<h4 id="2、Predicate（断言）"><a href="#2、Predicate（断言）" class="headerlink" title="2、Predicate（断言）"></a>2、Predicate（断言）</h4><p>参考Java8的Predicate，开发人员可以匹配HTTP请求中的所有内容（例如请求头或请求参数），如果请求与断言相匹配则进行路由</p>
+<h4 id="3、Filter（过滤）"><a href="#3、Filter（过滤）" class="headerlink" title="3、Filter（过滤）"></a>3、Filter（过滤）</h4><p>Spring框架中GatewayFilter的实例，使用过滤器，可以在请求被路由前或路由后对请求修改</p>
+<h4 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway8.jpg" alt="gateway8"></p>
+<h3 id="3、Gateway工作流程"><a href="#3、Gateway工作流程" class="headerlink" title="3、Gateway工作流程"></a>3、Gateway工作流程</h3><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway9.jpg" alt="gateway9"></p>
+<p><strong>核心逻辑：路由转发+执行过滤链</strong></p>
+<h3 id="4、入门配置"><a href="#4、入门配置" class="headerlink" title="4、入门配置"></a>4、入门配置</h3><p>Gateway自己本身也是一个微服务，需要搭建</p>
+<h4 id="1、新建module"><a href="#1、新建module" class="headerlink" title="1、新建module"></a>1、新建module</h4><p>新建module：cloud-gateway-gateway9627</p>
+<h4 id="2、改POM"><a href="#2、改POM" class="headerlink" title="2、改POM"></a>2、改POM</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway10.jpg" alt="gateway10"><br>gateway网关微服务不需要引入web依赖</p>
+<h4 id="3、写YML"><a href="#3、写YML" class="headerlink" title="3、写YML"></a>3、写YML</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway11.jpg" alt="gateway11"></p>
+<h4 id="４、业务类"><a href="#４、业务类" class="headerlink" title="４、业务类"></a>４、业务类</h4><p>无业务逻辑，可看作看门的</p>
+<h4 id="５、主启动类"><a href="#５、主启动类" class="headerlink" title="５、主启动类"></a>５、主启动类</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway12.jpg" alt="gateway12"></p>
+<h4 id="6、gateway9527如何做路由映射？"><a href="#6、gateway9527如何做路由映射？" class="headerlink" title="6、gateway9527如何做路由映射？"></a>6、gateway9527如何做路由映射？</h4><p>前面的项目8001提供服务，如果我们不想暴露8001端口，可以在8001外面套一层gateway9527</p>
+<p>1、在gateway9527中新增配置<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway13.jpg" alt="gateway13"><br>为8001中的接口配置一层网关</p>
+<p>2、访问说明<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway14.jpg" alt="gateway14"></p>
+<p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway15.jpg" alt="gateway15"></p>
+<h4 id="6、gateway网关两种配置"><a href="#6、gateway网关两种配置" class="headerlink" title="6、gateway网关两种配置"></a>6、gateway网关两种配置</h4><p>1、在配置文件yml中配置<br>如上面</p>
+<p>2、代码中注入RouteLocator的Bean<br>改造上面的项目，新建config包，包下新建配置类gatewayConfig<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway16.jpg" alt="gateway16"></p>
+<h3 id="5、通过微服务名实现动态路由"><a href="#5、通过微服务名实现动态路由" class="headerlink" title="5、通过微服务名实现动态路由"></a>5、通过微服务名实现动态路由</h3><p>1、在客户端80和服务提供端8001（或服务端集群）之间加了网关Gateway之后，网关Gateway需要做负载均衡。</p>
+<p>2、默认情况下Gateway会根据注册中心的服务列表，以注册中心上微服务名为路径创建<strong>动态路由 进行转发，从而实现动态路由功能</strong></p>
+<p>3、实现<br>修改网关的yml文件，开启注册中心服务发现功能，将写死的服务端路由地址改成服务端在注册中心注册后动态路由的地址<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway17.jpg" alt="gateway17"></p>
+<p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway18.jpg" alt="gateway18"></p>
+<h3 id="6、Predicate的使用"><a href="#6、Predicate的使用" class="headerlink" title="6、Predicate的使用"></a>6、Predicate的使用</h3><p>1、启动网关9527后可以看到<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway19.jpg" alt="gateway19"></p>
+<p>2、Route Predicate Factories是什么？<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway20.jpg" alt="gateway20"></p>
+<p>3、常用的Route Predicate<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway21.jpg" alt="gateway21"></p>
+<p>总结：Predicate就是为了实现一组匹配规则，让请求过来找对应的Route进行处理。</p>
+<h3 id="7、Filter的使用"><a href="#7、Filter的使用" class="headerlink" title="7、Filter的使用"></a>7、Filter的使用</h3><h4 id="1、Filter是什么"><a href="#1、Filter是什么" class="headerlink" title="1、Filter是什么"></a>1、Filter是什么</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway22.jpg" alt="gateway22"></p>
+<h4 id="2、Spring-Cloud-Gateway的Filter"><a href="#2、Spring-Cloud-Gateway的Filter" class="headerlink" title="2、Spring Cloud Gateway的Filter"></a>2、Spring Cloud Gateway的Filter</h4><p>1、生命周期，只有两个<br>（1）pre 业务逻辑之前<br>（2）post 业务逻辑之后</p>
+<p>2、种类<br>（1）GatewayFilter 单一的<br>（2）GlobalFilter 全局的</p>
+<h4 id="3、常用的GatewayFilter"><a href="#3、常用的GatewayFilter" class="headerlink" title="3、常用的GatewayFilter"></a>3、常用的GatewayFilter</h4><p>Filter非常多，这里仅示例用法，具体参考官网<br>示例<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway23.jpg" alt="gateway23"></p>
+<h4 id="4、自定义GlobalFilter"><a href="#4、自定义GlobalFilter" class="headerlink" title="4、自定义GlobalFilter"></a>4、自定义GlobalFilter</h4><p>两个主要接口<br><strong>implement GlobalFilter,Ordered</strong></p>
+<p>1、在gateway9527模块下新建包filter，包下新建MyGlobalFilter类<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway24.jpg" alt="gateway24"></p>
+<p>2、全局GlobalFilter能干嘛<br>（1）全局日志记录<br>（2）统一网关鉴权等等</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/10/29/微服务：5-1-1-服务网关-Gateway/" data-id="ckgvovlrl000z0ovis2uecf64" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          微服务：6-1-1 服务配置-SpringCloud Config
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">微服务：4-1-1 服务降级-Hystrix</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/">微服务：6-1-1 服务配置-SpringCloud Config</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/29/微服务：5-1-1-服务网关-Gateway/">微服务：5-1-1 服务网关-Gateway</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-2-服务调用-OpenFeign/">微服务：3-1-2 服务调用-OpenFeign</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
