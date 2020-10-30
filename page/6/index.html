@@ -62,10 +62,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-查找" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-计算机网络" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/07/查找/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.139Z" itemprop="datePublished">2020-06-07</time>
+    <a href="/2020/06/07/计算机网络/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.170Z" itemprop="datePublished">2020-06-07</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/查找/">查找</a>
+      <a class="article-title" href="/2020/06/07/计算机网络/">计算机网络</a>
     </h1>
   
 
@@ -84,21 +84,58 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="一、线性表的查找"><a href="#一、线性表的查找" class="headerlink" title="一、线性表的查找"></a>一、线性表的查找</h2><h3 id="1、顺序查找-O-n-code"><a href="#1、顺序查找-O-n-code" class="headerlink" title="1、顺序查找 O(n)[^code]"></a>1、顺序查找 O(n)[^code]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	a[<span class="number">0</span>]=key;<span class="comment">//设置岗哨</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=a.length;a[i]!=key;i--)&#123;</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2、折半查找-O-log2-N-下标从1开始"><a href="#2、折半查找-O-log2-N-下标从1开始" class="headerlink" title="2、折半查找 O(log2(N))(下标从1开始)"></a>2、折半查找 O(log2(N))(下标从1开始)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> high=a.length</span><br><span class="line">	<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(low&lt;=high)&#123;<span class="comment">//loe&lt;=high</span></span><br><span class="line">		<span class="keyword">if</span>(key==mid)</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(key&lt;mid)&#123;</span><br><span class="line">			high=mid-<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			low=mid+<span class="number">1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3、分块查找"><a href="#3、分块查找" class="headerlink" title="3、分块查找"></a>3、分块查找</h3><p>  分块查找是折半查找和顺序查找的一种改进方法，分块查找由于只要求索引表是有序的，<br>对块内节点没有排序要求，因此特别适合于节点动态变化的情况。</p>
-<h2 id="二、树表的查找"><a href="#二、树表的查找" class="headerlink" title="二、树表的查找"></a>二、树表的查找</h2><h3 id="1、二叉排序树"><a href="#1、二叉排序树" class="headerlink" title="1、二叉排序树"></a>1、二叉排序树</h3><h4 id="1）二叉排序树的查找-O-log2-N"><a href="#1）二叉排序树的查找-O-log2-N" class="headerlink" title="1）二叉排序树的查找 O(log2(N))"></a>1）二叉排序树的查找 O(log2(N))</h4><p>递归实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(Tree T,<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span> || root.data==key)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(key&lt;root.data)&#123;</span><br><span class="line">		Search(T.lchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Search(T.rchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2）二叉排序树的插入-O-log2-N"><a href="#2）二叉排序树的插入-O-log2-N" class="headerlink" title="2）二叉排序树的插入 O(log2(N))"></a>2）二叉排序树的插入 O(log2(N))</h4><p>二叉排序树的插入 以查找为基础：查找失败则插入，查找成功则返回</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Insert</span><span class="params">(Tree T,<span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">		root=<span class="keyword">new</span> Node();</span><br><span class="line">		root.data=e;</span><br><span class="line">		root.lchild=root.rchild=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(e&lt;root.data)&#123;</span><br><span class="line">		Insert(T.lchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Insert(T.rchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-二叉排序树的创建-O-nlog2-N"><a href="#3-二叉排序树的创建-O-nlog2-N" class="headerlink" title="3)二叉排序树的创建 O(nlog2(N))"></a>3)二叉排序树的创建 O(nlog2(N))</h4><p>从空树开始，新建一个结点，查找后，再插入到合适位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Tree T;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBST</span><span class="params">()</span></span>&#123;</span><br><span class="line">	T=<span class="keyword">null</span>;</span><br><span class="line">	cin&gt;&gt;e;</span><br><span class="line">	<span class="keyword">while</span>(e!=<span class="string">"*"</span>)<span class="comment">//"*"结束符</span></span><br><span class="line">	&#123;</span><br><span class="line">		Insert(T,e);</span><br><span class="line">		cin&gt;e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="4-二叉排序树的删除-O-nlog2-N"><a href="#4-二叉排序树的删除-O-nlog2-N" class="headerlink" title="4)二叉排序树的删除 O(nlog2(N))"></a>4)二叉排序树的删除 O(nlog2(N))</h4><p>删除的过程也是查找的过程</p>
-<h3 id="2、平衡二叉树"><a href="#2、平衡二叉树" class="headerlink" title="2、平衡二叉树"></a>2、平衡二叉树</h3><h2 id="三、哈希表的查找"><a href="#三、哈希表的查找" class="headerlink" title="三、哈希表的查找"></a>三、哈希表的查找</h2><p>时间复杂度为直接计算</p>
+        <p>1、计算机网络：计算机网络主要是由一些通用的、可编程的硬件互连而成的，而这些硬件并非专门用来实现某一特定目的（例如，传送数据或视频信号）。这些可编程的硬件能够用来传送多种不同类型的数据，并能支持广泛的和日益增长的应用。</p>
+<p>2、网络分类：<br>广域网 WAN (Wide Area Network)：作用范围通常为几十到几千公里。<br>城域网 MAN (Metropolitan Area Network)：作用距离约为  5 ~ 50 公里。<br>局域网 LAN (Local Area Network) ：局限在较小的范围（如 1 公里左右）。<br>个人区域网 PAN (Personal Area Network) ：范围很小，大约在 10 米左右。</p>
+<p>注意：若中央处理机之间的距离非常近（如仅1米的数量级甚至更小些），则一般就称之为多处理机系统，而不称它为计算机网络。 </p>
+<p>3、接入网：<br>接入网 AN (Access Network)，它又称为本地接入网或居民接入网。<br>接入网是一类比较特殊的计算机网络，用于将用户接入互联网。<br>接入网本身既不属于互联网的核心部分，也不属于互联网的边缘部分。<br>接入网是从某个用户端系统到互联网中的第一个路由器（也称为边缘路由器）之间的一种网络。</p>
+<p>4、计算机网络体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0txjg.png?raw=true" alt="Image text"></p>
+<p>5、各层工作过程<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0xyfw.png?raw=true" alt="Image text"><br>1)OSI 参考模型把对等层次之间传送的数据单位称为该层的协议数据单元 PDU (Protocol Data Unit)。<br>2)协议是“水平的”，即协议是控制对等实体之间通信的规则。<br>3）服务是“垂直的”，即服务是由下层向上层通过层间接口提供的。</p>
+<p>6、TCP/IP体系结构<br><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/net0tcpip.png?raw=true" alt="Image text"></p>
+<p>物理层中继系统：转发器 (repeater)。<br>数据链路层中继系统：网桥 或 桥接器 (bridge)。<br>网络层中继系统：路由器 (router)。<br>网桥和路由器的混合物：桥路器 (brouter)。<br>网络层以上的中继系统：网关 (gateway)。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/查找/" data-id="ckgulruig0014xgvi3gfbhkaq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/计算机网络/" data-id="ckgvovlrs001a0ovi0p0hu203" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-用栈实现进制转换" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/用栈实现进制转换/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.155Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/用栈实现进制转换/">用栈实现十进制转换为X进制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4645247.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4645247.html</a></p>
+<p>1、链栈的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node base;</span><br><span class="line">	Node top;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		base=<span class="keyword">new</span> Node();</span><br><span class="line">		top=<span class="keyword">new</span> Node();</span><br><span class="line">		</span><br><span class="line">		base.data=<span class="keyword">null</span>;</span><br><span class="line">		base.next=<span class="keyword">null</span>;</span><br><span class="line">		</span><br><span class="line">		top.data=<span class="keyword">null</span>;</span><br><span class="line">		top.next=base;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//入栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//第一次入栈</span></span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			node.next=base;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			node.next=top.next;</span><br><span class="line">			top.next=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//出栈</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">"栈中没有元素！"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(top.next.data);</span><br><span class="line">            top.next=top.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top.next==base) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node temp=top;</span><br><span class="line">		<span class="keyword">while</span>(temp.next!=base) &#123;</span><br><span class="line">			temp=temp.next;</span><br><span class="line">			System.out.println(temp.data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		Object data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、进制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> linkStack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DToX</span> </span>&#123;</span><br><span class="line"><span class="comment">//十进制转X进制</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		LinkStack stack=<span class="keyword">new</span> LinkStack();</span><br><span class="line">		stack.init();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> d=<span class="number">16</span>;<span class="comment">//十进制数100</span></span><br><span class="line">		<span class="keyword">int</span> x=<span class="number">2</span>;<span class="comment">//转为二进制</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(d!=<span class="number">0</span>) &#123;</span><br><span class="line">			stack.push(d%x);</span><br><span class="line">			d=d/x;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(!stack.isEmpty())</span><br><span class="line">	        &#123;</span><br><span class="line">	            stack.pop();</span><br><span class="line">	        &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/用栈实现进制转换/" data-id="ckgvovlrs001b0ovivnezc1nk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -146,7 +183,53 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/树的相关知识点/" data-id="ckgulruih0015xgvish0g2xl3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/树的相关知识点/" data-id="ckgvovlrt001c0ovi7k1aw7fx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-查找" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/07/查找/" class="article-date">
+  <time datetime="2020-06-07T07:38:07.139Z" itemprop="datePublished">2020-06-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/07/查找/">查找</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一、线性表的查找"><a href="#一、线性表的查找" class="headerlink" title="一、线性表的查找"></a>一、线性表的查找</h2><h3 id="1、顺序查找-O-n-code"><a href="#1、顺序查找-O-n-code" class="headerlink" title="1、顺序查找 O(n)[^code]"></a>1、顺序查找 O(n)[^code]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	a[<span class="number">0</span>]=key;<span class="comment">//设置岗哨</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=a.length;a[i]!=key;i--)&#123;</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、折半查找-O-log2-N-下标从1开始"><a href="#2、折半查找-O-log2-N-下标从1开始" class="headerlink" title="2、折半查找 O(log2(N))(下标从1开始)"></a>2、折半查找 O(log2(N))(下标从1开始)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> high=a.length</span><br><span class="line">	<span class="keyword">int</span> mid=(low+high)/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(low&lt;=high)&#123;<span class="comment">//loe&lt;=high</span></span><br><span class="line">		<span class="keyword">if</span>(key==mid)</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(key&lt;mid)&#123;</span><br><span class="line">			high=mid-<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			low=mid+<span class="number">1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、分块查找"><a href="#3、分块查找" class="headerlink" title="3、分块查找"></a>3、分块查找</h3><p>  分块查找是折半查找和顺序查找的一种改进方法，分块查找由于只要求索引表是有序的，<br>对块内节点没有排序要求，因此特别适合于节点动态变化的情况。</p>
+<h2 id="二、树表的查找"><a href="#二、树表的查找" class="headerlink" title="二、树表的查找"></a>二、树表的查找</h2><h3 id="1、二叉排序树"><a href="#1、二叉排序树" class="headerlink" title="1、二叉排序树"></a>1、二叉排序树</h3><h4 id="1）二叉排序树的查找-O-log2-N"><a href="#1）二叉排序树的查找-O-log2-N" class="headerlink" title="1）二叉排序树的查找 O(log2(N))"></a>1）二叉排序树的查找 O(log2(N))</h4><p>递归实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(Tree T,<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span> || root.data==key)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(key&lt;root.data)&#123;</span><br><span class="line">		Search(T.lchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Search(T.rchild,key);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2）二叉排序树的插入-O-log2-N"><a href="#2）二叉排序树的插入-O-log2-N" class="headerlink" title="2）二叉排序树的插入 O(log2(N))"></a>2）二叉排序树的插入 O(log2(N))</h4><p>二叉排序树的插入 以查找为基础：查找失败则插入，查找成功则返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Node root;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Insert</span><span class="params">(Tree T,<span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">		root=<span class="keyword">new</span> Node();</span><br><span class="line">		root.data=e;</span><br><span class="line">		root.lchild=root.rchild=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(e&lt;root.data)&#123;</span><br><span class="line">		Insert(T.lchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		Insert(T.rchild,e);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-二叉排序树的创建-O-nlog2-N"><a href="#3-二叉排序树的创建-O-nlog2-N" class="headerlink" title="3)二叉排序树的创建 O(nlog2(N))"></a>3)二叉排序树的创建 O(nlog2(N))</h4><p>从空树开始，新建一个结点，查找后，再插入到合适位置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Tree T;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateBST</span><span class="params">()</span></span>&#123;</span><br><span class="line">	T=<span class="keyword">null</span>;</span><br><span class="line">	cin&gt;&gt;e;</span><br><span class="line">	<span class="keyword">while</span>(e!=<span class="string">"*"</span>)<span class="comment">//"*"结束符</span></span><br><span class="line">	&#123;</span><br><span class="line">		Insert(T,e);</span><br><span class="line">		cin&gt;e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-二叉排序树的删除-O-nlog2-N"><a href="#4-二叉排序树的删除-O-nlog2-N" class="headerlink" title="4)二叉排序树的删除 O(nlog2(N))"></a>4)二叉排序树的删除 O(nlog2(N))</h4><p>删除的过程也是查找的过程</p>
+<h3 id="2、平衡二叉树"><a href="#2、平衡二叉树" class="headerlink" title="2、平衡二叉树"></a>2、平衡二叉树</h3><h2 id="三、哈希表的查找"><a href="#三、哈希表的查找" class="headerlink" title="三、哈希表的查找"></a>三、哈希表的查找</h2><p>时间复杂度为直接计算</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/07/查找/" data-id="ckgvovlrq00170ovihanqnxkw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -186,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/数据库总结/" data-id="ckgulruif0013xgvis3ley7yv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/数据库总结/" data-id="ckgvovlrr00180ovi6umiqh06" class="article-share-link">Share</a>
       
       
     </footer>
@@ -250,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/操作系统概述/" data-id="ckgulrut7002cxgvib3tup8wm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/操作系统概述/" data-id="ckgvovm0f002e0oviqmdo7yiy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,7 +372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/插入排序/" data-id="ckgulruie0012xgvil6cswthc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/插入排序/" data-id="ckgvovlrn00120oviwgyxv02e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -339,7 +422,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/排序算法总结/" data-id="ckgulruic0010xgvi4l3fvvtc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/排序算法总结/" data-id="ckgvovlrp00150ovi3qz3xweb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -376,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/排序/" data-id="ckgulruib000yxgvidwvzmy3l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/排序/" data-id="ckgvovlrk000x0ovi72crxlqp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -415,86 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckgulruid0011xgvi7c24mn1l" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-循环链表" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/循环链表/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.061Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/循环链表/">循环链表的插入删除</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4643911.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4643911.html</a></p>
-<p>1、循环链表的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircularLinkList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node head;<span class="comment">//头节点</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//初始化</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		head.data=<span class="keyword">null</span>;</span><br><span class="line">		head.next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//如果是第一次插入</span></span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Node temp=head;</span><br><span class="line">			<span class="keyword">while</span>(temp.next!=head) &#123;</span><br><span class="line">				temp=temp.next;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			temp.next=node;</span><br><span class="line">			node.next=head;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//删除</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String e)</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		</span><br><span class="line">		 <span class="keyword">while</span>(temp.next!=head)</span><br><span class="line">	        &#123;</span><br><span class="line">	            <span class="comment">//判断temp当前指向的结点的下一个结点是否是要删除的结点</span></span><br><span class="line">	            <span class="keyword">if</span>(temp.next.data.equals(e))</span><br><span class="line">	            &#123;</span><br><span class="line">	                temp.next=temp.next.next;<span class="comment">//删除结点</span></span><br><span class="line">	            &#125;<span class="keyword">else</span></span><br><span class="line">	            &#123;</span><br><span class="line">	                temp=temp.next;<span class="comment">//temp“指针”后移</span></span><br><span class="line">	            &#125;</span><br><span class="line">		</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node node=head;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(node.next!=head) &#123;</span><br><span class="line">			node=node.next;</span><br><span class="line">			System.out.println(node.data);			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		String data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> circularList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCircularList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		CircularLinkList list=<span class="keyword">new</span> CircularLinkList();</span><br><span class="line">		list.init();</span><br><span class="line">		list.insert(<span class="string">"ct"</span>);</span><br><span class="line">		list.insert(<span class="string">"ad"</span>);</span><br><span class="line">		list.insert(<span class="string">"oo"</span>);</span><br><span class="line">		<span class="comment">//list.delete("ad");</span></span><br><span class="line">		</span><br><span class="line">		list.printNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/循环链表/" data-id="ckgulrui6000sxgviypxfqgzq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-归并排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/归并排序/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.045Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/归并排序/">归并排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、归并排序"><a href="#1、归并排序" class="headerlink" title="1、归并排序"></a>1、归并排序</h3><p>1、和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是O(n log n）的时间复杂度。代价是需要额外的内存空间。</p>
-<p>2、归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。归并排序是一种稳定的排序方法。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为2-路归并</p>
-<h3 id="2、时间复杂度"><a href="#2、时间复杂度" class="headerlink" title="2、时间复杂度"></a>2、时间复杂度</h3><p>最佳情况：T(n) = O(n)  最差情况：T(n) = O(nlogn)  平均情况：T(n) = O(nlogn)</p>
-<h3 id="3、动态演示"><a href="#3、动态演示" class="headerlink" title="3、动态演示"></a>3、动态演示</h3><p><img src="https://github.com/Tingzi123/blog/blob/master/_posts/picture/mergesort.gif?raw=true" alt="Image text"></p>
-<h3 id="4、算法实现"><a href="#4、算法实现" class="headerlink" title="4、算法实现"></a>4、算法实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">int</span> [] a= &#123;<span class="number">99</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">12</span>,<span class="number">84</span>,<span class="number">59</span>,<span class="number">32</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> [] re=mergeSort(a);</span><br><span class="line">		printArr(re);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] mergeSort(<span class="keyword">int</span> [] a) &#123;</span><br><span class="line">		<span class="keyword">if</span>(a.length&lt;<span class="number">2</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> a;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> mid=a.length/<span class="number">2</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> [] left=Arrays.copyOfRange(a,<span class="number">0</span>, mid);</span><br><span class="line">		<span class="keyword">int</span> [] right=Arrays.copyOfRange(a,mid, a.length);</span><br><span class="line">		<span class="keyword">return</span> merge(mergeSort(left),mergeSort(right));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> [] merge(<span class="keyword">int</span> [] left,<span class="keyword">int</span> [] right) &#123;</span><br><span class="line">		<span class="keyword">int</span> [] re=<span class="keyword">new</span> <span class="keyword">int</span>[left.length+right.length];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> index=<span class="number">0</span>,i=<span class="number">0</span>,j=<span class="number">0</span>;index&lt;re.length;index++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i&gt;=left.length) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(j&gt;=right.length) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&gt;right[j]) &#123;</span><br><span class="line">				re[index]=right[j];</span><br><span class="line">				j=j+<span class="number">1</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(left[i]&lt;right[j]) &#123;</span><br><span class="line">				re[index]=left[i];</span><br><span class="line">				i=i+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> re;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArr</span><span class="params">(<span class="keyword">int</span> [] a)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;a.length;i++) &#123;</span><br><span class="line">			System.out.print(a[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/归并排序/" data-id="ckgulrui7000uxgvicisibjp6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/07/快速排序/" data-id="ckgvovlrm00110ovisfdnjzgf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -540,6 +544,14 @@
       <ul>
         
           <li>
+            <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/">微服务：6-1-1 服务配置-SpringCloud Config</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/29/微服务：5-1-1-服务网关-Gateway/">微服务：5-1-1 服务网关-Gateway</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
           </li>
         
@@ -549,14 +561,6 @@
         
           <li>
             <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
           </li>
         
       </ul>

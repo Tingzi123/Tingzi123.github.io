@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-10-28T10:53:13.895Z</updated>
+  <updated>2020-10-30T03:15:38.467Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,43 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微服务：6-1-1 服务配置-SpringCloud Config</title>
+    <link href="http://yoursite.com/2020/10/30/%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%9A6-1-1-%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE-SpringCloud-Config/"/>
+    <id>http://yoursite.com/2020/10/30/%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%9A6-1-1-%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE-SpringCloud-Config/</id>
+    <published>2020-10-30T03:15:38.000Z</published>
+    <updated>2020-10-30T03:15:38.467Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>微服务：5-1-1 服务网关-Gateway</title>
+    <link href="http://yoursite.com/2020/10/29/%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%9A5-1-1-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3-Gateway/"/>
+    <id>http://yoursite.com/2020/10/29/%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%9A5-1-1-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3-Gateway/</id>
+    <published>2020-10-29T09:14:40.000Z</published>
+    <updated>2020-10-30T03:13:02.592Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、Gateway概述"><a href="#1、Gateway概述" class="headerlink" title="1、Gateway概述"></a>1、Gateway概述</h3><h4 id="1、Gateway是什么？"><a href="#1、Gateway是什么？" class="headerlink" title="1、Gateway是什么？"></a>1、Gateway是什么？</h4><p>SpringCloud Gateway使用的Webflux中的reactor-netty响应式变编程组件，底层使用了Netty组件<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway1.jpg" alt="gateway1"></p><h4 id="2、Gateway能干什么？"><a href="#2、Gateway能干什么？" class="headerlink" title="2、Gateway能干什么？"></a>2、Gateway能干什么？</h4><p>1、反向代理</p><p>2、鉴权</p><p>3、流量控制</p><p>4、熔断</p><p>5、日志监控等等</p><p>企业一般架构：<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway2.jpg" alt="gateway2"></p><h4 id="3、选择Gateway的原因？"><a href="#3、选择Gateway的原因？" class="headerlink" title="3、选择Gateway的原因？"></a>3、选择Gateway的原因？</h4><p>1、<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway3.jpg" alt="gateway3"></p><p>2、SpringCloud Gateway具有如下特性<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway4.jpg" alt="gateway4"></p><p>3、SpringCloud Gateway与Zuul的区别<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway5.jpg" alt="gateway5"></p><p>4、Zuul模型<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway6.jpg" alt="gateway6"></p><p>5、Gateway模型<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway7.jpg" alt="gateway7"></p><h3 id="2、Gateway三大核心概念"><a href="#2、Gateway三大核心概念" class="headerlink" title="2、Gateway三大核心概念"></a>2、Gateway三大核心概念</h3><h4 id="1、Route（路由）"><a href="#1、Route（路由）" class="headerlink" title="1、Route（路由）"></a>1、Route（路由）</h4><p>路由是构建网关的基本模块，它由ID，目标URI，一系列的断言和过滤器组成，如果断言为true则匹配该路由</p><h4 id="2、Predicate（断言）"><a href="#2、Predicate（断言）" class="headerlink" title="2、Predicate（断言）"></a>2、Predicate（断言）</h4><p>参考Java8的Predicate，开发人员可以匹配HTTP请求中的所有内容（例如请求头或请求参数），如果请求与断言相匹配则进行路由</p><h4 id="3、Filter（过滤）"><a href="#3、Filter（过滤）" class="headerlink" title="3、Filter（过滤）"></a>3、Filter（过滤）</h4><p>Spring框架中GatewayFilter的实例，使用过滤器，可以在请求被路由前或路由后对请求修改</p><h4 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway8.jpg" alt="gateway8"></p><h3 id="3、Gateway工作流程"><a href="#3、Gateway工作流程" class="headerlink" title="3、Gateway工作流程"></a>3、Gateway工作流程</h3><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway9.jpg" alt="gateway9"></p><p><strong>核心逻辑：路由转发+执行过滤链</strong></p><h3 id="4、入门配置"><a href="#4、入门配置" class="headerlink" title="4、入门配置"></a>4、入门配置</h3><p>Gateway自己本身也是一个微服务，需要搭建</p><h4 id="1、新建module"><a href="#1、新建module" class="headerlink" title="1、新建module"></a>1、新建module</h4><p>新建module：cloud-gateway-gateway9627</p><h4 id="2、改POM"><a href="#2、改POM" class="headerlink" title="2、改POM"></a>2、改POM</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway10.jpg" alt="gateway10"><br>gateway网关微服务不需要引入web依赖</p><h4 id="3、写YML"><a href="#3、写YML" class="headerlink" title="3、写YML"></a>3、写YML</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway11.jpg" alt="gateway11"></p><h4 id="４、业务类"><a href="#４、业务类" class="headerlink" title="４、业务类"></a>４、业务类</h4><p>无业务逻辑，可看作看门的</p><h4 id="５、主启动类"><a href="#５、主启动类" class="headerlink" title="５、主启动类"></a>５、主启动类</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway12.jpg" alt="gateway12"></p><h4 id="6、gateway9527如何做路由映射？"><a href="#6、gateway9527如何做路由映射？" class="headerlink" title="6、gateway9527如何做路由映射？"></a>6、gateway9527如何做路由映射？</h4><p>前面的项目8001提供服务，如果我们不想暴露8001端口，可以在8001外面套一层gateway9527</p><p>1、在gateway9527中新增配置<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway13.jpg" alt="gateway13"><br>为8001中的接口配置一层网关</p><p>2、访问说明<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway14.jpg" alt="gateway14"></p><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway15.jpg" alt="gateway15"></p><h4 id="6、gateway网关两种配置"><a href="#6、gateway网关两种配置" class="headerlink" title="6、gateway网关两种配置"></a>6、gateway网关两种配置</h4><p>1、在配置文件yml中配置<br>如上面</p><p>2、代码中注入RouteLocator的Bean<br>改造上面的项目，新建config包，包下新建配置类gatewayConfig<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway16.jpg" alt="gateway16"></p><h3 id="5、通过微服务名实现动态路由"><a href="#5、通过微服务名实现动态路由" class="headerlink" title="5、通过微服务名实现动态路由"></a>5、通过微服务名实现动态路由</h3><p>1、在客户端80和服务提供端8001（或服务端集群）之间加了网关Gateway之后，网关Gateway需要做负载均衡。</p><p>2、默认情况下Gateway会根据注册中心的服务列表，以注册中心上微服务名为路径创建<strong>动态路由 进行转发，从而实现动态路由功能</strong></p><p>3、实现<br>修改网关的yml文件，开启注册中心服务发现功能，将写死的服务端路由地址改成服务端在注册中心注册后动态路由的地址<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway17.jpg" alt="gateway17"></p><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway18.jpg" alt="gateway18"></p><h3 id="6、Predicate的使用"><a href="#6、Predicate的使用" class="headerlink" title="6、Predicate的使用"></a>6、Predicate的使用</h3><p>1、启动网关9527后可以看到<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway19.jpg" alt="gateway19"></p><p>2、Route Predicate Factories是什么？<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway20.jpg" alt="gateway20"></p><p>3、常用的Route Predicate<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway21.jpg" alt="gateway21"></p><p>总结：Predicate就是为了实现一组匹配规则，让请求过来找对应的Route进行处理。</p><h3 id="7、Filter的使用"><a href="#7、Filter的使用" class="headerlink" title="7、Filter的使用"></a>7、Filter的使用</h3><h4 id="1、Filter是什么"><a href="#1、Filter是什么" class="headerlink" title="1、Filter是什么"></a>1、Filter是什么</h4><p><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway22.jpg" alt="gateway22"></p><h4 id="2、Spring-Cloud-Gateway的Filter"><a href="#2、Spring-Cloud-Gateway的Filter" class="headerlink" title="2、Spring Cloud Gateway的Filter"></a>2、Spring Cloud Gateway的Filter</h4><p>1、生命周期，只有两个<br>（1）pre 业务逻辑之前<br>（2）post 业务逻辑之后</p><p>2、种类<br>（1）GatewayFilter 单一的<br>（2）GlobalFilter 全局的</p><h4 id="3、常用的GatewayFilter"><a href="#3、常用的GatewayFilter" class="headerlink" title="3、常用的GatewayFilter"></a>3、常用的GatewayFilter</h4><p>Filter非常多，这里仅示例用法，具体参考官网<br>示例<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway23.jpg" alt="gateway23"></p><h4 id="4、自定义GlobalFilter"><a href="#4、自定义GlobalFilter" class="headerlink" title="4、自定义GlobalFilter"></a>4、自定义GlobalFilter</h4><p>两个主要接口<br><strong>implement GlobalFilter,Ordered</strong></p><p>1、在gateway9527模块下新建包filter，包下新建MyGlobalFilter类<br><img src="/2020/10/29/微服务：5-1-1-服务网关-Gateway/gateway24.jpg" alt="gateway24"></p><p>2、全局GlobalFilter能干嘛<br>（1）全局日志记录<br>（2）统一网关鉴权等等</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;1、Gateway概述&quot;&gt;&lt;a href=&quot;#1、Gateway概述&quot; class=&quot;headerlink&quot; title=&quot;1、Gateway概述&quot;&gt;&lt;/a&gt;1、Gateway概述&lt;/h3&gt;&lt;h4 id=&quot;1、Gateway是什么？&quot;&gt;&lt;a href=&quot;#1、Ga
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>微服务：4-1-1 服务降级-Hystrix</title>
@@ -416,50 +453,6 @@
       
         &lt;p&gt;我们已经知道，环境变量 GOPATH 指向的是一个或多个工作区，每个工作区中都会有以代码包为基本组织形式的源码文件。&lt;/p&gt;
 &lt;p&gt;这里的源码文件又分为三种，即：&lt;strong&gt;命令源码文件、库源码文件和测试源码文件&lt;/strong&gt;，它们都有着不同的用途和编写规则。&lt;br
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>GO：工作区和GOPATH</title>
-    <link href="http://yoursite.com/2020/07/10/GO%EF%BC%9A%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%92%8CGOPATH/"/>
-    <id>http://yoursite.com/2020/07/10/GO%EF%BC%9A%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%92%8CGOPATH/</id>
-    <published>2020-07-10T06:27:34.000Z</published>
-    <updated>2020-07-10T11:21:18.638Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、Go基础知识导图"><a href="#1、Go基础知识导图" class="headerlink" title="1、Go基础知识导图"></a>1、Go基础知识导图</h3><p><img src="/2020/07/10/GO：工作区和GOPATH/go1.jpg" alt="go1.jpg"></p><h3 id="2、工作区和GOPATH"><a href="#2、工作区和GOPATH" class="headerlink" title="2、工作区和GOPATH"></a>2、工作区和GOPATH</h3><h4 id="1、Go-3个环境变量"><a href="#1、Go-3个环境变量" class="headerlink" title="1、Go 3个环境变量"></a>1、Go 3个环境变量</h4><ul><li>GOROOT：Go语言安装根目录的路径，也就是GO语言的安装路径</li><li>GOPATH：若干工作区目录的路径，是我们自己定义的工作空间</li><li>GOBIN：Go程序生成的可执行文件的路径</li></ul><h4 id="2、GOPATH有什么意义"><a href="#2、GOPATH有什么意义" class="headerlink" title="2、GOPATH有什么意义"></a>2、GOPATH有什么意义</h4><ol><li><p>可以把GOPATH简单理解成Go语言的工作目录，它的值是一个目录的路径，也可以是多个目录的路径，每个目录都代表Go语言的一个工作区。</p></li><li><p>我们需要利用这些工作区去放置Go语言的源码文件，以及安装（install）后的归档文件（archive file，也就是以.a为扩展名的文件）和可执行文件。</p></li><li><p>Go语言项目在其生命周期内的所有操作（编码、依赖管理、构建、测试、安装等）基本都是围绕GOPATH和工作区进行的。</p></li></ol><p>go build 命令一些可选项的用途和用法</p><h4 id="1、Go-语言源码的组织方式是怎样的？"><a href="#1、Go-语言源码的组织方式是怎样的？" class="headerlink" title="1、Go 语言源码的组织方式是怎样的？"></a>1、Go 语言源码的组织方式是怎样的？</h4><p>1、Go语言的源码也是以代码包为基本组织单位的。在文件系统中，这些代码包与目录一一对应。目录有子目录，代码包也可以有子包。</p><p>2、一个代码包可以包含任意个以.go为扩展名的原码文件，这些源码文件都需要被声明属于同一个代码包。</p><p>3、代码包的名称一般会与源码文件所在目录同名。如果不同名，在构建、安装时会以代码包名称为准。</p><p>4、每个代码包都有导入路径。代码包的导入路径是其他代码在使用该包中的程序实体时，需要引入的路径。例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"github.com/labstack/echo"</span></span><br></pre></td></tr></table></figure></p><p>5、在工作区中，一个代码包的导入路径实际上就是从src子目录到该包的实际存储位置的相对路径。</p><p>6、所以说，Go语言源码的组织方式就是以环境变量GOPATH、工作区、src目录个代码包为主线的。一般情况下，Go语言的源码文件都需要存放在环境变量GOPATH包含的某个工作区（目录）中的src目录下的某个代码包（目录）中。</p><h4 id="2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）"><a href="#2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）" class="headerlink" title="2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）"></a>2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）</h4><p>1、源码文件通常会被放在某个工作区的src子目录下</p><p>2、安装后如果产生了归档文件（以.a为扩展名的文件）会被放进该工作区的pkg子目录</p><p>3、如果产生了可执行文件，就可能会被放在该工作区的bin子目录下。</p><p><strong>归档文件存放具体位置和规则：</strong><br>1、源码文件会以代码包的形式组织起来，一个代码包其实就对应一个目录。安装某个代码包而产生的归档文件就是与这个代码包同名的。</p><p>2、放置它的相对目录就是该代码包的导入路径的直接父级。比如，一个已存在的代码包的导入路径是：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">github.com/labstack/echo</span><br></pre></td></tr></table></figure></p><p>那么执行命令<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> insatll github.com/labstack/echo</span><br></pre></td></tr></table></figure></p><p>生成的归档文件的相对目录就是github.com/labstack，文件名为echo.a。</p><p>3、上面这个代码包导入路径还有一层含义，即：该代码包的源码文件存在于github网站的labstack组的代码仓库echo中</p><p>4、归档文件的相对目录与pkg目录之间还有一级目录，称为平台相关目录。平台相关目录的名称是由“build”的目标操作系统、下划线和目标计算架构的代号组成的。比如，构建某个代码包的目标擦欧总系统时Linux，目标计算架构是64位，对应的平台相关目录就是linux_amd64。<br>因此，上述代码包的归档文件就会被放置在当前工作区的子目录<br>pkg/linux_amd64/github.com/labstack中。<br>gopath与工作区：<br><img src="/2020/07/10/GO：工作区和GOPATH/gopath1.png" alt="gopath1.png"></p><p>5、某个工作区的src子目录下的源码文件在安装后一般会被放置到当前工作区的pkg子目录下对应的目录中，或者直接被放置到该工作区的bin子目录中。</p><h4 id="3、理解构建和安装Go程序的过程"><a href="#3、理解构建和安装Go程序的过程" class="headerlink" title="3、理解构建和安装Go程序的过程"></a>3、理解构建和安装Go程序的过程</h4><p>构建与安装的异同：<br>1、构建使用命令go build，安装使用命令go install。构建和安装代码包的时候都会执行编译、打包等操作，并且，这些操作生成的任何文件都会先被保存到某个临时的目录中。</p><p>2、构建源码文件</p><ul><li>如果构建的是库源码文件</li></ul><p>那么操作后产生的结果只会存在于临时目录中，这里构建的主要意义在于检查和验证；</p><ul><li>如果构建的是命令源码文件</li></ul><p>操作的结果文件会被搬运到源码文件所在的目录中。</p><p>3、安装过程会先执行构建、然后还会进行你链接操作，并且把结果文件搬运到指定目录。如：</p><ul><li>安装库源码文件，结果文件被搬运到他所在工作区的pkg目录下的某个子目录中；</li><li>安装命令源码文件，结果文件被搬运到他所在工作区的bin目录中，或者环境变量GOBIN指向的目录中。</li></ul><h3 id="4、go-build-命令一些可选项的用途和用法"><a href="#4、go-build-命令一些可选项的用途和用法" class="headerlink" title="4、go build 命令一些可选项的用途和用法"></a>4、go build 命令一些可选项的用途和用法</h3><p>1、在运行go build命令的时候，默认不会编译目标代码包所依赖的那些代码包。</p><p>2、如果被依赖的代码包的归档文件不存在，或者源码文件有了变化，那它还是会被编译。</p><p>3、如果要强制编译它们，可以在执行命令的时候加入标记-a。此时，不但目标代码包总是会被编译，它依赖的代码包也总会被编译，即使依赖的是标准库中的代码包也是如此。</p><p>5、另外，如果不但要编译依赖的代码包，还要安装它们的归档文件，那么可以加入标记-i。</p><p>6、那么我们怎么确定哪些代码包被编译了呢？有两种方法。</p><ul><li>运行go build命令时加入标记-x，这样可以看到go build命令具体都执行了哪些操作。另外也可以加入标记-n，这样可以只查看具体操作而不执行它们。</li><li>运行go build命令时加入标记-v，这样可以看到go build命令编译的代码包的名称。它在与-a标记搭配使用时很有用。</li></ul><p>7、下面再说一说与 Go 源码的安装联系很紧密的一个命令：go get。<br>命令go get会自动从一些主流公用代码仓库（比如 GitHub）下载目标代码包，并把它们安装到环境变量GOPATH包含的第 1 工作区的相应目录中。如果存在环境变量GOBIN，那么仅包含命令源码文件的代码包会被安装到GOBIN指向的那个目录。</p><p>最常用的几个标记有下面几种。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-u：下载并安装代码包，不论工作区中是否已存在它们。</span><br><span class="line"></span><br><span class="line">-d：只下载代码包，不安装代码包。</span><br><span class="line"></span><br><span class="line">-fix：在下载代码包后先运行一个用于根据当前 Go 语言版本修正代码的工具，然后再安装代码包。</span><br><span class="line"></span><br><span class="line">-t：同时下载测试所需的代码包。</span><br><span class="line"></span><br><span class="line">-insecure：允许通过非安全的网络协议下载和安装代码包。HTTP 就是这样的协议。</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;1、Go基础知识导图&quot;&gt;&lt;a href=&quot;#1、Go基础知识导图&quot; class=&quot;headerlink&quot; title=&quot;1、Go基础知识导图&quot;&gt;&lt;/a&gt;1、Go基础知识导图&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/2020/07/10/GO：工作区和GOPATH/go
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>hexo博客迁移</title>
-    <link href="http://yoursite.com/2020/07/02/hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB/"/>
-    <id>http://yoursite.com/2020/07/02/hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB/</id>
-    <published>2020-07-02T07:53:23.000Z</published>
-    <updated>2020-07-10T06:36:34.411Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="1、安装hexo博客必要的软件"><a href="#1、安装hexo博客必要的软件" class="headerlink" title="1、安装hexo博客必要的软件"></a>1、安装hexo博客必要的软件</h4><p>1、下载安装Git客户端<br>2、安装node js</p><h4 id="2、Github添加新电脑生成的密钥"><a href="#2、Github添加新电脑生成的密钥" class="headerlink" title="2、Github添加新电脑生成的密钥"></a>2、Github添加新电脑生成的密钥</h4><p>打开git bash输入如下命令：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"xxxxx@xxx.com"</span></span><br></pre></td></tr></table></figure></p><p>邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-‘SSH and GPG keys’-‘SSH keys’中。</p><p>使用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com   测试公钥是否添加成功</span><br></pre></td></tr></table></figure></p><h4 id="3、备份原文件"><a href="#3、备份原文件" class="headerlink" title="3、备份原文件"></a>3、备份原文件</h4><p>需要转移的文件有：<br><img src="/2020/07/02/hexo博客迁移/hexo1.png" alt="hexo1"><br>由于配置文件和主题文件需要经常更改，采用github创建博客分支的方式进行备份。</p><p><strong>1、创建分支</strong><br> 克隆github上上生成的静态文件到hexo文件夹中<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/yourname/xxxx.github.io.git hexo</span></span><br></pre></td></tr></table></figure></p><p>克隆后将除.git文件外其他所有文件删除。主要是为了得到版本管理文件夹.git（.git文件为隐藏文件，可直接将可见文件全部删除）。</p><p><strong>2、将备份的原文件复制到此文件夹</strong><br>若文件夹是从github克隆，则需要删除主题文件中的版本控制文件夹,以next主题为例：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm -rf thems/next/.git*</span><br></pre></td></tr></table></figure></p><p>创建名为hexo的分支<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b hexo</span><br></pre></td></tr></table></figure></p><p>保存所有文件到暂存区<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br></pre></td></tr></table></figure></p><p>提交变更<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">"hexo-2"</span></span><br></pre></td></tr></table></figure></p><p>提交变更时报错：<br><img src="/2020/07/02/hexo博客迁移/hexo2.png" alt="hexo2"><br>根据提示配置。<br>推送分支到github,并用–set-upstream与origin创建关联，将hexo设置为默认分支<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push --set-upstream origin hexo</span><br></pre></td></tr></table></figure></p><h4 id="4、迁移"><a href="#4、迁移" class="headerlink" title="4、迁移"></a>4、迁移</h4><p>以后在其他电脑上写博客，直接将分支克隆下来。再使用npm install安装依赖。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clone -b hexo https:<span class="comment">//github.com/yourname/xxx.github.io.git</span></span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p><h4 id="5、发表文章"><a href="#5、发表文章" class="headerlink" title="5、发表文章"></a>5、发表文章</h4><p>1、新建文章<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">"xxx"</span></span><br></pre></td></tr></table></figure></p><p>2、注意：需要使用git push把源文件推到分支上<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">"xxxx"</span></span><br><span class="line">$ git push origin hexo</span><br></pre></td></tr></table></figure></p><p>3、部署文章<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure></p><p>参考：<br>1、<a href="https://fl4g.cn/2018/08/03/Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E5%88%B0%E5%85%B6%E4%BB%96%E7%94%B5%E8%84%91/" target="_blank" rel="noopener">https://fl4g.cn/2018/08/03/Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E5%88%B0%E5%85%B6%E4%BB%96%E7%94%B5%E8%84%91/</a></p><p>2、<a href="https://blog.csdn.net/white_idiot/article/details/80685990" target="_blank" rel="noopener">https://blog.csdn.net/white_idiot/article/details/80685990</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;1、安装hexo博客必要的软件&quot;&gt;&lt;a href=&quot;#1、安装hexo博客必要的软件&quot; class=&quot;headerlink&quot; title=&quot;1、安装hexo博客必要的软件&quot;&gt;&lt;/a&gt;1、安装hexo博客必要的软件&lt;/h4&gt;&lt;p&gt;1、下载安装Git客户端&lt;br&gt;2、
       
     
     </summary>

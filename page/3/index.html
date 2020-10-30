@@ -62,6 +62,153 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-GO：工作区和GOPATH" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/10/GO：工作区和GOPATH/" class="article-date">
+  <time datetime="2020-07-10T06:27:34.000Z" itemprop="datePublished">2020-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/10/GO：工作区和GOPATH/">GO：工作区和GOPATH</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、Go基础知识导图"><a href="#1、Go基础知识导图" class="headerlink" title="1、Go基础知识导图"></a>1、Go基础知识导图</h3><p><img src="/2020/07/10/GO：工作区和GOPATH/go1.jpg" alt="go1.jpg"></p>
+<h3 id="2、工作区和GOPATH"><a href="#2、工作区和GOPATH" class="headerlink" title="2、工作区和GOPATH"></a>2、工作区和GOPATH</h3><h4 id="1、Go-3个环境变量"><a href="#1、Go-3个环境变量" class="headerlink" title="1、Go 3个环境变量"></a>1、Go 3个环境变量</h4><ul>
+<li>GOROOT：Go语言安装根目录的路径，也就是GO语言的安装路径</li>
+<li>GOPATH：若干工作区目录的路径，是我们自己定义的工作空间</li>
+<li>GOBIN：Go程序生成的可执行文件的路径</li>
+</ul>
+<h4 id="2、GOPATH有什么意义"><a href="#2、GOPATH有什么意义" class="headerlink" title="2、GOPATH有什么意义"></a>2、GOPATH有什么意义</h4><ol>
+<li><p>可以把GOPATH简单理解成Go语言的工作目录，它的值是一个目录的路径，也可以是多个目录的路径，每个目录都代表Go语言的一个工作区。</p>
+</li>
+<li><p>我们需要利用这些工作区去放置Go语言的源码文件，以及安装（install）后的归档文件（archive file，也就是以.a为扩展名的文件）和可执行文件。</p>
+</li>
+<li><p>Go语言项目在其生命周期内的所有操作（编码、依赖管理、构建、测试、安装等）基本都是围绕GOPATH和工作区进行的。</p>
+</li>
+</ol>
+<p>go build 命令一些可选项的用途和用法</p>
+<h4 id="1、Go-语言源码的组织方式是怎样的？"><a href="#1、Go-语言源码的组织方式是怎样的？" class="headerlink" title="1、Go 语言源码的组织方式是怎样的？"></a>1、Go 语言源码的组织方式是怎样的？</h4><p>1、Go语言的源码也是以代码包为基本组织单位的。在文件系统中，这些代码包与目录一一对应。目录有子目录，代码包也可以有子包。</p>
+<p>2、一个代码包可以包含任意个以.go为扩展名的原码文件，这些源码文件都需要被声明属于同一个代码包。</p>
+<p>3、代码包的名称一般会与源码文件所在目录同名。如果不同名，在构建、安装时会以代码包名称为准。</p>
+<p>4、每个代码包都有导入路径。代码包的导入路径是其他代码在使用该包中的程序实体时，需要引入的路径。例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"github.com/labstack/echo"</span></span><br></pre></td></tr></table></figure></p>
+<p>5、在工作区中，一个代码包的导入路径实际上就是从src子目录到该包的实际存储位置的相对路径。</p>
+<p>6、所以说，Go语言源码的组织方式就是以环境变量GOPATH、工作区、src目录个代码包为主线的。一般情况下，Go语言的源码文件都需要存放在环境变量GOPATH包含的某个工作区（目录）中的src目录下的某个代码包（目录）中。</p>
+<h4 id="2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）"><a href="#2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）" class="headerlink" title="2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）"></a>2、源码安装后的结果是什么？（只有在安装后，Go语言源码才能被我们或其他代码使用）</h4><p>1、源码文件通常会被放在某个工作区的src子目录下</p>
+<p>2、安装后如果产生了归档文件（以.a为扩展名的文件）会被放进该工作区的pkg子目录</p>
+<p>3、如果产生了可执行文件，就可能会被放在该工作区的bin子目录下。</p>
+<p><strong>归档文件存放具体位置和规则：</strong><br>1、源码文件会以代码包的形式组织起来，一个代码包其实就对应一个目录。安装某个代码包而产生的归档文件就是与这个代码包同名的。</p>
+<p>2、放置它的相对目录就是该代码包的导入路径的直接父级。比如，一个已存在的代码包的导入路径是：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">github.com/labstack/echo</span><br></pre></td></tr></table></figure></p>
+<p>那么执行命令<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> insatll github.com/labstack/echo</span><br></pre></td></tr></table></figure></p>
+<p>生成的归档文件的相对目录就是github.com/labstack，文件名为echo.a。</p>
+<p>3、上面这个代码包导入路径还有一层含义，即：该代码包的源码文件存在于github网站的labstack组的代码仓库echo中</p>
+<p>4、归档文件的相对目录与pkg目录之间还有一级目录，称为平台相关目录。平台相关目录的名称是由“build”的目标操作系统、下划线和目标计算架构的代号组成的。比如，构建某个代码包的目标擦欧总系统时Linux，目标计算架构是64位，对应的平台相关目录就是linux_amd64。<br>因此，上述代码包的归档文件就会被放置在当前工作区的子目录<br>pkg/linux_amd64/github.com/labstack中。<br>gopath与工作区：<br><img src="/2020/07/10/GO：工作区和GOPATH/gopath1.png" alt="gopath1.png"></p>
+<p>5、某个工作区的src子目录下的源码文件在安装后一般会被放置到当前工作区的pkg子目录下对应的目录中，或者直接被放置到该工作区的bin子目录中。</p>
+<h4 id="3、理解构建和安装Go程序的过程"><a href="#3、理解构建和安装Go程序的过程" class="headerlink" title="3、理解构建和安装Go程序的过程"></a>3、理解构建和安装Go程序的过程</h4><p>构建与安装的异同：<br>1、构建使用命令go build，安装使用命令go install。构建和安装代码包的时候都会执行编译、打包等操作，并且，这些操作生成的任何文件都会先被保存到某个临时的目录中。</p>
+<p>2、构建源码文件</p>
+<ul>
+<li>如果构建的是库源码文件</li>
+</ul>
+<p>那么操作后产生的结果只会存在于临时目录中，这里构建的主要意义在于检查和验证；</p>
+<ul>
+<li>如果构建的是命令源码文件</li>
+</ul>
+<p>操作的结果文件会被搬运到源码文件所在的目录中。</p>
+<p>3、安装过程会先执行构建、然后还会进行你链接操作，并且把结果文件搬运到指定目录。如：</p>
+<ul>
+<li>安装库源码文件，结果文件被搬运到他所在工作区的pkg目录下的某个子目录中；</li>
+<li>安装命令源码文件，结果文件被搬运到他所在工作区的bin目录中，或者环境变量GOBIN指向的目录中。</li>
+</ul>
+<h3 id="4、go-build-命令一些可选项的用途和用法"><a href="#4、go-build-命令一些可选项的用途和用法" class="headerlink" title="4、go build 命令一些可选项的用途和用法"></a>4、go build 命令一些可选项的用途和用法</h3><p>1、在运行go build命令的时候，默认不会编译目标代码包所依赖的那些代码包。</p>
+<p>2、如果被依赖的代码包的归档文件不存在，或者源码文件有了变化，那它还是会被编译。</p>
+<p>3、如果要强制编译它们，可以在执行命令的时候加入标记-a。此时，不但目标代码包总是会被编译，它依赖的代码包也总会被编译，即使依赖的是标准库中的代码包也是如此。</p>
+<p>5、另外，如果不但要编译依赖的代码包，还要安装它们的归档文件，那么可以加入标记-i。</p>
+<p>6、那么我们怎么确定哪些代码包被编译了呢？有两种方法。</p>
+<ul>
+<li>运行go build命令时加入标记-x，这样可以看到go build命令具体都执行了哪些操作。另外也可以加入标记-n，这样可以只查看具体操作而不执行它们。</li>
+<li>运行go build命令时加入标记-v，这样可以看到go build命令编译的代码包的名称。它在与-a标记搭配使用时很有用。</li>
+</ul>
+<p>7、下面再说一说与 Go 源码的安装联系很紧密的一个命令：go get。<br>命令go get会自动从一些主流公用代码仓库（比如 GitHub）下载目标代码包，并把它们安装到环境变量GOPATH包含的第 1 工作区的相应目录中。如果存在环境变量GOBIN，那么仅包含命令源码文件的代码包会被安装到GOBIN指向的那个目录。</p>
+<p>最常用的几个标记有下面几种。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-u：下载并安装代码包，不论工作区中是否已存在它们。</span><br><span class="line"></span><br><span class="line">-d：只下载代码包，不安装代码包。</span><br><span class="line"></span><br><span class="line">-fix：在下载代码包后先运行一个用于根据当前 Go 语言版本修正代码的工具，然后再安装代码包。</span><br><span class="line"></span><br><span class="line">-t：同时下载测试所需的代码包。</span><br><span class="line"></span><br><span class="line">-insecure：允许通过非安全的网络协议下载和安装代码包。HTTP 就是这样的协议。</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/10/GO：工作区和GOPATH/" data-id="ckgvovlqw00070ovibn2k8y3o" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hexo博客迁移" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/02/hexo博客迁移/" class="article-date">
+  <time datetime="2020-07-02T07:53:23.000Z" itemprop="datePublished">2020-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/02/hexo博客迁移/">hexo博客迁移</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1、安装hexo博客必要的软件"><a href="#1、安装hexo博客必要的软件" class="headerlink" title="1、安装hexo博客必要的软件"></a>1、安装hexo博客必要的软件</h4><p>1、下载安装Git客户端<br>2、安装node js</p>
+<h4 id="2、Github添加新电脑生成的密钥"><a href="#2、Github添加新电脑生成的密钥" class="headerlink" title="2、Github添加新电脑生成的密钥"></a>2、Github添加新电脑生成的密钥</h4><p>打开git bash输入如下命令：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"xxxxx@xxx.com"</span></span><br></pre></td></tr></table></figure></p>
+<p>邮箱为GitHub注册邮箱，输入命令后直接回车，生成密钥对。根据提示找到密钥对所在位置，将id_rsa.pub公钥内容复制粘贴到Github-settings-‘SSH and GPG keys’-‘SSH keys’中。</p>
+<p>使用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com   测试公钥是否添加成功</span><br></pre></td></tr></table></figure></p>
+<h4 id="3、备份原文件"><a href="#3、备份原文件" class="headerlink" title="3、备份原文件"></a>3、备份原文件</h4><p>需要转移的文件有：<br><img src="/2020/07/02/hexo博客迁移/hexo1.png" alt="hexo1"><br>由于配置文件和主题文件需要经常更改，采用github创建博客分支的方式进行备份。</p>
+<p><strong>1、创建分支</strong><br> 克隆github上上生成的静态文件到hexo文件夹中<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:<span class="comment">//github.com/yourname/xxxx.github.io.git hexo</span></span><br></pre></td></tr></table></figure></p>
+<p>克隆后将除.git文件外其他所有文件删除。主要是为了得到版本管理文件夹.git（.git文件为隐藏文件，可直接将可见文件全部删除）。</p>
+<p><strong>2、将备份的原文件复制到此文件夹</strong><br>若文件夹是从github克隆，则需要删除主题文件中的版本控制文件夹,以next主题为例：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm -rf thems/next/.git*</span><br></pre></td></tr></table></figure></p>
+<p>创建名为hexo的分支<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b hexo</span><br></pre></td></tr></table></figure></p>
+<p>保存所有文件到暂存区<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br></pre></td></tr></table></figure></p>
+<p>提交变更<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">"hexo-2"</span></span><br></pre></td></tr></table></figure></p>
+<p>提交变更时报错：<br><img src="/2020/07/02/hexo博客迁移/hexo2.png" alt="hexo2"><br>根据提示配置。<br>推送分支到github,并用–set-upstream与origin创建关联，将hexo设置为默认分支<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push --set-upstream origin hexo</span><br></pre></td></tr></table></figure></p>
+<h4 id="4、迁移"><a href="#4、迁移" class="headerlink" title="4、迁移"></a>4、迁移</h4><p>以后在其他电脑上写博客，直接将分支克隆下来。再使用npm install安装依赖。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clone -b hexo https:<span class="comment">//github.com/yourname/xxx.github.io.git</span></span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
+<h4 id="5、发表文章"><a href="#5、发表文章" class="headerlink" title="5、发表文章"></a>5、发表文章</h4><p>1、新建文章<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">"xxx"</span></span><br></pre></td></tr></table></figure></p>
+<p>2、注意：需要使用git push把源文件推到分支上<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">"xxxx"</span></span><br><span class="line">$ git push origin hexo</span><br></pre></td></tr></table></figure></p>
+<p>3、部署文章<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure></p>
+<p>参考：<br>1、<a href="https://fl4g.cn/2018/08/03/Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E5%88%B0%E5%85%B6%E4%BB%96%E7%94%B5%E8%84%91/" target="_blank" rel="noopener">https://fl4g.cn/2018/08/03/Hexo%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E5%88%B0%E5%85%B6%E4%BB%96%E7%94%B5%E8%84%91/</a></p>
+<p>2、<a href="https://blog.csdn.net/white_idiot/article/details/80685990" target="_blank" rel="noopener">https://blog.csdn.net/white_idiot/article/details/80685990</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/02/hexo博客迁移/" data-id="ckgvovlrb000k0ovidofyzqcq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-测试驱动开发TDD" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/15/测试驱动开发TDD/" class="article-date">
@@ -114,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/15/测试驱动开发TDD/" data-id="ckgulruii0016xgvifjydde9n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/15/测试驱动开发TDD/" data-id="ckgvovlrp00160ovi9xjltfk1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -312,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-goroutine、channel、反射/" data-id="ckgulrv36002rxgvinkjfndiu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-goroutine、channel、反射/" data-id="ckgvovma9002t0ovijac7iywt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -392,7 +539,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-文件操作、json/" data-id="ckgulrut30025xgvitemijamc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-文件操作、json/" data-id="ckgvovm0900270oviqrt9ja60" class="article-share-link">Share</a>
       
       
     </footer>
@@ -569,7 +716,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-结构体、方法、工厂模式、OOP三大特性、类型断言、接口/" data-id="ckgulrv37002sxgvivdurw0a4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-结构体、方法、工厂模式、OOP三大特性、类型断言、接口/" data-id="ckgvovmaa002u0ovi5l7javil" class="article-share-link">Share</a>
       
       
     </footer>
@@ -677,7 +824,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-错误处理机制、数组、切片、map/" data-id="ckgulrut40026xgvik6lu22cj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-错误处理机制、数组、切片、map/" data-id="ckgvovm0a00280oviivqchuut" class="article-share-link">Share</a>
       
       
     </footer>
@@ -863,7 +1010,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-函数/" data-id="ckgulrut30024xgviyxvodwtr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-函数/" data-id="ckgvovm0800260ovit1ge2y6j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -974,7 +1121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/go-基本数据类型、运算符/" data-id="ckgulruht000dxgvi1gly381r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/go-基本数据类型、运算符/" data-id="ckgvovlr2000d0oviqm9pjyfv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1017,130 +1164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/Merkle树/" data-id="ckgulruhg0005xgvijywg2y17" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-区块链小白书" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/11/区块链小白书/" class="article-date">
-  <time datetime="2020-06-11T02:50:45.000Z" itemprop="datePublished">2020-06-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/11/区块链小白书/">区块链小白书</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="区块链小白书"><a href="#区块链小白书" class="headerlink" title="区块链小白书"></a>区块链小白书</h2><h3 id="1、交易过程"><a href="#1、交易过程" class="headerlink" title="1、交易过程"></a>1、交易过程</h3><p>假设网络中有如下四个节点，且每个节点拥有的如下币值<br><img src="/2020/06/11/区块链小白书/link1.png" alt="link1"></p>
-<p>1、没有可信任的第三方后，每个人互相之间无法信任，如果要创建一个交易订单（转账），需要：<br>1、发广播，让所有人都知道网络里每一个人每一笔钱的来龙去脉<br>例：B向C转账100BTC<br>1）则B需要发广播通知网络中的每一个人，“大家好，我是B，我要向C转账100BTC，我的电子签名是xxxxxxx”<br><img src="/2020/06/11/区块链小白书/link2.png" alt="link2"></p>
-<p>2）然后网络中的每一个人都收到这个广播<br><img src="/2020/06/11/区块链小白书/link3.png" alt="link3"></p>
-<p>3）网络中的每个节点会通过电子签名验证这个交易是否是我发起的<br><img src="/2020/06/11/区块链小白书/link4.png" alt="link4"></p>
-<p>4）验证通过后网络中每个节点把这笔交易记在账本上，B就少100，C多100<br><img src="/2020/06/11/区块链小白书/link5.png" alt="link5"></p>
-<p>5）网络中的每个节点怎么知道我真的有100BTC呢？<br>每个节点的账本会帮助确认，<strong>这个账本即是区块，把区块连起来就是区块链</strong>。</p>
-<p>6）在比特币系统中，区块链记录了比特币从创立至今所有的交易记录，现在大概有60万个区块，每个区块里记录了两三千笔交易，包括网络中每一个节点有多少钱，从哪里来，花到哪儿去，都记录的一清二楚，透明公开。</p>
-<p>7）<strong>在区块链网络里，每个节点都拿着一份相同且实时更新的账本</strong>。当B广播说要给C转账100BTC时，每个节点手里的账本就开始回溯，检查B是否有100BTC。如果没有，转账无效。</p>
-<p>8）账本的可靠性是数字货币的基石，如果账本出了问题，什么币都不好使。这就引出两个新问题：</p>
-<ul>
-<li>谁来给大家记账</li>
-<li>怎么保证账本不被造假</li>
-</ul>
-<p>9）如果每个人都能记账，那每个区块里包含的交易和交易顺序可能都不一样，如果有故意记假账的，那就更乱了，不可能得到一个大家都接受的账本，所以，记账的人得让所有人都能接受，这样大家的账本才能统一，这被称为<strong>共识机制</strong>。</p>
-<p>10）今天各种区块链有各种不同的共识机制。</p>
-<ul>
-<li>GateChain：Pos</li>
-<li>EOS：dPos</li>
-<li>NEO：dBFT</li>
-<li>中本聪提出的比特币网络使用的是做题，谁先把答案算出来谁就有权力记账，这一机制被称为PoW(Proof-of-Work)，即工作量证明。</li>
-</ul>
-<p>11）工作量证明的本质是穷举，你的设备算力越强，算出答案的可能性就越高，为了做到这一点，需要用到哈希加密。以SHA256算法为例</p>
-<p>12）任何一串字符用它加密后，都能得到一串独一无二的256位的二进制数<br><img src="/2020/06/11/区块链小白书/sha5.png" alt="sha5"><br>而原输入只要有任何一点轻微改动，哈希加密后的数字都会完全不同。</p>
-<p>13）打开一个区块，我们可以看到一个区块的区块头，交易数量，交易详情等信息<br><img src="/2020/06/11/区块链小白书/link6.png" alt="link6"><br>14）区块头是一个区块的标签，包含了时间戳，Merkle根数树根哈希值，随机数和上一个区块的哈希值等信息<br><img src="/2020/06/11/区块链小白书/link7.png" alt="link7"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、随机数：为了找到满足难度目标所设定的随机数。</span><br><span class="line">为了解决32位随机数在算力飞升的情况下不够用的问题。规定时间戳和    COINBASE交易信息均可更改，一次扩展nonce的位数</span><br><span class="line"></span><br><span class="line">2、时间戳：该区块产生的近似时间，精确到秒的UNIX时间戳，必须严格大于前11个区块时间的中值，同时全节点也会拒绝那些超出自己2个小时时间戳的区块。</span><br><span class="line"></span><br><span class="line">3、Merkle根：该区块交易的Merkle树根的哈希值。同样采用SHA256（SHA256（））计算。</span><br></pre></td></tr></table></figure></p>
-<p>15）而把区块头做二次SHA256计算，就能得到这个区块的哈希值<br><img src="/2020/06/11/区块链小白书/link8.png" alt="link8"></p>
-<p>16）想要记账，就得把区块里的各种信息打包好，<br><img src="/2020/06/11/区块链小白书/link9.png" alt="link9"></p>
-<p>在修改区块头里的这个随机数，让输入值能够在哈希计算后，得到一<strong>个前n个数都是0的哈希值</strong>。<br><img src="/2020/06/11/区块链小白书/link10.png" alt="link10"></p>
-<p>17）每一位有0和1两种可能，每改变一次随机数成功的概率为1/2的n次方(1/2^n)，比如你 n=1，则第一位为0就行，成功率为1/2。<br><img src="/2020/06/11/区块链小白书/link11.png" alt="link11"></p>
-<p>18）而网络里参与的算力越强，要算的0就越多，工作量证明的难度越大，今天比特币网络的n大概是76，成功率为1/2^76,差不多是1/756万亿亿，<br><img src="/2020/06/11/区块链小白书/link12.png" alt="link12"></p>
-<p>用一块8000元的RTX2080Ti显卡，大概要算1407年。</p>
-<p>19）要算对确实不容易，但只要你算出来了，所有人就可以瞬间验证你算得是否正确。如果确实没问题，大家就会把这个区块连接在账本上，开始打包计算下一个区块。这样，网络里的所有人就有一份相同且实时更新的账本了。<br><img src="/2020/06/11/区块链小白书/link13.png" alt="link13"></p>
-<p>20）而为了让大家用动力做题记账，第一个完成区块打包的节点，会获得系统奖励，现在是12.5个比特币，差不多是60万人民币，这个过程也被称为<strong>挖矿</strong>。<br><img src="/2020/06/11/区块链小白书/link14.png" alt="link14"></p>
-<p>21）另一方面，为了防止账本被篡改，每一个新加入的区块，都需要在区块头里，记录上一个区块的哈希值，也被称为<strong>哈希指针</strong>。<br><img src="/2020/06/11/区块链小白书/link15.png" alt="link15"></p>
-<p>这样一个不断向前的指针，最终会指向第一个创始区块，把所有的区块紧紧连接在一起。</p>
-<p>22）如果你修改任何一个区块里的任何一个字符，都会改变这个区块的哈希值，让下一个区块的哈希指针失效，所以你必须修改下一个区块的哈希指针，但这又会影响这个区块的哈希值，所以还需要重新计算随机数。完成计算后，还得接着计算这个区块的下一个区块，直到修改完这个区块后的所有区块，非常麻烦。<br><img src="/2020/06/11/区块链小白书/link16.png" alt="link16"></p>
-<p>23）这样即使记账人想造假，也是做不到的，因为有电子签名，记账人不能伪造别人给自己的转账。又因为历史账本的存在，也不能凭空变出一笔钱来。<br><img src="/2020/06/11/区块链小白书/link17.png" alt="link17"></p>
-<p>24）但这就引出一个新问题，如果两个人同时完成了计算，打包出了一个新区快，那该听谁的呢？答案是，谁长听谁的（<strong>最长链原则</strong>）。现在所有人都可以在这两个区块后面接着打包，比如下一轮先完成计算的人选择接在B上，则B链就更长了，其他人也会愿意接在B后面。一般情况下，打包6块之内就能分出胜负。被废弃的链上的交易会被撤回，重新放到交易池等待打包。<br><img src="/2020/06/11/区块链小白书/link18.png" alt="link18"></p>
-<p>25）但既然谁长听谁的，只要你比大家都能算，算力大于51%，就能一个人算出最长链，进而控制账本。<br><img src="/2020/06/11/区块链小白书/link19.png" alt="link19"></p>
-<p>所以比特币世界里的矿工算力越强，大家要算的0就越多，保证谁都不能控制记账权。<br><img src="/2020/06/11/区块链小白书/link20.png" alt="link20"></p>
-<p>26）但参与者不多的其他区块链就不好说了，比如2018年5月15日，一个叫比特黄金的数字货币就遭遇了51%攻击。攻击者先是把自己价值1000万美金的比特黄金转给交易所，这笔转账被记录在区块A上，<br><img src="/2020/06/11/区块链小白书/link21.png" alt="link21"></p>
-<p>同时攻击者秘密准备了一个这笔转账没有发生的区块B，<br><img src="/2020/06/11/区块链小白书/link22.png" alt="link22"></p>
-<p>同时在区块B之后计算新的区块，等A链上的转账确认后，攻击者就可以把在交易所的的比特黄金提现，但因为攻击者的算力大于全网的51%，B链的长度终将大于A链，这是只要向全网发布更长的B链，<br><img src="/2020/06/11/区块链小白书/link23.png" alt="link23"></p>
-<p>历史就会被改写，B链会替代A链成为真正主链，而区块A里转给交易所转账也会被撤回，攻击者白赚1000万。<br><img src="/2020/06/11/区块链小白书/link24.png" alt="link24"></p>
-<p>27）今天，对于没有算力的普通人，获得数字货币最简单的办法就是去交易所购买，再提现到钱包地址，<br><img src="/2020/06/11/区块链小白书/link25.png" alt="link25"></p>
-<p>这个地址来自于你的私钥，私钥加密后会得到公钥，公钥加密后会得到地址。<br><img src="/2020/06/11/区块链小白书/link26.png" alt="link26"></p>
-<p>28）在区块链这样的匿网络里，只有私钥才能证明你是你，只要转账时附上你私钥生成的电子签名，大家就能确认这笔转账有效。<br><img src="/2020/06/11/区块链小白书/link27.png" alt="link27"></p>
-<p>如果私钥泄露，谁都可以冒充你把钱转走。比如2013年一位 叫Adam的男士在电视直播里收到了相当于今天1500元的比特币，在他开心的向镜头展示私钥后，这笔钱就被当场偷走了。</p>
-<p>注：整理自 回形针 区块链科普视频</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/11/区块链小白书/" data-id="ckgulrut7002bxgvijxldcf48" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-链队列" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/07/链队列/" class="article-date">
-  <time datetime="2020-06-07T07:38:07.420Z" itemprop="datePublished">2020-06-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/07/链队列/">链队列</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考：<a href="https://www.cnblogs.com/lixiaolun/p/4646312.html" target="_blank" rel="noopener">https://www.cnblogs.com/lixiaolun/p/4646312.html</a></p>
-<p>1、链队列的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Node front;</span><br><span class="line">	Node rear;</span><br><span class="line">	Node head;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">		head=<span class="keyword">new</span> Node();</span><br><span class="line">		front=<span class="keyword">new</span> Node();</span><br><span class="line">		rear=<span class="keyword">new</span> Node();</span><br><span class="line">		</span><br><span class="line">		front=head;</span><br><span class="line">		rear=head;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//入队</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enQueue</span><span class="params">(Object e)</span> </span>&#123;</span><br><span class="line">		Node node=<span class="keyword">new</span> Node();</span><br><span class="line">		node.data=e;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//第一次入队</span></span><br><span class="line">		<span class="keyword">if</span>(rear==head) &#123;</span><br><span class="line">			head.next=node;</span><br><span class="line">			front.next=node;</span><br><span class="line">			rear=node;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			rear.next=node;</span><br><span class="line">			rear=node;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(rear==head) &#123;</span><br><span class="line">			<span class="comment">//队列为空</span></span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//队中只有一个元素</span></span><br><span class="line">			<span class="keyword">if</span>(front.next==rear) &#123;</span><br><span class="line">				rear=front;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				front.next=front.next.next;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Node temp=head;</span><br><span class="line">		<span class="keyword">while</span>(temp!=rear) &#123;</span><br><span class="line">			System.out.println(temp.next.data);</span><br><span class="line">			temp=temp.next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">		Object data;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestQueue</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">		LinkQueue qu=<span class="keyword">new</span> LinkQueue();</span><br><span class="line">		qu.init();</span><br><span class="line">		qu.enQueue(<span class="string">"ddd"</span>);</span><br><span class="line">		qu.enQueue(<span class="number">8</span>);</span><br><span class="line">		qu.enQueue(<span class="string">"ct"</span>);</span><br><span class="line">		qu.enQueue(<span class="number">99</span>);</span><br><span class="line">		<span class="comment">//qu.deQueue();</span></span><br><span class="line">		qu.printQueue();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/07/链队列/" data-id="ckgulruix001pxgvikla5b9g0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/11/Merkle树/" data-id="ckgvovlqu00050ovifet071an" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1186,6 +1210,14 @@
       <ul>
         
           <li>
+            <a href="/2020/10/30/微服务：6-1-1-服务配置-SpringCloud-Config/">微服务：6-1-1 服务配置-SpringCloud Config</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/29/微服务：5-1-1-服务网关-Gateway/">微服务：5-1-1 服务网关-Gateway</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/28/微服务：4-1-1-服务降级-Hystrix/">微服务：4-1-1 服务降级-Hystrix</a>
           </li>
         
@@ -1195,14 +1227,6 @@
         
           <li>
             <a href="/2020/10/27/微服务：3-1-1-服务调用-Ribbon/">微服务：3-1-1 服务调用-Ribbon</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/27/微服务：2-1-2-服务注册与发现三个组件对比/">微服务：2-1-2 服务注册与发现三个组件对比</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/25/微服务：2-1-1-服务注册与发现-Eureka/">微服务：2-1-1 服务注册与发现-Eureka</a>
           </li>
         
       </ul>

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/10/30/%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%9A6-1-1-%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE-SpringCloud-Config/</loc>
+    
+    <lastmod>2020-10-30T03:15:38.467Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/10/29/%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%9A5-1-1-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3-Gateway/</loc>
+    
+    <lastmod>2020-10-30T03:13:02.592Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/10/28/%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%9A4-1-1-%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7-Hystrix/</loc>
     
     <lastmod>2020-10-28T10:53:13.895Z</lastmod>
